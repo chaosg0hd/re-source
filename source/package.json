@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "debug": "^4.3.4",
+    "latest": "^0.2.0",
+    "multer": "^1.4.4",
+    "nvm": "^0.0.4"
+  }
+}

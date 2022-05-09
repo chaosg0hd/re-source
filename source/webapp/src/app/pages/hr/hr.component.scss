@@ -1,0 +1,42 @@
+.mat-column-number {
+  flex: 0 0 5%;
+  max-width: 50px;
+}
+
+.mat-column-name {
+  flex: 0 0 15%;
+}
+
+.mat-column-id {
+  flex: 0 0 10%;
+}
+
+.mat-column-actions {
+  flex: 0 0 10%;
+}
+
+.mat-column-total {
+  padding-left: 10px;
+  border-left: 1px solid #e0e0e0;
+}
+
+.att-table {
+  width: 100%;
+}
+
+.att-cell {
+}
+
+.mat-cell {
+  border-left: 1px solid #e0e0e0;
+  padding-left: 10px;
+}
+
+.mat-header-cell {
+  border-left: 1px solid #e0e0e0;
+  padding-left: 10px;
+}
+
+.table-container {
+  width: 100%;
+}

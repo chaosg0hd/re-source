@@ -1,0 +1,36 @@
+<div>
+    <div mat-dialog-actions style="padding: 0; margin: 0; display:flex; flex-direction: row-reverse;">
+        <button mat-button (click)="onNoClick()" style="flex-direction: row-reverse;">X</button>
+    </div>
+    <mat-card-title>View Task</mat-card-title>
+    <mat-card>
+        <div>
+
+    
+    <mat-form-field appearance="outline">
+        <mat-label>Task Id</mat-label>
+        <input matInput [(ngModel)]="number" placeholder="task name" type="string" disabled/>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Task Name</mat-label>
+        <input matInput [(ngModel)]="taskName" placeholder="task name" type="string"/>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Task Content</mat-label>
+        <textarea matInput [(ngModel)]="taskContent" placeholder="task description" type="string"></textarea>
+    </mat-form-field>
+    
+    <br/>
+    <button (click)="updateTask()" mat-raised-button color="primary">Update Task</button>
+    <ng-container *ngIf="taskIsArchive == 1">
+        <button mat-dialog-close (click)="restoreTask()" mat-raised-button color="primary">Restore Item</button>
+    </ng-container>
+    <ng-container *ngIf="taskIsArchive == 0">
+        <button mat-dialog-close (click)="archiveTask()" mat-raised-button color="warn">Archive Item</button>
+    </ng-container>
+
+</div>
+</mat-card>
+</div>

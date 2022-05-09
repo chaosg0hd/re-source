@@ -1,0 +1,846 @@
+<ng-container *ngIf="isMobile != true">
+
+  <ng-container *ngIf="isLoaded == false">
+    <br />
+    <br />
+    <br />
+    <br />
+    <mat-spinner style="margin: auto"></mat-spinner>
+  </ng-container>
+
+  <ng-container *ngIf="isLoaded == true">
+
+    <mat-toolbar color="primary" class="mat-elevation-z12" style="position:fixed; top: 0px; z-index: 100">
+      <span>COMPANY</span>
+      <span style="flex: 1 1 auto;"></span>
+
+      <button mat-mini-fab color="accent" [routerLink]="['/home']">
+        <mat-icon>home</mat-icon>
+      </button>
+      <button mat-mini-fab color="accent">
+        <mat-icon>settings</mat-icon>
+      </button>
+      <button mat-mini-fab color="warn" [routerLink]="['/login']">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <mat-toolbar>
+    </mat-toolbar>
+
+    <div class="bundy-container">
+
+
+      <div class="clock-card">
+
+        <div style="margin-top: 16px;text-align: center; display: flex; flex-direction: column; align-items:center">
+          <h1 style="color: white">
+            Bundy Clock
+          </h1>
+
+          <br />
+          <br />
+
+          <div style="width: 80%; height: 30%; flex: auto; border-radius: 16px; background-color: white;">
+
+            <br />
+            <mat-divider></mat-divider>
+            <br />
+            <h1>{{day}}</h1>
+            <h1>{{timeinhours}}:{{timeinminutes}}:{{timeinseconds}}&nbsp;{{timeinmeri}}</h1>
+            <br />
+            <mat-divider></mat-divider>
+            <br />
+
+            <ng-container *ngIf="isclockedIn == false">
+              <button mat-raised-button color="primary" (click)="timeIn()">Clock-In</button>
+            </ng-container>
+
+            <ng-container *ngIf="isclockedIn == true">
+              <button mat-raised-button color="primary" (click)="timeOut()">Clock-Out</button>
+            </ng-container>
+
+            <br />
+            <br />
+
+          </div>
+
+          <br />
+
+          <div style="width: 80%; height: 30%; flex: auto; border-radius: 16px; background-color: white;">
+
+            <br />
+            <mat-divider></mat-divider>
+            <br />
+            <h4>
+              Reminders
+            </h4>
+
+            <h3>
+              {{announcementTitle}}
+            </h3>
+            <br />
+            <mat-divider></mat-divider>
+            <br />
+            <br />
+            {{announcementContent}}
+            <br />
+            <mat-divider></mat-divider>
+            <br />
+
+          </div>
+
+
+
+        </div>
+
+
+
+
+      </div>
+
+
+      <div class="time-card">
+
+        <div style="margin-top: 16px;text-align: center; display: flex; flex-direction: column; align-items:center">
+          <h1>
+            Time Log
+          </h1>
+
+          <br />
+          <br />
+
+          <div style="width: calc(100% - 32px); flex: auto; border-radius: 16px; background-color: white; padding: 16px; overflow:auto">
+
+
+            <mat-table [dataSource]="employeesDataSource" class="mat-elevation-z4">
+
+              <ng-container matColumnDef="number">
+                <mat-header-cell *matHeaderCellDef> No </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.number}}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.fname}}&nbsp;{{element.lname}} </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="position">
+                <mat-header-cell *matHeaderCellDef> Position </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="department">
+                <mat-header-cell *matHeaderCellDef> Department </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.department}} </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="status">
+                <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+
+                  <ng-container *ngIf="checkStatus(element.emp_id) == true">
+                    <mat-chip-list>
+                      <mat-chip color="primary" selected>
+                        <mat-icon>person</mat-icon>
+                        ✓
+                      </mat-chip>
+                    </mat-chip-list>
+                  </ng-container>
+
+                  <ng-container *ngIf="checkStatus(element.emp_id) == false">
+                    <mat-chip-list>
+                      <mat-chip color="warn" selected>
+                        <mat-icon>person</mat-icon>
+                        ✗
+                      </mat-chip>
+                    </mat-chip-list>
+                  </ng-container>
+
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="time">
+                <mat-header-cell *matHeaderCellDef> Time </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+
+                  <ng-container *ngIf="checkStatus(element.emp_id) == false">
+                    Not Clocked In
+                  </ng-container>
+
+                  <ng-container *ngIf="checkStatus(element.emp_id) == true">
+
+                    {{getTimeTable(element.emp_id)}}
+                  </ng-container>
+
+                </mat-cell>
+              </ng-container>
+
+              <mat-header-row *matHeaderRowDef="employeesDisplayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: employeesDisplayedColumns;"></mat-row>
+            </mat-table>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </ng-container>
+
+</ng-container>
+
+
+
+<!--<mat-toolbar color="primary" class="mat-elevation-z12" style="position:fixed; top: 0px; z-index: 100">
+  <span>MSSE Engineering and Construction Services</span>
+  <span style="flex: 1 1 auto;"></span>
+
+  <button mat-mini-fab color="accent" [routerLink]="['/home']">
+    <mat-icon>home</mat-icon>
+  </button>
+  <button mat-mini-fab color="accent">
+    <mat-icon>settings</mat-icon>
+  </button>
+  <button mat-mini-fab color="warn" [routerLink]="['/login']">
+    <mat-icon>logout</mat-icon>
+  </button>
+</mat-toolbar>
+<!--<ng-container *ngIf="isLoaded == false">
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+
+  <mat-spinner style="margin: auto"></mat-spinner>
+
+</ng-container>
+
+
+<ng-container *ngIf="isLoaded != false">
+
+  <ng-container *ngIf="isMobile == true">
+
+     <mat-toolbar color="primary" class="mat-elevation-z12" style="position:fixed; top: 0px; z-index: 100" [@fadeInOnEnter] [@fadeOutOnLeave]>
+
+       <button style="border-radius: 0px 0px 20px 0px; position: fixed; top: 0px; left: 0px; z-index: 100" mat-mini-fab color="primary" [routerLink]="['/home']">
+        <mat-icon>home</mat-icon>
+      </button>
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+      <span style="flex: 1 1 auto;"></span>
+      <span>MSSE Engineering and Construction Services</span>
+      <span style="flex: 1 1 auto;"></span>
+      <button style="border-radius: 0px 0px 0px 20px; position: fixed; top: 0px; right: 0px; z-index: 100 " mat-mini-fab color="warn" [routerLink]="['/login']">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <mat-toolbar>
+    </mat-toolbar>
+
+    <div style="background-color: lightgray; width: 100vw; min-height: 100vh; display: flex; flex-wrap:wrap" [@fadeInOnEnter] [@fadeOutOnLeave]>
+      <div class="mat-elevation-z2" style="padding: 8px; background-image: url(../assets/images/bg.gif); background-blend-mode: multiply; background-color: #c2c894; background-position: center; background-size: 120%; background-repeat: no-repeat; height: calc(100% - 16px); width: calc(100% - 16px); margin: auto; margin-left: 0px ">
+        <div style="backdrop-filter:blur(2px); width: 100%; height: 100%">
+          <div style="width: 100%; height: calc(100% - 32px)">
+            <div class="mat-elevation-z4" style="padding: 16px; width: calc(100% - 64px); height: calc(60% - 22px); background-color: whitesmoke; border-radius: 16px; margin: auto; ">
+              <mat-card style="width: calc(100% - 32px); height: calc(100% - 32px) ">
+                <mat-card-title>
+                  <h4>
+                    Bundy Clock
+                  </h4>
+                  <mat-divider></mat-divider>
+                </mat-card-title>
+                <mat-card-content>
+                  <div style="text-align: center">
+                    <br />
+                    <h3>{{day}}</h3>
+                    <h3>{{timeinhours}}:{{timeinminutes}}:{{timeinseconds}}&nbsp;{{timeinmeri}}</h3>
+                    <mat-divider></mat-divider>
+                    <br />-->
+<!--<mat-form-field appearance="standard" style="text-align: center">
+  <mat-label>Enter Employee ID</mat-label>
+  <input matInput placeholder="ID" [(ngModel)]="clockInID">
+</mat-form-field>-->
+<!--<br />
+<ng-container *ngIf="isclockedIn == false">
+  <button mat-raised-button color="primary" (click)="timeIn()">Clock-In</button>
+</ng-container>
+<ng-container *ngIf="isclockedIn == true">
+  <button mat-raised-button color="primary" (click)="timeOut()">Clock-Out</button>
+</ng-container>-->
+<!-- <button mat-raised-button color="primary" (click)="clockIn()">Clock-In</button> -->
+<!--</div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="mat-elevation-z4" style=" padding: 16px; width: calc(100% - 64px); height: calc(60% - 22px); background-color: whitesmoke; border-radius: 16px; margin: auto; margin-top: 8px">
+    <mat-card style="width: calc(100% - 32px); height: calc(100% - 32px) ">
+      <mat-card-content>
+        <h4>
+          {{announcementTitle}}
+        </h4>
+        <mat-divider></mat-divider>
+        <br />
+
+        <p>
+          {{announcementContent}}
+        </p>
+
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<div style="width: 100%; height: calc(100% - 32px)">
+  <div class="mat-elevation-z4" style="padding: 16px; width: calc(100% - 64px); height: calc(60% - 22px); background-color: whitesmoke; border-radius: 16px; margin: auto; margin-top: 8px">
+    <ng-container *ngFor="let emp of this.employeesDataSource.data">-->
+<!--export interface Employee{
+  number: number,
+  id: string,
+  name: string,
+  age: number,
+  address: string,
+  position: string,
+  department: string,
+  start_Date: Date,
+
+  role: number,
+
+  isArchive: number,
+  created_at: Date,
+  updated_at: Date
+
+}-->
+<!--<mat-card>
+            <mat-card-title>
+              <p>{{emp.fname}}&nbsp;{{emp.fname}}</p>
+
+              <br />
+
+              <ng-container *ngIf="checkStatus(emp.id) == 1">
+                <mat-chip-list>
+                  <mat-chip color="primary" selected>
+                    <mat-icon>person</mat-icon>
+                    Available
+                  </mat-chip>
+                </mat-chip-list>
+              </ng-container>
+
+              <ng-container *ngIf="checkStatus(emp.id) == 0">
+                <mat-chip-list>
+                  <mat-chip color="warn" selected>
+                    <mat-icon>person</mat-icon>
+                    Unavailable
+                  </mat-chip>
+                </mat-chip-list>
+              </ng-container>
+              <br />
+              <mat-divider></mat-divider>
+              <br />
+
+            </mat-card-title>
+            <mat-card-content>
+
+
+
+
+              <p>Hours Active: &nbsp;
+
+              <ng-container *ngIf="checkStatus(emp.id) == 0">
+                Not Clocked In
+              </ng-container>
+              <ng-container *ngIf="checkStatus(emp.id) == 1">
+                {{getTimeIn(getClockIn(emp.id))}}
+              </ng-container>
+
+              </p>
+
+              <p>Position: &nbsp; {{emp.position}}</p>
+              <p>Department:  &nbsp;  {{emp.position}}</p>
+            </mat-card-content>
+          </mat-card>
+
+          <br />
+          <mat-divider></mat-divider>
+          <br />
+
+
+        </ng-container>
+
+
+
+      </div>
+    </div>
+
+  </div>
+</div>-->
+<!--<div div class="mat-elevation-z2" style="padding: 8px; height: calc(100% - 32px); width: calc(60% - 32px); border-radius: 16px;background-color: whitesmoke; margin : auto">
+  <div style="padding: 16px; width: 100%; height: 100%">
+    <br />
+    <mat-card style="width: calc(100% - 64px); height: calc(100% - 64px) ">
+      <mat-card-title style="padding: 0px;">
+        <h4>
+          Attendance Board
+        </h4>
+      </mat-card-title>
+
+      <mat-card-content>
+        <mat-divider></mat-divider>
+        <br />
+
+        <mat-table [dataSource]="employeesDataSource" class="mat-elevation-z12">-->
+<!--employeesDisplayedColumns = ['name', 'position', 'status'];-->
+<!--<ng-container matColumnDef="number">
+  <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+  <mat-cell *matCellDef="let element"> {{element.number}} </mat-cell>
+</ng-container>
+<ng-container matColumnDef="name">
+  <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+  <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+</ng-container>
+<ng-container matColumnDef="position">
+  <mat-header-cell *matHeaderCellDef> Position </mat-header-cell>
+  <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+</ng-container>
+<ng-container matColumnDef="department">
+  <mat-header-cell *matHeaderCellDef> Department </mat-header-cell>
+  <mat-cell *matCellDef="let element"> {{element.department}} </mat-cell>
+</ng-container>
+<ng-container matColumnDef="status">
+  <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+  <mat-cell *matCellDef="let element">
+
+    <ng-container *ngIf="checkStatus(element.id) == 1">
+      <mat-chip-list>
+        <mat-chip color="primary" selected>
+          <mat-icon>person</mat-icon>
+          Available
+        </mat-chip>-->
+<!--<mat-chip color="warn" selected>
+<mat-icon>person</mat-icon>
+   Unavailable
+</mat-chip>-->
+<!--</mat-chip-list>
+    </ng-container>
+
+    <ng-container *ngIf="checkStatus(element.id) == 0">
+      <mat-chip-list>
+        <mat-chip color="warn" selected>
+          <mat-icon>person</mat-icon>
+          Unavailable
+        </mat-chip>
+      </mat-chip-list>
+    </ng-container>
+  </mat-cell>
+</ng-container>
+
+<ng-container matColumnDef="time">
+  <mat-header-cell *matHeaderCellDef> Time </mat-header-cell>
+  <mat-cell *matCellDef="let element">
+    <ng-container *ngIf="checkStatus(element.id) == 0">
+      Not Clocked In
+    </ng-container>
+    <ng-container *ngIf="checkStatus(element.id) == 1">
+      {{getTimeIn(getClockIn(element.id))}}
+    </ng-container>
+  </mat-cell>
+</ng-container>-->
+<!--<ng-container matColumnDef="actions">
+  <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+  <mat-cell *matCellDef="let element">
+    <button mat-button color="primary">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-button color="accent">
+      <mat-icon>archive</mat-icon>
+    </button>
+    <button mat-button color="warn">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </mat-cell>
+</ng-container>-->
+<!--<mat-header-row *matHeaderRowDef="employeesDisplayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: employeesDisplayedColumns;"></mat-row>
+</mat-table>-->
+<!--<mat-list>-->
+<!--<ng-container *ngFor="let emp of this.inventoriesDataSource.filteredData">
+  <mat-grid-tile>
+    <div style="background-image: url(../assets/images/sampleObject.jpg); border-radius: 16px; background-size: cover; background-position: center; background-blend-mode: lighten; background-color: #c2c894; height: 100%; width: 100%">
+      <mat-card style="background:none; height: 100%; width: calc(100% -16px)">
+        <mat-card-title>
+          {{ item.name }}
+        </mat-card-title>
+        <mat-card-content>
+          <img src="{{item.imageUrl}}" alt="" style="height: 40%; width: 100%; border-radius: 16px; margin-right: auto">
+          <p> Item Description : {{ item.description }}</p>
+          <p> Item Quantity : {{item.quantity}}</p>
+          <p> Item Price : {{ item.price }} </p>
+        </mat-card-content>
+        <mat-card-footer style="text-align: center">
+          <button mat-raised-button (click)="itemView(item)"> View </button> &nbsp;-->
+<!-- <button mat-raised-button (click)="itemUpdate(item)"> Update </button>   &nbsp;
+<button mat-raised-button (click)="itemArchive(item)"> Archive </button> -->
+<!--</mat-card-footer>
+      </mat-card>
+    </div>
+  </mat-grid-tile>
+
+</ng-container>-->
+<!--<mat-list-item>
+    <mat-chip-list>
+      <mat-chip color="primary" selected>
+        <mat-icon>person</mat-icon>
+        Bob Ross
+      </mat-chip>
+    </mat-chip-list>
+    <span style="flex: 1 1 auto;"></span>
+    <mat-chip-list>
+      <mat-chip color="primary" selected>
+        <mat-icon>done</mat-icon>
+        Available
+      </mat-chip>
+      &nbsp;
+      <mat-chip>
+        <mat-icon>clear</mat-icon>
+        Unavailable
+      </mat-chip>
+    </mat-chip-list>
+    <mat-divider></mat-divider>
+  </mat-list-item>
+
+
+</mat-list>-->
+<!--</mat-card-content>
+
+    </mat-card>
+  </div>
+
+</div>-->
+<!--</div>
+</ng-container>
+
+<ng-container *ngIf="isMobile != true">
+
+  <mat-toolbar color="primary" class="mat-elevation-z12" style="position:fixed; top: 0px; z-index: 100" [@fadeInOnEnter] [@fadeOutOnLeave]>
+
+    <button mat-mini-fab color="accent" [routerLink]="['/home']">
+      <mat-icon>home</mat-icon>
+    </button>-->
+<!--<button mat-mini-fab matBadge="7" matBadgeColor="warn" matBadgeSize="small" color="primary">
+  <mat-icon>storefront</mat-icon>
+</button>-->
+<!--<button mat-mini-fab color="accent">
+    <mat-icon>settings</mat-icon>
+  </button>
+  <span style="flex: 1 1 auto;"></span>
+  <span>MSSE Engineering and Construction Services</span>
+  <span style="flex: 1 1 auto;"></span>
+  <button mat-mini-fab color="warn" [routerLink]="['/login']">
+    <mat-icon>logout</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-toolbar>
+
+</mat-toolbar>
+
+<div style="background-color: lightgray; width: 100%; height: 100%; overflow: hidden!important; display: flex" [@fadeInOnEnter] [@fadeOutOnLeave]>
+  <div class="mat-elevation-z2" style="padding: 8px; background-image: url(../assets/images/bg.gif); background-blend-mode: multiply; background-color: #c2c894; background-position: center; background-size: 120%; background-repeat: no-repeat; height: calc(100% - 16px); width: calc(40% - 16px); overflow: hidden !important; margin: auto; margin-left: 0px ">
+    <div style="backdrop-filter:blur(2px); width: 100%; height: 100%">
+      <div style="width: 100%; height: calc(100% - 32px) ">
+        <div class="mat-elevation-z4" style="padding: 16px; width: calc(100% - 64px); height: calc(50% - 22px); background-color: whitesmoke; border-radius: 16px; margin: auto; ">
+          <mat-card style="width: calc(100% - 32px); height: calc(100% - 32px) ">
+            <mat-card-title>
+              <h4>
+                Bundy Clock
+              </h4>
+              <mat-divider></mat-divider>
+            </mat-card-title>
+            <mat-card-content>
+              <div style="text-align: center">
+                <br />
+                <h1>{{day}}</h1>
+                <h1>{{timeinhours}}:{{timeinminutes}}:{{timeinseconds}}&nbsp;{{timeinmeri}}</h1>
+                <mat-divider></mat-divider>
+                <br />-->
+<!--<mat-form-field appearance="standard" style="text-align: center">
+  <mat-label>Enter Employee ID</mat-label>
+  <input matInput placeholder="ID" [(ngModel)]="clockInID">
+</mat-form-field>-->
+<!--<br />
+<ng-container *ngIf="isclockedIn == false">
+  <button mat-raised-button color="primary" (click)="timeIn()">Clock-In</button>
+</ng-container>
+<ng-container *ngIf="isclockedIn == true">
+  <button mat-raised-button color="primary" (click)="timeOut()">Clock-Out</button>
+</ng-container>-->
+<!-- <button mat-raised-button color="primary" (click)="clockIn()">Clock-In</button> -->
+<!--</div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="mat-elevation-z4" style=" padding: 16px; width: calc(100% - 64px); height: calc(50% - 22px); background-color: whitesmoke; border-radius: 16px; margin: auto; margin-top: 8px">
+        <mat-card style="width: calc(100% - 32px); height: calc(100% - 32px) ">
+          <mat-card-content>
+            <h3>
+              {{announcementTitle}}
+            </h3>
+            <mat-divider></mat-divider>
+            <br />
+            {{announcementContent}}
+          </mat-card-content>
+
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div div class="mat-elevation-z2" style="padding: 8px; height: calc(100% - 32px); width: calc(60% - 32px); border-radius: 16px;background-color: whitesmoke; margin : auto">
+  <div style="padding: 16px; width: 100%; height: 100%">
+    <br />
+    <mat-card style="width: calc(100% - 64px); height: calc(100% - 64px) ">
+      <mat-card-title style="padding: 0px;">
+        <h4>
+          Attendance Board
+        </h4>
+      </mat-card-title>
+
+      <mat-card-content>
+        <mat-divider></mat-divider>
+        <br />
+
+        <mat-table [dataSource]="employeesDataSource" class="mat-elevation-z12">-->
+<!--employeesDisplayedColumns = ['name', 'position', 'status'];-->
+<!--<ng-container matColumnDef="number">
+  <mat-header-cell *matHeaderCellDef> No </mat-header-cell>
+  <mat-cell *matCellDef="let element"> {{element.number}}</mat-cell>
+</ng-container>
+<ng-container matColumnDef="name">
+  <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+  <mat-cell *matCellDef="let element"> {{element.fname}}&nbsp;{{element.lname}} </mat-cell>
+</ng-container>
+<ng-container matColumnDef="position">
+  <mat-header-cell *matHeaderCellDef> Position </mat-header-cell>
+  <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+</ng-container>
+<ng-container matColumnDef="department">
+  <mat-header-cell *matHeaderCellDef> Department </mat-header-cell>
+  <mat-cell *matCellDef="let element"> {{element.department}} </mat-cell>
+</ng-container>
+<ng-container matColumnDef="status">
+  <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+  <mat-cell *matCellDef="let element">
+
+    <ng-container *ngIf="checkStatus(element.id) == 1">
+      <mat-chip-list>
+        <mat-chip color="primary" selected>
+          <mat-icon>person</mat-icon>
+          Available
+        </mat-chip>-->
+<!--<mat-chip color="warn" selected>
+<mat-icon>person</mat-icon>
+   Unavailable
+</mat-chip>-->
+<!--</mat-chip-list>
+    </ng-container>
+
+    <ng-container *ngIf="checkStatus(element.id) == 0">
+      <mat-chip-list>
+        <mat-chip color="warn" selected>
+          <mat-icon>person</mat-icon>
+          Unavailable
+        </mat-chip>
+      </mat-chip-list>
+    </ng-container>
+  </mat-cell>
+</ng-container>
+
+<ng-container matColumnDef="time">
+  <mat-header-cell *matHeaderCellDef> Time </mat-header-cell>
+  <mat-cell *matCellDef="let element">
+    <ng-container *ngIf="checkStatus(element.id) == 0">
+      Not Clocked In
+    </ng-container>
+    <ng-container *ngIf="checkStatus(element.id) == 1">
+      {{getTimeIn(getClockIn(element.id))}}
+    </ng-container>
+  </mat-cell>
+</ng-container>-->
+<!--<ng-container matColumnDef="actions">
+  <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+  <mat-cell *matCellDef="let element">
+    <button mat-button color="primary">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-button color="accent">
+      <mat-icon>archive</mat-icon>
+    </button>
+    <button mat-button color="warn">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </mat-cell>
+</ng-container>-->
+<!--<mat-header-row *matHeaderRowDef="employeesDisplayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: employeesDisplayedColumns;"></mat-row>
+</mat-table>
+
+<mat-paginator></mat-paginator>-->
+<!--<mat-list>-->
+<!--<ng-container *ngFor="let emp of this.inventoriesDataSource.filteredData">
+  <mat-grid-tile>
+    <div style="background-image: url(../assets/images/sampleObject.jpg); border-radius: 16px; background-size: cover; background-position: center; background-blend-mode: lighten; background-color: #c2c894; height: 100%; width: 100%">
+      <mat-card style="background:none; height: 100%; width: calc(100% -16px)">
+        <mat-card-title>
+          {{ item.name }}
+        </mat-card-title>
+        <mat-card-content>
+          <img src="{{item.imageUrl}}" alt="" style="height: 40%; width: 100%; border-radius: 16px; margin-right: auto">
+          <p> Item Description : {{ item.description }}</p>
+          <p> Item Quantity : {{item.quantity}}</p>
+          <p> Item Price : {{ item.price }} </p>
+        </mat-card-content>
+        <mat-card-footer style="text-align: center">
+          <button mat-raised-button (click)="itemView(item)"> View </button> &nbsp;-->
+<!-- <button mat-raised-button (click)="itemUpdate(item)"> Update </button>   &nbsp;
+<button mat-raised-button (click)="itemArchive(item)"> Archive </button> -->
+<!--</mat-card-footer>
+      </mat-card>
+    </div>
+  </mat-grid-tile>
+
+</ng-container>-->
+<!--<mat-list-item>
+    <mat-chip-list>
+      <mat-chip color="primary" selected>
+        <mat-icon>person</mat-icon>
+        Bob Ross
+      </mat-chip>
+    </mat-chip-list>
+    <span style="flex: 1 1 auto;"></span>
+    <mat-chip-list>
+      <mat-chip color="primary" selected>
+        <mat-icon>done</mat-icon>
+        Available
+      </mat-chip>
+      &nbsp;
+      <mat-chip>
+        <mat-icon>clear</mat-icon>
+        Unavailable
+      </mat-chip>
+    </mat-chip-list>
+    <mat-divider></mat-divider>
+  </mat-list-item>
+
+
+</mat-list>-->
+<!--</mat-card-content>
+
+          </mat-card>
+        </div>
+
+      </div>
+
+
+    </div>
+
+
+
+  </ng-container>
+
+
+
+
+
+</ng-container>-->
+<!--<div style="display: flex; width: 100vw; height: 75vh;">
+
+  <div style="padding: 16px; width: 60%; height: 100%">
+    <mat-card style="width: calc(100% - 32px); height: calc(100% - 32px) ">
+      <mat-card-title style="padding: 0px;">
+        <h1>
+          Attendance Board
+        </h1>
+      </mat-card-title>
+
+      <mat-card-content>
+
+        <mat-divider></mat-divider>
+
+        <mat-list>
+          <mat-list-item>
+            <mat-chip-list>
+              <mat-chip color="primary" selected>
+                <mat-icon>person</mat-icon>
+                Bob Ross
+              </mat-chip>
+            </mat-chip-list>
+            <span style="flex: 1 1 auto;"></span>
+            <mat-chip-list>
+              <mat-chip style="background-color: green" selected>
+                <mat-icon>done</mat-icon>
+                Available
+              </mat-chip>
+              &nbsp;
+              <mat-chip>
+                <mat-icon>clear</mat-icon>
+                Unavailable
+              </mat-chip>
+            </mat-chip-list>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+
+          <mat-list-item>
+            <mat-chip-list>
+              <mat-chip color="primary" selected>
+                <mat-icon>person</mat-icon>
+                Bob Jobs Stevesed
+              </mat-chip>
+            </mat-chip-list>
+            <span style="flex: 1 1 auto;"></span>
+            <mat-chip-list>
+              <mat-chip>
+                <mat-icon>done</mat-icon>
+                Available
+              </mat-chip>
+            </mat-chip-list>
+            &nbsp;
+            <mat-chip-list>
+              <mat-chip style="background-color: darkred" selected>
+                <mat-icon>clear</mat-icon>
+                Unavailable
+              </mat-chip>
+            </mat-chip-list>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+
+        </mat-list>
+
+      </mat-card-content>
+
+    </mat-card>
+  </div>-->
+<!--<div style="padding: 8px; width: 60%; height: 100%; background-color: lightslategrey">
+  <div style="padding-bottom: 8px; height: calc(100% - 32px); background-color: white ">-->
+<!--<mat-card style="width: calc(100% - 32px); height: calc(50% - 32px)">
+  <h1>{{timeinhours}}:{{timeinminutes}}:{{timeinseconds}}</h1>
+</mat-card>-->
+<!--</div>
+
+<div style="padding-top: 8px;">-->
+<!--<mat-card style="width: calc(100% - 32px); height: calc(50% - 32px)">
+  <h1>{{timeinhours}}:{{timeinminutes}}:{{timeinseconds}}</h1>
+</mat-card>-->
+<!--</div>
+</div>
+
+<div style="padding: 8px; width: 40%; height: 100%; background-color: lightslategrey">-->
+<!--<mat-card style="width: calc(100% - 32px); height: calc(100% - 32px)">
+  <h1>{{timeinhours}}:{{timeinminutes}}:{{timeinseconds}}</h1>
+</mat-card>-->
+<!--</div>-->
+<!--</div>-->

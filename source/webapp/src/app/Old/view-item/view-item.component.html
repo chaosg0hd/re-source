@@ -1,0 +1,101 @@
+
+
+<mat-card style="backdrop-filter: blur(32px); ">
+
+  <mat-dialog-actions style="display:flex; flex-direction: row-reverse;">
+    <button mat-button (click)="onNoClick()" style="flex-direction: row-reverse;">X</button>
+  </mat-dialog-actions>
+  <mat-card-title>
+
+    <h3>
+      Product Details
+    </h3>
+
+
+    <br>
+    <mat-divider></mat-divider>
+    <br>
+
+    <h4>
+      {{itemName}}
+
+    </h4>
+
+    <p>{{itemId}}</p>
+
+  </mat-card-title>
+
+
+  <mat-card-content>
+    <div>
+
+      <div style="text-align: center">
+        <img src="{{imageUrl}}" alt="" style="background-color: white; max-height: 200px; max-width: 200px; border-radius: 16px;">
+      </div>
+
+      <!--<mat-form-field appearance="outline">
+        <mat-label>Item Id:</mat-label>
+        <input matInput [(ngModel)]="number" type="text" disabled />
+      </mat-form-field>-->
+
+      <mat-form-field appearance="fill">
+        <mat-label>Item Name:</mat-label>
+        <input matInput [(ngModel)]="itemName" type="text" />
+      </mat-form-field> &nbsp;
+
+      <mat-form-field appearance="fill">
+        <mat-label>Item Description:</mat-label>
+        <input matInput [(ngModel)]="itemDesc" type="text" />
+      </mat-form-field>     &nbsp;
+
+      <mat-form-field appearance="fill">
+        <mat-label>Qty:</mat-label>
+        <input matInput [(ngModel)]="itemQty" type="number" />
+      </mat-form-field>    &nbsp;
+
+      <mat-form-field appearance="fill">
+        <mat-label>Price:</mat-label>
+        <input matInput [(ngModel)]="itemPrice" type="number" />
+      </mat-form-field>     &nbsp;
+
+        <mat-label>Image:</mat-label>
+        <input type="file"  name="image" (change)="selectImage($event)" />
+
+      
+
+       <br />
+      <button mat-dialog-close (click)="updateItem()" mat-raised-button color="primary">Update Item</button>  &nbsp;
+
+      <ng-container *ngIf="itemIsArchive == 1">    
+        <button mat-dialog-close (click)="restoreItem()" mat-raised-button color="primary">Restore Item</button> &nbsp;
+      </ng-container>          
+      <ng-container *ngIf="itemIsArchive == 0">
+        <button mat-dialog-close (click)="archiveItem()" mat-raised-button color="warn">Archive Item</button>  &nbsp;
+      </ng-container>
+      <br>
+
+      <br>
+      <mat-divider></mat-divider>
+      <br>
+
+      <h3>
+        Sell Directly
+      </h3>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Quantity to Sell</mat-label>
+        <input matInput [(ngModel)]="sellQty" type="number" min="0" max="99">
+      </mat-form-field>
+      <br />
+
+      <button mat-dialog-close (click)="sellItem()" mat-raised-button color="primary">Sell Item</button>
+      <br>
+      <br>
+      <mat-divider></mat-divider>
+      <br>
+
+    </div>
+
+  </mat-card-content>
+
+</mat-card>

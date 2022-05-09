@@ -1,0 +1,31 @@
+<div mat-dialog-actions style="padding: 0; margin: 0; display:flex; flex-direction: row-reverse;">
+    <button mat-button (click)="onNoClick()" style="flex-direction: row-reverse;">X</button>
+</div>
+<div style="display: flex; flex-direction: column; margin: 0;">
+    
+    <h2>Add Revenues Form</h2>
+    <mat-form-field appearance="outline">
+        <mat-label>Amount</mat-label>
+        <input matInput [(ngModel)]="revAmount" placeholder="amount..." type="number"/>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Date</mat-label>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="revDate" placeholder="MM/DD/YY"/>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <input matInput [(ngModel)]="revDesc" placeholder="Description..." type="string"/>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>By</mat-label>
+        <input matInput [(ngModel)]="revBy" placeholder="Name..." type="string"/>
+    </mat-form-field>
+    
+    <br/>
+    <button (click)="addRevenues()" mat-raised-button color="primary">Add Revenue</button>
+</div>

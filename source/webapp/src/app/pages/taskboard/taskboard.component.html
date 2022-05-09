@@ -1,0 +1,145 @@
+<!--IF NOT MOBILE-->
+
+<!--<ng-container *ngIf="isMobile != true">
+
+  <ng-container *ngIf="isLoaded == false">
+    <br />
+    <br />
+    <br />
+    <br />
+    <mat-spinner style="margin: auto"></mat-spinner>
+  </ng-container>
+
+  <ng-container *ngIf="isLoaded == true">-->
+
+    <!--<mat-tab-group (selectedTabChange)="loadOnstart()">-->
+
+    <!--<mat-tab-group class="mat-elevation-z4">
+
+      <mat-tab>
+
+        <ng-template mat-tab-label>
+
+          <mat-icon>auto_awesome_mosaic</mat-icon>
+
+          Gallery
+
+        </ng-template>
+
+        <mat-toolbar color="primary" class="mat-elevation-z22" style="z-index: 100;">
+          <span style="flex: 1 1 auto;"></span>
+          <span>Inventories</span>
+          <span style="flex: 1 1 auto;"></span>
+        </mat-toolbar>
+
+        <div class="mat-elevation-z22 tab-container">
+
+          <app-announcement>
+
+          </app-announcement>
+
+          <br />
+          <mat-divider></mat-divider>
+          <br />
+
+
+        </div>
+
+      </mat-tab>
+
+      <mat-tab>
+
+        <ng-template mat-tab-label>
+
+          <mat-icon>auto_awesome_mosaic</mat-icon>
+
+          Table
+
+        </ng-template>
+
+        <mat-toolbar color="primary" class="mat-elevation-z22" style="z-index: 100;">
+          <span style="flex: 1 1 auto;"></span>
+          <span>Inventories</span>
+          <span style="flex: 1 1 auto;"></span>
+        </mat-toolbar>
+
+        <div class="mat-elevation-z22 tab-container">
+
+          <app-announcement>
+
+          </app-announcement>
+
+          <br />
+          <mat-divider></mat-divider>
+          <br />
+
+
+        </div>
+
+      </mat-tab>
+
+      <mat-tab>
+
+        <ng-template mat-tab-label>
+
+          <mat-icon>auto_awesome_mosaic</mat-icon>
+
+          Acquisitions
+
+        </ng-template>
+
+        <mat-toolbar color="primary" class="mat-elevation-z22" style="z-index: 100;">
+          <span style="flex: 1 1 auto;"></span>
+          <span>Inventories</span>
+          <span style="flex: 1 1 auto;"></span>
+        </mat-toolbar>
+
+        <div class="mat-elevation-z22 tab-container">
+
+          <app-announcement>
+
+          </app-announcement>
+
+          <br />
+          <mat-divider></mat-divider>
+          <br />
+
+
+        </div>
+
+      </mat-tab>
+
+    </mat-tab-group>
+
+
+
+
+
+
+  </ng-container>
+
+</ng-container>-->
+
+<!--IF MOBILE-->
+
+<!--<ng-container *ngIf="isMobile == true">
+
+</ng-container>-->
+
+
+
+
+<!--<mat-toolbar color="primary" class="mat-elevation-z22" style="z-index: 100;">
+  <span style="flex: 1 1 auto;"></span>
+  <span>Taskboard</span>
+  <span style="flex: 1 1 auto;"></span>
+  
+</mat-toolbar>
+<button (click)="addTask()" mat-raised-button color="primary">Add Task</button>
+<hr>
+ <div *ngFor="let t of task; let i = index">
+      <p> {{ t.taskBoard_name }} </p>
+      <p> {{ t.taskBoard_content}}</p>
+      <img src="{{ t.imageUrl}}" alt="">
+      <button (click)="viewTask(t)" mat-raised-button color="primary">View Task</button>
+  </div>-->

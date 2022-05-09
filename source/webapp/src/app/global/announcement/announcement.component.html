@@ -1,0 +1,23 @@
+<ng-container *ngIf="announcementTitle !==''">
+  <div class="mat-elevation-z4" style="background-color: #639d1a; width: calc(100%); height: calc(10% - 32px); min-height: 40px; border-radius: 50px 0px 0px 50px; padding: 8px; margin-top: 8px; transition-duration: 1s" (click)="onclickDiv(999)" [ngStyle]="{'min-height': activeDiv === 999 ? '400px' : '40px' }" [@fadeInOnEnter] [@fadeOutOnLeave]>
+    <h4 style="text-align: right; color: white; margin-left: 60px; margin-right: 40px;">
+      <mat-icon style="vertical-align: middle">info</mat-icon>
+      {{announcementTitle}}
+    </h4>
+
+    <mat-divider style="color:white"></mat-divider>
+    <br />
+
+    <ng-container *ngIf="activeDiv != 999">
+      <p style="text-align:right; color: white; margin-left: 60px; margin-right: 40px;">
+        {{(announcementContent.length>48)? (announcementContent | slice:0:48)+'..':(announcementContent) }}
+      </p>
+    </ng-container>
+
+    <ng-container *ngIf="activeDiv == 999">
+      <p style="text-align: justify; color: white; margin-left: 60px; margin-right: 40px;">
+        {{announcementContent}}
+      </p>
+    </ng-container>
+  </div>
+</ng-container>

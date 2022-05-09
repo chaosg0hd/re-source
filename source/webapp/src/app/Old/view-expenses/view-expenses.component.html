@@ -1,0 +1,55 @@
+<div>
+    <div mat-dialog-actions style="padding: 0; margin: 0; display:flex; flex-direction: row-reverse;">
+        <button mat-button (click)="onNoClick()" style="flex-direction: row-reverse;">X</button>
+    </div>
+    <mat-card-title>View Expenses</mat-card-title>
+    <mat-card>
+        <div>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Expense Id:</mat-label>
+                <input matInput [(ngModel)]="number" type="text" disabled />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Expense Date:</mat-label>
+                <input matInput [matDatepicker]="picker" [(ngModel)]="expDate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Supplier:</mat-label>
+                <input matInput [(ngModel)]="expSupp" type="text" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Description:</mat-label>
+                <input matInput [(ngModel)]="expDesc" type="number"/>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Position-in-Charge:</mat-label>
+                <input matInput [(ngModel)]="expBy" type="number" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Amount:</mat-label>
+                <input matInput [(ngModel)]="expAmount" type="number" />
+            </mat-form-field>
+            <br>
+            <hr>
+            <br>
+            <button mat-dialog-close (click)="updateExpense()" mat-raised-button color="primary">Update Expense</button>
+            <ng-container *ngIf="expIsArchive == 1">
+                <button mat-dialog-close (click)="restoreExpense()" mat-raised-button color="primary">Restore Expense</button>
+            </ng-container>
+            <ng-container *ngIf="expIsArchive == 0">
+                <button mat-dialog-close (click)="archiveExpense()" mat-raised-button color="warn">Archive Expense</button>
+            </ng-container>
+
+
+
+        </div>
+    </mat-card>
+</div>

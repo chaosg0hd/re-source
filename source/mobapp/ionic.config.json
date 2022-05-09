@@ -1,0 +1,7 @@
+{
+  "name": "mobapp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

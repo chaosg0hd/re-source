@@ -1,0 +1,40 @@
+<div>
+    <div mat-dialog-actions style="padding: 0; margin: 0; display:flex; flex-direction: row-reverse;">
+        <button mat-button (click)="onNoClick()" style="flex-direction: row-reverse;">X</button>
+    </div>
+    <mat-card>
+        <div>
+            <p>
+                <mat-form-field appearance="outline">
+                    <mat-label>Revenue Id:</mat-label>
+                    <input matInput [(ngModel)]="revId" placeholder="Revenue ID" type="text" disabled/>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Revenue Amount:</mat-label>
+                    <input matInput [(ngModel)]="revAmount" placeholder="55.00" type="number"/>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Revenue Description:</mat-label>
+                    <input matInput [(ngModel)]="revDesc" placeholder="Description..." type="text"/>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Date:</mat-label>
+                    <input matInput [matDatepicker]="picker" [(ngModel)]="revDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>By:</mat-label>
+                    <input matInput [(ngModel)]="revBy" placeholder="name..." type="text"/>
+                </mat-form-field>
+
+                <br>
+                <button mat-dialog-close (click)="updateItem()" mat-raised-button color="primary">Update Item</button>
+            </p>
+        </div>
+    </mat-card>
+    </div>

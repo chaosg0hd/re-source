@@ -1,0 +1,55 @@
+<div>
+    <div mat-dialog-actions style="padding: 0; margin: 0; display:flex; flex-direction: row-reverse;">
+        <button mat-button (click)="onNoClick()" style="flex-direction: row-reverse;">X</button>
+    </div>
+    <mat-card-title>View Expenses</mat-card-title>
+    <mat-card>
+        <div>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Revenue Id:</mat-label>
+                <input matInput [(ngModel)]="number" type="text" disabled />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Revenue Date:</mat-label>
+                <input matInput [matDatepicker]="picker" [(ngModel)]="revDate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Supplier:</mat-label>
+                <input matInput [(ngModel)]="revSupp" type="text" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Description:</mat-label>
+                <input matInput [(ngModel)]="revDesc" type="number"/>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Position-in-Charge:</mat-label>
+                <input matInput [(ngModel)]="revBy" type="number" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Amount:</mat-label>
+                <input matInput [(ngModel)]="revAmount" type="number" />
+            </mat-form-field>
+            <br>
+            <hr>
+            <br>
+            <button mat-dialog-close (click)="updateRevenue()" mat-raised-button color="primary">Update Revenue</button>
+            <ng-container *ngIf="revIsArchive == 1">
+                <button mat-dialog-close (click)="restoreRevenue()" mat-raised-button color="primary">Restore Revenue</button>
+            </ng-container>
+            <ng-container *ngIf="revIsArchive == 0">
+                <button mat-dialog-close (click)="archiveRevenue()" mat-raised-button color="warn">Archive Revenue</button>
+            </ng-container>
+
+
+
+        </div>
+    </mat-card>
+</div>

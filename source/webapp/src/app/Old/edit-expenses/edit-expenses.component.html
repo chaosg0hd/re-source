@@ -1,0 +1,40 @@
+<div>
+    <div mat-dialog-actions style="padding: 0; margin: 0; display:flex; flex-direction: row-reverse;">
+        <button mat-button (click)="onNoClick()" style="flex-direction: row-reverse;">X</button>
+    </div>
+    <mat-card>
+        <div>
+            <p>
+                <mat-form-field appearance="outline">
+                    <mat-label>Expenses Id:</mat-label>
+                    <input matInput [(ngModel)]="expId" type="text" disabled/>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Expenses Amount:</mat-label>
+                    <input matInput [(ngModel)]="expAmount" type="number"/>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Expenses Description:</mat-label>
+                    <input matInput [(ngModel)]="expDesc" type="text"/>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Date:</mat-label>
+                    <input matInput [matDatepicker]="picker" [(ngModel)]="expDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>By:</mat-label>
+                    <input matInput [(ngModel)]="expBy" type="text"/>
+                </mat-form-field>
+
+                <br>
+                <button mat-dialog-close (click)="updateItem()" mat-raised-button color="primary">Update Item</button>
+            </p>
+        </div>
+    </mat-card>
+    </div>

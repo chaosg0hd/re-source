@@ -1,0 +1,50 @@
+<div>
+    <div mat-dialog-actions style="padding: 0; margin: 0; display:flex; flex-direction: row-reverse;">
+        <button mat-button (click)="onNoClick()" style="flex-direction: row-reverse;">X</button>
+    </div>
+    <mat-card-title>View Petty Cash</mat-card-title>
+    <mat-card>
+        <div>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Payroll Id:</mat-label>
+                <input matInput [(ngModel)]="number" type="text" disabled />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Payroll Date:</mat-label>
+                <input matInput [matDatepicker]="picker" [(ngModel)]="payrDate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Description:</mat-label>
+                <input matInput [(ngModel)]="payrDesc" type="number"/>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Position-in-Charge:</mat-label>
+                <input matInput [(ngModel)]="payrBy" type="number" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Amount:</mat-label>
+                <input matInput [(ngModel)]="payrAmount" type="number" />
+            </mat-form-field>
+            <br>
+            <hr>
+            <br>
+            <button mat-dialog-close (click)="updatePayroll()" mat-raised-button color="primary">Update Petty Cash</button>
+            <ng-container *ngIf="payrIsArchive == 1">
+                <button mat-dialog-close (click)="restorePayroll()" mat-raised-button color="primary">Restore Petty Cash</button>
+            </ng-container>
+            <ng-container *ngIf="payrIsArchive == 0">
+                <button mat-dialog-close (click)="archivePayroll()" mat-raised-button color="warn">Archive Petty Cash</button>
+            </ng-container>
+
+
+
+        </div>
+    </mat-card>
+</div>

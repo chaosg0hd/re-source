@@ -1,0 +1,27 @@
+<div mat-dialog-actions style="padding: 0; margin: 0; display:flex; flex-direction: row-reverse;">
+    <button mat-button (click)="onNoClick()" style="flex-direction: row-reverse;">X</button>
+</div>
+<div style="display: flex; flex-direction: column; margin: 0;">
+    
+    <h2>Add Task</h2>
+    <mat-form-field appearance="outline">
+        <mat-label>Task Name</mat-label>
+        <input matInput [(ngModel)]="taskName" placeholder="task name" type="string"/>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Task Content</mat-label>
+        <textarea matInput [(ngModel)]="taskContent" placeholder="task description" type="string"></textarea>
+    </mat-form-field>
+
+    <mat-label>Task Image:
+        <br/>
+        <br/>
+        <input type="file"  name="image" (change)="selectImage($event)" />
+    </mat-label>
+    <br/>
+   
+    
+    <br/>
+    <button (click)="addTask()" mat-raised-button color="primary">Add Task</button>
+</div>

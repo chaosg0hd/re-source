@@ -1,0 +1,88 @@
+<!--IF NOT MOBILE-->
+
+<ng-container *ngIf="isMobile != true">
+
+  <ng-container *ngIf="isLoaded == false">
+    <br />
+    <br />
+    <br />
+    <br />
+    <mat-spinner style="margin: auto"></mat-spinner>
+  </ng-container>
+
+  <ng-container *ngIf="isLoaded == true">
+
+    <div class="login-container">
+
+      <div class="login-card" >
+
+        <br />
+        <br />
+        <div style="width:24%;margin: auto; margin-top: 16px;">
+          <img src="../assets/images/logo.jpg" style="width: 100%; height: 100%" />
+        </div>
+
+        <div style="width: 80%; margin: auto">
+
+          <h2 style="color: white; text-align:center;">Welcome back! <br /> Please login to your account.</h2>
+
+          <mat-divider></mat-divider>
+          <div style="width: 100%; text-align: center">               
+
+            <div style="width: auto; background-color: white; padding: 8px; border-radius: 8px">
+              <br />
+              <br />
+              <mat-form-field appearance="fill">
+                <mat-label style="font-size: 12px;">
+                  <mat-icon style="font-size: 24px; color: var(--primary-color); vertical-align: middle">account_circle</mat-icon> &nbsp; &nbsp;Account ID
+                </mat-label>
+                <input type="text" matInput [(ngModel)]="id" placeholder="Ex. 00xxxx">
+              </mat-form-field>
+              <br />
+              <br />
+
+              <mat-form-field appearance="fill">
+                <mat-label style="font-size: 12px;">
+                  <mat-icon style="font-size: 24px; color: var(--primary-color); vertical-align: middle ">password</mat-icon> &nbsp; &nbsp;Password
+                </mat-label>
+                <input type="password" matInput [(ngModel)]="password" placeholder="">
+              </mat-form-field>
+
+              <br />
+              <br />
+              <button mat-raised-button color="primary" (click)="login()">&nbsp;&nbsp;&nbsp;Login&nbsp;&nbsp;&nbsp;</button>
+              <br />
+              <br />
+
+              <mat-divider></mat-divider>
+              <br />
+
+              <p style="text-align:center">Having trouble logging-in? <br /> Contact Support @support.info.</p>
+
+            </div>             
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+</ng-container>
+
+
+
+
+
+
+
+
+
+
+
+<!--IF MOBILE-->
+
+<ng-container *ngIf="isMobile == true">
+
+
+
+
+</ng-container>

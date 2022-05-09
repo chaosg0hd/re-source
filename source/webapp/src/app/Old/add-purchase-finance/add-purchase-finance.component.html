@@ -1,0 +1,41 @@
+<div mat-dialog-actions style="padding: 0; margin: 0; display:flex; flex-direction: row-reverse;">
+    <button mat-button (click)="onNoClick()" style="flex-direction: row-reverse;">X</button>
+</div>
+<div style="display: flex; flex-direction: column; margin: 0;">
+    
+    <h2>Add Sales Form</h2>
+    <mat-form-field appearance="outline">
+        <mat-label>Amount</mat-label>
+        <input matInput [(ngModel)]="purchasePrice" placeholder="price" type="number"/>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Date</mat-label>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="purchaseDate" placeholder="MM/DD/YY"/>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <input matInput [(ngModel)]="purchaseDesc" placeholder="Description..." type="string"/>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Qty.</mat-label>
+        <input matInput [(ngModel)]="purchaseQuantity" placeholder="Name..." type="number"/>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>By</mat-label>
+        <input matInput [(ngModel)]="purchaseBy" placeholder="Name..." type="string"/>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Supplier</mat-label>
+        <input matInput [(ngModel)]="purchaseSupplier" placeholder="Name..." type="string"/>
+    </mat-form-field>
+    
+    <br/>
+    <button (click)="addPurchase()" mat-raised-button color="primary">Add Purchase Report</button>
+</div>

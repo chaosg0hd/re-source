@@ -1,0 +1,1025 @@
+<!--IF NOT MOBILE-->
+
+<ng-container *ngIf="isMobile != true">
+
+  <ng-container *ngIf="isLoaded == false">
+    <br />
+    <br />
+    <br />
+    <br />
+    <mat-spinner style="margin: auto"></mat-spinner>
+  </ng-container>
+
+  <ng-container *ngIf="isLoaded == true">
+
+    <!--<mat-tab-group (selectedTabChange)="loadOnstart()">-->
+
+    <mat-tab-group class="mat-elevation-z4">
+
+      <mat-tab>
+
+        <ng-template mat-tab-label>
+
+          <mat-icon>auto_awesome_mosaic</mat-icon>
+
+          Inventory Gallery
+
+        </ng-template>
+
+        <mat-toolbar color="primary" class="mat-elevation-z22" style="z-index: 100;">
+          <span style="flex: 1 1 auto;"></span>
+          <span>Inventory Gallery</span>
+          <span style="flex: 1 1 auto;"></span>
+        </mat-toolbar>
+
+        <div class="mat-elevation-z22 tab-container">
+
+          <app-announcement>
+
+          </app-announcement>
+
+          <br />
+          <mat-divider></mat-divider>
+          <br />
+
+          <ng-container *ngIf="isLoadedTab == false">
+            <br />
+            <br />
+            <br />
+            <br />
+            <mat-spinner style="margin: auto"></mat-spinner>
+          </ng-container>
+
+          <ng-container *ngIf="isLoadedTab == true">
+
+            <div class="mat-elevation-z4 rounded-container-title">
+              <h2 style="text-align: center; color: white">
+                Inventory Gallery
+              </h2>
+            </div>
+
+            <div class="mat-elevation-z4 control-container">
+
+              <div style="display: flex; align-items: baseline">
+                <span style="flex: 1 1 auto;"></span>
+                <mat-form-field appearance="outline" style=" min-width: 50% ;flex:auto;border-radius: 16px !important">
+                  <mat-label>Search</mat-label>
+
+                  <input matInput placeholder="Ex. Juan De">
+                </mat-form-field>
+                <span style="flex: 1 1 auto;"></span>
+
+                <button mat-raised-button color="primary" style="flex:auto">View Archived <mat-icon>recycling</mat-icon></button>&nbsp;
+
+                <button mat-raised-button color="warn" class="control-button" style="flex:auto;"> Add Item <mat-icon>add</mat-icon></button>&nbsp;
+                <span style="flex: 1 1 auto;"></span>
+
+              </div>
+
+              <mat-paginator #empPaginator [pageSize]="10" [pageSizeOptions]="[10, 20, 100]"></mat-paginator>
+
+            </div>
+
+            <div class="mat-elevation-z4 rounded-container-flex">
+              <br />
+              <br />
+              <mat-divider></mat-divider>
+              <br />
+              <div style="width: 100%; overflow-y: scroll; display: flex; flex-wrap:wrap; justify-content: center">
+
+
+
+                <ng-container *ngFor="let element of inventoriesDataSource.data; index as i">
+
+                  <div class="inv-box-container mat-elevation-z4" style="background-image: url('https://picsum.photos/200/300?random={{i}}'); background-position: center; background-size: cover; opacity: .8">
+                    <button mat-fab color="warn">{{element.quantity}}</button><span style="flex: 1 1 auto;" ></span>
+                    <p style="text-align: right; font-size: 12px; color: white;">ID : {{element._id}}</p>
+                    <div style="flex: auto"></div>
+                    <h4 style=" word-break: break-all; color: white;"> </h4>
+                    <h4 style=" word-break: break-all;color: white">{{element.description}}</h4>
+                    <button mat-raised-button color="primary">View {{element.name}} &nbsp; <mat-icon>visibility</mat-icon></button>
+                  </div>
+
+                </ng-container>
+
+
+
+
+              </div>
+
+            </div>
+
+            <br />
+            <br />
+            <mat-divider></mat-divider>
+            <br />
+
+          </ng-container>
+
+        </div>
+
+      </mat-tab>
+
+      <mat-tab>
+
+        <ng-template mat-tab-label>
+
+          <mat-icon>auto_awesome_mosaic</mat-icon>
+
+          Table
+
+        </ng-template>
+
+        <mat-toolbar color="primary" class="mat-elevation-z22" style="z-index: 100;">
+          <span style="flex: 1 1 auto;"></span>
+          <span>Inventories</span>
+          <span style="flex: 1 1 auto;"></span>
+        </mat-toolbar>
+
+        <div class="mat-elevation-z22 tab-container">
+
+          <app-announcement>
+
+          </app-announcement>
+
+          <br />
+          <mat-divider></mat-divider>
+          <br />
+
+
+        </div>
+
+      </mat-tab>
+
+      <mat-tab>
+
+        <ng-template mat-tab-label>
+
+          <mat-icon>auto_awesome_mosaic</mat-icon>
+
+          Acquisitions
+
+        </ng-template>
+
+        <mat-toolbar color="primary" class="mat-elevation-z22" style="z-index: 100;">
+          <span style="flex: 1 1 auto;"></span>
+          <span>Inventories</span>
+          <span style="flex: 1 1 auto;"></span>
+        </mat-toolbar>
+
+        <div class="mat-elevation-z22 tab-container">
+
+          <app-announcement>
+
+          </app-announcement>
+
+          <br />
+          <mat-divider></mat-divider>
+          <br />
+
+
+        </div>
+
+      </mat-tab>
+
+    </mat-tab-group>
+
+
+
+
+
+
+  </ng-container>
+
+</ng-container>
+
+<!--IF MOBILE-->
+
+<ng-container *ngIf="isMobile == true">
+
+</ng-container>
+
+
+
+
+
+<!--<div  style="height: 100%; width: 100%">-->
+<!-- If Mobile-->
+<!--<ng-container *ngIf="isMobile == true">
+
+  <mat-toolbar color="primary" class="mat-elevation-z22" style="z-index: 100;">
+    <span style="flex: 1 1 auto;"></span>
+    <span>Inventories</span>
+    <span style="flex: 1 1 auto;"></span>
+  </mat-toolbar>
+
+  <div class="mat-elevation-z22 tab-container" [@fadeInOnEnter] [@fadeOutOnLeave]>
+
+    <mat-tab-group (selectedTabChange)="loadOnstart()">
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>auto_awesome_mosaic</mat-icon>
+
+        </ng-template>
+
+        <div class="mat-elevation-z2" style="background-color: lightgrey; width: 100%; min-height: 100vh; padding: 8px;">
+
+          <app-announcement>
+
+          </app-announcement>
+
+          <br />
+          <mat-divider></mat-divider>
+          <br />
+
+          <ng-container *ngIf="isLoaded == false">
+            <mat-spinner style="margin: auto"></mat-spinner>
+          </ng-container>
+
+          <ng-container *ngIf="isLoaded != false">
+
+            <div class="mat-elevation-z4" style="background-color: whitesmoke; width: calc(100% - 32px); height: calc(10% - 32px); min-height: 40px; border-radius: 16px; padding: 8px; margin-top: 8px" [@fadeInOnEnter] [@fadeOutOnLeave]>
+              <h2 style="text-align: center">
+                Inventory Gallery
+              </h2>
+
+
+
+              <mat-form-field appearance="fill" style="margin-left: 16px; width: calc(100% - 32px)">
+                <mat-label>Filter</mat-label>
+                <input matInput (keyup)="applyFilterInventories($any($event.target).value)" placeholder="Filter">
+              </mat-form-field>
+              <br />
+              <div style="text-align: right">
+                <button mat-raised-button color="primary" (click)="addItem()">Add Item</button> &nbsp;
+                <button mat-raised-button color="primary" (click)="addItem()">Sort</button> &nbsp;
+                <button mat-raised-button color="primary" (click)="addItem()">Sort</button> &nbsp; &nbsp; &nbsp;
+              </div>
+
+              <mat-paginator></mat-paginator>
+            </div>
+
+
+            <br />
+            <mat-divider></mat-divider>
+            <br />
+
+            <div style=" width:100%; height: 100%">
+
+              <div style="width: calc(100% - 16px); height: calc(25% - 32px); display: inline-flex; flex-wrap: wrap;gap: 8px;">
+
+                <ng-container *ngFor="let item of this.inventoriesDataSource.filteredData">
+
+                  <div class="mat-elevation-z4" style="flex: auto; background-blend-mode: soft-light; background-color: #c2c894; background-image: url('{{item.imageUrl}}'); background-size: cover; width: calc(100% - 32px); height: calc(10% - 32px); min-height: 40px; margin-top: 8px; border-radius: 16px; padding: 8px; transition-duration: 1s " [@fadeInOnEnter] [@fadeOutOnLeave]>
+
+                    <div style="text-align: center">
+                      <img src="{{item.imageUrl}}" alt="" style="background-color: white; max-height: 200px; max-width: 200px; border-radius: 16px;">
+                    </div>
+
+                    <mat-divider></mat-divider>
+                    <h4 style="text-align: center">
+                      {{ item.name }}
+                    </h4>
+                    <mat-divider></mat-divider>
+
+                    <p> Item Description : {{ item.description }}</p>
+                    <p> Item Quantity : {{item.quantity}}</p>
+                    <p> Item Price : {{ item.price }} </p>
+
+                    <div style="text-align: center">
+
+                      <button mat-raised-button (click)="itemView(item)" color="primary"> Actions </button>
+                    </div>
+                  </div>
+
+
+                </ng-container>
+
+
+              </div>
+
+
+            </div>
+
+
+
+
+            <br />
+            <mat-divider></mat-divider>
+            <br />
+
+
+
+
+
+
+
+
+          </ng-container>
+
+        </div>
+
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>table_chart</mat-icon>
+
+        </ng-template>
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>local_shipping</mat-icon>
+
+        </ng-template>
+      </mat-tab>
+
+    </mat-tab-group>
+
+  </div>
+
+</ng-container>-->
+<!-- If Not Mobile-->
+<!--<ng-container *ngIf="isMobile != true">-->
+<!--Top Bar-->
+<!--<mat-toolbar color="primary" class="mat-elevation-z22" style="z-index: 100;">
+  <span style="flex: 1 1 auto;"></span>
+  <span>Inventories</span>
+  <span style="flex: 1 1 auto;"></span>
+</mat-toolbar>
+<div class="mat-elevation-z2" style=" width: calc(100% - 8px); min-height: 100%; padding: 8px;">-->
+<!--Tabs-->
+<!--<mat-tab-group (selectedTabChange)="loadOnstart()">-->
+<!--Gallery-->
+<!--<mat-tab label="Inventory Gallery">
+  <div class="mat-elevation-z2 tab-container">-->
+<!--Announcement-->
+<!--<app-announcement>
+</app-announcement>
+
+<br />
+<mat-divider></mat-divider>
+<br />-->
+<!--Preloader-->
+<!--<ng-container *ngIf="isLoaded == false">
+      <mat-spinner style="margin: auto"></mat-spinner>
+    </ng-container>
+
+    <ng-container *ngIf="isLoaded != false">
+
+      <div class="mat-elevation-z4 rounded-container-title">
+        <h2 style="text-align: center; color: white">
+          Inventory Gallery
+        </h2>
+      </div>
+
+      <div class="mat-elevation-z4 control-container" [@fadeInOnEnter] [@fadeOutOnLeave]>
+
+        <div style="display: flex; align-items: baseline">
+          <span style="flex: 1 1 auto;"></span>
+          <mat-form-field appearance="outline" style=" min-width: 50% ;flex:auto;border-radius: 16px !important">
+            <mat-label>Filter</mat-label>
+            <input matInput (keyup)="applyFilterInventories($any($event.target).value)" placeholder="Filter">
+          </mat-form-field>
+          <span style="flex: 1 1 auto;"></span>
+          <button mat-raised-button color="primary" (click)="addItem()" style="flex:auto">Name <mat-icon>unfold_more</mat-icon></button>   &nbsp;
+          <button mat-raised-button color="primary" (click)="addItem()" style="flex:auto">Description <mat-icon>unfold_more</mat-icon></button>   &nbsp;
+          <button mat-raised-button color="primary" (click)="addItem()" style="flex:auto">Quantity <mat-icon>unfold_more</mat-icon></button>   &nbsp;
+          <button mat-raised-button color="primary" (click)="addItem()" style="flex:auto">Price <mat-icon>unfold_more</mat-icon></button>   &nbsp;
+          <button mat-raised-button color="warn" class ="control-button" (click)="addItem()" style="flex:auto; ">Add Item <mat-icon>add</mat-icon></button>  &nbsp;
+          <span style="flex: 1 1 auto;"></span>
+        </div>
+
+        <mat-paginator></mat-paginator>
+
+      </div>
+
+      <br />
+      <mat-divider></mat-divider>
+      <br />
+
+      <div style=" width:100%; height: 100%">
+        <div style="width: calc(100% - 16px); height: calc(25% - 32px); display: inline-flex; flex-wrap: wrap; gap: 8px;">
+          <ng-container *ngFor="let item of this.inventoriesDataSource.filteredData">
+
+            <div class="mat-elevation-z4" style="flex: auto; background-blend-mode: soft-light; background-image: url('{{item.imageUrl}}'); background-position:center; background-size: contain; background-size: cover; min-width: calc(12%); max-width: calc(32%); min-height: 200px; border-radius: 16px; padding: 8px; transition-duration: 1s " [@fadeInOnEnter] [@fadeOutOnLeave]>
+
+              <div style="text-align: center">
+                <img src="{{item.imageUrl}}" alt="" style="background-color: white; max-height: 300px; max-width: 300px; border-radius: 16px;">
+              </div>
+
+              <mat-divider></mat-divider>
+              <h4 style="text-align: center">
+                {{ item.name }}
+              </h4>
+              <mat-divider></mat-divider>
+
+              <p> Item Description : {{ item.description }}</p>
+              <p> Item Quantity : {{item.quantity}}</p>
+              <p> Item Price : {{ item.price }} </p>
+
+              <div style="text-align: center">
+
+                <button mat-raised-button (click)="itemView(item)" color="primary"> Actions </button>
+              </div>
+            </div>
+
+          </ng-container>
+        </div>
+      </div>
+
+      <br />
+      <mat-divider></mat-divider>
+      <br />
+
+    </ng-container>
+
+  </div>
+
+</mat-tab>
+
+<mat-tab label="Inventory Table">
+  <div class="mat-elevation-z2" style="background-color: lightgrey; width: 100%; min-height: 100vh; padding: 8px;">
+
+    <app-announcement>
+
+    </app-announcement>
+
+    <br />
+    <mat-divider></mat-divider>
+    <br />
+
+    <ng-container *ngIf="isLoaded == false">
+      <mat-spinner style="margin: auto"></mat-spinner>
+    </ng-container>
+
+    <ng-container *ngIf="isLoaded != false">
+
+      <div class="mat-elevation-z4" style="background-color: whitesmoke; width: calc(100% - 32px); height: calc(10% - 32px); min-height: 40px; border-radius: 16px; padding: 8px; margin-top: 8px" [@fadeInOnEnter] [@fadeOutOnLeave]>
+        <h2 style="text-align: center">
+          Inventory Table
+        </h2>
+
+
+
+        <mat-form-field appearance="fill" style="margin-left: 16px; width: calc(100% - 32px)">
+          <mat-label>Filter</mat-label>
+          <input matInput (keyup)="applyFilterInventories($any($event.target).value)" placeholder="Filter">
+        </mat-form-field>
+        <br />
+        <div style="text-align: right">
+          <button mat-raised-button color="primary" (click)="addItem()">Add Item</button> &nbsp;
+          <button mat-raised-button color="primary" (click)="addItem()">Sort</button> &nbsp;
+          <button mat-raised-button color="primary" (click)="addItem()">Sort</button> &nbsp; &nbsp; &nbsp;
+        </div>
+
+        <mat-paginator></mat-paginator>
+      </div>
+
+
+      <br />
+      <mat-divider></mat-divider>
+      <br />
+
+      <div class="mat-elevation-z4" style="background-color: whitesmoke; width: calc(100% - 32px); height: calc(10% - 32px); min-height: 40px; border-radius: 16px; padding: 8px; margin-top: 8px" [@fadeInOnEnter] [@fadeOutOnLeave]>
+        <mat-table [dataSource]="inventoriesDataSource.filteredData" class="mat-elevation-z12" style="width: calc(100%-32px); height: 100%">-->
+<!--inventoriesDisplayedColumns = ['no', 'name', 'id', 'description', 'quantity', 'price', 'imageUrl'];-->
+<!--<ng-container matColumnDef="number">
+  <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+  <mat-cell *matCellDef="let element"> {{element.number}} </mat-cell>
+</ng-container>
+<ng-container matColumnDef="name">
+  <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+  <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+</ng-container>
+<ng-container matColumnDef="id">
+  <mat-header-cell *matHeaderCellDef> ID</mat-header-cell>
+  <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+</ng-container>
+<ng-container matColumnDef="description">
+  <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+  <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+</ng-container>
+<ng-container matColumnDef="quantity">
+  <mat-header-cell *matHeaderCellDef> Quantity</mat-header-cell>
+  <mat-cell *matCellDef="let element"> {{element.quantity}} </mat-cell>
+</ng-container>
+<ng-container matColumnDef="price">
+  <mat-header-cell *matHeaderCellDef> Price</mat-header-cell>
+  <mat-cell *matCellDef="let element"> {{element.price}} </mat-cell>
+</ng-container>
+<ng-container matColumnDef="actions">
+  <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+  <mat-cell *matCellDef="let element">
+    <button mat-button color="accent" (click)="itemView(element)"> <mat-icon>visibility</mat-icon> </button>-->
+<!--<button mat-button color="primary"> <mat-icon>edit</mat-icon> </button>
+<button mat-button color="warn"> <mat-icon>delete</mat-icon></button>-->
+<!--</mat-cell>
+                  </ng-container>
+                  <mat-header-row *matHeaderRowDef="inventoriesDisplayedColumns"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: inventoriesDisplayedColumns;"></mat-row>
+                </mat-table>
+
+
+              </div>
+
+
+
+
+
+
+
+
+
+              <br />
+              <mat-divider></mat-divider>
+              <br />
+
+
+
+
+
+
+
+
+            </ng-container>
+
+          </div>
+
+        </mat-tab>
+
+        <mat-tab label="Acquisitions">
+
+        </mat-tab>
+
+      </mat-tab-group>
+
+
+    </div>
+
+
+
+
+
+
+
+  </ng-container>
+</div>-->
+<!--<mat-toolbar color="primary" class="mat-elevation-z22" style="z-index: 100;">
+  <span style="flex: 1 1 auto;"></span>
+  <span>Inventory</span>
+  <span style="flex: 1 1 auto;"></span>
+</mat-toolbar>
+
+<mat-tab-group (selectedTabChange)="load()">
+
+  <mat-tab label="Inventory Gallery">
+
+    <ng-container *ngIf="isLoaded == false">
+      <mat-spinner style="margin: auto"></mat-spinner>
+    </ng-container>
+
+    <ng-container *ngIf="isLoaded != false">
+
+      <div class="mat-elevation-z2" style="background-color: lightgrey; width: calc(100% -16px); height: calc(100vh); padding: 8px; ">
+
+        <div class="mat-elevation-z4" style="background-color: whitesmoke; width: calc(100% - 16px); height: calc(10% -16px); border-radius: 16px; padding: 8px;">
+          <h2>
+            Inventory Gallery
+          </h2>
+          <mat-divider></mat-divider>
+        </div>
+
+        <div class="mat-elevation-z4" style="width: calc(100%-16px); height: calc(10% -16px); border-radius: 16px; background-color: whitesmoke; margin-top: 8px;">
+          <br>
+          <mat-form-field appearance="standard" style="margin-left: 16px; width: 40%">
+            <mat-label>Filter</mat-label>
+            <input matInput (keyup)="applyFilterInventories($any($event.target).value)" placeholder="Filter">
+          </mat-form-field>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <span style="flex:auto">&nbsp;</span>
+
+
+          <button mat-raised-button color="primary" (click)="addItem()" style="float: right; margin-right:16px;">Add Item</button>
+          <button mat-raised-button color="primary" (click)="addItem()" style="float: right; margin-right:16px;">Tools</button>
+          <button mat-raised-button color="primary" (click)="addItem()" style="float: right; margin-right:16px;">Tools</button>
+
+          <mat-divider></mat-divider>
+        </div>
+
+        <br />
+        <mat-divider></mat-divider>
+        <br />
+
+        <div style=" width:100%; height: 80%">
+          <mat-grid-list cols="6" rowHeight="1:2" gutterSize="8px;">
+
+            <mat-grid-tile>
+              <div style="background-image: url(../assets/images/sampleObject.jpg); border-radius: 16px; background-size: cover; background-position: center; background-blend-mode: lighten; background-color: #c2c894; height: 100%; width: 100%">
+                <mat-card style="background:none; height: 100%; width: calc(100% -16px)">
+                  <mat-card-title>
+                    Item Name
+                  </mat-card-title>
+                  <mat-card-content>
+                    <img src="../assets/images/sampleObject.jpg" alt="" style="height: 40%; width: 100%; border-radius: 16px; margin-right: auto">
+                    <p> Item Description : </p>
+                    <p> Item Amount :</p>
+                    <p> Item Price : </p>
+                    <p> Date Created : </p>
+                    <p> Date Updated : </p>
+                    <p> </p>
+                  </mat-card-content>
+                  <mat-card-footer style="text-align: center">
+                    <button mat-raised-button> View </button> &nbsp;
+                    <button mat-raised-button> Update </button>   &nbsp;
+                    <button mat-raised-button> Archive </button>
+                  </mat-card-footer>
+                </mat-card>
+              </div>
+            </mat-grid-tile>
+            <ng-container *ngFor="let item of this.inventoriesDataSource.filteredData">
+              <mat-grid-tile>
+                <div style="background-image: url(../assets/images/sampleObject.jpg); border-radius: 16px; background-size: cover; background-position: center; background-blend-mode: lighten; background-color: #c2c894; height: 100%; width: 100%">
+                  <mat-card style="background:none; height: 100%; width: calc(100% -16px)">
+                    <mat-card-title>
+                      {{ item.name }}
+                    </mat-card-title>
+                    <mat-card-content>
+                      <img src="{{item.imageUrl}}" alt="" style="height: 40%; width: 100%; border-radius: 16px; margin-right: auto">
+                      <p> Item Description : {{ item.description }}</p>
+                      <p> Item Quantity : {{item.quantity}}</p>
+                      <p> Item Price : {{ item.price }} </p>
+                    </mat-card-content>
+                    <mat-card-footer style="text-align: center">
+                      <button mat-raised-button (click)="itemView(item)"> View </button> &nbsp;
+                      <!-- <button mat-raised-button (click)="itemUpdate(item)"> Update </button>   &nbsp;
+                      <button mat-raised-button (click)="itemArchive(item)"> Archive </button>
+<!--</mat-card-footer>
+            </mat-card>
+          </div>
+        </mat-grid-tile>
+
+      </ng-container>
+
+
+    </mat-grid-list>
+  </div>
+
+
+  <mat-divider></mat-divider>
+
+  <div class="mat-elevation-z2" style="width: calc(100%-16px); height: 10%; border-radius: 16px; background-color: whitesmoke; padding: 8px;">
+    <button mat-raised-button color="primary" (click)="addItem()">Add Item</button>
+  </div>
+</div>-->
+<!--<mat-card>
+  <ng-container *ngFor="let item of this.inventoriesDataSource.filteredData">
+    <mat-card>
+      <mat-card-title>{{ item.name }}</mat-card-title>
+      <mat-card-content>
+        <p> {{ item.description}}</p>
+        <p> {{ item.created_at}}</p>
+        <p> {{ item.imageUrl}}</p>
+
+        <img src="{{item.imageUrl}}" alt="">
+
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button (click)="itemView(item)"> View </button>
+        <button mat-button (click)="itemUpdate(item)"> Update </button>
+        <button mat-button (click)="itemArchive(item)"> Archive </button>
+      </mat-card-actions>
+    </mat-card>
+  </ng-container>
+</mat-card>-->
+<!--</ng-container>-->
+<!--<div style="margin:20px;">
+  <div class="container">
+
+  </div>
+  <form class="example-form">
+    <button mat-raised-button color="primary" (click)="addItem()">Add Item</button>
+  </form>
+
+  <br>
+  <br>
+  <div style="display: flex; align-items: center; justify-content: center;">
+    <hr>
+    <mat-form-field appearance="fill">
+      <mat-label>Search Item...</mat-label>
+      <input matInput (keyup)="applyFilterInventories($any($event.target).value)" placeholder="Filter">
+    </mat-form-field>
+  </div>
+</div>-->
+<!--</mat-tab>
+
+<mat-tab label="Inventory Table">
+
+</mat-tab>
+
+<mat-tab label="Purchases">
+
+  <div class="mat-elevation-z2" style="background-color: lightgrey; width: 100%; height: auto; min-height: calc(100vh); padding: 8px; ">
+
+    <div class="mat-elevation-z4" style="background-color: whitesmoke; width: calc(100% - 32px); height: calc(10%); border-radius: 16px; padding: 8px;">
+      <h2>
+        Purchases
+      </h2>
+      <mat-divider></mat-divider>
+    </div>
+    <div style="width: calc(100%); height: calc(70% - 32px); display:flex">
+      <div class="mat-elevation-z4" style="background-color: whitesmoke; width: calc(80% - 28px); height: calc(100%); margin-top: 8px; border-radius: 16px; padding: 8px; display: inline-block; float: none">
+        <h3>
+          Purchase History
+        </h3>
+        <mat-divider></mat-divider>
+
+        <mat-table [dataSource]="purchasesDataSource" class="mat-elevation-z12">-->
+<!--//number: number;
+//_id: string;
+//rev_date: any;
+//rev_desc: string;
+//rev_by: string;
+//rev_amount: number;
+
+//isArchive: number;
+//created_at: any;
+//updated_at: any;-->
+<!--<ng-container matColumnDef="number">
+  <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+  <mat-cell *matCellDef="let element"> {{element.number}} </mat-cell>
+</ng-container>
+<ng-container matColumnDef="id">
+  <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+  <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+</ng-container>
+<ng-container matColumnDef="purc_date">
+  <mat-header-cell *matHeaderCellDef> Date</mat-header-cell>
+  <mat-cell *matCellDef="let element"> {{element.purc_date | date}} </mat-cell>
+</ng-container>
+<ng-container matColumnDef="purc_supplier">
+  <mat-header-cell *matHeaderCellDef> Supplier </mat-header-cell>
+  <mat-cell *matCellDef="let element"> {{element.purc_supplier}} </mat-cell>
+</ng-container>
+<ng-container matColumnDef="purc_price">
+  <mat-header-cell *matHeaderCellDef> Date</mat-header-cell>
+  <mat-cell *matCellDef="let element"> {{element.purc_price}} </mat-cell>
+</ng-container>
+<ng-container matColumnDef="purc_quantity">
+  <mat-header-cell *matHeaderCellDef> Date</mat-header-cell>
+  <mat-cell *matCellDef="let element"> {{element.purc_quantity}} </mat-cell>
+</ng-container>
+<ng-container matColumnDef="purc_desc">
+  <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+  <mat-cell *matCellDef="let element"> {{element.purc_desc}} </mat-cell>
+</ng-container>
+<ng-container matColumnDef="purc_by">
+  <mat-header-cell *matHeaderCellDef> Person-in-Charge </mat-header-cell>
+  <mat-cell *matCellDef="let element"> {{element.purc_by}} </mat-cell>
+</ng-container>
+<ng-container matColumnDef="actions">
+  <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+  <mat-cell *matCellDef="let element">-->
+<!--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+<!--<button mat-button color="accent"> <mat-icon>visibility</mat-icon> </button>
+        <button mat-button color="primary"> <mat-icon>edit</mat-icon> </button>
+        <button mat-button color="warn"> <mat-icon>delete</mat-icon></button>
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="purchasesDisplayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: purchasesDisplayedColumns;"></mat-row>
+  </mat-table>
+
+
+</div>
+<div class="mat-elevation-z4" style="background-color: whitesmoke; width: calc(20% - 28px); height: calc(100% ); margin-top: 8px; margin-left:8px; border-radius: 16px; padding: 8px; display: inline-block; float: none">
+  <h3>
+    Actions
+  </h3>
+  <mat-divider></mat-divider>
+
+  <p style="margin-left: 16px;">
+    <mat-form-field appearance="standard">
+      <mat-label>ID</mat-label>
+      <input matInput placeholder="ID">
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+      <mat-label>Description</mat-label>
+      <input matInput placeholder="Description">
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+      <mat-label>Amount</mat-label>
+      <input matInput placeholder="Amount">
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+      <mat-label>Supplier</mat-label>
+      <input matInput placeholder="Supplier">
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+      <mat-label>Person in-Charge</mat-label>
+      <input matInput placeholder="Person in-Charge">
+    </mat-form-field>
+  </p>
+  <p>
+    <button mat-raised-button color="primary" style="float: right; margin-right: 16px;">Add Transaction</button>
+  </p>
+  <br />
+  <br />
+  <br />
+  <mat-divider></mat-divider>
+
+  <h3>
+    Most Recent Transactions
+  </h3>
+
+  <mat-table [dataSource]="purchasesDataSource" class="mat-elevation-z12">-->
+<!--//number: number;
+//_id: string;
+//rev_date: any;
+//rev_desc: string;
+//rev_by: string;
+//rev_amount: number;
+
+//isArchive: number;
+//created_at: any;
+//updated_at: any;-->
+<!--['purc_date', 'purc_desc', 'purc_quantity'];-->
+<!--<ng-container matColumnDef="purc_date">
+            <mat-header-cell *matHeaderCellDef> Date</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.purc_date | date :"dd E : h:mm"}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="purc_desc">
+            <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.purc_desc}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="purc_quantity">
+            <mat-header-cell *matHeaderCellDef> Quantity </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.purc_quantity}} </mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="purchasesRecentDisplayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: purchasesRecentDisplayedColumns;"></mat-row>
+        </mat-table>
+
+        <mat-divider></mat-divider>
+
+      </div>
+    </div>
+
+  </div>
+
+</mat-tab>
+
+<mat-tab label="Sales">
+
+  <div class="mat-elevation-z2" style="background-color: lightgrey; width: 100%; height: auto; min-height: calc(100vh); padding: 8px; ">
+
+    <div class="mat-elevation-z4" style="background-color: whitesmoke; width: calc(100% - 32px); height: calc(10%); border-radius: 16px; padding: 8px;">
+      <h2>
+        Sales
+      </h2>
+      <mat-divider></mat-divider>
+    </div>
+    <div style="width: calc(100%); height: calc(70% - 32px); display:flex">
+      <div class="mat-elevation-z4" style="background-color: whitesmoke; width: calc(80% - 28px); height: calc(100%); margin-top: 8px; border-radius: 16px; padding: 8px; display: inline-block; float: none">
+        <h3>
+          Sales History
+        </h3>
+        <mat-divider></mat-divider>
+
+        <mat-table [dataSource]="purchasesDataSource" class="mat-elevation-z12">-->
+<!--//number: number;
+//_id: string;
+//rev_date: any;
+//rev_desc: string;
+//rev_by: string;
+//rev_amount: number;
+
+//isArchive: number;
+//created_at: any;
+//updated_at: any;-->
+<!--<ng-container matColumnDef="number">
+  <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+  <mat-cell *matCellDef="let element"> {{element.number}} </mat-cell>
+</ng-container>
+<ng-container matColumnDef="id">
+  <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+  <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+</ng-container>
+<ng-container matColumnDef="purc_date">
+  <mat-header-cell *matHeaderCellDef> Date</mat-header-cell>
+  <mat-cell *matCellDef="let element"> {{element.purc_date | date}} </mat-cell>
+</ng-container>
+<ng-container matColumnDef="purc_supplier">
+  <mat-header-cell *matHeaderCellDef> Supplier </mat-header-cell>
+  <mat-cell *matCellDef="let element"> {{element.purc_supplier}} </mat-cell>
+</ng-container>
+<ng-container matColumnDef="purc_price">
+  <mat-header-cell *matHeaderCellDef> Date</mat-header-cell>
+  <mat-cell *matCellDef="let element"> {{element.purc_price}} </mat-cell>
+</ng-container>
+<ng-container matColumnDef="purc_quantity">
+  <mat-header-cell *matHeaderCellDef> Date</mat-header-cell>
+  <mat-cell *matCellDef="let element"> {{element.purc_quantity}} </mat-cell>
+</ng-container>
+<ng-container matColumnDef="purc_desc">
+  <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+  <mat-cell *matCellDef="let element"> {{element.purc_desc}} </mat-cell>
+</ng-container>
+<ng-container matColumnDef="purc_by">
+  <mat-header-cell *matHeaderCellDef> Person-in-Charge </mat-header-cell>
+  <mat-cell *matCellDef="let element"> {{element.purc_by}} </mat-cell>
+</ng-container>
+<ng-container matColumnDef="actions">
+  <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+  <mat-cell *matCellDef="let element">-->
+<!--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+<!--<button mat-button color="accent"> <mat-icon>visibility</mat-icon> </button>
+        <button mat-button color="primary"> <mat-icon>edit</mat-icon> </button>
+        <button mat-button color="warn"> <mat-icon>delete</mat-icon></button>
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="purchasesDisplayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: purchasesDisplayedColumns;"></mat-row>
+  </mat-table>
+
+
+</div>
+<div class="mat-elevation-z4" style="background-color: whitesmoke; width: calc(20% - 28px); height: calc(100% ); margin-top: 8px; margin-left:8px; border-radius: 16px; padding: 8px; display: inline-block; float: none">
+  <h3>
+    Actions
+  </h3>
+  <mat-divider></mat-divider>
+
+  <p style="margin-left: 16px;">
+    <mat-form-field appearance="standard">
+      <mat-label>ID</mat-label>
+      <input matInput placeholder="ID">
+    </mat-form-field>-->
+<!--<mat-form-field appearance="standard">
+  <mat-label>Description</mat-label>
+  <input matInput placeholder="Description">
+</mat-form-field>-->
+<!--<mat-form-field appearance="standard">
+    <mat-label>Amount</mat-label>
+    <input matInput placeholder="Amount">
+  </mat-form-field>
+  <mat-form-field appearance="standard">
+    <mat-label>Supplier</mat-label>
+    <input matInput placeholder="Supplier">
+  </mat-form-field>
+  <mat-form-field appearance="standard">
+    <mat-label>Person in-Charge</mat-label>
+    <input matInput placeholder="Person in-Charge">
+  </mat-form-field>
+</p>
+<p>
+  <button mat-raised-button color="primary" style="float: right; margin-right: 16px;">Add Transaction</button>
+</p>
+<br />
+<br />
+<br />
+<mat-divider></mat-divider>
+
+<h3>
+  Most Recent Transactions
+</h3>
+
+<mat-table [dataSource]="purchasesDataSource" class="mat-elevation-z12">-->
+<!--//number: number;
+//_id: string;
+//rev_date: any;
+//rev_desc: string;
+//rev_by: string;
+//rev_amount: number;
+
+//isArchive: number;
+//created_at: any;
+//updated_at: any;-->
+<!--['purc_date', 'purc_desc', 'purc_quantity'];-->
+<!--<ng-container matColumnDef="purc_date">
+              <mat-header-cell *matHeaderCellDef> Date</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.purc_date | date :"dd E : h:mm"}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="purc_desc">
+              <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.purc_desc}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="purc_quantity">
+              <mat-header-cell *matHeaderCellDef> Quantity </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.purc_quantity}} </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="purchasesRecentDisplayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: purchasesRecentDisplayedColumns;"></mat-row>
+          </mat-table>
+
+          <mat-divider></mat-divider>
+
+        </div>
+      </div>
+
+    </div>
+
+  </mat-tab>
+</mat-tab-group>-->

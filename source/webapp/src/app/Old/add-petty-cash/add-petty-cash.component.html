@@ -1,0 +1,21 @@
+<div mat-dialog-actions style="padding: 0; margin: 0; display:flex; flex-direction: row-reverse;">
+    <button mat-button (click)="onNoClick()" style="flex-direction: row-reverse;">X</button>
+</div>
+<div style="display: flex; flex-direction: column; margin: 0;">
+    
+    <h2>Add Petty Cash Form</h2>
+    <mat-form-field appearance="outline">
+        <mat-label>Petty Cash Amount</mat-label>
+        <input matInput [(ngModel)]="petCashAmount" placeholder="55.00" type="number"/>
+    </mat-form-field>
+    
+    <mat-form-field appearance="outline">
+        <mat-label>Date:</mat-label>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="petCashDate" placeholder="MM/DD/YY"/>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    
+    <br/>
+    <button (click)="addPettyCash()" mat-raised-button color="primary">Add Petty Cash</button>
+</div>

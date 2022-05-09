@@ -4,7 +4,7 @@ import { ChartType, Row } from 'angular-google-charts';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog} from '@angular/material/dialog';
 import { DataService } from 'src/app/services/data/data.service';
 
 import Swal from 'sweetalert2';

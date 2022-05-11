@@ -7,10 +7,14 @@ const Attendance = require('../database/models/attendance');
 router.get('/get', (req, res) => {
 
     Attendance.find({})
-        .then((attendance) => {
-            //console.log(attendance)
-            //console.log("Attendance Pulled")
-            res.json({ attendance, message: "Attendance pulled successfully", code: "200" })
+        .then((data) => {
+            if (data != null) {
+                res.json({ data, message: "Attendance pulled successfull", code: "200" })
+            }
+            else {
+                console.log("Data Does Not Exist")
+                res.json({ message: "Get failed", code: "404" })
+            }
         })
         .catch(error => {
             console.log(error)
@@ -18,37 +22,49 @@ router.get('/get', (req, res) => {
         })
 })
 
+router.get('/get/:_id', (req, res) => {
 
-router.post('/new', (req, res) => {
+    if (req.params._id == undefined) {
+        console.trace()
 
-    console.log(req.body.data)
-    new Attendance(req.body.data)
-        .save()
-        .then((attendance) => {
-            console.log(attendance.emp_id + " Has Time Logged")
-            console.log(attendance)
-            res.json({ attendance, message: "Succesfully Time Logged", code: "200" })
+    } else {
+        console.log(req.params._id)
+    }
 
+    Attendance.findOne({ "_id": req.params._id })
+        .then((data) => {
+            if (data != null) {
+                console.log(data)
+                console.log("Attendance " + data._id + " Get")
+                res.json({ data, message: "Get successfull", code: "200" })
+            }
+            else {
+                console.log("Data Does Not Exist")
+                res.json({ message: "Get failed", code: "404" })
+            }
         })
-        .catch((error) => {
-            /*console.log(attendance.emp_id + "Has Failed to Time Log")*/
+        .catch(error => {
             console.log(error)
-            /*res.json({attendance, message: "Failed to Time Log", code: "500" })*/
-        });
-    
-});
+            res.json({ message: "Something Went Wrong", error: error, code: "500" })
+        })
 
-
+})
 
 router.patch('/edit', (req, res) => {
 
     console.log(req.body.data)
 
     Attendance.findOneAndUpdate({ "_id": req.body.data._id }, { $set: req.body.data })
-        .then((attendance) => {
-            console.log(attendance)
-            console.log("Attendance " + attendance._id + " Edited")
-            res.json({ attendance, message: "Account logged in successfully", code: "200" })
+        .then((data) => {
+            if (data != null) {
+                console.log(data)
+                console.log("Attendance " + data._id + " Edited")
+                res.json({ data, message: "Edit successfull", code: "200" })
+            }
+            else {
+                console.log("Data Does Not Exist")
+                res.json({ message: "Patch failed", code: "404" })
+            }
         })
         .catch((error) => {
             console.log(error)
@@ -57,17 +73,83 @@ router.patch('/edit', (req, res) => {
 
 })
 
-//new Time(req.body.data)
+router.delete('/delete/:_id', (req, res) => {
+
+    if (req.params._id == undefined) {
+        console.trace()
+
+    } else {
+        console.log(req.params._id)
+    }
+
+    Attendance.findOneAndDelete({ "_id": req.body.data._id })
+        .then((data) => {
+            if (data != null) {
+                console.log(data)
+                console.log("Delete Successful")
+                res.json({ data, message: "Delete successfull", code: "200" })
+            }
+            else {
+                console.log("Data Does Not Exist")
+                res.json({ message: "Delete failed", code: "404" })
+            }
+        })
+        .catch((error) => {
+            console.log(error)
+            res.json({ data: "Something Went Wrong", error: error, code: "500" })
+        })
+})
+
+
+router.post('/new', (req, res) => {
+
+    console.log(req.body.data)
+
+    new Attendance(req.body.data)
+        .save()
+        .then((data) => {
+            console.log(data)
+            console.log(data.emp_id + " Has Attendance Logged")
+            res.json({ data, message: "Succesfully Attendance Logged", code: "200" })
+
+        })
+        .catch((error) => {
+            console.log(error)
+            res.json({ data: "Something Went Wrong", error: error, code: "500" })
+        })
+
+});
+
+
+
+//router.patch('/edit', (req, res) => {
+
+//    console.log(req.body.data)
+
+//    Attendance.findOneAndUpdate({ "_id": req.body.data._id }, { $set: req.body.data })
+//        .then((attendance) => {
+//            console.log(attendance)
+//            console.log("Attendance " + attendance._id + " Edited")
+//            res.json({ attendance, message: "Account logged in successfully", code: "200" })
+//        })
+//        .catch((error) => {
+//            console.log(error)
+//            res.json({ message: "Something Went Wrong", error: error, code: "500" })
+//        })
+
+//})
+
+//new Attendance(req.body.data)
 //    .save()
-//    .then(time => {
-//        console.log(time.emp_id + ' Has Timed In')
-//        console.log(time)
+//    .then(attendance => {
+//        console.log(attendance.emp_id + ' Has Attendanced In')
+//        console.log(attendance)
 //        
 //    })
 //    .catch(error => {
-//        console.log(time.emp_id + ' Has Failed to Time In')
+//        console.log(attendance.emp_id + ' Has Failed to Attendance In')
 //        console.log(error)
-//        res.json({ time, message: "Failed to Time In", code: "500" })
+//        res.json({ attendance, message: "Failed to Attendance In", code: "500" })
 //    });
 
 //router.get('/:_id', (req, res) => {

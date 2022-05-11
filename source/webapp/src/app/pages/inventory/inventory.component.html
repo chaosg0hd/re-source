@@ -14,7 +14,7 @@
 
     <!--<mat-tab-group (selectedTabChange)="loadOnstart()">-->
 
-    <mat-tab-group class="mat-elevation-z4">
+    <mat-tab-group class="mat-elevation-z4" (selectedTabChange)="loadTab($event)">
 
       <mat-tab>
 
@@ -71,7 +71,7 @@
 
                 <button mat-raised-button color="primary" style="flex:auto">View Archived <mat-icon>recycling</mat-icon></button>&nbsp;
 
-                <button mat-raised-button color="warn" class="control-button" style="flex:auto;"> Add Item <mat-icon>add</mat-icon></button>&nbsp;
+                <button mat-raised-button color="warn" class="control-button" style="flex:auto;" (click)="openDialogInvAdd()"> Add Item <mat-icon>add</mat-icon></button>&nbsp;
                 <span style="flex: 1 1 auto;"></span>
 
               </div>
@@ -87,17 +87,18 @@
               <br />
               <div style="width: 100%; overflow-y: scroll; display: flex; flex-wrap:wrap; justify-content: center">
 
-
-
                 <ng-container *ngFor="let element of inventoriesDataSource.data; index as i">
 
-                  <div class="inv-box-container mat-elevation-z4" style="background-image: url('https://picsum.photos/200/300?random={{i}}'); background-position: center; background-size: cover; opacity: .8">
-                    <button mat-fab color="warn">{{element.quantity}}</button><span style="flex: 1 1 auto;"></span>
-                    <p style="text-align: right; font-size: 12px; color: white;">ID : {{element._id}}</p>
-                    <div style="flex: auto"></div>
-                    <h4 style=" word-break: break-all; color: white;"> </h4>
-                    <h4 style=" word-break: break-all;color: white">{{element.description}}</h4>
-                    <button mat-raised-button color="primary">View {{element.name}} &nbsp; <mat-icon>visibility</mat-icon></button>
+                  <div class="inv-box-container mat-elevation-z4" style="background-image: url({{element.imageUrl}}); background-position: center; background-size: cover; opacity: .8">
+                    <button mat-fab color="warn">{{element.quantity}}</button>
+                    <span style="flex: 1 1 auto;"></span>
+                    <div style="flex: auto"><h4></h4></div>
+                    <mat-chip-list>
+                      <mat-chip color="accent" selected>{{element.category}}</mat-chip>
+                    </mat-chip-list>
+                    <span style="flex: 1 1 auto;"></span>
+
+                    <button mat-raised-button color="primary" (click)="openDialogInvEdit(element)"><mat-icon>visibility</mat-icon>&nbsp; View {{element.name}}&nbsp; </button>
                   </div>
 
                 </ng-container>
@@ -219,7 +220,7 @@
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Position </mat-header-cell>
                     <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
                   </ng-container>
-                  
+
 
                   <ng-container matColumnDef="actions" stickyEnd>
                     <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
@@ -1193,3 +1194,126 @@
 
   </mat-tab>
 </mat-tab-group>-->
+
+<ng-template #invEditDialog let-data>
+  <h2 matDialogTitle>{{data._id}} | {{data.name}}</h2>
+  <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">
+
+    <br />
+    <mat-divider></mat-divider>
+    <br />
+
+    <div style="flex: auto; width: 100%; justify-content: center">
+      <div class="inv-img-container mat-elevation-z4" style="max-width: 15%; background-image: url('{{data.imageUrl}}'); background-position: center; background-size: cover; opacity: .8 ">
+
+      </div>
+    </div>
+
+    <mat-form-field appearance="outline" style=" min-width: 15% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Database ID</mat-label>
+      <input disabled matInput placeholder="Ex. Juan De" [(ngModel)]="data._id" [ngStyle]="{'background-color': data._id? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+    <mat-form-field appearance="outline" style=" min-width: 15% ;flex:auto;border-radius: 16px !important">
+      <mat-label>ID</mat-label>
+      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.inv_id" [ngStyle]="{'background-color': data.inv_id? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+    <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Name</mat-label>
+      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.name" [ngStyle]="{'background-color': data.name? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+    <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Category</mat-label>
+      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.category" [ngStyle]="{'background-color': data.category? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+    <mat-form-field appearance="outline" style=" min-width: 30% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Price</mat-label>
+      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.price" [ngStyle]="{'background-color': data.price? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+    <mat-form-field appearance="outline" style=" min-width: 30% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Quantity</mat-label>
+      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.quantity" [ngStyle]="{'background-color': data.quantity? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+    <mat-form-field appearance="outline" style=" min-width: 30% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Minimum</mat-label>
+      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.min_amount" [ngStyle]="{'background-color': data.min_amount? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+    <mat-form-field appearance="outline" style=" min-width: 30% ;flex:auto;border-radius: 16px !important" >
+      <mat-label>{{data.updated_at | date : 'short'}}</mat-label>
+      <input disabled matInput placeholder="{{data.updated_at | date : 'short'}}" [ngStyle]="{'background-color': data.updated_at? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+    <mat-form-field appearance="outline" style=" min-width: 30% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Description</mat-label>
+      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.description" [ngStyle]="{'background-color': data.description? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-raised-button matDialogClose color="primary" (click)="editInv(data)">Ok</button>
+    <button mat-raised-button matDialogClose color="warn">Cancel</button>
+  </mat-dialog-actions>
+</ng-template>
+
+<ng-template #invAddDialog let-data>
+  <h2 matDialogTitle>New Item</h2>
+  <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">
+
+    <br />
+    <mat-divider></mat-divider>
+    <br />
+
+    <!--<div style="flex: auto; width: 100%; justify-content: center">
+      <div class="inv-img-container mat-elevation-z4" style="max-width: 15%; background-image: url('{{data.imageUrl}}'); background-position: center; background-size: cover; opacity: .8 ">
+
+      </div>
+    </div>-->
+
+    <mat-form-field appearance="outline" style=" min-width: 15% ;flex:auto;border-radius: 16px !important">
+      <mat-label>ID</mat-label>
+      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.inv_id" [ngStyle]="{'background-color': data.inv_id? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+    <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Name</mat-label>
+      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.name" [ngStyle]="{'background-color': data.name? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+    <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Category</mat-label>
+      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.category" [ngStyle]="{'background-color': data.category? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+    <mat-form-field appearance="outline" style=" min-width: 30% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Price</mat-label>
+      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.price" [ngStyle]="{'background-color': data.price? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+    <mat-form-field appearance="outline" style=" min-width: 30% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Quantity</mat-label>
+      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.quantity" [ngStyle]="{'background-color': data.quantity? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+    <mat-form-field appearance="outline" style=" min-width: 30% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Minimum</mat-label>
+      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.min_amount" [ngStyle]="{'background-color': data.min_amount? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+    <mat-form-field appearance="outline" style=" min-width: 30% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Description</mat-label>
+      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.description" [ngStyle]="{'background-color': data.description? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-raised-button matDialogClose color="primary" (click)="newInv(data)">Ok</button>
+    <button mat-raised-button matDialogClose color="warn">Cancel</button>
+  </mat-dialog-actions>
+</ng-template>

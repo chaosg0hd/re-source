@@ -45,7 +45,7 @@ export class HomeComponent implements OnInit {
 
     
     this.isLoaded = true;
-    await this.delay(10000);
+    await this.delay(60000);
     this.reloadLoop();
     
 
@@ -87,13 +87,13 @@ export class HomeComponent implements OnInit {
   timePayload: any;
   timeData: Time[] = []
 
-  async getActive() {
+  getActive() {
 
     this.dataService.get('times/get')
-      .subscribe((data : any) => {        
+      .subscribe((data) => {        
         console.log(data)
-        this.timePayload = data.time
-        this.timeData = this.timePayload
+        this.timePayload = data
+        this.timeData = this.timePayload.data
         
       })
 

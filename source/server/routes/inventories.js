@@ -83,10 +83,14 @@ router.post("/update", upload.single('file'), (req, res) => {
 router.get('/get', (req, res) => {
 
     Inventory.find({})
-        .then((inventory) => {
-            //console.log(inventory)
-            //console.log("Inventory Pulled")
-            res.json({ inventory, message: "Inventory pulled successfully", code: "200" })
+        .then((data) => {
+            if (data != null) {
+                res.json({ data, message: "Inventory pulled successfull", code: "200" })
+            }
+            else {
+                console.log("Data Does Not Exist")
+                res.json({ message: "Get failed", code: "404" })
+            }
         })
         .catch(error => {
             console.log(error)
@@ -94,54 +98,102 @@ router.get('/get', (req, res) => {
         })
 })
 
-//router.patch('/edit', (req, res) => {
+router.get('/get/:_id', (req, res) => {
 
-//    console.log(req.body.data)
+    if (req.params._id == undefined) {
+        console.trace()
 
-//    Employees.findOneAndUpdate({ "_id": req.body.data._id }, { $set: req.body.data })
-//        .then((employee) => {
-//            console.log(employee)
-//            console.log("Employee " + employee._id + " Edited")
-//            res.json({ employee, message: "Account logged in successfully", code: "200" })
-//        })
-//        .catch((error) => {
-//            console.log(error)
-//            res.json({ message: "Something Went Wrong", error: error, code: "500" })
-//        })
+    } else {
+        console.log(req.params._id)
+    }
 
-//})
+    Inventory.findOne({ "_id": req.params._id })
+        .then((data) => {
+            if (data != null) {
+                console.log(data)
+                console.log("Inventory " + data._id + " Get")
+                res.json({ data, message: "Get successfull", code: "200" })
+            }
+            else {
+                console.log("Data Does Not Exist")
+                res.json({ message: "Get failed", code: "404" })
+            }
+        })
+        .catch(error => {
+            console.log(error)
+            res.json({ message: "Something Went Wrong", error: error, code: "500" })
+        })
+
+})
+
+router.patch('/edit', (req, res) => {
+
+    console.log(req.body.data)
+
+    Inventory.findOneAndUpdate({ "_id": req.body.data._id }, { $set: req.body.data })
+        .then((data) => {
+            if (data != null) {
+                console.log(data)
+                console.log("Inventory " + data._id + " Edited")
+                res.json({ data, message: "Edit successfull", code: "200" })
+            }
+            else {
+                console.log("Data Does Not Exist")
+                res.json({ message: "Patch failed", code: "404" })
+            }
+        })
+        .catch((error) => {
+            console.log(error)
+            res.json({ message: "Something Went Wrong", error: error, code: "500" })
+        })
+
+})
+
+router.delete('/delete/:_id', (req, res) => {
+
+    if (req.params._id == undefined) {
+        console.trace()
+
+    } else {
+        console.log(req.params._id)
+    }
+
+    Inventory.findOneAndDelete({ "_id": req.body.data._id })
+        .then((data) => {
+            if (data != null) {
+                console.log(data)
+                console.log("Delete Successful")
+                res.json({ data, message: "Delete successfull", code: "200" })
+            }
+            else {
+                console.log("Data Does Not Exist")
+                res.json({ message: "Delete failed", code: "404" })
+            }
+        })
+        .catch((error) => {
+            console.log(error)
+            res.json({ data: "Something Went Wrong", error: error, code: "500" })
+        })
+})
 
 
-//router.get('/', (req, res) => {
-//    Inventory.find({})
-//        .then(data => res.send(data))
-//        .catch(error => console.log(error));
-//});
-//pagination working in postman
-// router.get('/', Pagination(Inventory), (req, res) => {
-//     res.json(res.paginatedResults).catch((error) => {
-//         res.status(500).json({message: error})
-//     });
-// });
+router.post('/new', (req, res) => {
 
-router.get('/:inventoryId', (req, res) => {
-    Inventory.findOne({})
-        .then(lists => res.send(lists))
-        .catch(error => console.log(error));
-});
+    console.log(req.body.data)
 
-router.put('/:_id', (req, res) => {
-    console.log(req.params);
-    console.log(req.body);
-    Inventory.findOneAndUpdate({"_id": req.params}, {$set: req.body.data})
-        .then(inventory => res.send(inventory))
-        .catch(error => console.log(error));
-});
+    new Inventory(req.body.data)
+        .save()
+        .then((data) => {
+            console.log(data)
+            console.log(data._id + " Has Inventory Logged")
+            res.json({ data, message: "Succesfully Inventory Logged", code: "200" })
 
-router.patch('/:_id', (req, res) => {
-    Inventory.findOneAndUpdate({"_id": req.params}, {$set: req.body.data})
-        .then(inventory => res.send(inventory))
-        .catch(error => console.log(error));
+        })
+        .catch((error) => {
+            console.log(error)
+            res.json({ data: "Something Went Wrong", error: error, code: "500" })
+        })
+
 });
 
 module.exports = router;

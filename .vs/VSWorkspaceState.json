@@ -2,9 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\source",
-    "\\source\\server",
-    "\\source\\server\\database"
+    "\\source\\webapp"
   ],
-  "SelectedNode": "\\source\\server\\app.js",
+  "SelectedNode": "\\source",
   "PreviewInSolutionExplorer": false
 }

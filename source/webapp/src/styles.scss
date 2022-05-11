@@ -301,8 +301,8 @@ h4 {
   flex: auto;
   display: flex;
   flex-direction: column;
-  min-width: 180px;
-  min-height: 180px;
+  min-width: 200px;
+  min-height: 200px;
   max-width: 30%;
   max-height: 30%;
   border-radius: 16px;
@@ -311,6 +311,16 @@ h4 {
   transition-duration: 1s;
   justify-content: center;
   text-align: center;
+}
+
+.inv-img-container {
+  align-self: center;
+  min-width: 15vw;
+  min-height: 15vw;
+  border-radius: 16px;
+  padding: 8px;
+  margin: 8px;
+  transition-duration: 1s;
 }
 
 .task-box-container {

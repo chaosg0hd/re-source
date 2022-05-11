@@ -75,6 +75,8 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('mname', data.employee.mname);
         localStorage.setItem('contact_list', data.employee.list);
 
+
+
         var name = localStorage.getItem('fname') + ' ' + localStorage.getItem('lname')
         Swal.fire(
           'Logged in Successfully!',

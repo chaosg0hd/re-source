@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, TemplateRef } from '@angular/core';
 import { DataService } from 'src/app/services/data/data.service';
 import { LibraryService } from 'src/app/services/library/library.service';
 import { DatePipe } from '@angular/common';
@@ -16,24 +16,6 @@ import { ConnStatus, Announcement, TaskBoard, Inventories } from 'src/app/servic
 
 
 import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation, rubberBandAnimation } from 'angular-animations';
-
-export interface PurchasesData {
-  number: number;
-  id: string;
-  _id: string;
-
-  purc_date: any;  
-  purc_supplier: string;
-  purc_price: number;
-  purc_quantity: any;
-  purc_desc: string;
-  purc_by: string;
-  purc_amount: number;
-
-  isArchive: number;
-  created_at: any;
-  updated_at: any;
-}
 
 //SAMPLE
 
@@ -57,6 +39,19 @@ export class InventoryComponent implements OnInit {
     private libraryService: LibraryService
   ) { }
 
+
+
+  @ViewChild('invEditDialog', { static: true }) invEditDialog!: TemplateRef<any>;
+  @ViewChild('invAddDialog', { static: true }) invAddDialog!: TemplateRef<any>;
+
+  openDialogInvEdit(input: any) {
+    this.dialog.open(this.invEditDialog, { data: input });
+  }
+  openDialogInvAdd() {
+    var input = {}
+    this.dialog.open(this.invAddDialog, { data: input });
+  }
+
   ngOnInit(): void { 
     /*this.loadOnstart();*/
     this.loadOnLoop();
@@ -75,7 +70,7 @@ export class InventoryComponent implements OnInit {
     this.isLoaded = true;
     this.isLoadedTab = true;
 
-    await this.delay(5000);
+    await this.delay(60000);
     this.reloadLoop();
 
 
@@ -116,6 +111,8 @@ export class InventoryComponent implements OnInit {
       case 1:
 
         this.isLoadedTab = false;
+
+        this.getInventories()
 
         await this.delay(1000);
         this.isLoadedTab = true;
@@ -177,25 +174,67 @@ export class InventoryComponent implements OnInit {
   inventoriesDisplayedColumns = ['number', 'name', 'id', 'description', 'quantity', 'price', 'actions'];
   inventoriesIdArchive: any;
 
+  isToggleArchive = false
+
   getInventories() {
     this.dataService.get('inventories/get')
       .subscribe((data: any) => {
         console.log(data);
-        this.inventoriesPayload = data.inventory;
-        this.inventoriesData = this.inventoriesPayload;
-        this.inventoriesDataSource.data = this.inventoriesPayload;
+        this.inventoriesPayload = data;
+        this.inventoriesData = this.inventoriesPayload.data;
+        this.inventoriesDataSource.data = this.inventoriesData;
       });
   }
+  newInv(input: any) {
 
-  pushItemData: any = {};
-  idArchive: any;
-  handleError: any;
-  filterValue: any;
+    this.dataService.post('inventories/new', { data: input }).subscribe((data) => {
+      console.log(data)
 
-  applyFilterInventories(filterValue: string){ 
-    // this.filterValue = (event.target as HTMLInputElement).value;     
-      this.inventoriesDataSource.filter = filterValue.trim().toLowerCase();
+      this.getInventories()
+
+    })
+
   }
+
+
+  editInv(input: any) {
+
+    this.dataService.patch('inventories/edit', { data: input }).subscribe((data) => {
+      console.log(data)
+
+      this.getInventories()
+
+    })
+
+  }
+
+  archiveInv(input: any) {
+
+    input.isArchive = 1;
+
+    this.dataService.patch('inventories/edit', { data: input }).subscribe((data) => {
+      console.log(data)
+
+      this.getInventories()
+    })
+
+  }
+
+  toggleArchive() {
+
+    if (this.isToggleArchive) {
+      this.isToggleArchive = false
+    }
+    else {
+      this.isToggleArchive = true
+    }
+
+    this.getInventories
+  }
+
+  
+
+  
 
 
 
@@ -256,7 +295,7 @@ export class InventoryComponent implements OnInit {
   }
 
   purchasesPayload: any;
-  purchasesData: PurchasesData[] = [];
+  purchasesData: any[] = []; //<---------------------------------------------------Add Model
   purchasesDataSource = new MatTableDataSource(this.purchasesData);
   purchasesDisplayedColumns: string[] = ['number', 'id', 'purc_date', 'purc_supplier', 'purc_price', 'purc_quantity', 'purc_desc', 'purc_by', 'actions'];
   purchasesRecentDisplayedColumns: string[] = ['purc_date', 'purc_desc', 'purc_quantity'];
@@ -295,6 +334,11 @@ export class InventoryComponent implements OnInit {
     else {
       this.activeDiv = divId;
     }
+  }
+
+  applyFilterInv(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.inventoriesDataSource.filter = filterValue.trim().toLowerCase();
   }
 
 

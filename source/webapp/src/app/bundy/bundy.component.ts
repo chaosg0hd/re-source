@@ -16,27 +16,6 @@ import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation, rubberBandAnimation } 
 
 import { ConnStatus, Announcement, Employees, TaskBoard , Time} from 'src/app/services/data/data.model';
 
-//import { time } from 'console';
-
-
-//export interface Employee {
-//  number: number,
-//  id: string,
-//  name: string,
-//  age: number,
-//  address: string,
-//  position: string,
-//  department: string,
-//  start_Date: Date,
-
-//  role: number,
-
-//  isArchive: number,
-//  created_at: Date,
-//  updated_at: Date
-
-//}
-
 
 @Component({
   selector: 'app-bundy',
@@ -159,13 +138,15 @@ export class BundyComponent implements OnInit {
 
   employeesIdArchive: any;
 
-  async getEmployees() {
+  getEmployees() {
 
     this.dataService.get('employees/get')
       .subscribe((data: any) => {
+
         console.log(data)
+
         this.employeesPayload = data;
-        this.employeesData = this.employeesPayload.employees;
+        this.employeesData = this.employeesPayload.data;
         this.employeesDataSource.data = this.employeesData;
       });
   }
@@ -173,14 +154,15 @@ export class BundyComponent implements OnInit {
   timePayload: any;
   timeData: Time[] = []
   
-  async getStatus() {
+  getStatus() {
 
     this.dataService.get('times/get')
-      .subscribe((data : any) => {
+      .subscribe((data: any) => {
+
         console.log(data)
 
-        this.timePayload = data.time
-        this.timeData = this.timePayload
+        this.timePayload = data
+        this.timeData = this.timePayload.data
 
       })
 
@@ -206,7 +188,8 @@ export class BundyComponent implements OnInit {
 
   isclockedIn: boolean = false;
 
-  clockinId = localStorage.getItem("id")  
+  clockinId = localStorage.getItem("id") 
+
 
   checkIfAvailable() {
 
@@ -224,13 +207,14 @@ export class BundyComponent implements OnInit {
 
   }
 
-  async timeIn() {
+  timeIn() {
     
     this.clockinId = localStorage.getItem("id")
     let req = { "emp_id" : this.clockinId }
 
-    await this.dataService.post('times/timein', { data: req }).
+    this.dataService.post('times/timein', { data: req }).
       subscribe((data: any) => {
+        //INSERT SWAL HERE
 
         console.log(data)
 
@@ -239,23 +223,25 @@ export class BundyComponent implements OnInit {
     this.isclockedIn = true
   }
 
-  async timeOut() {
+  timeOut() {
     
     this.clockinId = localStorage.getItem("id")
-    let delreq = { "emp_id": this.clockinId }
-    let attreq = {}
-   
+    let delreq = { "emp_id": this.clockinId }      
 
-    await this.dataService.post('times/timeout', { data : delreq }).
-      subscribe(async (data: any) => {
+    this.dataService.post('times/timeout', { data : delreq }).
+      subscribe((data: any) => {
         
         console.log(data)
 
         if (data.code == 200) {
 
-          let date = this.datepipe.transform(new Date(data.time.createdAt), 'YYYY-MM-dd')
-          attreq = { "emp_id": data.time.emp_id, "attendance_seconds": data.seconds, "attendance_date": this.datepipe.transform(date, 'YYYY-MM-dd') }    
-          await this.dataService.post('attendance/new', { data: delreq })
+          //INSERT SWAL HERE
+
+          let date = this.datepipe.transform(new Date(data.data.createdAt), 'YYYY-MM-dd')
+          let attreq = {}
+          attreq = { "emp_id": data.data.emp_id, "attendance_seconds": data.seconds, "attendance_date": this.datepipe.transform(date, 'YYYY-MM-dd') }
+          
+          this.dataService.post('attendance/new', { data: attreq })
             .subscribe((data) => {
 
               console.log(data)
@@ -266,8 +252,6 @@ export class BundyComponent implements OnInit {
         }
        
       })   
-
-    await this.delay(1000) 
 
   }
 

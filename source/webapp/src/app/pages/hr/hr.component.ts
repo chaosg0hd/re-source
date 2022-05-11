@@ -78,9 +78,7 @@ export class HrComponent implements OnInit{
   @ViewChild('empNewDialog', { static: true }) empNewDialog!: TemplateRef<any>;
   @ViewChild('attEditDialog', { static: true }) attEditDialog!: TemplateRef<any>;
   @ViewChild('attNewDialog', { static: true }) attNewDialog!: TemplateRef<any>;
-
   @ViewChild('addEditDialog', { static: true }) addEditDialog!: TemplateRef<any>;
-
   @ViewChild('dedEditDialog', { static: true }) dedEditDialog!: TemplateRef<any>;
 
   @ViewChild(MatSort) empSort!: MatSort;
@@ -224,29 +222,31 @@ export class HrComponent implements OnInit{
 
   //Function
 
-  employeesPayload: any[] = [];
+  employeesPayload: any;
   employeesData: Employees[] = [];
   employeesDataSource = new MatTableDataSource(this.employeesData);
   employeesDisplayedColumns = ['name', 'number', 'emp_id', 'age', 'address', 'position', 'department', 'rate', 'rate_type', 'role', 'status', 'actions'];
 
   isToggleArchive = false
 
-  async getEmployees() {
+  getEmployees() {
 
     this.dataService.get('employees/get')
-      .subscribe((data: any) => {
+      .subscribe((data) => {
 
         console.log(data)
 
-        this.employeesPayload = data.employees;
+        this.employeesPayload = data;
+        this.employeesData = this.employeesPayload.data;
 
-        if (this.isToggleArchive == true) {
-          let array: any[] = []
-          this.employeesPayload.map((data) => { if (data.isArchive != 0) { array.push(data) } })
+        if (this.isToggleArchive == false) {
+          let array: any[] = [];
+          this.employeesData.map((data) => { if (data.isArchive != 1) { array.push(data) } })
           this.employeesData = array
+          console.log(array)
         }
         else {
-          this.employeesData = this.employeesPayload
+          this.employeesData = this.employeesPayload.data
           
         }    
         
@@ -263,11 +263,11 @@ export class HrComponent implements OnInit{
   getStatus() {
 
     this.dataService.get('times/get')
-      .subscribe((data: any) => {
+      .subscribe((data) => {
         console.log(data)
 
-        this.timePayload = data.time
-        this.timeData = this.timePayload
+        this.timePayload = data
+        this.timeData = this.timePayload.data
 
       })
 
@@ -335,7 +335,6 @@ export class HrComponent implements OnInit{
   calendarDisplayedColumns: string[] = [];
 
   fillAttendanceTable() {
-
     
     this.calendarDisplayedColumns = []
     this.calendarDisplayedColumns.push("name")
@@ -345,7 +344,6 @@ export class HrComponent implements OnInit{
   }
 
   fillPayrollTable() {
-
 
     this.calendarDisplayedColumns = []
     this.calendarDisplayedColumns.push("name")
@@ -382,13 +380,22 @@ export class HrComponent implements OnInit{
 
     let total = 0
 
+
+
     this.attendanceData.map((atten) => {
-      let date = this.datepipe.transform(new Date(atten.attendance_date), 'YYYY-MM-dd')
-      this.daysArray.map((days) => {
-        if (emp == atten.emp_id && date == days) {
-          total = total + atten.attendance_seconds
-        }
-      })
+
+      if (atten.attendance_date != null || atten.attendance_date != undefined) {
+
+        let date = this.datepipe.transform(new Date(atten.attendance_date), 'YYYY-MM-dd')
+        this.daysArray.map((days) => {
+          if (emp == atten.emp_id && date == days) {
+            total = total + atten.attendance_seconds
+          }
+        })
+
+      }
+
+      
 
       })      
 
@@ -436,13 +443,20 @@ export class HrComponent implements OnInit{
   buildHours(day: any, emp: any) {
     let hours = 0
     this.attendanceData.map((atten) => {
+
+      if (atten.attendance_date != null || atten.attendance_date != undefined) {
       let date = this.datepipe.transform(new Date(atten.attendance_date), 'YYYY-MM-dd')
-      if (emp == atten.emp_id && day == date) {
-          hours = hours + atten.attendance_seconds
+          if (emp == atten.emp_id && day == date) {
+              hours = hours + atten.attendance_seconds
         
+          }
+          else {
+          }
       }
-      else {
-      }
+
+      
+
+      
     })
     return hours
   }
@@ -490,8 +504,8 @@ export class HrComponent implements OnInit{
     this.dataService.get('attendance/get').subscribe((data: any) => {
       console.log(data)
 
-      this.attendancePayload = data.attendance;
-      this.attendanceData = this.attendancePayload;
+      this.attendancePayload = data;
+      this.attendanceData = this.attendancePayload.data;
       this.formatAtt()
       this.attendanceDataSource.data = this.attendanceData
       this.attendanceDataSource.paginator = this.timePaginator
@@ -503,7 +517,7 @@ export class HrComponent implements OnInit{
     })   
   }
 
-  async editAtt(input: any) {
+  editAtt(input: any) {
 
     input.attendance_seconds = Number(input.attendance_seconds * 3600000)
     this.dataService.patch('attendance/edit', { data: input })
@@ -514,7 +528,7 @@ export class HrComponent implements OnInit{
 
   }
 
-  async newAtt(input: any) {    
+  newAtt(input: any) {    
 
     input.attendance_seconds = Number(input.attendance_seconds * 3600000)
     this.dataService.post('attendance/new', { data: input })
@@ -556,6 +570,7 @@ export class HrComponent implements OnInit{
   addAddition(data: any) {
 
     this.payrollData = this.payrollDataSource.data
+
     this.payrollData.map((content) => {
       if (content.emp_id == data.emp_id) {
         content.computed = Number(content.salary) + Number(content.addition)

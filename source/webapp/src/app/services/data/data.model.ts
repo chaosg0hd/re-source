@@ -79,19 +79,21 @@ export interface TaskBoard {
 
 export interface Inventories {
   
-  _id: string;
+  number: number,
+  _id: string,
+  inv_id: string,
+  name: string,
+  category: string,
+  description: string,
+  quantity: number,
+  price: number,
+  imageUrl: string,
+  supplier: string,
+  min_amount: number,
 
-  number: number;
-  id: string;
-  name: string;
-  description: string;
-  quantity: number;
-  price: number;
-  imageUrl: string
-
-  isArchive: number;
-  created_at: Date;
-  updated_at: Date;
+  isArchive: number,
+  created_at: Date,
+  updated_at: Date
 
 }
 

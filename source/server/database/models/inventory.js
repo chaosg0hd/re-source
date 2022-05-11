@@ -23,12 +23,14 @@ const mongoose = require('mongoose');
 const InventorySchema = new mongoose.Schema({
 
     number: Number,
+
     inv_id: String,
     name: String,
+    category: String,
     description: String,
     quantity: Number,
-    price: Number,
-    imageUrl: String,
+    price: Number,    
+    imageUrl: { type: String, default: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png' },
     supplier : String,
     min_amount: Number,
 

@@ -129,7 +129,14 @@
 
 
                     <div class="task-container">
+
+                      <h2>
+                        Task Name {{element.name}}
+                      </h2>
+
                       {{element._id}}
+
+                      <button mat-fab color="warn" (click)="openDialogSubTask(element)"> <mat-icon>add</mat-icon> </button>
 
                     </div>
 

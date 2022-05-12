@@ -112,6 +112,7 @@
 
           <div style="width: calc(100% - 32px); flex: auto; border-radius: 16px; background-color: white; padding: 16px; overflow:auto">
 
+            <mat-paginator #empBundyPaginator [pageSize]="8"></mat-paginator>
 
             <mat-table [dataSource]="employeesDataSource" class="mat-elevation-z4">
 

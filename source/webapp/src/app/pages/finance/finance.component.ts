@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { GoogleChartComponent } from 'angular-google-charts';
 import { ChartType, Row } from 'angular-google-charts';
 import { MatTableDataSource } from '@angular/material/table';

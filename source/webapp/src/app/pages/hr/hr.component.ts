@@ -6,7 +6,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog} from '@angular/material/dialog';
 import { DataService } from 'src/app/services/data/data.service';
-
 import Swal from 'sweetalert2';
 import { Data } from '@angular/router';
 import { DatePipe } from '@angular/common';
@@ -69,6 +68,13 @@ export class HrComponent implements OnInit{
 
   @ViewChild('timePaginator', { static: false })
   set timePaginator(value: MatPaginator) {
+    if (this.attendanceDataSource) {
+      this.attendanceDataSource.paginator = value;
+    }
+  }
+
+  @ViewChild('payrollPaginator', { static: false })
+  set payrollPaginator(value: MatPaginator) {
     if (this.attendanceDataSource) {
       this.attendanceDataSource.paginator = value;
     }

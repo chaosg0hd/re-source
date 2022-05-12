@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, TemplateRef } from '@angular/core';
 import { DataService } from 'src/app/services/data/data.service';
 import { LibraryService } from 'src/app/services/library/library.service';
+import { MatPaginator } from '@angular/material/paginator';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
@@ -39,6 +40,7 @@ export class InventoryComponent implements OnInit {
     private libraryService: LibraryService
   ) { }
 
+  
 
 
   @ViewChild('invEditDialog', { static: true }) invEditDialog!: TemplateRef<any>;
@@ -55,6 +57,26 @@ export class InventoryComponent implements OnInit {
   ngOnInit(): void { 
     /*this.loadOnstart();*/
     this.loadOnLoop();
+  }
+
+  @ViewChild('inventoryGalleryPaginator', { static: false })
+  set inventoryGalleryPaginator(value: MatPaginator) {
+    if (this.inventoriesDataSource) {
+      this.inventoriesDataSource.paginator = value;
+    }
+  }
+
+  @ViewChild('inventoryTablePaginator', { static: false })
+  set inventoryTablePaginator(value: MatPaginator) {
+    if (this.inventoriesDataSource) {
+      this.inventoriesDataSource.paginator = value;
+    }
+  }
+  @ViewChild('inventoryGallery2Paginator', { static: false })
+  set inventoryGallery2Paginator(value: MatPaginator) {
+    if (this.inventoriesDataSource) {
+      this.inventoriesDataSource.paginator = value;
+    }
   }
 
   //OOP

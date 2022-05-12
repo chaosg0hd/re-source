@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { GoogleChartComponent } from 'angular-google-charts';
 import { ChartType, Row } from 'angular-google-charts';
 import { MatTableDataSource } from '@angular/material/table';
@@ -40,6 +40,15 @@ export class BundyComponent implements OnInit {
     this.loadOnLoop();
     
   }
+  //pagintor
+  @ViewChild('empBundyPaginator', { static: false })
+  set empBundyPaginator(value: MatPaginator) {
+    if (this.employeesDataSource) {
+      this.employeesDataSource.paginator = value;
+    }
+  }
+
+  //@ViewChild('empDialog', { static: true }) empDialog!: TemplateRef<any>;
 
   //OOP
   isLoaded: boolean = false;

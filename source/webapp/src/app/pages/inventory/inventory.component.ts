@@ -171,7 +171,7 @@ export class InventoryComponent implements OnInit {
   inventoriesPayload: any;
   inventoriesData: Inventories[] = [];
   inventoriesDataSource = new MatTableDataSource(this.inventoriesData);
-  inventoriesDisplayedColumns = ['number', 'name', 'id', 'description', 'quantity', 'price', 'actions'];
+  inventoriesDisplayedColumns = ['name', 'number', '_id', 'id', 'description', 'quantity','supplier', 'min_amount','price','actions'];
   inventoriesIdArchive: any;
 
   isToggleArchive = false

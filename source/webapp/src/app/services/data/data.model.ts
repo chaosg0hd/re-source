@@ -59,21 +59,27 @@ export interface Attendance{
 
 export interface TaskBoard {
 
+  _id: string,
 
-  taskBoard_number: number,
-  taskBoard_project: string,
-  taskBoard_name: string,
-  taskBoard_content: string,
-  taskBoard_end_date: Date, //give this default 0
-  taskBoard_master: string,
-  taskBoard_slave: string,
-  taskBoard_employees: JSON,
-  imageUrl: string,
-  uploaded_by: string,
+  task_id: string,
+
+  number: string,
+  project: string,
+  progress: number,
+  value: number,
+  name: string,
+  content: string,
+  end_date: Date,
+  master: string,
+  slave: any[],
+  taskBoard_employees: any[],
+
+  task_by: string,
 
   isArchive: number,
   created_at: Date,
   updated_at: Date
+
 
 }
 

@@ -1,17 +1,29 @@
 const mongoose = require('mongoose');
 
+//const TaskEmpSchema = new mongoose.Schema({
+
+//    emp_id: String,
+
+//})
+
 const TaskBoardSchema = new mongoose.Schema({
 
-    taskBoard_number: String,
-    taskBoard_project: String,
-    taskBoard_name: String,
-    taskBoard_content: String,
-    taskBoard_end_date: Date, //give this default 0
-    taskBoard_master: String, 
-    taskBoard_slave: String,
-    taskBoard_employees: JSON,
-    imageUrl: String,
-    uploaded_by: String,
+
+    task_id: String,
+    
+    number: String,
+    project: String,
+    progress: Number,
+    value: Number,
+    name: String,
+    content: String,
+    end_date: Date,
+    master: String,
+    slave: { type: Array, default: void 0 },
+    
+    taskBoard_employees: { type: Array, default: void 0 },
+
+    task_by: String,
 
     isArchive: {type: Number, default: 0},
     created_at: Date,

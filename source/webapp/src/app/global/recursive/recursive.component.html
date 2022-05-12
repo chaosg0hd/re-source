@@ -1,0 +1,57 @@
+
+
+
+
+<div style="">
+
+  ID {{input._id}}       <br />
+
+  Name {{input.name}}       <br />
+
+  Project {{input.project}}      <br />
+
+  Master {{input.master}}     <br />
+
+  Content {{input.content}}         <br />
+
+  <button mat-raised-button color="primary" (click)="openDialogSubTask(input)"><mat-icon>add</mat-icon>&nbsp; Add Subtask &nbsp;</button>
+
+    <ng-container *ngFor="let nextslave of input.slave; index as i">
+
+      <app-recursive [input]="nextslave"></app-recursive>
+
+    </ng-container>
+
+
+
+
+
+
+</div>
+
+
+<ng-template #taskslaveNewDialog let-data>
+  <h2 matDialogTitle>New Task</h2>
+  <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">
+
+    <br />
+    <mat-divider></mat-divider>
+    <br />
+
+    <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Name</mat-label>
+      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.name" [ngStyle]="{'background-color': data.name? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+    <mat-form-field appearance="outline" style=" min-width: 30% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Content</mat-label>
+      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.content" [ngStyle]="{'background-color': data.quantity? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-raised-button matDialogClose color="primary" (click)="addSlaveTask(data)">Ok</button>
+    <button mat-raised-button matDialogClose color="warn">Cancel</button>
+  </mat-dialog-actions>
+</ng-template>

@@ -349,6 +349,19 @@ h4 {
   box-shadow: 4px 4px 16px #888888;
 }
 
+.project-container {
+  background-color: whitesmoke;
+  width: calc(100% - 32px);
+  border-radius: 16px;
+  padding: 8px;
+  margin: 16px;
+  transition-duration: 1s;
+  display: flex;
+  box-shadow: 4px 4px 16px #888888;
+}
+
+
+
 .control-container {
   background-color: whitesmoke;
   width: calc(100% - 32px);

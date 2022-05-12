@@ -55,6 +55,7 @@ const employeesRouter = require('./routes/employees');
 const timesRouter = require('./routes/times');
 const attendanceRouter = require('./routes/attendance');
 const inventoriesRouter = require('./routes/inventories');
+const taskBoardRouter = require('./routes/taskboard');
 
 //const drawsRouter = require('./routes/draws');
 
@@ -78,6 +79,7 @@ app.use("/api/employees", employeesRouter);
 app.use("/api/times", timesRouter);
 app.use("/api/attendance", attendanceRouter);
 app.use("/api/inventories", inventoriesRouter);
+app.use("/api/taskboard", taskBoardRouter);
 
 
 

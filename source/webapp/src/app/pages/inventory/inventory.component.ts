@@ -43,13 +43,21 @@ export class InventoryComponent implements OnInit {
 
   @ViewChild('invEditDialog', { static: true }) invEditDialog!: TemplateRef<any>;
   @ViewChild('invAddDialog', { static: true }) invAddDialog!: TemplateRef<any>;
+  @ViewChild('invAddInvoiceDialog', { static: true }) invAddInvoiceDialog!: TemplateRef<any>;
+
 
   openDialogInvEdit(input: any) {
     this.dialog.open(this.invEditDialog, { data: input });
   }
+
   openDialogInvAdd() {
     var input = {}
     this.dialog.open(this.invAddDialog, { data: input });
+  }
+
+  openDialogInvAddInvoice() {
+    var input = {}
+    this.dialog.open(this.invAddInvoiceDialog, { data: input });
   }
 
   ngOnInit(): void { 
@@ -171,7 +179,7 @@ export class InventoryComponent implements OnInit {
   inventoriesPayload: any;
   inventoriesData: Inventories[] = [];
   inventoriesDataSource = new MatTableDataSource(this.inventoriesData);
-  inventoriesDisplayedColumns = ['name', 'number', '_id', 'id', 'description', 'quantity','supplier', 'min_amount','price','actions'];
+  inventoriesDisplayedColumns = ['name', 'number', '_id', 'id', 'description', 'category', 'quantity','supplier', 'min_amount','price','actions'];
   inventoriesIdArchive: any;
 
   isToggleArchive = false
@@ -182,9 +190,26 @@ export class InventoryComponent implements OnInit {
         console.log(data);
         this.inventoriesPayload = data;
         this.inventoriesData = this.inventoriesPayload.data;
+
         this.inventoriesDataSource.data = this.inventoriesData;
+
+        this.inventoriesGalleryData = this.inventoriesDataSource.data
+
+        //this.employeesDataSource.paginator = this.empPaginator
+        //this.employeesDataSource.sort = this.empSort;
+
       });
   }
+
+  inventoriesGalleryData: any;
+
+  applyFilterInv(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.inventoriesDataSource.filter = filterValue.trim().toLowerCase();
+    this.inventoriesGalleryData = this.inventoriesDataSource._pageData
+
+  }
+
   newInv(input: any) {
 
     this.dataService.post('inventories/new', { data: input }).subscribe((data) => {
@@ -336,10 +361,7 @@ export class InventoryComponent implements OnInit {
     }
   }
 
-  applyFilterInv(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.inventoriesDataSource.filter = filterValue.trim().toLowerCase();
-  }
+  
 
 
 

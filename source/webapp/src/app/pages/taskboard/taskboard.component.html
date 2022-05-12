@@ -80,28 +80,74 @@
 
             </div>
 
-            <ng-container *ngFor="let element of tasksDataSource.data; index as i">               
+            <ng-container *ngFor="let element of tasksDataSource.data; index as i">
 
-              <div class="mat-elevation-z2 rounded-container-flex">
+              <div class="mat-elevation-z2 rounded-container-flex" style="display:flex; flex-direction: column; opacity:.8">
 
-                <br />
-                <h1>{{element.project}}</h1>
+
+                <div style="width: 100%; display: flex;">
+                  <br />
+                  <h1>{{element.project}}</h1>
+                  <span style="flex: 1 1 auto;"></span>
+                  <span style="flex: 1 1 auto;"></span>
+
+                  <button mat-fab color="warn" (click)="openDialogSubTask(element)"> <mat-icon>add</mat-icon> </button>
+                  <button mat-fab color="primary"> 100% </button>
+
+                </div>
+
+                
+                <div style="width: 100%; display: flex;">
+                  <span style="flex: 1 1 auto;"></span>
+
+                  <p>{{element.content}}</p>
+                  <span style="flex: 1 1 auto;"></span>
+
+
+                </div>
+
                 <br />
                 <mat-divider></mat-divider>
                 <br />
 
-                <h3>Project Name : {{element.name}}</h3>
-                <span style="flex: 1 1 auto;"></span>
+
+                <div style="width: 100%; display: flex;">
+                  <span style="flex: 1 1 auto;"></span>
+
+                  <h3>Tasks</h3>
+                  <span style="flex: 1 1 auto;"></span>
 
 
-                <p>{{element.content}}</p>
+                </div>
+
+                <div style="width: 100%; display: flex;">
 
 
 
-                <br />
-                <br />
-                <mat-divider></mat-divider>
-                <br />
+
+                  <ng-container *ngFor="let tasks of element.slave; index as i">
+
+
+                    <div class="task-container">
+                      {{element._id}}
+
+                    </div>
+
+
+                  </ng-container>
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+
 
 
               </div>

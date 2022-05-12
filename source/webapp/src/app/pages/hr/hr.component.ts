@@ -550,7 +550,7 @@ export class HrComponent implements OnInit{
   payrollDisplayedColumns = ['name', 'id', 'additions', 'deductions', 'total', 'computed'];
 
   makePayroll() {
-    this.buildPayroll(this.calendarDataSource.data)
+    this.buildPayroll(this.calendarDataSource.filteredData)
 
 
   }

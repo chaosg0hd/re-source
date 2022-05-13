@@ -9,16 +9,9 @@ import { DataService } from 'src/app/services/data/data.service';
 import Swal from 'sweetalert2';
 import { Data } from '@angular/router';
 import { DatePipe } from '@angular/common';
-
 import { ConnStatus, Announcement, Employees, TaskBoard, Inventories, Attendance, Time } from 'src/app/services/data/data.model';
-
-
 import { LibraryService } from 'src/app/services/library/library.service';
-
-
 import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animations';
-
-
 
 @Component({
   selector: 'app-hr',
@@ -31,8 +24,6 @@ import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animati
     fadeOutOnLeaveAnimation(),
   ]
 })
-
-
 
 
 export class HrComponent implements OnInit{
@@ -344,6 +335,8 @@ export class HrComponent implements OnInit{
     
     this.calendarDisplayedColumns = []
     this.calendarDisplayedColumns.push("name")
+    this.calendarDisplayedColumns.push("id")
+    this.calendarDisplayedColumns.push("rate_Type")
     this.calendarDisplayedColumns = this.calendarDisplayedColumns.concat(this.daysArray)
     this.calendarDisplayedColumns.push("total")
 
@@ -353,9 +346,10 @@ export class HrComponent implements OnInit{
 
     this.calendarDisplayedColumns = []
     this.calendarDisplayedColumns.push("name")
-    this.calendarDisplayedColumns = this.calendarDisplayedColumns.concat(this.daysArray)
+    this.calendarDisplayedColumns.push("id")
+    this.calendarDisplayedColumns.push("rate_Type")
     this.calendarDisplayedColumns.push("rate")
-    this.calendarDisplayedColumns.push("rate_type")
+    this.calendarDisplayedColumns = this.calendarDisplayedColumns.concat(this.daysArray)       
     this.calendarDisplayedColumns.push("total")
 
   }
@@ -374,7 +368,7 @@ export class HrComponent implements OnInit{
 
       let emp_name = emp.fname + ' ' + emp.lname
 
-      json = { emp_id: emp.emp_id, emp_name: emp_name, rate: emp.rate, attendance: this.buildDays(emp.emp_id), total: this.getTotal(emp.emp_id), salary: this.getSalary(emp.rate, emp.rate_Type, this.getTotal(emp.emp_id)) }
+      json = { emp_id: emp.emp_id, emp_name: emp_name, rate: emp.rate, rate_Type: emp.rate_Type, attendance: this.buildDays(emp.emp_id), total: this.getTotal(emp.emp_id), salary: this.getSalary(emp.rate, emp.rate_Type, this.getTotal(emp.emp_id)) }
 
       Obj.push(json)
     })
@@ -385,8 +379,6 @@ export class HrComponent implements OnInit{
   getTotal(emp: any) {  
 
     let total = 0
-
-
 
     this.attendanceData.map((atten) => {
 
@@ -547,15 +539,26 @@ export class HrComponent implements OnInit{
 
   payrollData: any[] = []
   payrollDataSource = new MatTableDataSource();
-  payrollDisplayedColumns = ['name', 'id', 'additions', 'deductions', 'total', 'computed'];
+  payrollDisplayedColumns = ['name', 'id', 'rate', 'rate_Type', 'additions', 'deductions', 'total', 'computed'];
 
-  makePayroll() {
-    this.buildPayroll(this.calendarDataSource.filteredData)
+  payrollLoaded = false;
+
+  async makePayroll() {
+
+    this.payrollLoaded = false;
+
+    await this.buildPayroll(this.calendarDataSource.filteredData)
+
+
+    this.payrollLoaded = true;
+
 
 
   }
 
-  buildPayroll(data: any) {
+  
+
+  buildPayroll(data: any) {    
 
 
     this.payrollData = data
@@ -569,8 +572,7 @@ export class HrComponent implements OnInit{
 
     this.payrollDataSource.data = this.payrollData
 
-    this.calculateGrossTotal()    
-
+    this.calculateGrossTotal()
   }
 
   addAddition(data: any) {
@@ -620,6 +622,14 @@ export class HrComponent implements OnInit{
     })
 
   }
+
+  //onPrint() {
+  //  let printContents = document.getElementById('print').innerHTML;
+  //  const originalContents = document.body.innerHTML;
+  //  document.body.innerHTML = printContents;
+  //  window.print();
+  //  document.body.innerHTML = originalContents;
+  //}
 
   
 

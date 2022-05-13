@@ -125,22 +125,21 @@ router.post('/signup', async (req, res) => {
 
     console.log(req.body.data)
 
-    let employeeNew = new Employees(req.body.data)
-    console.log(employeeNew)
-    let encryptedpword = await bcrypt.hash(employeeNew.password, 10)
-    employeeNew.password = encryptedpword
+    let empNew = new Employee(req.body.data)
+    console.log(empNew)
+    empNew.emp_password = await bcrypt.hash(empNew.emp_password, 10)
 
-    Employee.findOne({ "emp_id": employeeNew.emp_id }, (err, emp) => {
+    Employee.findOne({ "emp_id": empNew.emp_id }, (err, emp) => {
         if (emp) {
             res.json({ message: "Employee already exists", code: "409" })
         }
         else {
-            new Employee(employeeNew)
+            new Employee(empNew)
                 .save()
-                .then((employee) => {
-                    console.log(employee)
+                .then((data) => {
+                    console.log(data)
                     console.log("Created New Employee")                    
-                    res.json({ employee, message: "Account created successfully", code: "200" })
+                    res.json({ data, message: "Account created successfully", code: "200" })
                 })
                 .catch((error) => {
                     console.log(error)

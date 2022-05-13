@@ -91,22 +91,22 @@
 
                 <mat-table [dataSource]="employeesDataSource" class="mat-elevation-z0" style="width: 120%" matSort>
 
-                  <ng-container matColumnDef="name" sticky>
+                  <ng-container matColumnDef="emp_name" sticky>
                     <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.emp_emp_fname}} {{element.emp_emp_lname}} {{element.emp_emp_mname}} </mat-cell>
+                    <mat-cell *matCellDef="let element"> {{element.emp_fname}} {{element.emp_lname}} {{element.emp_mname}} </mat-cell>
                   </ng-container>
 
-                  <ng-container matColumnDef="number">
+                  <ng-container matColumnDef="emp_number">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>
                     <mat-cell *matCellDef="let element"> {{element.emp_number}} </mat-cell>
                   </ng-container>
 
                   <ng-container matColumnDef="emp_id">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.emp_emp_id}} </mat-cell>
+                    <mat-cell *matCellDef="let element"> {{element.emp_id}} </mat-cell>
                   </ng-container>
 
-                  <ng-container matColumnDef="age">
+                  <ng-container matColumnDef="emp_age">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Age </mat-header-cell>
                     <mat-cell *matCellDef="let element"> {{element.emp_age}} </mat-cell>
                   </ng-container>
@@ -136,12 +136,12 @@
                     <mat-cell *matCellDef="let element"> {{element.emp_emp_rate_type}} </mat-cell>
                   </ng-container>
 
-                  <ng-container matColumnDef="role">
+                  <ng-container matColumnDef="emp_role">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Role</mat-header-cell>
                     <mat-cell *matCellDef="let element"> {{element.emp_role}} </mat-cell>
                   </ng-container>
 
-                  <ng-container matColumnDef="status" stickyEnd>
+                  <ng-container matColumnDef="emp_status" stickyEnd>
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
                     <mat-cell *matCellDef="let element">
 
@@ -283,19 +283,19 @@
 
                 <mat-table [dataSource]="calendarDataSource" class="att-table">
 
-                  <ng-container matColumnDef="name" sticky>
+                  <ng-container matColumnDef="emp_name" sticky>
                     <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.emp_emp_name}} </mat-cell>
+                    <mat-cell *matCellDef="let element"> {{element.emp_name}} </mat-cell>
                   </ng-container>
 
-                  <ng-container matColumnDef="id" sticky>
+                  <ng-container matColumnDef="emp_id" sticky>
                     <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.emp_emp_id}} </mat-cell>
+                    <mat-cell *matCellDef="let element"> {{element.emp_id}} </mat-cell>
                   </ng-container>
 
                   <ng-container matColumnDef="emp_rate_type" sticky>
                     <mat-header-cell *matHeaderCellDef> Rate Type </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.emp_emp_rate_type}} </mat-cell>
+                    <mat-cell *matCellDef="let element"> {{element.emp_rate_type}} </mat-cell>
                   </ng-container>
 
                   <ng-container *ngFor="let day of daysArray; index as i">
@@ -369,22 +369,22 @@
                 <div style="width: 100%; overflow-x: scroll;">
                   <mat-table [dataSource]="attendanceDataSource" class="att-table">
 
-                    <ng-container matColumnDef="name" sticky>
+                    <ng-container matColumnDef="emp_name" sticky>
                       <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
                       <mat-cell *matCellDef="let element"> {{element.atten_emp_name}} </mat-cell>
                     </ng-container>
 
-                    <ng-container matColumnDef="id" sticky>
+                    <ng-container matColumnDef="emp_id" sticky>
                       <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
                       <mat-cell *matCellDef="let element"> {{element.atten_emp_id}} </mat-cell>
                     </ng-container>
 
-                    <ng-container matColumnDef="date" sticky>
+                    <ng-container matColumnDef="emp_date" sticky>
                       <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
                       <mat-cell *matCellDef="let element"> {{element.atten_date | date }} </mat-cell>
                     </ng-container>
 
-                    <ng-container matColumnDef="hours" sticky>
+                    <ng-container matColumnDef="emp_hours" sticky>
                       <mat-header-cell *matHeaderCellDef> Hours </mat-header-cell>
                       <mat-cell *matCellDef="let element"> {{element.atten_seconds | number: '1.0'}} hours </mat-cell>
                     </ng-container>
@@ -512,24 +512,26 @@
 
             </div>
 
+            
+
             <div class="mat-elevation-z4 rounded-container-flex">
 
               <div style="width: 100%; overflow-x: scroll;">
                 <mat-table [dataSource]="calendarDataSource" class="att-table">
 
-                  <ng-container matColumnDef="name" sticky>
+                  <ng-container matColumnDef="emp_name" sticky>
                     <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
                     <mat-cell *matCellDef="let element"> {{element.emp_name}} </mat-cell>
                   </ng-container>
 
-                  <ng-container matColumnDef="id" sticky>
+                  <ng-container matColumnDef="emp_id" sticky>
                     <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
                     <mat-cell *matCellDef="let element"> {{element.emp_id}} </mat-cell>
                   </ng-container>
 
                   <ng-container matColumnDef="emp_rate_type" sticky>
                     <mat-header-cell *matHeaderCellDef> Rate Type </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.emp_emp_rate_type}} </mat-cell>
+                    <mat-cell *matCellDef="let element"> {{element.emp_rate_type}} </mat-cell>
                   </ng-container>
 
                   <ng-container *ngFor="let day of daysArray; index as i">
@@ -567,7 +569,7 @@
             <br />
 
 
-            <ng-container *ngIf="payrollLoaded == true">
+            <!--<ng-container *ngIf="payrollLoaded == true">-->
 
               <div class="mat-elevation-z4 rounded-container-title">
                 <h2 style="text-align: center; color: white">
@@ -575,17 +577,16 @@
                 </h2>
               </div>
 
-
               <div class="mat-elevation-z4 control-container" [@fadeInOnEnter] [@fadeOutOnLeave]>
 
                 <div style="display: flex; align-items: baseline">
                   <span style="flex: 1 1 auto;"></span>
-                  <!--<mat-form-field appearance="outline" style=" min-width: 50% ;flex:auto;border-radius: 16px !important">
+                  <mat-form-field appearance="outline" style=" min-width: 50% ;flex:auto;border-radius: 16px !important">
                     <mat-label>Search</mat-label>
 
                     <input matInput placeholder="Ex. Juan De" (keyup)="applyFilterTimeIn($event)">
 
-                  </mat-form-field>-->
+                  </mat-form-field>
                   <span style="flex: 1 1 auto;"></span>
 
                   <button mat-raised-button color="warn" class="control-button" style="flex:auto; " (click)="openDialogNewEmp()"> Save Payroll <mat-icon>add</mat-icon></button>&nbsp;
@@ -598,6 +599,8 @@
 
               </div>
 
+           
+
               <!--'name', 'id', 'emp_rate', 'emp_rate_type'-->
 
               <div style="width: 100%; display: flex; justify-content: center">
@@ -607,32 +610,32 @@
                   <div style="width: 100%; overflow-x: scroll;">
                     <mat-table [dataSource]="payrollDataSource" class="att-table">
 
-                      <ng-container matColumnDef="name">
+                      <ng-container matColumnDef="emp_name">
                         <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
                         <mat-cell *matCellDef="let element"> {{element.emp_name}} </mat-cell>
                         <mat-footer-cell *matFooterCellDef></mat-footer-cell>
                       </ng-container>
 
-                      <ng-container matColumnDef="id">
+                      <ng-container matColumnDef="emp_id">
                         <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
                         <mat-cell *matCellDef="let element"> {{element.emp_id}} </mat-cell>
                         <mat-footer-cell *matFooterCellDef></mat-footer-cell>
                       </ng-container>
 
-                       <ng-container matColumnDef="emp_rate">
+                      <ng-container matColumnDef="emp_rate">
                         <mat-header-cell *matHeaderCellDef> Rate </mat-header-cell>
-                        <mat-cell *matCellDef="let element"> {{element.emp_emp_rate}} </mat-cell>
+                        <mat-cell *matCellDef="let element"> {{element.emp_rate}} </mat-cell>
                         <mat-footer-cell *matFooterCellDef></mat-footer-cell>
                       </ng-container>
 
                       <ng-container matColumnDef="emp_rate_type">
                         <mat-header-cell *matHeaderCellDef> Rate Type </mat-header-cell>
-                        <mat-cell *matCellDef="let element"> {{element.emp_emp_rate_type}} </mat-cell>
+                        <mat-cell *matCellDef="let element"> {{element.emp_rate_type}} </mat-cell>
                         <mat-footer-cell *matFooterCellDef></mat-footer-cell>
                       </ng-container>
 
 
-                      <ng-container matColumnDef="additions">
+                      <ng-container matColumnDef="emp_addition">
                         <mat-header-cell *matHeaderCellDef> Additions </mat-header-cell>
                         <mat-cell *matCellDef="let element">
                           &nbsp;{{element.emp_addition}}&nbsp;<span style="flex: 1 1 auto;"></span>
@@ -641,7 +644,7 @@
                         <mat-footer-cell *matFooterCellDef></mat-footer-cell>
                       </ng-container>
 
-                      <ng-container matColumnDef="deductions">
+                      <ng-container matColumnDef="emp_deduction">
                         <mat-header-cell *matHeaderCellDef> Deductions </mat-header-cell>
                         <mat-cell *matCellDef="let element">
                           &nbsp;{{element.emp_deduction}}&nbsp;<span style="flex: 1 1 auto;"></span>
@@ -659,12 +662,11 @@
 
                       <ng-container matColumnDef="computed" stickyEnd>
                         <mat-header-cell *matHeaderCellDef>Computed Total </mat-header-cell>
-                        <mat-cell *matCellDef="let element"> {{element.emp_computed}}</mat-cell>
+                        <mat-cell *matCellDef="let element"> {{element.computed}}</mat-cell>
                         <mat-footer-cell *matFooterCellDef> Total : {{grossTotal}} </mat-footer-cell>
                       </ng-container>
 
                       <mat-header-row *matHeaderRowDef="payrollDisplayedColumns"></mat-header-row>
-
                       <mat-row *matRowDef="let row; columns: payrollDisplayedColumns;"></mat-row>
                       <mat-footer-row *matFooterRowDef="payrollDisplayedColumns"></mat-footer-row>
 
@@ -681,7 +683,7 @@
               <mat-divider></mat-divider>
               <br />
 
-            </ng-container>
+            <!--</ng-container>-->
 
             <br />
             <br />
@@ -708,7 +710,117 @@
 
 <!--DIALOGS-->
 
-<!--For Edit Emp-->
+<!--For New Emp-->
+
+<ng-template #empNewDialog let-data>
+  <h2 matDialogTitle>New Employee</h2>
+  <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">
+
+    <br />
+    <mat-divider></mat-divider>
+    <br />
+
+    <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
+      <mat-label>ID</mat-label>
+      <input matInput [(ngModel)]="data.emp_id" [ngStyle]="{'background-color': data.emp_id? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+    <mat-form-field appearance="outline" style=" min-width: 40% ;flex:auto;border-radius: 16px !important">
+      <mat-label>First Name</mat-label>
+      <input matInput placeholder="Ex. Juan" type="text" [(ngModel)]="data.emp_fname" [ngStyle]="{'background-color': data.emp_fname? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+    <mat-form-field appearance="outline" style=" min-width: 40% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Last Name</mat-label>
+      <input matInput placeholder="Ex. De Cruz" type="text" [(ngModel)]="data.emp_lname" [ngStyle]="{'background-color': data.emp_lname? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+    <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Middle Name</mat-label>
+      <input matInput placeholder="Ex. Cruzilfer" type="text" [(ngModel)]="data.emp_mname" [ngStyle]="{'background-color': data.emp_mname? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+    <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Extensions</mat-label>
+      <input matInput placeholder="Ex. III" type="text" [(ngModel)]="data.emp_extname" [ngStyle]="{'background-color': data.emp_extname? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+    <mat-form-field appearance="outline" style=" min-width: 40% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Role</mat-label>
+      <mat-select placeholder="Ex. Juan De" [(ngModel)]="data.emp_role" [ngStyle]="{'background-color': data.emp_role? '' : 'var(--warn-lighter-color)'}">
+        <mat-option value="developer">Developer</mat-option>
+        <mat-option value="admin">Admin</mat-option>
+        <mat-option value="writeAll">Write All</mat-option>
+        <mat-option value="readAll">Read All</mat-option>
+        <mat-option value="inventoryOnly">Inventory Only</mat-option>
+        <mat-option value="financeOnly">Finance Only</mat-option>
+        <mat-option value="hrOnly">HR Only</mat-option>
+      </mat-select>
+    </mat-form-field>&nbsp;         
+
+    <mat-form-field appearance="outline" style=" min-width: 40% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Password</mat-label>
+      <input required matInput type="password" [(ngModel)]="data.emp_password" [ngStyle]="{'background-color': data.emp_password? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+    <mat-form-field appearance="outline" style=" min-width: 40% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Position</mat-label>
+      <input matInput placeholder="Ex. Finance Support" [(ngModel)]="data.emp_position" [ngStyle]="{'background-color': data.emp_position? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+    <mat-form-field appearance="outline" style=" min-width: 40% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Department</mat-label>
+      <input matInput placeholder="Ex. Finance" type="text" [(ngModel)]="data.emp_department" [ngStyle]="{'background-color': data.emp_department? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+    <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Rate</mat-label>
+      <input matInput placeholder="Ex. 470.00" type="number" [(ngModel)]="data.emp_rate" [ngStyle]="{'background-color': data.emp_rate? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+    <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Rate Type</mat-label>
+      <mat-select placeholder="Ex. Juan De" [(ngModel)]="data.emp_rate_type" [ngStyle]="{'background-color': data.emp_rate_type? '' : 'var(--warn-lighter-color)'}">
+        <mat-option value="Daily">Daily</mat-option>
+        <mat-option value="Weekly">Weekly</mat-option>
+        <mat-option value="Monthly">Monthly</mat-option>
+      </mat-select>
+    </mat-form-field>&nbsp;
+
+    <mat-form-field appearance="outline" style=" min-width: 40% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Birth Date</mat-label>
+      <input matInput [matDatepicker]="pickerBirthDateEdit" [(ngModel)]="data.emp_birth_date" [ngStyle]="{'background-color': data.emp_birth_date? '' : 'var(--warn-lighter-color)'}">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="pickerBirthDateEdit">
+        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+      </mat-datepicker-toggle>
+      <mat-datepicker #pickerBirthDateEdit></mat-datepicker>
+    </mat-form-field>&nbsp;
+
+    <mat-form-field appearance="outline" style=" min-width: 40% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Start Date</mat-label>
+      <input matInput [matDatepicker]="pickerStartDateEdit" [(ngModel)]="data.emp_start_date" [ngStyle]="{'background-color': data.emp_start_date? '' : 'var(--warn-lighter-color)'}">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="pickerStartDateEdit">
+        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+      </mat-datepicker-toggle>
+      <mat-datepicker #pickerStartDateEdit></mat-datepicker>
+    </mat-form-field>&nbsp;
+
+    <mat-form-field appearance="outline" style=" min-width: 80% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Address</mat-label>
+      <input matInput placeholder="Ex. Olongapo City" type="text" [(ngModel)]="data.emp_address" [ngStyle]="{'background-color': data.emp_address? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;               
+
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-raised-button matDialogClose color="primary" (click)="newEmp(data)">Ok</button>
+    <button mat-raised-button matDialogClose color="warn">Cancel</button>
+  </mat-dialog-actions>
+</ng-template>
+
+
+ <!--For Edit Emp-->
 
 <ng-template #empDialog let-data>
   <h2 matDialogTitle>{{data.emp_emp_fname}} {{data.emp_emp_lname}} <button mat-raised-button matDialogClose color="warn" (click)="archiveEmp(data)">Archive</button></h2>
@@ -717,8 +829,6 @@
     <br />
     <mat-divider></mat-divider>
     <br />
-
-
 
     <mat-form-field appearance="outline" style=" min-width: 15% ;flex:auto;border-radius: 16px !important">
       <mat-label>Database ID</mat-label>
@@ -770,7 +880,7 @@
 
     <mat-form-field appearance="outline" style=" min-width: 10% ;flex:auto;border-radius: 16px !important">
       <mat-label>Password</mat-label>
-      <input disabled matInput type="emp_password" [(ngModel)]="data.emp_password" [ngStyle]="{'background-color': data.emp_password? '' : 'var(--warn-lighter-color)'}">
+      <input disabled matInput type="password" [(ngModel)]="data.emp_password" [ngStyle]="{'background-color': data.emp_password? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 30% ;flex:auto;border-radius: 16px !important">
@@ -831,146 +941,70 @@
   </mat-dialog-actions>
 </ng-template>
 
-<!--For New Emp-->
+<!--For New Att-->
 
-<ng-template #empNewDialog let-data>
-  <h2 matDialogTitle>New Employee</h2>
+<ng-template #attNewDialog let-data>
+  <h2 matDialogTitle>New Time-In</h2>
   <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">
 
     <br />
     <mat-divider></mat-divider>
     <br />
 
-    <mat-form-field appearance="outline" style=" min-width: 15% ;flex:auto;border-radius: 16px !important">
+    <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
       <mat-label>ID</mat-label>
-      <input matInput [(ngModel)]="data.emp_id" [ngStyle]="{'background-color': data.emp_id? '' : 'var(--warn-lighter-color)'}">
+      <input matInput [(ngModel)]="data.atten_emp_id" [ngStyle]="{'background-color': data.emp_id? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
-    <mat-form-field appearance="outline" style=" min-width: 35% ;flex:auto;border-radius: 16px !important">
-      <mat-label>Role</mat-label>
-      <mat-select placeholder="Ex. Juan De" [(ngModel)]="data.role" [ngStyle]="{'background-color': data.role? '' : 'var(--warn-lighter-color)'}">
-        <mat-option value="developer">Developer</mat-option>
-        <mat-option value="admin">Admin</mat-option>
-        <mat-option value="writeAll">Write All</mat-option>
-        <mat-option value="readAll">Read All</mat-option>
-        <mat-option value="inventoryOnly">Inventory Only</mat-option>
-        <mat-option value="financeOnly">Finance Only</mat-option>
-        <mat-option value="hrOnly">HR Only</mat-option>
-      </mat-select>
+    <!--<mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Name</mat-label>
+      <input matInput placeholder="Ex. Juan De" type="text" [(ngModel)]="data.atten.emp_name" [ngStyle]="{'background-color': data.emp_name? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;-->
+
+    <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Hours</mat-label>
+      <input matInput placeholder="Ex. Juan De" type="number" [(ngModel)]="data.atten_seconds" [ngStyle]="{'background-color': data.atten_seconds? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
-    <mat-form-field appearance="outline" style=" min-width: 45% ;flex:auto;border-radius: 16px !important">
-      <mat-label>First Name</mat-label>
-      <input matInput placeholder="Ex. Juan" type="text" [(ngModel)]="data.emp_fname" [ngStyle]="{'background-color': data.emp_fname? '' : 'var(--warn-lighter-color)'}">
-    </mat-form-field>&nbsp;
-
-    <mat-form-field appearance="outline" style=" min-width: 45% ;flex:auto;border-radius: 16px !important">
-      <mat-label>Last Name</mat-label>
-      <input matInput placeholder="Ex. De Cruz" type="text" [(ngModel)]="data.emp_lname" [ngStyle]="{'background-color': data.emp_lname? '' : 'var(--warn-lighter-color)'}">
-    </mat-form-field>&nbsp;
-
-    <mat-form-field appearance="outline" style=" min-width: 30% ;flex:auto;border-radius: 16px !important">
-      <mat-label>Middle Name</mat-label>
-      <input matInput placeholder="Ex. Cruzilfer" type="text" [(ngModel)]="data.emp_mname" [ngStyle]="{'background-color': data.emp_mname? '' : 'var(--warn-lighter-color)'}">
-    </mat-form-field>&nbsp;
-
-    <mat-form-field appearance="outline" style=" min-width: 10% ;flex:auto;border-radius: 16px !important">
-      <mat-label>Extensions</mat-label>
-      <input matInput placeholder="Ex. III" type="text" [(ngModel)]="data.emp_extname" [ngStyle]="{'background-color': data.emp_extname? '' : 'var(--warn-lighter-color)'}">
-    </mat-form-field>&nbsp;
-
-    <mat-form-field appearance="outline" style=" min-width: 10% ;flex:auto;border-radius: 16px !important">
-      <mat-label>Password</mat-label>
-      <input matInput type="emp_password" [(ngModel)]="data.emp_password" [ngStyle]="{'background-color': data.emp_password? '' : 'var(--warn-lighter-color)'}">
-    </mat-form-field>&nbsp;
-
-    <mat-form-field appearance="outline" style=" min-width: 10% ;flex:auto;border-radius: 16px !important">
-      <mat-label>Confirm Password</mat-label>
-      <input matInput type="emp_password" [(ngModel)]="data.emp_password2" [ngStyle]="{'background-color': data.emp_password2? '' : 'var(--warn-lighter-color)'}">
-    </mat-form-field>&nbsp;
-
-    <mat-form-field appearance="outline" style=" min-width: 30% ;flex:auto;border-radius: 16px !important">
-      <mat-label>Position</mat-label>
-      <input matInput placeholder="Ex. Finance Support" [(ngModel)]="data.emp_position" [ngStyle]="{'background-color': data.emp_position? '' : 'var(--warn-lighter-color)'}">
-    </mat-form-field>&nbsp;
-
-    <mat-form-field appearance="outline" style=" min-width: 30% ;flex:auto;border-radius: 16px !important">
-      <mat-label>Department</mat-label>
-      <input matInput placeholder="Ex. Finance" type="text" [(ngModel)]="data.emp_department" [ngStyle]="{'background-color': data.emp_department? '' : 'var(--warn-lighter-color)'}">
-    </mat-form-field>&nbsp;
-
-    <mat-form-field appearance="outline" style=" min-width: 10% ;flex:auto;border-radius: 16px !important">
-      <mat-label>Rate</mat-label>
-      <input matInput placeholder="Ex. 470.00" type="number" [(ngModel)]="data.emp_rate" [ngStyle]="{'background-color': data.emp_rate? '' : 'var(--warn-lighter-color)'}">
-    </mat-form-field>&nbsp;
-
-    <mat-form-field appearance="outline" style=" min-width: 15% ;flex:auto;border-radius: 16px !important">
-      <mat-label>Rate Type</mat-label>
-      <mat-select placeholder="Ex. Juan De" [(ngModel)]="data.emp_rate_type" [ngStyle]="{'background-color': data.emp_rate_type? '' : 'var(--warn-lighter-color)'}">
-        <mat-option value="daily">Daily</mat-option>
-        <mat-option value="weekly">Weekly</mat-option>
-        <mat-option value="monthly">Monthly</mat-option>
-      </mat-select>
-    </mat-form-field>&nbsp;
-
-    <mat-form-field appearance="outline" style=" min-width: 30% ;flex:auto;border-radius: 16px !important">
-      <mat-label>Birth Date</mat-label>
-      <input matInput [matDatepicker]="pickerBirthDateEdit" [(ngModel)]="data.emp_birth_date" [ngStyle]="{'background-color': data.emp_birth_date? '' : 'var(--warn-lighter-color)'}">
+    <mat-form-field appearance="outline" style=" min-width: 40% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Date</mat-label>
+      <input matInput [matDatepicker]="pickerAttDateEdit" [(ngModel)]="data.atten_date" [ngStyle]="{'background-color': data.atten_date? '' : 'var(--warn-lighter-color)'}">
       <mat-hint>MM/DD/YYYY</mat-hint>
-      <mat-datepicker-toggle matSuffix [for]="pickerBirthDateEdit">
+      <mat-datepicker-toggle matSuffix [for]="pickerAttDateEdit">
         <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
       </mat-datepicker-toggle>
-      <mat-datepicker #pickerBirthDateEdit></mat-datepicker>
-    </mat-form-field>&nbsp;
-
-    <mat-form-field appearance="outline" style=" min-width: 30% ;flex:auto;border-radius: 16px !important">
-      <mat-label>Start Date</mat-label>
-      <input matInput [matDatepicker]="pickerStartDateEdit" [(ngModel)]="data.emp_start_date" [ngStyle]="{'background-color': data.emp_start_date? '' : 'var(--warn-lighter-color)'}">
-      <mat-hint>MM/DD/YYYY</mat-hint>
-      <mat-datepicker-toggle matSuffix [for]="pickerStartDateEdit">
-        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-      </mat-datepicker-toggle>
-      <mat-datepicker #pickerStartDateEdit></mat-datepicker>
-    </mat-form-field>&nbsp;
-
-    <mat-form-field appearance="outline" style=" min-width: 60% ;flex:auto;border-radius: 16px !important">
-      <mat-label>Address</mat-label>
-      <input matInput placeholder="Ex. Olongapo City" type="text" [(ngModel)]="data.emp_address" [ngStyle]="{'background-color': data.emp_address? '' : 'var(--warn-lighter-color)'}">
+      <mat-datepicker #pickerAttDateEdit></mat-datepicker>
     </mat-form-field>&nbsp;
 
   </mat-dialog-content>
   <mat-dialog-actions align="end">
-    <button mat-raised-button matDialogClose color="primary" (click)="newEmp(data)">Ok</button>
+    <button mat-raised-button matDialogClose color="primary" (click)="newAtt(data)">Ok</button>
     <button mat-raised-button matDialogClose color="warn">Cancel</button>
   </mat-dialog-actions>
 </ng-template>
 
+
 <!--For Edit Att-->
 
 <ng-template #attEditDialog let-data>
-  <h2 matDialogTitle>{{data.name}} | {{data.atten_date | date}}</h2>
+  <h2 matDialogTitle>{{data.atten_emp_name}} | {{data.atten_date | date}}</h2>
   <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">
 
     <br />
     <mat-divider></mat-divider>
     <br />
 
-    <mat-form-field appearance="outline" style=" min-width: 15% ;flex:auto;border-radius: 16px !important">
+    <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
       <mat-label>ID</mat-label>
-      <input matInput [(ngModel)]="data.emp_id" [ngStyle]="{'background-color': data.emp_id? '' : 'var(--warn-lighter-color)'}">
+      <input matInput [(ngModel)]="data.atten_emp_id" [ngStyle]="{'background-color': data.atten_emp_id? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
-      <mat-label>Name</mat-label>
-      <input matInput placeholder="Ex. Juan De" type="text" [(ngModel)]="data.name" [ngStyle]="{'background-color': data.name? '' : 'var(--warn-lighter-color)'}">
-    </mat-form-field>&nbsp;
-
-    <mat-form-field appearance="outline" style=" min-width: 30% ;flex:auto;border-radius: 16px !important">
       <mat-label>Hours</mat-label>
-      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.atten_seconds" [ngStyle]="{'background-color': data.atten_seconds? '' : 'var(--warn-lighter-color)'}">
+      <input matInput placeholder="Ex. Juan De" type="number" [(ngModel)]="data.atten_seconds" [ngStyle]="{'background-color': data.atten_seconds? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
-    <mat-form-field appearance="outline" style=" min-width: 30% ;flex:auto;border-radius: 16px !important">
+    <mat-form-field appearance="outline" style=" min-width: 40% ;flex:auto;border-radius: 16px !important">
       <mat-label>Date</mat-label>
       <input matInput [matDatepicker]="pickerAttDateEdit" [(ngModel)]="data.atten_date" [ngStyle]="{'background-color': data.atten_date? '' : 'var(--warn-lighter-color)'}">
       <mat-hint>MM/DD/YYYY</mat-hint>
@@ -987,47 +1021,7 @@
   </mat-dialog-actions>
 </ng-template>
 
-<!--For New Att-->
 
-<ng-template #attNewDialog let-data>
-  <h2 matDialogTitle>New Time-In</h2>
-  <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">
-
-    <br />
-    <mat-divider></mat-divider>
-    <br />
-
-    <mat-form-field appearance="outline" style=" min-width: 15% ;flex:auto;border-radius: 16px !important">
-      <mat-label>ID</mat-label>
-      <input matInput [(ngModel)]="data.emp_id" [ngStyle]="{'background-color': data.emp_id? '' : 'var(--warn-lighter-color)'}">
-    </mat-form-field>&nbsp;
-
-    <mat-form-field appearance="outline" style=" min-width: 45% ;flex:auto;border-radius: 16px !important">
-      <mat-label>Name</mat-label>
-      <input matInput placeholder="Ex. Juan De" type="text" [(ngModel)]="data.name" [ngStyle]="{'background-color': data.name? '' : 'var(--warn-lighter-color)'}">
-    </mat-form-field>&nbsp;
-
-    <mat-form-field appearance="outline" style=" min-width: 30% ;flex:auto;border-radius: 16px !important">
-      <mat-label>Hours</mat-label>
-      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.atten_seconds" [ngStyle]="{'background-color': data.atten_seconds? '' : 'var(--warn-lighter-color)'}">
-    </mat-form-field>&nbsp;
-
-    <mat-form-field appearance="outline" style=" min-width: 30% ;flex:auto;border-radius: 16px !important">
-      <mat-label>Date</mat-label>
-      <input matInput [matDatepicker]="pickerAttDateEdit" [(ngModel)]="data.atten_date" [ngStyle]="{'background-color': data.atten_date? '' : 'var(--warn-lighter-color)'}">
-      <mat-hint>MM/DD/YYYY</mat-hint>
-      <mat-datepicker-toggle matSuffix [for]="pickerAttDateEdit">
-        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-      </mat-datepicker-toggle>
-      <mat-datepicker #pickerAttDateEdit></mat-datepicker>
-    </mat-form-field>&nbsp;
-
-  </mat-dialog-content>
-  <mat-dialog-actions align="end">
-    <button mat-raised-button matDialogClose color="primary" (click)="newAtt(data)">Ok</button>
-    <button mat-raised-button matDialogClose color="warn">Cancel</button>
-  </mat-dialog-actions>
-</ng-template>
 
 <!--For New Add-->
 
@@ -1058,7 +1052,7 @@
 
       <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
         <mat-label>Addition Amount</mat-label>
-        <input matInput type="number" placeholder="Ex. 77.21" [(ngModel)]="data.addition" [ngStyle]="{'background-color': data.emp_name? '' : 'var(--warn-lighter-color)'}">
+        <input matInput type="number" placeholder="Ex. 77.21" [(ngModel)]="data.emp_addition" [ngStyle]="{'background-color': data.emp_addition? '' : 'var(--warn-lighter-color)'}">
       </mat-form-field>&nbsp;
 
     </div>
@@ -1099,7 +1093,7 @@
 
       <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
         <mat-label>Deduction Amount</mat-label>
-        <input matInput type="number" placeholder="Ex. 33.20" [(ngModel)]="data.deduction" [ngStyle]="{'background-color': data.deduction? '' : 'var(--warn-lighter-color)'}">
+        <input matInput type="number" placeholder="Ex. 33.20" [(ngModel)]="data.emp_deduction" [ngStyle]="{'background-color': data.emp_deduction? '' : 'var(--warn-lighter-color)'}">
       </mat-form-field>&nbsp;
 
     </div>

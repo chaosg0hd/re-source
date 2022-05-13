@@ -108,7 +108,7 @@ router.post('/new', (req, res) => {
         .save()
         .then((data) => {
             console.log(data)
-            console.log(data.emp_id + " Has Attendance Logged")
+            console.log(data._id + " Has Attendance Logged")
             res.json({ data, message: "Succesfully Attendance Logged", code: "200" })
 
         })

@@ -722,17 +722,17 @@
 
     <mat-form-field appearance="outline" style=" min-width: 15% ;flex:auto;border-radius: 16px !important">
       <mat-label>Database ID</mat-label>
-      <input disabled matInput placeholder="Ex. Juan De" [(ngModel)]="data._id" [ngStyle]="{'background-color': data._id? '' : 'var(--warn-lighter-color)'}">
+      <input disabled matInput [(ngModel)]="data._id" [ngStyle]="{'background-color': data._id? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 15% ;flex:auto;border-radius: 16px !important">
       <mat-label>No</mat-label>
-      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.number" [ngStyle]="{'background-color': data.number? '' : 'var(--warn-lighter-color)'}">
+      <input matInput placeholder="Ex. 445" type="number" [(ngModel)]="data.number" [ngStyle]="{'background-color': data.number? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 15% ;flex:auto;border-radius: 16px !important">
       <mat-label>ID</mat-label>
-      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.emp_id" [ngStyle]="{'background-color': data.emp_id? '' : 'var(--warn-lighter-color)'}">
+      <input matInput [(ngModel)]="data.emp_id" [ngStyle]="{'background-color': data.emp_id? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 35% ;flex:auto;border-radius: 16px !important">
@@ -750,42 +750,42 @@
 
     <mat-form-field appearance="outline" style=" min-width: 45% ;flex:auto;border-radius: 16px !important">
       <mat-label>First Name</mat-label>
-      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.fname" [ngStyle]="{'background-color': data.fname? '' : 'var(--warn-lighter-color)'}">
+      <input matInput placeholder="Ex. Juan Deng" type="text" [(ngModel)]="data.fname" [ngStyle]="{'background-color': data.fname? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 45% ;flex:auto;border-radius: 16px !important">
       <mat-label>Last Name</mat-label>
-      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.lname" [ngStyle]="{'background-color': data.lname? '' : 'var(--warn-lighter-color)'}">
+      <input matInput placeholder="Ex. Silver" type="text" [(ngModel)]="data.lname" [ngStyle]="{'background-color': data.lname? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 30% ;flex:auto;border-radius: 16px !important">
       <mat-label>Middle Name</mat-label>
-      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.mname" [ngStyle]="{'background-color': data.mname? '' : 'var(--warn-lighter-color)'}">
+      <input matInput placeholder="Ex. De Cruz" type="text" [(ngModel)]="data.mname" [ngStyle]="{'background-color': data.mname? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 10% ;flex:auto;border-radius: 16px !important">
       <mat-label>Extensions</mat-label>
-      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.extname" [ngStyle]="{'background-color': data.extname? '' : 'var(--warn-lighter-color)'}">
+      <input matInput placeholder="Ex. Jr." type="text" [(ngModel)]="data.extname" [ngStyle]="{'background-color': data.extname? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 10% ;flex:auto;border-radius: 16px !important">
       <mat-label>Password</mat-label>
-      <input disabled matInput placeholder="Ex. Juan De" [(ngModel)]="data.password" [ngStyle]="{'background-color': data.password? '' : 'var(--warn-lighter-color)'}">
+      <input disabled matInput type="password" [(ngModel)]="data.password" [ngStyle]="{'background-color': data.password? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 30% ;flex:auto;border-radius: 16px !important">
       <mat-label>Position</mat-label>
-      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.position" [ngStyle]="{'background-color': data.position? '' : 'var(--warn-lighter-color)'}">
+      <input matInput placeholder="Ex. Admin Staff" type="text" [(ngModel)]="data.position" [ngStyle]="{'background-color': data.position? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 30% ;flex:auto;border-radius: 16px !important">
       <mat-label>Department</mat-label>
-      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.department" [ngStyle]="{'background-color': data.department? '' : 'var(--warn-lighter-color)'}">
+      <input matInput placeholder="Ex. Maintenance" type="text" [(ngModel)]="data.department" [ngStyle]="{'background-color': data.department? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 10% ;flex:auto;border-radius: 16px !important">
       <mat-label>Rate</mat-label>
-      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.rate" [ngStyle]="{'background-color': data.rate? '' : 'var(--warn-lighter-color)'}">
+      <input matInput placeholder="Ex. 664" type="number" [(ngModel)]="data.rate" [ngStyle]="{'background-color': data.rate? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 15% ;flex:auto;border-radius: 16px !important">
@@ -819,7 +819,7 @@
 
     <mat-form-field appearance="outline" style=" min-width: 60% ;flex:auto;border-radius: 16px !important">
       <mat-label>Address</mat-label>
-      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.address" [ngStyle]="{'background-color': data.address? '' : 'var(--warn-lighter-color)'}">
+      <input matInput placeholder="Ex. Olongapo City" type="text" [(ngModel)]="data.address" [ngStyle]="{'background-color': data.address? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
   </mat-dialog-content>
@@ -843,7 +843,7 @@
 
     <mat-form-field appearance="outline" style=" min-width: 15% ;flex:auto;border-radius: 16px !important">
       <mat-label>ID</mat-label>
-      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.emp_id" [ngStyle]="{'background-color': data.emp_id? '' : 'var(--warn-lighter-color)'}">
+      <input matInput [(ngModel)]="data.emp_id" [ngStyle]="{'background-color': data.emp_id? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 35% ;flex:auto;border-radius: 16px !important">
@@ -861,47 +861,47 @@
 
     <mat-form-field appearance="outline" style=" min-width: 45% ;flex:auto;border-radius: 16px !important">
       <mat-label>First Name</mat-label>
-      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.fname" [ngStyle]="{'background-color': data.fname? '' : 'var(--warn-lighter-color)'}">
+      <input matInput placeholder="Ex. Juan" type="text" [(ngModel)]="data.fname" [ngStyle]="{'background-color': data.fname? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 45% ;flex:auto;border-radius: 16px !important">
       <mat-label>Last Name</mat-label>
-      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.lname" [ngStyle]="{'background-color': data.lname? '' : 'var(--warn-lighter-color)'}">
+      <input matInput placeholder="Ex. De Cruz" type="text" [(ngModel)]="data.lname" [ngStyle]="{'background-color': data.lname? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 30% ;flex:auto;border-radius: 16px !important">
       <mat-label>Middle Name</mat-label>
-      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.mname" [ngStyle]="{'background-color': data.mname? '' : 'var(--warn-lighter-color)'}">
+      <input matInput placeholder="Ex. Cruzilfer" type="text" [(ngModel)]="data.mname" [ngStyle]="{'background-color': data.mname? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 10% ;flex:auto;border-radius: 16px !important">
       <mat-label>Extensions</mat-label>
-      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.extname" [ngStyle]="{'background-color': data.extname? '' : 'var(--warn-lighter-color)'}">
+      <input matInput placeholder="Ex. III" type="text" [(ngModel)]="data.extname" [ngStyle]="{'background-color': data.extname? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 10% ;flex:auto;border-radius: 16px !important">
       <mat-label>Password</mat-label>
-      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.password" [ngStyle]="{'background-color': data.password? '' : 'var(--warn-lighter-color)'}">
+      <input matInput type="password" [(ngModel)]="data.password" [ngStyle]="{'background-color': data.password? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 10% ;flex:auto;border-radius: 16px !important">
       <mat-label>Confirm Password</mat-label>
-      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.password2" [ngStyle]="{'background-color': data.password2? '' : 'var(--warn-lighter-color)'}">
+      <input matInput type="password" [(ngModel)]="data.password2" [ngStyle]="{'background-color': data.password2? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 30% ;flex:auto;border-radius: 16px !important">
       <mat-label>Position</mat-label>
-      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.position" [ngStyle]="{'background-color': data.position? '' : 'var(--warn-lighter-color)'}">
+      <input matInput placeholder="Ex. Finance Support" [(ngModel)]="data.position" [ngStyle]="{'background-color': data.position? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 30% ;flex:auto;border-radius: 16px !important">
       <mat-label>Department</mat-label>
-      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.department" [ngStyle]="{'background-color': data.department? '' : 'var(--warn-lighter-color)'}">
+      <input matInput placeholder="Ex. Finance" type="text" [(ngModel)]="data.department" [ngStyle]="{'background-color': data.department? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 10% ;flex:auto;border-radius: 16px !important">
       <mat-label>Rate</mat-label>
-      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.rate" [ngStyle]="{'background-color': data.rate? '' : 'var(--warn-lighter-color)'}">
+      <input matInput placeholder="Ex. 470.00" type="number" [(ngModel)]="data.rate" [ngStyle]="{'background-color': data.rate? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 15% ;flex:auto;border-radius: 16px !important">
@@ -935,7 +935,7 @@
 
     <mat-form-field appearance="outline" style=" min-width: 60% ;flex:auto;border-radius: 16px !important">
       <mat-label>Address</mat-label>
-      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.address" [ngStyle]="{'background-color': data.address? '' : 'var(--warn-lighter-color)'}">
+      <input matInput placeholder="Ex. Olongapo City" type="text" [(ngModel)]="data.address" [ngStyle]="{'background-color': data.address? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
   </mat-dialog-content>
@@ -957,12 +957,12 @@
 
     <mat-form-field appearance="outline" style=" min-width: 15% ;flex:auto;border-radius: 16px !important">
       <mat-label>ID</mat-label>
-      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.emp_id" [ngStyle]="{'background-color': data.emp_id? '' : 'var(--warn-lighter-color)'}">
+      <input matInput [(ngModel)]="data.emp_id" [ngStyle]="{'background-color': data.emp_id? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
       <mat-label>Name</mat-label>
-      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.name" [ngStyle]="{'background-color': data.name? '' : 'var(--warn-lighter-color)'}">
+      <input matInput placeholder="Ex. Juan De" type="text" [(ngModel)]="data.name" [ngStyle]="{'background-color': data.name? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 30% ;flex:auto;border-radius: 16px !important">
@@ -999,12 +999,12 @@
 
     <mat-form-field appearance="outline" style=" min-width: 15% ;flex:auto;border-radius: 16px !important">
       <mat-label>ID</mat-label>
-      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.emp_id" [ngStyle]="{'background-color': data.emp_id? '' : 'var(--warn-lighter-color)'}">
+      <input matInput [(ngModel)]="data.emp_id" [ngStyle]="{'background-color': data.emp_id? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 45% ;flex:auto;border-radius: 16px !important">
       <mat-label>Name</mat-label>
-      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.name" [ngStyle]="{'background-color': data.name? '' : 'var(--warn-lighter-color)'}">
+      <input matInput placeholder="Ex. Juan De" type="text" [(ngModel)]="data.name" [ngStyle]="{'background-color': data.name? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 30% ;flex:auto;border-radius: 16px !important">
@@ -1041,24 +1041,24 @@
 
     <mat-form-field appearance="outline" style=" min-width: 15% ;flex:auto;border-radius: 16px !important">
       <mat-label>ID</mat-label>
-      <input disabled matInput placeholder="Ex. Juan De" [(ngModel)]="data.emp_id" [ngStyle]="{'background-color': data.emp_id? '' : 'var(--warn-lighter-color)'}">
+      <input disabled matInput [(ngModel)]="data.emp_id" [ngStyle]="{'background-color': data.emp_id? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
       <mat-label>Name</mat-label>
-      <input disabled matInput placeholder="Ex. Juan De" [(ngModel)]="data.emp_name" [ngStyle]="{'background-color': data.emp_name? '' : 'var(--warn-lighter-color)'}">
+      <input disabled type="text" matInput placeholder="Ex. Juan De" [(ngModel)]="data.emp_name" [ngStyle]="{'background-color': data.emp_name? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
       <mat-label>Total</mat-label>
-      <input disabled matInput placeholder="Ex. Juan De" [(ngModel)]="data.salary" [ngStyle]="{'background-color': data.salary? '' : 'var(--warn-lighter-color)'}">
+      <input disabled type="number" matInput placeholder="Ex. 694.20" [(ngModel)]="data.salary" [ngStyle]="{'background-color': data.salary? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
     <div style="display: flex; width: 100%">
 
       <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
         <mat-label>Addition Amount</mat-label>
-        <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.addition" [ngStyle]="{'background-color': data.emp_name? '' : 'var(--warn-lighter-color)'}">
+        <input matInput type="number" placeholder="Ex. 77.21" [(ngModel)]="data.addition" [ngStyle]="{'background-color': data.emp_name? '' : 'var(--warn-lighter-color)'}">
       </mat-form-field>&nbsp;
 
     </div>
@@ -1082,7 +1082,7 @@
 
     <mat-form-field appearance="outline" style=" min-width: 15% ;flex:auto;border-radius: 16px !important">
       <mat-label>ID</mat-label>
-      <input disabled matInput type="text" placeholder="Ex. Juan De" [(ngModel)]="data.emp_id" [ngStyle]="{'background-color': data.emp_id? '' : 'var(--warn-lighter-color)'}">
+      <input disabled matInput [(ngModel)]="data.emp_id" [ngStyle]="{'background-color': data.emp_id? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
@@ -1092,14 +1092,14 @@
 
     <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
       <mat-label>Total</mat-label>
-      <input disabled matInput type="number" placeholder="Ex. Juan De" [(ngModel)]="data.salary" [ngStyle]="{'background-color': data.salary? '' : 'var(--warn-lighter-color)'}">
+      <input disabled matInput type="number" placeholder="Ex. 320.00" [(ngModel)]="data.salary" [ngStyle]="{'background-color': data.salary? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
     <div style="display: flex; width: 100%">
 
       <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
         <mat-label>Deduction Amount</mat-label>
-        <input matInput type="number" placeholder="Ex. Juan De" [(ngModel)]="data.deduction" [ngStyle]="{'background-color': data.deduction? '' : 'var(--warn-lighter-color)'}">
+        <input matInput type="number" placeholder="Ex. 33.20" [(ngModel)]="data.deduction" [ngStyle]="{'background-color': data.deduction? '' : 'var(--warn-lighter-color)'}">
       </mat-form-field>&nbsp;
 
     </div>

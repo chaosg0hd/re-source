@@ -1,15 +1,14 @@
-//inventory
 const express = require("express");
 const router = express.Router();
 
-const Expenses = require('../database/models/expenses');
+const Expense = require('../database/models/expense');
 
 router.get('/get', (req, res) => {
 
-    Attendance.find({})
+    Expense.find({})
         .then((data) => {
             if (data != null) {
-                res.json({ data, message: "Attendance pulled successfull", code: "200" })
+                res.json({ data, message: "Expense pulled successfull", code: "200" })
             }
             else {
                 console.log("Data Does Not Exist")
@@ -31,11 +30,11 @@ router.get('/get/:_id', (req, res) => {
         console.log(req.params._id)
     }
 
-    Attendance.findOne({ "_id": req.params._id })
+    Expense.findOne({ "_id": req.params._id })
         .then((data) => {
             if (data != null) {
                 console.log(data)
-                console.log("Attendance " + data._id + " Get")
+                console.log("Expense " + data._id + " Get")
                 res.json({ data, message: "Get successfull", code: "200" })
             }
             else {
@@ -54,11 +53,11 @@ router.patch('/edit', (req, res) => {
 
     console.log(req.body.data)
 
-    Attendance.findOneAndUpdate({ "_id": req.body.data._id }, { $set: req.body.data })
+    Expense.findOneAndUpdate({ "_id": req.body.data._id }, { $set: req.body.data })
         .then((data) => {
             if (data != null) {
                 console.log(data)
-                console.log("Attendance " + data._id + " Edited")
+                console.log("Expense " + data._id + " Edited")
                 res.json({ data, message: "Edit successfull", code: "200" })
             }
             else {
@@ -82,7 +81,7 @@ router.delete('/delete/:_id', (req, res) => {
         console.log(req.params._id)
     }
 
-    Attendance.findOneAndDelete({ "_id": req.body.data._id })
+    Expense.findOneAndDelete({ "_id": req.body.data._id })
         .then((data) => {
             if (data != null) {
                 console.log(data)
@@ -105,12 +104,12 @@ router.post('/new', (req, res) => {
 
     console.log(req.body.data)
 
-    new Attendance(req.body.data)
+    new Expense(req.body.data)
         .save()
         .then((data) => {
             console.log(data)
-            console.log(data.emp_id + " Has Attendance Logged")
-            res.json({ data, message: "Succesfully Attendance Logged", code: "200" })
+            console.log(data.emp_id + " Has Expense Logged")
+            res.json({ data, message: "Succesfully Expense Logged", code: "200" })
 
         })
         .catch((error) => {

@@ -14,7 +14,8 @@ import { DatePipe } from '@angular/common';
 
 import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation, rubberBandAnimation } from 'angular-animations';
 
-import { ConnStatus, Announcement, Employees, TaskBoard , Time} from 'src/app/services/data/data.model';
+
+import { Announcement, Employee, Task_Board, Inventory, Attendance, Time, File, Gallery, Payroll, Purchase, Petty_Cash, Revenue, Sale } from 'src/app/services/data/data.model';
 
 
 @Component({
@@ -141,7 +142,7 @@ export class BundyComponent implements OnInit {
   }
 
   employeesPayload: any;
-  employeesData: Employees[] = [];
+  employeesData: Employee[] = [];
   employeesDataSource = new MatTableDataSource(this.employeesData);
   employeesDisplayedColumns = ['number', 'name', 'position', 'department', 'status', 'time'];
 

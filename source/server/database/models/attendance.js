@@ -1,17 +1,14 @@
 const mongoose = require('mongoose');
 
 const AttendanceSchema = new mongoose.Schema({
-    
-    /*_id: id,*/
 
-    number: Number,
-    
-    emp_id: String,
+    atten_number: Number,    
+    atten_emp_id: String,
+    atten_emp_name: String,
+    atten_date: Date,    
+    atten_seconds: Number,    
+    atten_status: String,
 
-    attendance_date: Date,    
-    attendance_seconds: Number,
-    
-    status: String,
     isArchive: {
         type: Number, default: 0
     },

@@ -3,8 +3,7 @@ import { DataService } from 'src/app/services/data/data.service';
 import { ChartType, Row } from 'angular-google-charts';
 import { LibraryService } from 'src/app/services/library/library.service';
 import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation, rubberBandAnimation } from 'angular-animations';
-
-import { ConnStatus, Announcement, Employees, TaskBoard, Time } from 'src/app/services/data/data.model';
+import { Announcement, Employee, Task_Board, Inventory, Attendance, Time, File, Gallery, Payroll, Purchase, Petty_Cash, Revenue, Sale } from 'src/app/services/data/data.model';
 
 @Component({
   selector: 'app-home',
@@ -70,7 +69,7 @@ export class HomeComponent implements OnInit {
 
   /*Functions*/
 
-  taskBoardData: TaskBoard[] = [];
+  taskBoardData: Task_Board[] = [];
 
   getTasks() {
     //this.dataService.getAllItem('taskboard').subscribe((data: any) => {

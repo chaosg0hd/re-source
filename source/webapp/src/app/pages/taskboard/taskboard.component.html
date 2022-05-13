@@ -87,7 +87,7 @@
 
                 <div style="width: 100%; display: flex;">
                   <br />
-                  <h1>{{element.project}}</h1>
+                  <h1>{{element.task_project}}</h1>
                   <span style="flex: 1 1 auto;"></span>
                   <span style="flex: 1 1 auto;"></span>
 
@@ -100,7 +100,7 @@
                 <div style="width: 100%; display: flex;">
                   <span style="flex: 1 1 auto;"></span>
 
-                  <p>{{element.content}}</p>
+                  <p>{{element.task_content}}</p>
                   <span style="flex: 1 1 auto;"></span>
 
 
@@ -125,13 +125,13 @@
 
 
 
-                  <ng-container *ngFor="let tasks of element.slave; index as i">
+                  <ng-container *ngFor="let tasks of element.task_slave; index as i">
 
 
                     <div class="task-container">
 
                       <h2>
-                        Task Name {{element.name}}
+                        Task Name {{element.task_name}}
                       </h2>
 
                       {{element._id}}
@@ -1030,12 +1030,12 @@
 
     <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
       <mat-label>Project</mat-label>
-      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.project" [ngStyle]="{'background-color': data.category? '' : 'var(--warn-lighter-color)'}">
+      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.task_project" [ngStyle]="{'background-color': data.category? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 80% ;flex:auto;border-radius: 16px !important">
       <mat-label>Content</mat-label>
-      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.content" [ngStyle]="{'background-color': data.quantity? '' : 'var(--warn-lighter-color)'}">
+      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.task_content" [ngStyle]="{'background-color': data.quantity? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
 
@@ -1066,7 +1066,7 @@
 
     <mat-form-field appearance="outline" style=" min-width: 30% ;flex:auto;border-radius: 16px !important">
       <mat-label>Content</mat-label>
-      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.content" [ngStyle]="{'background-color': data.quantity? '' : 'var(--warn-lighter-color)'}">
+      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.task_content" [ngStyle]="{'background-color': data.quantity? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
 

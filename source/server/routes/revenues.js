@@ -1,53 +1,122 @@
-//inventory
 const express = require("express");
 const router = express.Router();
 
-const Revenues = require('../database/models/revenues');
-const Pagination = require('../middleware/paginatedResult');
+const Revenue = require('../database/models/revenue');
 
-router.get('/', (req, res) => {
-    Revenues.find({})
-        .then(revenues => res.send(revenues))
-        .catch(error => console.log(error));
-});
+router.get('/get', (req, res) => {
 
-router.post('/', (req, res) => {  
-    // let revenues = new Revenues(req.body);
-    
-    // Revenues.findOne({ number: req.number}, (err, revenue) => {
-    //     if(revenue) {
-    //         revenue++
-    //     } else {
-    //         req.body.data.number = revenue;
-    //         (new Revenues(req.body.data))
-    //             .save()
-    //             .then((revenues) => res.send(revenues))
-    //             .catch((error) => console.log(error));
-    //     }
-    // }).catch((error) => console.log(error));
+    Revenue.find({})
+        .then((data) => {
+            if (data != null) {
+                res.json({ data, message: "Revenue pulled successfull", code: "200" })
+            }
+            else {
+                console.log("Data Does Not Exist")
+                res.json({ message: "Get failed", code: "404" })
+            }
+        })
+        .catch(error => {
+            console.log(error)
+            res.json({ message: "Something Went Wrong", error: error, code: "500" })
+        })
+})
 
-    (new Revenues(req.body.data))
+router.get('/get/:_id', (req, res) => {
+
+    if (req.params._id == undefined) {
+        console.trace()
+
+    } else {
+        console.log(req.params._id)
+    }
+
+    Revenue.findOne({ "_id": req.params._id })
+        .then((data) => {
+            if (data != null) {
+                console.log(data)
+                console.log("Revenue " + data._id + " Get")
+                res.json({ data, message: "Get successfull", code: "200" })
+            }
+            else {
+                console.log("Data Does Not Exist")
+                res.json({ message: "Get failed", code: "404" })
+            }
+        })
+        .catch(error => {
+            console.log(error)
+            res.json({ message: "Something Went Wrong", error: error, code: "500" })
+        })
+
+})
+
+router.patch('/edit', (req, res) => {
+
+    console.log(req.body.data)
+
+    Revenue.findOneAndUpdate({ "_id": req.body.data._id }, { $set: req.body.data })
+        .then((data) => {
+            if (data != null) {
+                console.log(data)
+                console.log("Revenue " + data._id + " Edited")
+                res.json({ data, message: "Edit successfull", code: "200" })
+            }
+            else {
+                console.log("Data Does Not Exist")
+                res.json({ message: "Patch failed", code: "404" })
+            }
+        })
+        .catch((error) => {
+            console.log(error)
+            res.json({ message: "Something Went Wrong", error: error, code: "500" })
+        })
+
+})
+
+router.delete('/delete/:_id', (req, res) => {
+
+    if (req.params._id == undefined) {
+        console.trace()
+
+    } else {
+        console.log(req.params._id)
+    }
+
+    Revenue.findOneAndDelete({ "_id": req.body.data._id })
+        .then((data) => {
+            if (data != null) {
+                console.log(data)
+                console.log("Delete Successful")
+                res.json({ data, message: "Delete successfull", code: "200" })
+            }
+            else {
+                console.log("Data Does Not Exist")
+                res.json({ message: "Delete failed", code: "404" })
+            }
+        })
+        .catch((error) => {
+            console.log(error)
+            res.json({ data: "Something Went Wrong", error: error, code: "500" })
+        })
+})
+
+
+router.post('/new', (req, res) => {
+
+    console.log(req.body.data)
+
+    new Revenue(req.body.data)
         .save()
-        .then((revenues) => res.send(revenues))
-        .catch((error) => console.log(error));
-});
+        .then((data) => {
+            console.log(data)
+            console.log(data.emp_id + " Has Revenue Logged")
+            res.json({ data, message: "Succesfully Revenue Logged", code: "200" })
 
-router.get('/:_id', (req, res) => {
-    Revenues.findOne({})
-        .then(revenues => res.send(revenues))
-        .catch(error => console.log(error));
-});
+        })
+        .catch((error) => {
+            console.log(error)
+            res.json({ data: "Something Went Wrong", error: error, code: "500" })
+        })
 
-router.put('/:_id', (req, res) => {
-    Revenues.findOneAndUpdate({"_id": req.params}, {$set: req.body.data})
-        .then(revenues => res.send(revenues))
-        .catch(error => console.log(error));
-});
-
-router.patch('/:_id', (req, res) => {
-    Revenues.findOneAndUpdate({"_id": req.params}, {$set: req.body.data})
-        .then(revenues => res.send(revenues))
-        .catch(error => console.log(error));
 });
 
 module.exports = router;

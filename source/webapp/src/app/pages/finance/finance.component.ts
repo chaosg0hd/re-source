@@ -8,6 +8,8 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { DataService } from 'src/app/services/data/data.service';
 import { LibraryService } from 'src/app/services/library/library.service';
 import Swal from 'sweetalert2';
+
+import { Announcement, Employee, Task_Board, Inventory, Attendance, Time, File, Gallery, Payroll, Purchase, Petty_Cash, Revenue, Sale } from 'src/app/services/data/data.model';
 import { Data } from '@angular/router';
 
 //import { AddExpensesComponent } from './add-expenses/add-expenses.component';

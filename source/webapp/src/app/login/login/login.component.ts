@@ -31,10 +31,12 @@ export class LoginComponent implements OnInit {
     //Event Loop Starts Here
 
     this.checkIfMobile();
+    this.isLoaded = false;
 
 
-    await this.delay(1000);
-    this.isLoaded = true
+    
+    this.isLoaded = true;
+    await this.delay(60000);
     this.reloadLoop();
 
     //Event Loop End Here
@@ -61,21 +63,20 @@ export class LoginComponent implements OnInit {
   loginData: any = {}
   login() {
     this.loginData.emp_id = this.id
-    this.loginData.password = this.password
+    this.loginData.emp_password = this.password
     this.dataService.post('employees/login', {data:this.loginData} ).subscribe((data: any) => {
 
       console.log(data)
 
       if (data.code == 200) {
         localStorage.clear;
-        localStorage.setItem('id', data.employee.emp_id);
-        localStorage.setItem('imgUrl', data.employee.imgUrl);
-        localStorage.setItem('lname', data.employee.lname);
-        localStorage.setItem('fname', data.employee.fname);
-        localStorage.setItem('mname', data.employee.mname);
-        localStorage.setItem('contact_list', data.employee.list);
-
-
+        localStorage.setItem('id', data.emp_id);
+        localStorage.setItem('imgUrl', data.emp_imgUrl);
+        localStorage.setItem('lname', data.emp_lname);
+        localStorage.setItem('fname', data.emp_fname);
+        localStorage.setItem('mname', data.emp_mname);
+        localStorage.setItem('role', data.emp_role);
+        /*localStorage.setItem('contact_list', data.employee.list);*/
 
         var name = localStorage.getItem('fname') + ' ' + localStorage.getItem('lname')
         Swal.fire(

@@ -41,26 +41,6 @@ router.post("/", upload.single('file'), (req, res, next) => {
         .catch((error) => (error));
     }
 
-    //router.get('/search', async (req, res) => {
-    //    console.log(req.query)
-    //    const query = await req.query.name
-    //    // console.log('query')
-    //    // console.log(req.query.name)
-    //    // console.log('query')
-    //    // console.log(req.params)
-    //    // const query2 = await req.params
-    //    // console.log('params')
-    //    // console.log(req.params)
-    //    /// $or: [{name: query}, {_id: query}, {description: query}]
-    //    Inventory.find({ $or : [
-    //        {name: { $regex: query + '.*', '$options' : 'i'}},
-    //        {description: {$regex: query + '.*', '$options' : 'i'}},
-    //       // {description: { $regex: query + '.*'}},
-    //    ]})
-    //        .then(data => res.send(data))
-    //        .catch((error) => console.log(error))
-    //});
-
 });
 
 router.post("/update", upload.single('file'), (req, res) => {
@@ -71,7 +51,6 @@ router.post("/update", upload.single('file'), (req, res) => {
         .catch(error => console.log(error));
     } else {
         req.body.imageUrl = 'http://localhost:3000/uploads/inventory/' + req.file.filename;
-        //req.body.isArchive = 0;
         Inventory.findOneAndUpdate({"_id": req.body.id}, {$set: req.body})
         .then(inventory => res.send(inventory))
         .catch(error => console.log(error));
@@ -197,25 +176,3 @@ router.post('/new', (req, res) => {
 });
 
 module.exports = router;
-
-
-
-    //router.get('/search', async (req, res) => {
-    //    console.log(req.query)
-    //    const query = await req.query.name
-    //    // console.log('query')
-    //    // console.log(req.query.name)
-    //    // console.log('query')
-    //    // console.log(req.params)
-    //    // const query2 = await req.params
-    //    // console.log('params')
-    //    // console.log(req.params)
-    //    /// $or: [{name: query}, {_id: query}, {description: query}]
-    //    Inventory.find({ $or : [
-    //        {name: { $regex: query + '.*', '$options' : 'i'}},
-    //        {description: {$regex: query + '.*', '$options' : 'i'}},
-    //       // {description: { $regex: query + '.*'}},
-    //    ]})
-    //        .then(data => res.send(data))
-    //        .catch((error) => console.log(error))
-    //});

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const GallerySchema = new mongoose.Schema({
+const FileSchema = new mongoose.Schema({
 
 
     gal_url: String,
@@ -22,13 +22,13 @@ const GallerySchema = new mongoose.Schema({
 
 });
 
-GallerySchema.pre('save', function (next) {
+FileSchema.pre('save', function (next) {
     var currentDate = new Date();
     this.updated_at = currentDate;
     if (!this.created_at) this.created_at = currentDate;
     next();
 });
 
-const Gallery = mongoose.model('Gallery', GallerySchema);
+const File = mongoose.model('File', FileSchema);
 
-module.exports = Gallery;
+module.exports = File;

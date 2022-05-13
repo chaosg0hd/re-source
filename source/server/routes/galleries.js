@@ -1,18 +1,14 @@
 const express = require("express");
 const router = express.Router();
 
-const Payroll = require('../database/models/payroll');
-
-const express = require("express");
-const router = express.Router();
-
+const Gallery = require('../database/models/gallery');
 
 router.get('/get', (req, res) => {
 
-    Payroll.find({})
+    Gallery.find({})
         .then((data) => {
             if (data != null) {
-                res.json({ data, message: "Taskboard pulled successfull", code: "200" })
+                res.json({ data, message: "Gallery pulled successfull", code: "200" })
             }
             else {
                 console.log("Data Does Not Exist")
@@ -34,11 +30,11 @@ router.get('/get/:_id', (req, res) => {
         console.log(req.params._id)
     }
 
-    Payroll.findOne({ "_id": req.params._id })
+    Gallery.findOne({ "_id": req.params._id })
         .then((data) => {
             if (data != null) {
                 console.log(data)
-                console.log("Taskboard " + data._id + " Get")
+                console.log("Gallery " + data._id + " Get")
                 res.json({ data, message: "Get successfull", code: "200" })
             }
             else {
@@ -57,11 +53,11 @@ router.patch('/edit', (req, res) => {
 
     console.log(req.body.data)
 
-    Payroll.findOneAndUpdate({ "_id": req.body.data._id }, { $set: req.body.data })
+    Gallery.findOneAndUpdate({ "_id": req.body.data._id }, { $set: req.body.data })
         .then((data) => {
             if (data != null) {
                 console.log(data)
-                console.log("Taskboard " + data._id + " Edited")
+                console.log("Gallery " + data._id + " Edited")
                 res.json({ data, message: "Edit successfull", code: "200" })
             }
             else {
@@ -85,7 +81,7 @@ router.delete('/delete/:_id', (req, res) => {
         console.log(req.params._id)
     }
 
-    Payroll.findOneAndDelete({ "_id": req.body.data._id })
+    Gallery.findOneAndDelete({ "_id": req.body.data._id })
         .then((data) => {
             if (data != null) {
                 console.log(data)
@@ -108,12 +104,12 @@ router.post('/new', (req, res) => {
 
     console.log(req.body.data)
 
-    new Payroll(req.body.data)
+    new Gallery(req.body.data)
         .save()
         .then((data) => {
             console.log(data)
-            console.log(data._id + " Has Taskboard Logged")
-            res.json({ data, message: "Succesfully Taskboard Logged", code: "200" })
+            console.log(data.emp_id + " Has Gallery Logged")
+            res.json({ data, message: "Succesfully Gallery Logged", code: "200" })
 
         })
         .catch((error) => {

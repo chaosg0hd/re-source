@@ -10,11 +10,7 @@ import { LibraryService } from 'src/app/services/library/library.service';
 import Swal from 'sweetalert2';
 import { Data } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-
-import { ConnStatus, Announcement, Employees, TaskBoard, Inventories, Attendance, Time } from 'src/app/services/data/data.model';
-
-//import { AddTaskComponent } from './add-task/add-task.component';
-//import { ViewTaskComponent } from './view-task/view-task.component';
+import { Announcement, Employee, Task_Board, Inventory, Attendance, Time } from 'src/app/services/data/data.model';
 
 @Component({
   selector: 'app-taskboard',
@@ -163,7 +159,7 @@ export class TaskboardComponent implements OnInit {
 
 
   employeesPayload: any;
-  employeesData: Employees[] = [];
+  employeesData: Employee[] = [];
   employeesDataSource = new MatTableDataSource(this.employeesData);
   employeesDisplayedColumns = ['name', 'number', 'emp_id', 'age', 'address', 'position', 'department', 'rate', 'rate_type', 'role', 'status', 'actions'];
 
@@ -198,7 +194,7 @@ export class TaskboardComponent implements OnInit {
 
 
   tasksPayload: any;
-  tasksData: TaskBoard[] = [];
+  tasksData: Task_Board[] = [];
   tasksDataSource = new MatTableDataSource(this.tasksData);
 
   isToggleArchive = false
@@ -237,13 +233,13 @@ export class TaskboardComponent implements OnInit {
   }
 
 
-  unsortedData: TaskBoard[] = [];
+  unsortedData: Task_Board[] = [];
   unsortedDataSource = new MatTableDataSource(this.unsortedData);
 
-  sortedData: TaskBoard[] = [];
+  sortedData: Task_Board[] = [];
   sortedDataSource = new MatTableDataSource(this.sortedData);
 
-  ProjectData: TaskBoard[] = [];
+  ProjectData: Task_Board[] = [];
   ProjectDataSource = new MatTableDataSource(this.sortedData);
 
   projects: any[] = []
@@ -253,9 +249,9 @@ export class TaskboardComponent implements OnInit {
   sortProjects() {
 
     let array: any[] = []
-    let projects_array: TaskBoard[] = []
-    let unsorted_array: TaskBoard[] = []
-    let sorted_array: TaskBoard[] = []
+    let projects_array: Task_Board[] = []
+    let unsorted_array: Task_Board[] = []
+    let sorted_array: Task_Board[] = []
 
     unsorted_array = this.tasksDataSource.data
 
@@ -264,7 +260,7 @@ export class TaskboardComponent implements OnInit {
       let slavearray: any = []
 
       unsorted_array.map((array) => {
-        if (array.master == masterID) {
+        if (array.task_master == masterID) {
           slavearray.push(array)
         }
 
@@ -278,7 +274,7 @@ export class TaskboardComponent implements OnInit {
 
     unsorted_array.map((array, index) => {
       
-      if (array.master == "" || array.master == undefined) {
+      if (array.task_master == "" || array.task_master == undefined) {
 
         projects_array.push(array)        
 
@@ -295,18 +291,18 @@ export class TaskboardComponent implements OnInit {
 
     projects_array.map((project) => {
 
-      project.slave = []
-      project.slave = getTasks(project._id)
+      project.task_slave = []
+      project.task_slave = getTasks(project._id)
 
-      project.slave.map((slave) => {
+      project.task_slave.map((slave) => {
 
-        slave.slave = []
-        slave.slave = getTasks(slave._id)
+        slave.task_slave = []
+        slave.task_slave = getTasks(slave._id)
         
-        slave.slave.map((nextslave : any) => {
+        slave.task_slave.map((nextslave : any) => {
 
-          nextslave.slave = []
-          nextslave.slave = getTasks(nextslave._id)
+          nextslave.task_slave = []
+          nextslave.task_slave = getTasks(nextslave._id)
 
         })
 

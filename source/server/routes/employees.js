@@ -2,11 +2,11 @@
 const express = require("express")
 const bcrypt = require("bcrypt")
 const router = express.Router()
-const Employees = require('../database/models/employees')
+const Employee = require('../database/models/employee')
 
 router.get('/get', (req, res) => {
 
-    Employees.find({})
+    Employee.find({})
         .then((data) => {
             if (data != null) {
                 res.json({ data, message: "Employees pulled successfull", code: "200" })
@@ -31,7 +31,7 @@ router.get('/get/:_id', (req, res) => {
         console.log(req.params._id)
     }
 
-    Employees.findOne({ "_id": req.params._id })
+    Employee.findOne({ "_id": req.params._id })
         .then((data) => {
             if (data != null) {
                 console.log(data)
@@ -54,7 +54,7 @@ router.patch('/edit', (req, res) => {
 
     console.log(req.body.data)
 
-    Employees.findOneAndUpdate({ "_id": req.body.data._id }, { $set: req.body.data })
+    Employee.findOneAndUpdate({ "_id": req.body.data._id }, { $set: req.body.data })
         .then((data) => {
             if (data != null) {
                 console.log(data)
@@ -82,7 +82,7 @@ router.delete('/delete/:_id', (req, res) => {
         console.log(req.params._id)
     }
 
-    Employees.findOneAndDelete({ "_id": req.body.data._id })
+    Employee.findOneAndDelete({ "_id": req.body.data._id })
         .then((data) => {
             if (data != null) {
                 console.log(data)
@@ -105,7 +105,7 @@ router.post('/new', (req, res) => {
 
     console.log(req.body.data)
 
-    new Employees(req.body.data)
+    new Employee(req.body.data)
         .save()
         .then((data) => {
             console.log(data)
@@ -130,12 +130,12 @@ router.post('/signup', async (req, res) => {
     let encryptedpword = await bcrypt.hash(employeeNew.password, 10)
     employeeNew.password = encryptedpword
 
-    Employees.findOne({ "emp_id": employeeNew.emp_id }, (err, emp) => {
+    Employee.findOne({ "emp_id": employeeNew.emp_id }, (err, emp) => {
         if (emp) {
             res.json({ message: "Employee already exists", code: "409" })
         }
         else {
-            new Employees(employeeNew)
+            new Employee(employeeNew)
                 .save()
                 .then((employee) => {
                     console.log(employee)
@@ -155,15 +155,15 @@ router.post('/login', async (req, res) => {
     console.log(req.body.data)
 
     let emp_id = req.body.data.emp_id
-    let password = req.body.data.password
+    let emp_password = req.body.data.emp_password
 
-    Employees.findOne({ "emp_id" : emp_id })
-        .then((employee) => {
-            if (employee && bcrypt.compareSync(password, employee.password)) {                
-                console.log(employee)
-                console.log("Employee " + employee.emp_id + " Logged In")
-                res.json({ employee, message: "Account logged in successfully", code: "200" })
-            } else if (employee && !bcrypt.compareSync(password, employee.password)) {
+    Employee.findOne({ "emp_id" : emp_id })
+        .then((data) => {
+            if (data && bcrypt.compareSync(emp_password, data.emp_password)) {                
+                console.log(data)
+                console.log("Employee " + data.emp_id + " Logged In")
+                res.json({ data, message: "Account logged in successfully", code: "200" })
+            } else if (data && !bcrypt.compareSync(emp_password, data.emp_password)) {
                 console.log("Employee " + emp_id + " Invalid Login")
                 res.json({ message: "Invalid Credentials", code: "401"})
             } else {

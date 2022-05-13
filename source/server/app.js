@@ -51,57 +51,60 @@ app.use((req, res, next) => {
 
 //Routers
 
-const employeesRouter = require('./routes/employees');
-const timesRouter = require('./routes/times');
-const attendanceRouter = require('./routes/attendance');
-const inventoriesRouter = require('./routes/inventories');
-const taskBoardRouter = require('./routes/taskboard');
+//SYSTEM
 
-//const drawsRouter = require('./routes/draws');
+const announcementsRouter = require('./routes/announcements'); //OK
+app.use("/api/announcements", announcementsRouter); 
 
-//const expensesRouter = require('./routes/expenses');
+////EMP
 
-//const pettycashRouter = require('./routes/pettycash');
-//const purchasesRouter = require('./routes/purchases');
-//const revenuesRouter = require('./routes/revenues');
-//const salarytotalsRouter = require('./routes/salarytotals');
-//const saldeltasRouter = require('./routes/saldeltas');
-//const salesRouter = require('./routes/sales');
-//const stocksRouter = require('./routes/stocks');
-//const announcementRouter = require('./routes/announcements');
-//const taskBoardRouter = require('./routes/taskboard');
-//const payrollRouter = require('./routes/payroll');
+const employeesRouter = require('./routes/employees'); //OK
+app.use("/api/employees", employeesRouter);
+
+////TIME KEEPING
+
+const timesRouter = require('./routes/times'); //OK
+app.use("/api/times", timesRouter);
+const attendancesRouter = require('./routes/attendances');//OK
+app.use("/api/attendances", attendancesRouter);
+
+//INVENTORY
+
+const inventoriesRouter = require('./routes/inventories');//OK
+app.use("/api/inventories", inventoriesRouter);
+
+////FINANCES
+
+const petty_cashRouter = require('./routes/petty_cash');///OK
+app.use("/api/petty_cash", petty_cashRouter);
+const expensesRouter = require('./routes/expenses');//OK
+app.use("/api/expenses", expensesRouter);
+const revenuesRouter = require('./routes/revenues');//OK
+app.use("/api/revenues", revenuesRouter);
+const payrollsRouter = require('./routes/payrolls');//OK
+app.use("/api/payroll", payrollsRouter);
+const purchasesRouter = require('./routes/purchases');//OK
+app.use("/api/purchases", purchasesRouter);
+const salesRouter = require('./routes/sales');//OK
+app.use("/api/sales", salesRouter);
+
+////TASKS
+
+const task_boardsRouter = require('./routes/task_boards');//OK
+app.use("/api/task_boards", task_boardsRouter);
+
+////GALLERIES
+
+const galleriesRouter = require('./routes/galleries');//OK
+app.use("/api/galleries", galleriesRouter);
+
+////FILE
+
+const filesRouter = require('./routes/files');//OK
+app.use("/api/files", filesRouter);
 
 
 //app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
-app.use("/api/employees", employeesRouter);
-app.use("/api/times", timesRouter);
-app.use("/api/attendance", attendanceRouter);
-app.use("/api/inventories", inventoriesRouter);
-app.use("/api/taskboard", taskBoardRouter);
-
-
-
-//app.use("/api/draws", drawsRouter);
-//app.use("/api/expenses", expensesRouter);
-
-//app.use("/api/pettycash", pettycashRouter);
-//app.use("/api/purchases", purchasesRouter);
-//app.use("/api/revenues", revenuesRouter);
-//app.use("/api/salarytotals", salarytotalsRouter);
-//app.use("/api/saldeltas", saldeltasRouter);
-//app.use("/api/sales", salesRouter);
-//app.use("/api/stocks", stocksRouter);
-//app.use("/api/announcements", announcementRouter);
-//app.use("/api/taskboard", taskBoardRouter);
-//app.use("/api/payroll", payrollRouter);
-//
-
-/*app.use("/api/users", usersRouter);*/
-
-
-
 
 
 //app.all((req, res, next) => {

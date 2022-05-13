@@ -13,7 +13,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, filter } from 'rxjs/operators';
 
-import { ConnStatus, Announcement, TaskBoard, Inventories } from 'src/app/services/data/data.model';
+import { Announcement, Task_Board, Inventory } from 'src/app/services/data/data.model';
 
 
 import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation, rubberBandAnimation } from 'angular-animations';
@@ -199,7 +199,7 @@ export class InventoryComponent implements OnInit {
 //}
 
   inventoriesPayload: any;
-  inventoriesData: Inventories[] = [];
+  inventoriesData: Inventory[] = [];
   inventoriesDataSource = new MatTableDataSource(this.inventoriesData);
   inventoriesDisplayedColumns = ['name', 'number', '_id', 'id', 'description', 'category', 'quantity','supplier', 'min_amount','price','actions'];
   inventoriesIdArchive: any;
@@ -243,7 +243,6 @@ export class InventoryComponent implements OnInit {
 
   }
 
-
   editInv(input: any) {
 
     this.dataService.patch('inventories/edit', { data: input }).subscribe((data) => {
@@ -259,11 +258,26 @@ export class InventoryComponent implements OnInit {
 
     input.isArchive = 1;
 
-    this.dataService.patch('inventories/edit', { data: input }).subscribe((data) => {
+    this.dataService.patch('inventories/edit', { data: input })
+      .subscribe((data) => {
       console.log(data)
 
       this.getInventories()
     })
+
+  }  
+
+  deleteInv(input: any) {
+
+    this.dataService.delete(`inventories/delete/${input._id}`)
+      .subscribe((data: any) => {
+
+        if (data.code == 200) {
+        }
+        else {
+        }
+
+      })
 
   }
 
@@ -278,6 +292,8 @@ export class InventoryComponent implements OnInit {
 
     this.getInventories
   }
+
+  
 
   
 

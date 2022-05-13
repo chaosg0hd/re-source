@@ -2,12 +2,15 @@ const mongoose = require('mongoose');
 
 const AnnouncementSchema = new mongoose.Schema({
 
-    announcement_title: String,
-    announcement_content: String,
+    anno_title: String,
+    anno_content: String,
+    anno_start_date: Date,
+    anno_end_date: Date,
 
-    announcement_end_date: Date,
+    isArchive: {
+        type: Number, default: 0
+    },
 
-    isArchive: Number,
     created_at: Date,
     updated_at: Date
 });

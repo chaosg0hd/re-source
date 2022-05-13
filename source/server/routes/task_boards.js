@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
 
-const TaskBoard = require('../database/models/taskboard');
+const Task_Board = require('../database/models/task_board');
 
 
 router.get('/get', (req, res) => {
 
-    TaskBoard.find({})
+    Task_Board.find({})
         .then((data) => {
             if (data != null) {
                 res.json({ data, message: "Taskboard pulled successfull", code: "200" })
@@ -31,7 +31,7 @@ router.get('/get/:_id', (req, res) => {
         console.log(req.params._id)
     }
 
-    TaskBoard.findOne({ "_id": req.params._id })
+    Task_Board.findOne({ "_id": req.params._id })
         .then((data) => {
             if (data != null) {
                 console.log(data)
@@ -54,7 +54,7 @@ router.patch('/edit', (req, res) => {
 
     console.log(req.body.data)
 
-    TaskBoard.findOneAndUpdate({ "_id": req.body.data._id }, { $set: req.body.data })
+    Task_Board.findOneAndUpdate({ "_id": req.body.data._id }, { $set: req.body.data })
         .then((data) => {
             if (data != null) {
                 console.log(data)
@@ -82,7 +82,7 @@ router.delete('/delete/:_id', (req, res) => {
         console.log(req.params._id)
     }
 
-    TaskBoard.findOneAndDelete({ "_id": req.body.data._id })
+    Task_Board.findOneAndDelete({ "_id": req.body.data._id })
         .then((data) => {
             if (data != null) {
                 console.log(data)
@@ -105,7 +105,7 @@ router.post('/new', (req, res) => {
 
     console.log(req.body.data)
 
-    new TaskBoard(req.body.data)
+    new Task_Board(req.body.data)
         .save()
         .then((data) => {
             console.log(data)

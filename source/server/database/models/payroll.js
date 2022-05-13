@@ -2,17 +2,23 @@ const mongoose = require('mongoose');
 
 const PayrollSchema = new mongoose.Schema({
 
-    number: Number,
-    payr_date: Date,
-    payr_suplier: { type: String, default: 'Company' },
+    pay_number: Number,
+    pay_date: Date,
+    pay_ref: String,
+    pay_name: String,
+    pay_desc: String,
+    pay_supplier: String,
+    pay_amount: Number,
+    pay_by: String,
 
-    isValid: Number,
-    isArchive: Number,
-
-    content: JSON,
+    isArchive: {
+        type: Number, default: 0
+    },
 
     created_at: Date,
     updated_at: Date
+
+
 });
 
 PayrollSchema.pre('save', function (next) {

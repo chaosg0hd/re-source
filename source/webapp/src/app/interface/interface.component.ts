@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services/data/data.service';
 import { LibraryService } from 'src/app/services/library/library.service';
-
 import { RouterLink, Router } from '@angular/router';
 import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animations';
 
@@ -35,7 +34,7 @@ export class InterfaceComponent implements OnInit {
     
     this.checkIfMobile();
 
-    this.getName()
+    this.getUserData()
 
     await this.delay(1000);
     this.reloadLoop();
@@ -61,17 +60,20 @@ export class InterfaceComponent implements OnInit {
   }
 
   username: any
-  imgUrl:any
-  getName() {
-    var fname = localStorage.getItem('fname')
-    var lname = localStorage.getItem('lname')
+  role: any;
+  imgUrl: any
+
+  getUserData() {
+
+    let fname = localStorage.getItem('fname')
+    let lname = localStorage.getItem('lname')
+    this.role = localStorage.getItem('role')
     this.imgUrl = localStorage.getItem('imgUrl')
     this.username = fname +" "+ lname
 
   }
 
   logout() {
-
 
     localStorage.clear
     this.router.navigate(['login'])

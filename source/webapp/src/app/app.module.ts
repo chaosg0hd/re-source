@@ -99,7 +99,6 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { AnnouncementComponent } from './global/announcement/announcement.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SettingsComponent } from './settings/settings.component';
-import { RecursiveComponent } from './global/recursive/recursive.component';
 
 @NgModule({
   declarations: [
@@ -142,7 +141,6 @@ import { RecursiveComponent } from './global/recursive/recursive.component';
     AnnouncementComponent,
     ProfileComponent,
     SettingsComponent,
-    RecursiveComponent
   ],
   imports: [
 

@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { ConnStatus } from './data.model';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -34,8 +32,8 @@ export class DataService {
     return this.http.patch(`${this.baseURL}/api/${uri}`, payload);
   }
 
-  delete(uri: string, payload: object) {
-    return this.http.patch(`${this.baseURL}/api/${uri}`, payload);
+  delete(uri: string) {
+    return this.http.delete(`${this.baseURL}/api/${uri}`);
   }
 
   //Data Methods

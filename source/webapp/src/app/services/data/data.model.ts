@@ -109,6 +109,26 @@ export interface Inventory{
   updated_at: Date
 
 }
+
+
+export interface Expense {
+
+  _id: string,
+  exp_number: number,
+  exp_date: Date,
+  exp_ref: string,
+  exp_name: string,
+  exp_desc: string,
+  exp_supplier: string,
+  exp_amount: number,
+  exp_by: string,
+
+  isArchive: number,
+
+  created_at: Date,
+  updated_at: Date
+}
+
 export interface Payroll{
 
   _id: string,

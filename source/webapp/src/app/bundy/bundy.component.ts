@@ -227,8 +227,10 @@ export class BundyComponent implements OnInit {
         //INSERT SWAL HERE
 
         console.log(data)
+        this.getStatus()
 
       })
+
 
     this.isclockedIn = true
   }
@@ -249,13 +251,13 @@ export class BundyComponent implements OnInit {
 
           let date = this.datepipe.transform(new Date(data.data.createdAt), 'YYYY-MM-dd')
           let attreq = {}
-          attreq = { "emp_id": data.data.emp_id, "attendance_seconds": data.seconds, "attendance_date": this.datepipe.transform(date, 'YYYY-MM-dd') }
+          attreq = { "emp_id": data.data.emp_id, "atten_seconds": data.seconds, "atten_date": this.datepipe.transform(date, 'YYYY-MM-dd') }
           
-          this.dataService.post('attendance/new', { data: attreq })
+          this.dataService.post('attendances/new', { data: attreq })
             .subscribe((data) => {
 
               console.log(data)
-
+              this.getStatus()
               this.isclockedIn = false
 
              })

@@ -178,7 +178,7 @@ router.post('/timeout', (req, res) => {
 
             console.log(data.emp_id + " Has Timed Out");
             console.log(data)
-            res.json({ data, seconds : seconds, message: "Succesfully Timed Out", code : "200" } )
+            res.json({ data, time_seconds: time_seconds, message: "Succesfully Timed Out", code : "200" } )
         })
         .catch(error => {
             console.log(error)

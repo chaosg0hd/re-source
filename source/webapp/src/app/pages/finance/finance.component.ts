@@ -869,7 +869,7 @@ export class FinanceComponent implements OnInit {
   //  this.dataBalance = [];
 
   //  this.graphExpData = this.expensesDataGraph.concat(this.purchasesDataGraph.concat(this.payrollDataGraph));
-  //  console.log(this.graphExpData);    
+  //  console.log(this.graphExpData);    f
 
   //  //HARD-CODING MONTHS HERE may better solutions pero fuck it
 

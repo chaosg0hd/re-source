@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, TemplateRef} from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, ElementRef} from '@angular/core';
 import { GoogleChartComponent } from 'angular-google-charts';
 import { ChartType, Row } from 'angular-google-charts';
 import { MatTableDataSource } from '@angular/material/table';
@@ -8,8 +8,10 @@ import { MatDialog} from '@angular/material/dialog';
 import { DataService } from 'src/app/services/data/data.service';
 import Swal from 'sweetalert2';
 import { Data } from '@angular/router';
-import { DatePipe } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { DatePipe } from '@angular/common'
+import { HttpClient } from '@angular/common/http'
+import jsPDF from 'jspdf'
+import html2canvas from 'html2canvas'
 
 import { Announcement, Employee, Task_Board, Inventory, Attendance, Time, File, Gallery, Payroll, Purchase, Petty_Cash, Revenue, Sale } from 'src/app/services/data/data.model';
 
@@ -80,7 +82,37 @@ export class HrComponent implements OnInit{
   @ViewChild('addEditDialog', { static: true }) addEditDialog!: TemplateRef<any>;
   @ViewChild('dedEditDialog', { static: true }) dedEditDialog!: TemplateRef<any>;
 
+  @ViewChild('payrollPDF', {static: false }) el!: ElementRef;
+
+  title = 'PDF Generated from Payroll Table'
+
   @ViewChild(MatSort) empSort!: MatSort;
+
+  makePDF() {
+    const data = this.el.nativeElement
+    html2canvas(data).then(canvas => {
+      const width = 200
+      let height = canvas.height * width / canvas.width
+
+      const fileuri = canvas.toDataURL('image/png')
+      const pdf = new jsPDF('l', 'mm', 'a4')
+      let position = 0
+      pdf.addImage(fileuri, 'PNG', 5, 5, width, height)
+      pdf.save('payroll')
+    })
+    // const pdf = new jsPDF('landscape','mm',[297, 210])
+
+    // // var height = pdf.internal.pageSize.getHeight()
+    // // var width = pdf.internal.pageSize.getWidth()
+    // // var imgData = 
+
+    // pdf.html(this.el.nativeElement, {
+    //   callback: (pdf) => {
+        
+    //     pdf.save("payroll.pdf")
+    //   }
+    // })
+  }
 
   openDialogEditEmp(input: any) {
     this.dialog.open(this.empDialog, { data: input });

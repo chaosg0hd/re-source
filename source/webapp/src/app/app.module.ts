@@ -101,6 +101,8 @@ import { AnnouncementComponent } from './global/announcement/announcement.compon
 import { ProfileComponent } from './profile/profile.component';
 import { SettingsComponent } from './settings/settings.component';
 
+//jspd
+
 @NgModule({
   declarations: [
     AppComponent,

@@ -626,10 +626,11 @@ export class HrComponent implements OnInit{
 
     payrollData.map((content: any) => {
 
-      /*content.attendance = {}*/
+      delete content.attendance 
       content.emp_addition = 0
       content.emp_deduction = 0
       content.computed = content.emp_salary
+
     })
 
     console.log(payrollData)

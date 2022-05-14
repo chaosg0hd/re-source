@@ -2,7 +2,31 @@
 const express = require("express")
 const bcrypt = require("bcrypt")
 const router = express.Router()
+const multer = require('multer');
+const path = require('path');
 const Employee = require('../database/models/employee')
+
+const MIME_TYPE_MAP = {
+    'image/png': 'png', 
+    'image/jpeg': 'jpg',
+    'image/jpg': 'jpg'
+};
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        const isValid = MIME_TYPE_MAP[file.mimetype];
+        let error = new Error('Invalid mime type');
+        if(isValid) { error = null; } 
+        cb(error, path.join(__dirname, '../uploads/'));
+    },
+    filename: (req, file, cb) => {
+        const ext = MIME_TYPE_MAP[file.mimetype];
+        cb(null, 'image-' + Date.now() + '.' + ext);
+        
+   }
+});
+
+const upload = multer({storage: storage});
 
 router.get('/get', (req, res) => {
 
@@ -121,7 +145,7 @@ router.post('/new', (req, res) => {
 });
 
 
-router.post('/signup', async (req, res) => {
+router.post('/signup', upload.single('file'), async (req, res) => {
 
     console.log(req.body.data)
 
@@ -134,7 +158,13 @@ router.post('/signup', async (req, res) => {
             res.json({ message: "Employee already exists", code: "409" })
         }
         else {
-            new Employee(empNew)
+            if(!req.file) {
+                console.log('no file')
+                res.json({data: "Upload Failed", code: "500"})
+            } else {
+                req.body.emp_imgUrl = 'http://localhost:3000/uploads/' + req.file.filename;
+                req.body.emp_rate = parseFloat(req.body.emp_rate) 
+                new Employee(empNew)
                 .save()
                 .then((data) => {
                     console.log(data)
@@ -145,7 +175,9 @@ router.post('/signup', async (req, res) => {
                     console.log(error)
                     res.json({ message: "Something Went Wrong", error: error, code: "500" })
                 })
-        }
+
+            }
+            }
     })
 })
 

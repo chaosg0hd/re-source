@@ -13,7 +13,7 @@ const EmployeeSchema = new mongoose.Schema({
     emp_address: String,
     emp_position: String,
     emp_department: String,
-    emp_rate: String,
+    emp_rate: Number,
     emp_rate_type: { type: String, default: 'monthly' },
     emp_role: { type: String, default: 'developer' },
 

@@ -105,8 +105,7 @@ app.use("/api/files", filesRouter);
 
 
 //app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
-
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 //app.all((req, res, next) => {
 //    /*res.send("Nothing Here, Ignore Me");*/
 //    console.log("Log From: server/app.js");

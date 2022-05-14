@@ -195,6 +195,108 @@
 
 
 
+<ng-container *ngIf="isMobile == true">
+
+  <ng-container *ngIf="isLoaded == false">
+    <br />
+    <br />
+    <br />
+    <br />
+    <mat-spinner style="margin: auto"></mat-spinner>
+  </ng-container>
+
+  <ng-container *ngIf="isLoaded == true">
+
+    <mat-toolbar color="primary" class="mat-elevation-z12" style="position:fixed; top: 0px; z-index: 100; width: 100%">
+      <span>COMPANY</span>
+      <span style="flex: 1 1 auto;"></span>
+
+      <button mat-mini-fab color="accent" [routerLink]="['/home']">
+        <mat-icon>home</mat-icon>
+      </button>
+      <button mat-mini-fab color="accent">
+        <mat-icon>settings</mat-icon>
+      </button>
+      <button mat-mini-fab color="warn" [routerLink]="['/login']">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <mat-toolbar>
+    </mat-toolbar>
+
+    <div class="bundy-container">
+
+
+      <div class="clock-card">
+
+        <div style="margin-top: 8px;text-align: center; display: flex; flex-direction: column; align-items:center">
+          <h4 style="color: white">
+            Bundy Clock
+          </h4>
+
+          <div style="width: 80%; height: 30%; flex: auto; border-radius: 16px; background-color: white;">
+
+            <br />
+            <mat-divider></mat-divider>
+            <br />
+            <h1>{{day}}</h1>
+            <h1>{{timeinhours}}:{{timeinminutes}}:{{timeinseconds}}&nbsp;{{timeinmeri}}</h1>
+            <br />
+            <mat-divider></mat-divider>
+            <br />
+
+            <ng-container *ngIf="isclockedIn == false">
+              <button mat-raised-button color="primary" (click)="timeIn()">Clock-In</button>
+            </ng-container>
+
+            <ng-container *ngIf="isclockedIn == true">
+              <button mat-raised-button color="primary" (click)="timeOut()">Clock-Out</button>
+            </ng-container>
+
+            <br />
+            <br />
+
+          </div>
+
+          <br />
+
+          <div style="width: 80%; height: 30%; flex: auto; border-radius: 16px; background-color: white;">
+
+            <br />
+            <mat-divider></mat-divider>
+            <br />
+            <h4>
+              Reminders
+            </h4>
+
+            <h3>
+              {{announcementTitle}}
+            </h3>
+            <br />
+            <mat-divider></mat-divider>
+            <br />
+            <br />
+            {{announcementContent}}
+            <br />
+            <mat-divider></mat-divider>
+            <br />
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </ng-container>
+
+</ng-container>
+
+
+
 <!--<mat-toolbar color="primary" class="mat-elevation-z12" style="position:fixed; top: 0px; z-index: 100">
   <span>MSSE Engineering and Construction Services</span>
   <span style="flex: 1 1 auto;"></span>

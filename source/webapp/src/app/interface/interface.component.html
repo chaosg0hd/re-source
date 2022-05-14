@@ -6,14 +6,16 @@
     <!--Top Bar-->
 
     <mat-toolbar color="primary" class="mat-elevation-z12 sidebar">
-      <button style="border-radius: 0px 0px 20px 0px; position: fixed; top: 0px; left: 0px; z-index: 100" mat-mini-fab color="primary" (click)="drawer.toggle()">
+      <button style="border-radius: 0px 0px 60px 0px; height: 60px; width: 60px; position: fixed; top: 0px; left: 0px; z-index: 100" mat-mini-fab color="primary" (click)="drawer.toggle()">
         <mat-icon>reorder</mat-icon>
-      </button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+              </button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
       <span style="flex: 1 1 auto;"></span>
-      <span>MSSE Engineering and Construction Services</span>
+      <span>Application</span>
       <span style="flex: 1 1 auto;"></span>
-      <button style="border-radius: 0px 0px 0px 20px; position: fixed; top: 0px; right: 0px; z-index: 100 " mat-mini-fab color="warn" [routerLink]="['/login']">
+      <button style="border-radius: 0px 0px 0px 60px; height: 60px; width: 60px; position: fixed; top: 0px; right: 0px; z-index: 100 " mat-mini-fab color="warn" [routerLink]="['/login']">
         <mat-icon>logout</mat-icon>
       </button>
     </mat-toolbar>

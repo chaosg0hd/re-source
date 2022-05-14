@@ -194,6 +194,9 @@ export class HrComponent implements OnInit{
     }
   }
 
+
+
+
   reloadLoop() {
     this.loadOnLoop()
   }
@@ -209,6 +212,8 @@ export class HrComponent implements OnInit{
   checkIfMobile() {
     this.isMobile = this.libraryService.getIsMobile()
   }
+
+  isToggleArchive = false
 
   //FunctionS
 
@@ -230,7 +235,6 @@ export class HrComponent implements OnInit{
   employeesDataSource = new MatTableDataSource(this.employeesData);
   employeesDisplayedColumns = ['emp_name', 'emp_number', 'emp_id', 'emp_age', 'emp_address', 'emp_position', 'emp_department', 'emp_rate', 'emp_rate_type', 'emp_role', 'emp_status', 'actions'];
 
-  isToggleArchive = false
 
   getEmployees() {
 
@@ -625,7 +629,7 @@ export class HrComponent implements OnInit{
 
     payrollData.map((content: any) => {
 
-      delete content.attendance 
+      /*delete content.attendance */
       content.emp_addition = 0
       content.emp_deduction = 0
       content.computed = content.emp_salary
@@ -682,6 +686,8 @@ export class HrComponent implements OnInit{
   grossTotal = 0
 
   calculateGrossTotal() {
+
+    this.grossTotal = 0
 
     this.payrollData = this.payrollDataSource.data
 

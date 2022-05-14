@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { CommonModule, DatePipe } from '@angular/common';
 
@@ -19,6 +19,7 @@ import { TaskboardComponent } from './pages/taskboard/taskboard.component';
 import { LoginComponent } from './login/login/login.component';
 import { BundyComponent } from './bundy/bundy.component';
 import { MarketComponent } from './market/market.component';
+import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 
 //import { AddRevenuesComponent } from './pages/finance/finance/add-revenues/add-revenues.component';
 //import { EditRevenuesComponent } from './pages/finance/finance/edit-revenues/edit-revenues.component';
@@ -192,6 +193,10 @@ import { SettingsComponent } from './settings/settings.component';
     MatPaginatorModule,
     MatSortModule,
     MatTableModule,
+
+    //mat file input
+    NgxMatFileInputModule,
+    ReactiveFormsModule,
 
     //Googlechart Declaration
 

@@ -91,12 +91,12 @@
 
                 <ng-container *ngFor="let element of inventoriesGalleryData; index as i">
 
-                  <div class="inv-box-container mat-elevation-z4" style="background-image: url({{element.imageUrl}}); background-position: center; background-size: cover; opacity: .8">
-                    <button mat-fab color="warn">{{element.quantity}}</button>
+                  <div class="inv-box-container mat-elevation-z4" style="background-image: url({{element.inv_imageUrl}}); background-position: center; background-size: cover; opacity: .8">
+                    <button mat-fab color="warn">{{element.inv_quantity}}</button>
                     <span style="flex: 1 1 auto;"></span>
                     <div style="flex: auto"><h4></h4></div>
                     <mat-chip-list>
-                      <mat-chip color="accent" selected>{{element.category}}</mat-chip>
+                      <mat-chip color="accent" selected>{{element.inv_category}}</mat-chip>
                     </mat-chip-list>
                     <span style="flex: 1 1 auto;"></span>
 
@@ -192,12 +192,12 @@
 
                   <ng-container matColumnDef="name">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+                    <mat-cell *matCellDef="let element"> {{element.inv_name}} </mat-cell>
                   </ng-container>
 
                   <ng-container matColumnDef="number" sticky>
                     <mat-header-cell *matHeaderCellDef> Number </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.number}} </mat-cell>
+                    <mat-cell *matCellDef="let element"> {{element.inv_number}} </mat-cell>
                   </ng-container>  
 
                   <ng-container matColumnDef="_id" sticky>
@@ -212,32 +212,32 @@
 
                   <ng-container matColumnDef="description">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Description </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+                    <mat-cell *matCellDef="let element"> {{element.inv_description}} </mat-cell>
                   </ng-container>
 
                   <ng-container matColumnDef="category">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Category </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.category}} </mat-cell>
+                    <mat-cell *matCellDef="let element"> {{element.inv_category}} </mat-cell>
                   </ng-container>
 
                   <ng-container matColumnDef="quantity">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.quantity}} </mat-cell>
+                    <mat-cell *matCellDef="let element"> {{element.inv_quantity}} </mat-cell>
                   </ng-container>
 
                   <ng-container matColumnDef="supplier">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Supplier </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.supplier}} </mat-cell>
+                    <mat-cell *matCellDef="let element"> {{element.inv_supplier}} </mat-cell>
                   </ng-container>
 
                   <ng-container matColumnDef="min_amount">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Minimum Amount </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.min_amount}} </mat-cell>
+                    <mat-cell *matCellDef="let element"> {{element.inv_min_amount}} </mat-cell>
                   </ng-container>                   
 
                   <ng-container matColumnDef="price">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Price </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.price}} </mat-cell>
+                    <mat-cell *matCellDef="let element"> {{element.inv_price}} </mat-cell>
                   </ng-container>
 
                   <ng-container matColumnDef="actions" stickyEnd>
@@ -368,6 +368,18 @@
       </div>
     </div>-->
 
+    <mat-form-field appearance="outline" style=" min-width: 100% ;flex:auto;border-radius: 16px !important">
+      <ngx-mat-file-input [formControl]="fileControl" [accept]="accept" [color]="color">
+      </ngx-mat-file-input>
+
+      <div class="title">Selected file:</div>
+      <div class="value">
+      <ul>
+        <li *ngFor="let item of files">{{item?.name}}</li>
+      </ul>
+</div>
+  </mat-form-field>
+
     <mat-form-field appearance="outline" style=" min-width: 15% ;flex:auto;border-radius: 16px !important">
       <mat-label>ID</mat-label>
       <input matInput type="text" [(ngModel)]="data.inv_id" [ngStyle]="{'background-color': data.inv_id? '' : 'var(--warn-lighter-color)'}">
@@ -423,6 +435,17 @@
 
       </div>
     </div>-->
+    <mat-form-field appearance="outline" style=" min-width: 15% ;flex:auto;border-radius: 16px !important">
+      <ngx-mat-file-input [formControl]="fileControl" [multiple]="multiple" [accept]="accept" [color]="color">
+      </ngx-mat-file-input>
+
+      <div class="title">Selected file:</div>
+      <div class="value">
+      <ul>
+        <li *ngFor="let item of files">{{item?.name}}</li>
+      </ul>
+</div>
+  </mat-form-field>
 
     <mat-form-field appearance="outline" style=" min-width: 15% ;flex:auto;border-radius: 16px !important">
       <mat-label>ID</mat-label>
@@ -441,7 +464,7 @@
 
     <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
       <mat-label>Supplier</mat-label>
-      <input required matInput placeholder="Ex. MIL Trading" type="text" [(ngModel)]="data.category" [ngStyle]="{'background-color': data.category? '' : 'var(--warn-lighter-color)'}">
+      <input required matInput placeholder="Ex. MIL Trading" type="text" [(ngModel)]="data.supplier" [ngStyle]="{'background-color': data.category? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 30% ;flex:auto;border-radius: 16px !important">

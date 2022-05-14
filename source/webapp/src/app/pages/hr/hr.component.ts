@@ -38,7 +38,6 @@ export class HrComponent implements OnInit{
   ) { }
 
   ngOnInit(): void {
-    /*this.loadOnstart()*/
 
     this.loadOnLoop()
 

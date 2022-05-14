@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
         const isValid = MIME_TYPE_MAP[file.mimetype];
         let error = new Error('Invalid mime type');
         if(isValid) { error = null; } 
-        cb(error, path.join(__dirname, '../uploads/inventory'));
+        cb(error, path.join(__dirname, '../uploads/'));
     },
     filename: (req, file, cb) => {
         const ext = MIME_TYPE_MAP[file.mimetype];
@@ -33,7 +33,7 @@ router.post("/", upload.single('file'), (req, res, next) => {
         return res.status(500).send({ message: 'Upload Failed'});
     } else {
         
-        req.body.imageUrl = 'http://localhost:3000/uploads/inventory/' + req.file.filename;
+        req.body.imageUrl = 'http://localhost:3000/uploads/' + req.file.filename;
         req.body.isArchive = 0;
         (new Inventory(req.body))
         .save()
@@ -50,7 +50,7 @@ router.post("/update", upload.single('file'), (req, res) => {
         .then(inventory => res.send(inventory))
         .catch(error => console.log(error));
     } else {
-        req.body.imageUrl = 'http://localhost:3000/uploads/inventory/' + req.file.filename;
+        req.body.imageUrl = 'http://localhost:3000/uploads/' + req.file.filename;
         Inventory.findOneAndUpdate({"_id": req.body.id}, {$set: req.body})
         .then(inventory => res.send(inventory))
         .catch(error => console.log(error));
@@ -156,22 +156,59 @@ router.delete('/delete/:_id', (req, res) => {
 })
 
 
-router.post('/new', (req, res) => {
+router.post('/new', upload.single('file'), (req, res) => {
 
-    console.log(req.body.data)
-
-    new Inventory(req.body.data)
+    //console.log(req.File[0])
+    // console.log(req.file)
+    // console.log(req.body)
+    // console.log(req.body.length)
+    
+    if(!req.file) {
+        console.log('no file')
+        res.json({data: "Upload Failed", code: "500"})
+    } else {
+        console.log('have file')
+        req.body.imageUrl = 'http://localhost:3000/uploads/' + req.file.filename;
+        new Inventory(req.body)
         .save()
         .then((data) => {
             console.log(data)
-            console.log(data._id + " Has Inventory Logged")
-            res.json({ data, message: "Succesfully Inventory Logged", code: "200" })
+            res.json({ data, message: "Successfully Added!", code: "200" })
 
         })
         .catch((error) => {
             console.log(error)
             res.json({ data: "Something Went Wrong", error: error, code: "500" })
         })
+    }
+
+    // // var files = req.data.file
+    //     console.log(req.body);
+    //     if(!req.file) {
+    //         res.json({data: "Upload Failed", code: "500"})
+    //     } else {
+    //         req.body.imageUrl = 'http://localhost:3000/uploads/' + req.file.filename;
+    //         Inventory.findOneAndUpdate({"_id": req.body.id}, {$set: req.body})
+    //         .then(inventory => res.send(inventory))
+    //         .catch(error => console.log(error));
+    //     }
+
+    // console.log(req.body.data)
+    // if (!req.body.data.file) {
+    //     Inventory.findOneAndUpdate({})
+    //     .save()
+    //     .then((data) => {
+    //         console.log(data)
+    //         console.log(data._id + " Has Inventory Logged")
+    //         res.json({ data, message: "Succesfully Inventory Logged", code: "200" })
+
+    //     })
+    //     .catch((error) => {
+    //         console.log(error)
+    //         res.json({ data: "Something Went Wrong", error: error, code: "500" })
+    //     })
+    // }
+    
 
 });
 

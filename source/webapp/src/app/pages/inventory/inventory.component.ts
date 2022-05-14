@@ -12,6 +12,9 @@ import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, filter } from 'rxjs/operators';
+import { AcceptValidator, MaxSizeValidator, NgxMatFileInputComponent } from '@angular-material-components/file-input';
+import { ThemePalette } from '@angular/material/core';
+import { environment } from 'src/environments/environment';
 
 import { Announcement, Task_Board, Inventory } from 'src/app/services/data/data.model';
 
@@ -20,6 +23,9 @@ import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation, rubberBandAnimation } 
 
 //SAMPLE
 
+//declaration mat input
+const presetFiles = [new File([], "file 1"), new File([], "file 2")];
+const presetFile = new File([], "file 1");
 
 @Component({
   selector: 'app-inventory',
@@ -38,7 +44,14 @@ export class InventoryComponent implements OnInit {
     private dialog : MatDialog,
     private httpClient: HttpClient,
     private libraryService: LibraryService
-  ) { }
+  ) {
+    this.fileControl = new FormControl(this.files, [
+      Validators.required,
+      MaxSizeValidator(this.maxSize * 1024)
+    ])
+  }
+
+  baseURL = environment.BASE_URL
 
   
 
@@ -65,6 +78,16 @@ export class InventoryComponent implements OnInit {
   ngOnInit(): void { 
     /*this.loadOnstart();*/
     this.loadOnLoop();
+    
+
+    //mat inpur
+    this.fileControl.valueChanges.subscribe((files: any) => {
+      if (!Array.isArray(files)) {
+        this.files = [files];
+      } else {
+        this.files = files;
+      }
+    })
   }
 
   @ViewChild('inventoryGalleryPaginator', { static: false })
@@ -223,7 +246,7 @@ export class InventoryComponent implements OnInit {
       });
   }
 
-  inventoriesGalleryData: any;
+  inventoriesGalleryData: any
 
   applyFilterInv(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -233,14 +256,37 @@ export class InventoryComponent implements OnInit {
   }
 
   newInv(input: any) {
-
-    this.dataService.post('inventories/new', { data: input }).subscribe((data) => {
+    console.log('new inv')
+    console.log(input)
+    console.log(this.files[0])
+    const imageData = new FormData();
+    imageData.append('file', this.files)
+    imageData.append('inv_id', input.inv_id)
+    imageData.append('inv_name', input.name)
+    imageData.append('inv_category', input.category)
+    imageData.append('inv_description', input.description)
+    imageData.append('inv_quantity', input.quantity +'')
+    imageData.append('inv_price', input.price + '')
+    imageData.append('inv_supplier', input.supplier + '')
+    imageData.append('inv_min_amount', input.min_amount + '')
+    this.httpClient.post<any>('http://localhost:3000/api/inventories/new', imageData).subscribe((data: any) => {
       console.log(data)
 
       this.getInventories()
-
+      
     })
+    input = ''
+    this.files = ''
 
+
+    //FormControl = ''
+    // this.dataService.post('inventories/new', { data: input }).subscribe((data) => {
+    //   console.log(data)
+
+    //   this.getInventories()
+      
+    // })
+    
   }
 
   editInv(input: any) {
@@ -290,7 +336,7 @@ export class InventoryComponent implements OnInit {
       this.isToggleArchive = true
     }
 
-    this.getInventories
+    this.getInventories()
   }
 
   
@@ -399,10 +445,37 @@ export class InventoryComponent implements OnInit {
     }
   }
 
-  
+//matfileinput
 
+color: ThemePalette = 'primary';
+disabled: boolean = false;
+multiple: boolean = false;
+accept!: string;
 
+fileControl: FormControl;
 
+  public options = [
+    { value: true, label: 'True' },
+    { value: false, label: 'False' }
+  ];
 
+  public listColors = ['primary', 'accent', 'warn'];
+  public listAccepts = [
+    null,
+    ".png",
+    "image/*",
+    //".doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+  ];
 
+  public files: any;
+  maxSize = 16;
+
+  onDisabledChanged(value: boolean) {
+    if (!value) {
+      this.fileControl.enable();
+    } else {
+      this.fileControl.disable();
+    }
+  }
 }
+

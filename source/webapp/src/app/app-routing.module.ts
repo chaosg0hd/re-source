@@ -6,8 +6,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { FinanceComponent } from './pages/finance/finance.component';
 import { LoginComponent } from './login/login/login.component';
 import { InventoryComponent } from './pages/inventory/inventory.component';
-/*import { GalleryComponent } from './pages/test/test/gallery/gallery.component';*/
 import { TaskboardComponent } from './pages/taskboard/taskboard.component';
+import { GalleryComponent } from './pages/gallery/gallery.component';
 import { BundyComponent } from './bundy/bundy.component';
 import { AuthGuard } from './services/auth/auth.guard';
 
@@ -64,6 +64,14 @@ const routes: Routes = [
         { path: '', component: TaskboardComponent, canActivate:[AuthGuard] },
       ]
   },
+
+  {
+    path: 'gallery', component: InterfaceComponent, children:
+      [
+        { path: '', component: GalleryComponent, canActivate: [AuthGuard] },
+      ]
+  },
+
   //{
   //  path: 'gallery',
   //  component: GalleryComponent,

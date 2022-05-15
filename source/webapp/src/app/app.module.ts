@@ -100,6 +100,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { AnnouncementComponent } from './global/announcement/announcement.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SettingsComponent } from './settings/settings.component';
+import { GalleryComponent } from './pages/gallery/gallery.component';
 
 //jspd
 
@@ -144,6 +145,7 @@ import { SettingsComponent } from './settings/settings.component';
     AnnouncementComponent,
     ProfileComponent,
     SettingsComponent,
+    GalleryComponent,
   ],
   imports: [
 

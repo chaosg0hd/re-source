@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, TemplateRef} from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, ElementRef} from '@angular/core';
 import { GoogleChartComponent } from 'angular-google-charts';
 import { ChartType, Row } from 'angular-google-charts';
 import { MatTableDataSource } from '@angular/material/table';
@@ -8,7 +8,10 @@ import { MatDialog} from '@angular/material/dialog';
 import { DataService } from 'src/app/services/data/data.service';
 import Swal from 'sweetalert2';
 import { Data } from '@angular/router';
-import { DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common'
+import { HttpClient } from '@angular/common/http'
+import jsPDF from 'jspdf'
+import html2canvas from 'html2canvas'
 
 import { Announcement, Employee, Task_Board, Inventory, Attendance, Time, File, Gallery, Payroll, Purchase, Petty_Cash, Revenue, Sale } from 'src/app/services/data/data.model';
 
@@ -34,6 +37,7 @@ export class HrComponent implements OnInit{
     private dataService: DataService,
     private datepipe: DatePipe,
     private dialog: MatDialog,
+    private httpClient: HttpClient,
 
   ) { }
 
@@ -78,7 +82,37 @@ export class HrComponent implements OnInit{
   @ViewChild('addEditDialog', { static: true }) addEditDialog!: TemplateRef<any>;
   @ViewChild('dedEditDialog', { static: true }) dedEditDialog!: TemplateRef<any>;
 
+  @ViewChild('payrollPDF', {static: false }) el!: ElementRef;
+
+  title = 'PDF Generated from Payroll Table'
+
   @ViewChild(MatSort) empSort!: MatSort;
+
+  makePDF() {
+    const data = this.el.nativeElement
+    html2canvas(data).then(canvas => {
+      const width = 200
+      let height = canvas.height * width / canvas.width
+
+      const fileuri = canvas.toDataURL('image/png')
+      const pdf = new jsPDF('l', 'mm', 'a4')
+      let position = 0
+      pdf.addImage(fileuri, 'PNG', 5, 5, width, height)
+      pdf.save('payroll')
+    })
+    // const pdf = new jsPDF('landscape','mm',[297, 210])
+
+    // // var height = pdf.internal.pageSize.getHeight()
+    // // var width = pdf.internal.pageSize.getWidth()
+    // // var imgData = 
+
+    // pdf.html(this.el.nativeElement, {
+    //   callback: (pdf) => {
+        
+    //     pdf.save("payroll.pdf")
+    //   }
+    // })
+  }
 
   openDialogEditEmp(input: any) {
     this.dialog.open(this.empDialog, { data: input });
@@ -299,16 +333,45 @@ export class HrComponent implements OnInit{
 
   }
 
+  image: any
+  selectImage(event: any) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.image = file;
+    }
+  }
+
   newEmp(input : any) {
+    const employeeData = new FormData();
+
+    employeeData.append('file', this.image)
+    employeeData.append('emp_id', input.emp_id)
+    employeeData.append('emp_fname', input.emp_fname)
+    employeeData.append('emp_lname', input.emp_lname)
+    employeeData.append('emp_mname', input.emp_mname)
+    employeeData.append('emp_extname', input.emp_extname)
+    employeeData.append('emp_role', input.emp_role)
+    employeeData.append('emp_password', input.emp_password)
+    employeeData.append('emp_position', input.emp_position)
+    employeeData.append('emp_department', input.emp_department)
+    employeeData.append('emp_rate', input.emp_rate + '')
+    employeeData.append('emp_rate_type', input.emp_rate_type)
+    employeeData.append('emp_birth_date', input.emp_birth_date)
+    employeeData.append('emp_start_date', input.emp_start_date)
+    employeeData.append('emp_address', input.emp_address)
 
     delete input.password2
 
-    this.dataService.post('employees/signup', { data: input }).subscribe((data) => {
+    this.httpClient.post<any>('http://localhost:3000/api/employees/signup', employeeData).subscribe((data: any) => {
       console.log(data)
 
       this.getEmployees()
-
+      
     })
+
+    // this.dataService.post('employees/signup', { data: input }).subscribe((data) => {
+    //   console.log(data)
+    // })
 
   }
 

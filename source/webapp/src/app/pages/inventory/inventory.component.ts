@@ -45,10 +45,10 @@ export class InventoryComponent implements OnInit {
     private httpClient: HttpClient,
     private libraryService: LibraryService
   ) {
-    this.fileControl = new FormControl(this.files, [
-      Validators.required,
-      MaxSizeValidator(this.maxSize * 1024)
-    ])
+    // this.fileControl = new FormControl(this.files, [
+    //   Validators.required,
+    //   MaxSizeValidator(this.maxSize * 1024)
+    // ])
   }
 
   baseURL = environment.BASE_URL
@@ -81,14 +81,14 @@ export class InventoryComponent implements OnInit {
     
 
     //mat inpur
-    this.fileControl.valueChanges.subscribe((files: any) => {
-      if (!Array.isArray(files)) {
-        this.files = [files];
-      } else {
-        this.files = files;
-      }
-    })
-  }
+  //   this.fileControl.valueChanges.subscribe((files: any) => {
+  //     if (!Array.isArray(files)) {
+  //       this.files = [files];
+  //     } else {
+  //       this.files = files;
+  //     }
+  //   })
+   }
 
   @ViewChild('inventoryGalleryPaginator', { static: false })
   set inventoryGalleryPaginator(value: MatPaginator) {
@@ -255,28 +255,38 @@ export class InventoryComponent implements OnInit {
 
   }
 
+  image: any
+  selectImage(event: any) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.image = file;
+    }
+  }
+
   newInv(input: any) {
     console.log('new inv')
     console.log(input)
-    console.log(this.files[0])
+
     const imageData = new FormData();
-    imageData.append('file', this.files)
+
+    imageData.append('file', this.image)
     imageData.append('inv_id', input.inv_id)
     imageData.append('inv_name', input.name)
     imageData.append('inv_category', input.category)
     imageData.append('inv_description', input.description)
     imageData.append('inv_quantity', input.quantity +'')
     imageData.append('inv_price', input.price + '')
-    imageData.append('inv_supplier', input.supplier + '')
+    imageData.append('inv_supplier', input.supplier)
     imageData.append('inv_min_amount', input.min_amount + '')
+
     this.httpClient.post<any>('http://localhost:3000/api/inventories/new', imageData).subscribe((data: any) => {
       console.log(data)
 
       this.getInventories()
       
     })
-    input = ''
-    this.files = ''
+    // input = ''
+    // this.files = ''
 
 
     //FormControl = ''
@@ -447,35 +457,35 @@ export class InventoryComponent implements OnInit {
 
 //matfileinput
 
-color: ThemePalette = 'primary';
-disabled: boolean = false;
-multiple: boolean = false;
-accept!: string;
+// color: ThemePalette = 'primary';
+// disabled: boolean = false;
+// multiple: boolean = false;
+// accept!: string;
 
-fileControl: FormControl;
+// fileControl: FormControl;
 
-  public options = [
-    { value: true, label: 'True' },
-    { value: false, label: 'False' }
-  ];
+//   public options = [
+//     { value: true, label: 'True' },
+//     { value: false, label: 'False' }
+//   ];
 
-  public listColors = ['primary', 'accent', 'warn'];
-  public listAccepts = [
-    null,
-    ".png",
-    "image/*",
-    //".doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-  ];
+//   public listColors = ['primary', 'accent', 'warn'];
+//   public listAccepts = [
+//     null,
+//     ".png",
+//     "image/*",
+//     //".doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+//   ];
 
-  public files: any;
-  maxSize = 16;
+//   public files: any;
+//   maxSize = 16;
 
-  onDisabledChanged(value: boolean) {
-    if (!value) {
-      this.fileControl.enable();
-    } else {
-      this.fileControl.disable();
-    }
-  }
+//   onDisabledChanged(value: boolean) {
+//     if (!value) {
+//       this.fileControl.enable();
+//     } else {
+//       this.fileControl.disable();
+//     }
+//   }
 }
 

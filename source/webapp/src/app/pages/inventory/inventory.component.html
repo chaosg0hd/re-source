@@ -91,7 +91,9 @@
 
                 <ng-container *ngFor="let element of inventoriesGalleryData; index as i">
 
-                  <div class="inv-box-container mat-elevation-z4" style="background-image: url({{element.inv_imageUrl}}); background-position: center; background-size: cover; opacity: .8">
+                  <div class="inv-box-container mat-elevation-z4" style="background-image:url({{element.inv_imageUrl}}); background-position: center; background-size: cover; opacity: .8">
+                    <img src="{{element.inv_imageUrl}}" alt="" style="width: 50px; height: 20px;" />
+                    <p>{{element.inv_imageUrl}}</p>
                     <button mat-fab color="warn">{{element.inv_quantity}}</button>
                     <span style="flex: 1 1 auto;"></span>
                     <div style="flex: auto"><h4></h4></div>
@@ -367,9 +369,9 @@
 
       </div>
     </div>-->
-
-    <mat-form-field appearance="outline" style=" min-width: 100% ;flex:auto;border-radius: 16px !important">
-      <ngx-mat-file-input [formControl]="fileControl" [accept]="accept" [color]="color">
+<!-- 
+    <mat-form-field appearance="outline" style=" min-width: 90%; flex:auto; border-radius: 16px !important">
+      <ngx-mat-file-input [formControl]="fileControl" [multiple]="multiple" [accept]="accept" [color]="color">
       </ngx-mat-file-input>
 
       <div class="title">Selected file:</div>
@@ -377,8 +379,8 @@
       <ul>
         <li *ngFor="let item of files">{{item?.name}}</li>
       </ul>
-</div>
-  </mat-form-field>
+      </div>
+  </mat-form-field > -->
 
     <mat-form-field appearance="outline" style=" min-width: 15% ;flex:auto;border-radius: 16px !important">
       <mat-label>ID</mat-label>
@@ -435,17 +437,10 @@
 
       </div>
     </div>-->
-    <mat-form-field appearance="outline" style=" min-width: 15% ;flex:auto;border-radius: 16px !important">
-      <ngx-mat-file-input [formControl]="fileControl" [multiple]="multiple" [accept]="accept" [color]="color">
-      </ngx-mat-file-input>
+ 
+      <mat-label>Image:</mat-label>
+      <input type="file"  name="image" (change)="selectImage($event)">
 
-      <div class="title">Selected file:</div>
-      <div class="value">
-      <ul>
-        <li *ngFor="let item of files">{{item?.name}}</li>
-      </ul>
-</div>
-  </mat-form-field>
 
     <mat-form-field appearance="outline" style=" min-width: 15% ;flex:auto;border-radius: 16px !important">
       <mat-label>ID</mat-label>

@@ -159,8 +159,8 @@ router.delete('/delete/:_id', (req, res) => {
 router.post('/new', upload.single('file'), (req, res) => {
 
     //console.log(req.File[0])
-    // console.log(req.file)
-    // console.log(req.body)
+    console.log(req.file)
+    console.log(req.body)
     // console.log(req.body.length)
     
     if(!req.file) {
@@ -168,7 +168,11 @@ router.post('/new', upload.single('file'), (req, res) => {
         res.json({data: "Upload Failed", code: "500"})
     } else {
         console.log('have file')
-        req.body.imageUrl = 'http://localhost:3000/uploads/' + req.file.filename;
+        req.body.inv_imageUrl = 'http://localhost:3000/uploads/' + req.file.filename;
+
+        req.body.inv_quantity = parseInt(req.body.inv_quantity)
+        req.body.inv_price = parseFloat(req.body.inv_price)
+        req.body.inv_min_amount = parseInt(req.body.inv_min_amount)
         new Inventory(req.body)
         .save()
         .then((data) => {

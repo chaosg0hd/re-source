@@ -72,6 +72,7 @@
                 <button mat-raised-button color="primary" style="flex:auto">View Archived <mat-icon>recycling</mat-icon></button>&nbsp;
 
                 <button mat-raised-button color="warn" class="control-button" style="flex:auto;" (click)="openDialogNewTask()">  Add Project <mat-icon>add</mat-icon></button>&nbsp;
+                <button mat-raised-button color="warn" class="control-button" style="flex:auto;" (click)="fileUpload()">  File Upload <mat-icon>add</mat-icon></button>&nbsp;
                 <span style="flex: 1 1 auto;"></span>
 
               </div>
@@ -92,6 +93,7 @@
                   <span style="flex: 1 1 auto;"></span>
 
                   <button mat-fab color="warn" (click)="openDialogSubTask(element)"> <mat-icon>add</mat-icon> </button>
+                  
                   <button mat-fab color="primary"> 100% </button>
 
                 </div>
@@ -186,6 +188,71 @@
 <ng-container *ngIf="isMobile == true">
 
 </ng-container>
+
+<ng-template #taskNewDialog let-data>
+  <h2 matDialogTitle>{{data.emp_name}} | {{data.salary}}</h2>
+  <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">
+
+    <br />
+    <mat-divider></mat-divider>
+    <br />
+
+    <mat-form-field appearance="outline" style=" min-width: 15% ;flex:auto;border-radius: 16px !important">
+      <mat-label>ID</mat-label>
+      <input disabled matInput [(ngModel)]="data.emp_id" [ngStyle]="{'background-color': data.emp_id? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+    <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Name</mat-label>
+      <input disabled type="text" matInput placeholder="Ex. Juan De" [(ngModel)]="data.emp_name" [ngStyle]="{'background-color': data.emp_name? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+    <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Total</mat-label>
+      <input disabled type="number" matInput placeholder="Ex. 694.20" [(ngModel)]="data.salary" [ngStyle]="{'background-color': data.salary? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+    <div style="display: flex; width: 100%">
+
+      <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
+        <mat-label>Addition Amount</mat-label>
+        <input matInput type="number" placeholder="Ex. 77.21" [(ngModel)]="data.emp_addition" [ngStyle]="{'background-color': data.emp_addition? '' : 'var(--warn-lighter-color)'}">
+      </mat-form-field>&nbsp;
+
+    </div>
+
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-raised-button matDialogClose color="primary" (click)="newTask(data)">Ok</button>
+    <button mat-raised-button matDialogClose color="warn">Cancel</button>
+  </mat-dialog-actions>
+</ng-template>
+
+<ng-template #fileUploadNewDialog let-data>
+  <h2 matDialogTitle>{{data.emp_name}} | {{data.salary}}</h2>
+  <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">
+
+    <br />
+    <mat-divider></mat-divider>
+    <br />
+
+    <mat-label>File:</mat-label>
+    <input type="file"  name="image" (change)="selectImage($event)">
+
+    <mat-form-field appearance="outline" style=" min-width: 15% ;flex:auto;border-radius: 16px !important">
+      <mat-label>ID</mat-label>
+      <input disabled matInput [(ngModel)]="data.emp_id" [ngStyle]="{'background-color': data.emp_id? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-raised-button matDialogClose color="primary" (click)="newFile(data)">Ok</button>
+    <button mat-raised-button matDialogClose color="warn">Cancel</button>
+  </mat-dialog-actions>
+</ng-template>
+
+
+
 
 
 

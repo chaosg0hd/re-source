@@ -8,7 +8,9 @@ const Inventory = require('../database/models/inventory');
 const MIME_TYPE_MAP = {
     'image/png': 'png', 
     'image/jpeg': 'jpg',
-    'image/jpg': 'jpg'
+    'image/jpg': 'jpg',
+    'text/plain': 'txt',
+    'application/pdf': 'pdf',
 };
 
 const storage = multer.diskStorage({
@@ -28,17 +30,16 @@ const storage = multer.diskStorage({
 const upload = multer({storage: storage});
 
 router.post("/", upload.single('file'), (req, res, next) => {
-    console.log(req.body);
+    console.log(req.file);
     if(!req.file) {
         return res.status(500).send({ message: 'Upload Failed'});
     } else {
         
         req.body.imageUrl = 'http://localhost:3000/uploads/' + req.file.filename;
         req.body.isArchive = 0;
-        (new Inventory(req.body))
-        .save()
-        .then((inventory) => res.send(inventory))
-        .catch((error) => (error));
+        let file = req.body.imageUrl
+        //return res.json({ filename, message: "Upload Successfully", code: '200'})
+        return res.status(200).json({'filename': file, 'message': 'Upload Successful!'})
     }
 
 });

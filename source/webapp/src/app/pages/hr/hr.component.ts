@@ -376,6 +376,10 @@ export class HrComponent implements OnInit{
 
   }
 
+  fileUpload() {
+
+  }
+
   editEmp(input: any) {
 
     this.dataService.patch('employees/edit', { data: input }).subscribe((data) => {

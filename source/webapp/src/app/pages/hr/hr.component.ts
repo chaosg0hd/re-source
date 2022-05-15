@@ -70,8 +70,8 @@ export class HrComponent implements OnInit{
 
   @ViewChild('payrollPaginator', { static: false })
   set payrollPaginator(value: MatPaginator) {
-    if (this.attendanceDataSource) {
-      this.attendanceDataSource.paginator = value;
+    if (this.payrollDataSource) {
+      this.payrollDataSource.paginator = value;
     }
   }
   
@@ -267,7 +267,7 @@ export class HrComponent implements OnInit{
   employeesPayload: any;
   employeesData: Employee[] = [];
   employeesDataSource = new MatTableDataSource(this.employeesData);
-  employeesDisplayedColumns = ['emp_name', 'emp_number', 'emp_id', 'emp_age', 'emp_address', 'emp_position', 'emp_department', 'emp_rate', 'emp_rate_type', 'emp_role', 'emp_status', 'actions'];
+  employeesDisplayedColumns = ['emp_name', 'emp_number', 'emp_id', 'emp_age', 'emp_address', 'emp_position', 'emp_department', 'emp_rate', 'emp_rate_type', 'emp_role', 'emp_start_date', 'emp_birth_date', 'emp_status', 'actions'];
 
 
   getEmployees() {

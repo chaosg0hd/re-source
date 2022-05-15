@@ -147,9 +147,8 @@ router.post('/new', (req, res) => {
 
 router.post('/signup', upload.single('file'), async (req, res) => {
 
-    console.log(req.body.data)
-
-    let empNew = new Employee(req.body.data)
+    console.log(req.body)
+    let empNew = new Employee(req.body)
     console.log(empNew)
     empNew.emp_password = await bcrypt.hash(empNew.emp_password, 10)
 

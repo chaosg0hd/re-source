@@ -68,7 +68,7 @@ export class BundyComponent implements OnInit {
 
     this.isLoaded = true;
 
-    await this.delay(60000);
+    await this.delay(6000);
     this.reloadLoop();
     
     //Event Loop End Here
@@ -128,6 +128,7 @@ export class BundyComponent implements OnInit {
   timeinmeri!: any
   day!: any
   date!: any
+  
 
   async getTime() {
     while (true) {
@@ -220,7 +221,7 @@ export class BundyComponent implements OnInit {
   timeIn() {
     
     this.clockinId = localStorage.getItem("id")
-    let req = { "emp_id" : this.clockinId }
+    let req = { "emp_id": this.clockinId }
 
     this.dataService.post('times/timein', { data: req }).
       subscribe((data: any) => {
@@ -251,7 +252,7 @@ export class BundyComponent implements OnInit {
 
           let date = this.datepipe.transform(new Date(data.data.createdAt), 'YYYY-MM-dd')
           let attreq = {}
-          attreq = { "emp_id": data.data.emp_id, "atten_seconds": data.seconds, "atten_date": this.datepipe.transform(date, 'YYYY-MM-dd') }
+          attreq = { "atten_emp_id": data.data.emp_id, "atten_seconds": data.seconds, "atten_date": this.datepipe.transform(date, 'YYYY-MM-dd') }
           
           this.dataService.post('attendances/new', { data: attreq })
             .subscribe((data) => {

@@ -145,10 +145,10 @@ router.post('/new', (req, res) => {
 });
 
 
-router.post('/signup', upload.single('file'), async (req, res) => {
+router.post('/signup', async (req, res) => {
 
-    console.log(req.body)
-    let empNew = new Employee(req.body)
+    console.log(req.body.data)
+    let empNew = new Employee(req.body.data)
     console.log(empNew)
     empNew.emp_password = await bcrypt.hash(empNew.emp_password, 10)
 
@@ -157,28 +157,44 @@ router.post('/signup', upload.single('file'), async (req, res) => {
             res.json({ message: "Employee already exists", code: "409" })
         }
         else {
-            if(!req.file) {
-                console.log('no file')
-                res.json({data: "Upload Failed", code: "500"})
-            } else {
-                req.body.emp_imgUrl = 'http://localhost:3000/uploads/' + req.file.filename;
-                req.body.emp_rate = parseFloat(req.body.emp_rate) 
-                new Employee(empNew)
+            new Employee(empNew)
                 .save()
                 .then((data) => {
                     console.log(data)
-                    console.log("Created New Employee")                    
+                    console.log("Created New Employee")
                     res.json({ data, message: "Account created successfully", code: "200" })
                 })
                 .catch((error) => {
                     console.log(error)
                     res.json({ message: "Something Went Wrong", error: error, code: "500" })
                 })
-
-            }
-            }
+        }
     })
 })
+    //Employee.findOne({ "emp_id": empNew.emp_id }, (err, emp) => {
+    //    if (emp) {
+    //        res.json({ message: "Employee already exists", code: "409" })
+    //    }
+    //    else {
+    //        //req.body.emp_imgUrl = 'http://localhost:3000/uploads/' + req.file.filename;
+    //        //req.body.emp_rate = parseFloat(req.body.emp_rate) 
+    //        new Employee(empNew)
+    //            .save()
+    //            .then((data) => {
+    //                console.log(data)
+    //                console.log("Created New Employee")
+    //                res.json({ data, message: "Account created successfully", code: "200" })
+    //            })
+    //            .catch((error) => {
+    //                console.log(error)
+    //                res.json({ message: "Something Went Wrong", error: error, code: "500" })
+    //            })
+
+
+    //    }
+
+    
+    // })
 
 router.post('/login', async (req, res) => {
 

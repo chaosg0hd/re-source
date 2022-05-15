@@ -32,6 +32,8 @@ export class TaskboardComponent implements OnInit {
 
   @ViewChild('taskSlaveNewDialog', { static: true }) taskSlaveNewDialog!: TemplateRef<any>;
 
+  @ViewChild('fileUploadNewDialog', { static: true }) fileUploadNewDialog!: TemplateRef<any>;
+
   openDialogNewTask() {
     var input = {}
     this.dialog.open(this.taskNewDialog, { data: input });
@@ -39,6 +41,11 @@ export class TaskboardComponent implements OnInit {
 
   openDialogSubTask(input : any) {
     this.dialog.open(this.taskSlaveNewDialog, { data: input });
+  }
+
+  fileUpload() {
+    var input = {}
+    this.dialog.open(this.fileUploadNewDialog, { data: input });
   }
 
 
@@ -376,6 +383,27 @@ export class TaskboardComponent implements OnInit {
       console.log(data)
     })
 
+  }
+
+  //file upload
+  image: any
+  selectImage(event: any) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.image = file;
+    }
+  }
+
+  newFile(input: any) {
+    const fileData = new FormData();
+    fileData.append('file', this.image)
+    console.log(this.image)
+    this.httpClient.post<any>('http://localhost:3000/api/uploads/', fileData).subscribe((data: any) => {
+      console.log(data)
+
+      this.getEmployees()
+      
+    })
   }
 
 

@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const mongoose = require('mongoose');
+const fs = require('fs')
 
 const path = require('path');
 
@@ -105,6 +106,10 @@ app.use("/api/files", filesRouter);
 
 const uploadsRouter = require('./routes/uploads');
 app.use("/api/uploads", uploadsRouter);
+
+
+
+
 
 //app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));

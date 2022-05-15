@@ -2,6 +2,7 @@ const express = require("express");
 const multer = require('multer');
 const router = express.Router();
 const path = require('path');
+const fs = require('fs')
 
 
 const MIME_TYPE_MAP = {
@@ -60,21 +61,21 @@ router.post("/update", upload.single('file'), (req, res) => {
 
 
 router.get('/get', (req, res) => {
+    //filereader
+    let retrievedfiles = {}
+    let dir = __dirname
+    console.log(__dirname)
+    fs.readdir('./server/uploads', (err, files) => {
+        if (err)
+            return res.status(500).send(err)
+        else {
+            files.forEach(file => {
+            console.log(file);
 
-    Inventory.find({})
-        .then((data) => {
-            if (data != null) {
-                res.json({ data, message: "Inventory pulled successfull", code: "200" })
-            }
-            else {
-                console.log("Data Does Not Exist")
-                res.json({ message: "Get failed", code: "404" })
-            }
-        })
-        .catch(error => {
-            console.log(error)
-            res.json({ message: "Something Went Wrong", error: error, code: "500" })
-        })
+    })
+  }
+    return res.json({message: 'Files Retrieved!', 'files': files, code: '200'})
+})
 })
 
 router.get('/get/:_id', (req, res) => {

@@ -342,6 +342,7 @@ export class HrComponent implements OnInit{
   }
 
   newEmp(input : any) {
+    console.log(input)
     const employeeData = new FormData();
 
     employeeData.append('file', this.image)

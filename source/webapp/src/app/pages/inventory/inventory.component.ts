@@ -272,7 +272,11 @@ export class InventoryComponent implements OnInit {
   }
 
   newInv(input: any) {
-    const imageData = new FormData();
+    let imageData = new FormData();
+
+    imageData = input.imageData
+
+    console.log(imageData)
     let filename: string
 
     //imageData.append('file', this.image)
@@ -288,22 +292,23 @@ export class InventoryComponent implements OnInit {
 
     this.httpClient.post<any>('hdttp://localhost:3000/api/uploads/', imageData).subscribe((data: any) => {
       console.log(data)
-      this.dataService.post('inventories/new', invData).subscribe((data) => {
-        console.log(data)
-        this.getInventories()
-      })
+      //this.dataService.post('inventories/new', invData).subscribe((data) => {
+      //  console.log(data)
+      //  this.getInventories()
+      //})
     })
      
   }
 
   editInv(input: any) {
 
-    this.dataService.patch('inventories/edit', { data: input }).subscribe((data) => {
-      console.log(data)
 
-      this.getInventories()
+    //this.dataService.patch('inventories/edit', { data: input }).subscribe((data) => {
+    //  console.log(data)
 
-    })
+    //  this.getInventories()
+
+    //})
 
   }
 
@@ -398,17 +403,6 @@ export class InventoryComponent implements OnInit {
   }
 
   
-
-
-
-
-
-
-
-
-
-
-
 
 
   activeDiv: any

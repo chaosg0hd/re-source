@@ -1400,7 +1400,7 @@
 
     <mat-form-field appearance="outline" style=" min-width: 40% ; flex:auto; border-radius: 16px !important">
       <mat-label>Image</mat-label>
-      <ngx-mat-file-input [(ngModel)]="data.emp_imgUrl" [ngStyle]="{'background-color': data.emp_imageUrl? '' : 'var(--warn-lighter-color)'}">
+      <ngx-mat-file-input [(ngModel)]="data.emp_imgfile" [ngStyle]="{'background-color': data.emp_imagefile? '' : 'var(--warn-lighter-color)'}">
       </ngx-mat-file-input>
     </mat-form-field>&nbsp;
 
@@ -1620,7 +1620,8 @@
 <!--For New Att-->
 
 <ng-template #attNewDialog let-data>
-  <h2 matDialogTitle>New Time-In</h2>
+  <h2 matDialogTitle>New Time-In <button mat-raised-button matDialogClose color="warn" (click)="archiveEmp(data)">Archive&nbsp;<mat-icon>delete</mat-icon></button>&nbsp;
+    <button mat-raised-button matDialogClose style="background-color: var(--danger-color)" (click)="deleteEmp(data)">Delete&nbsp;<mat-icon>delete_forever</mat-icon></button></h2>
   <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">
 
      <div style="width: 100%;">

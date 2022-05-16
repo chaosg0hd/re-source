@@ -26,11 +26,11 @@ export class TaskboardComponent implements OnInit {
     private libraryService: LibraryService
   ) { }
 
-  
+  @ViewChild('taskProjectNewDialog', { static: true }) taskProjectNewDialog!: TemplateRef<any>; 
 
-  @ViewChild('taskNewDialog', { static: true }) taskNewDialog!: TemplateRef<any>;
+  @ViewChild('taskNewDialog', { static: true }) taskNewDialog!: TemplateRef<any>; 
 
-  @ViewChild('taskProjectNewDialog', { static: true }) taskProjectNewDialog!: TemplateRef<any>;
+  @ViewChild('taskEditDialog', { static: true }) taskEditDialog!: TemplateRef<any>;
 
   @ViewChild('fileUploadNewDialog', { static: true }) fileUploadNewDialog!: TemplateRef<any>;
 
@@ -40,11 +40,14 @@ export class TaskboardComponent implements OnInit {
   }
 
   openDialogNewTask(project: any) {
-
-    console.log(project)
     var input = {task_project : project}
     this.dialog.open(this.taskNewDialog, { data: input });
   }
+
+  openDialogEditTask(input: any) {
+    this.dialog.open(this.taskEditDialog, { data: input });
+  }
+
 
   //openDialogSubTask(input : any) {
   //  this.dialog.open(this.taskSlaveNewDialog, { data: input });
@@ -105,6 +108,7 @@ export class TaskboardComponent implements OnInit {
       case 0:
 
         this.isLoadedTab = false;
+        this.getEmployees()
         this.getTasks()
 
         
@@ -404,7 +408,7 @@ export class TaskboardComponent implements OnInit {
 
     this.dataService.post('task_boards/new', { data: input }).subscribe((data) => {
       console.log(data)
-
+      this.getTasks()
     })
 
   }
@@ -413,7 +417,7 @@ export class TaskboardComponent implements OnInit {
 
     this.dataService.post('task_boards/new', { data: input }).subscribe((data) => {
       console.log(data)
-
+      this.getTasks()
     })
 
   }
@@ -422,6 +426,7 @@ export class TaskboardComponent implements OnInit {
 
     this.dataService.patch('task_boards/edit', { data: input }).subscribe((data) => {
       console.log(data)
+      this.getTasks()
     })
 
   }

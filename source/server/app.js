@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const mongoose = require('mongoose');
 const fs = require('fs')
+const fileUpload = require('express-fileupload')
 
 const path = require('path');
 
@@ -23,6 +24,8 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
     });
 
 app.use(bodyParser.json());
+
+app.use(fileUpload());
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");

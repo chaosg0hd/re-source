@@ -352,6 +352,9 @@ export class HrComponent implements OnInit{
       
     //})
 
+
+    
+
      this.dataService.post('employees/signup', { data: input }).subscribe((data) => {
        console.log(data)
      })

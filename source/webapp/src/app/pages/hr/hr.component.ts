@@ -88,6 +88,8 @@ export class HrComponent implements OnInit{
 
   @ViewChild(MatSort) empSort!: MatSort;
 
+  @ViewChild(MatSort) timeSort!: MatSort;
+
   makePDF() {
     const data = this.el.nativeElement
     html2canvas(data).then(canvas => {
@@ -247,7 +249,8 @@ export class HrComponent implements OnInit{
       this.isToggleArchive = true
     }
 
-    this.getEmployees
+    this.getEmployees()
+    this.getAttendance()
   }
 
   //Employees
@@ -255,7 +258,15 @@ export class HrComponent implements OnInit{
   employeesPayload: any;
   employeesData: Employee[] = [];
   employeesDataSource = new MatTableDataSource(this.employeesData);
-  employeesDisplayedColumns = ['emp_name', 'emp_number', 'emp_id', 'emp_age', 'emp_address', 'emp_position', 'emp_department', 'emp_rate', 'emp_rate_type', 'emp_role', 'emp_start_date', 'emp_birth_date', 'emp_status', 'actions'];
+  employeesDisplayedColumns = ['emp_name', 'emp_id', 'emp_role', 'emp_position', 'emp_department', 'emp_rate', 'emp_rate_type', 'emp_address', 'emp_start_date', 'emp_birth_date', 'emp_status', 'actions'];
+
+  //SORT OK
+  //PAGINATION OK
+  //WIDTH OK
+  //NEW OK
+  //EDIT OK
+  //DELETE OK
+  //ARCHIVE OK
 
 
   getEmployees() {
@@ -331,23 +342,6 @@ export class HrComponent implements OnInit{
 
   newEmp(input : any) {
     console.log(input)
-    /*const employeeData = new FormData();*/
-
-    //employeeData.append('file', this.image)
-    //employeeData.append('emp_id', input.emp_id)
-    //employeeData.append('emp_fname', input.emp_fname)
-    //employeeData.append('emp_lname', input.emp_lname)
-    //employeeData.append('emp_mname', input.emp_mname)
-    //employeeData.append('emp_extname', input.emp_extname)
-    //employeeData.append('emp_role', input.emp_role)
-    //employeeData.append('emp_password', input.emp_password)
-    //employeeData.append('emp_position', input.emp_position)
-    //employeeData.append('emp_department', input.emp_department)
-    //employeeData.append('emp_rate', input.emp_rate + '')
-    //employeeData.append('emp_rate_type', input.emp_rate_type)
-    //employeeData.append('emp_birth_date', input.emp_birth_date)
-    //employeeData.append('emp_start_date', input.emp_start_date)
-    //employeeData.append('emp_address', input.emp_address)
 
     delete input.password2
 
@@ -434,7 +428,7 @@ export class HrComponent implements OnInit{
 
   buildJSON() {
     let Obj: any = []
-    this.employeesData.map((emp) => {
+    this.employeesDataSource.data.map((emp) => {
 
       let json
 
@@ -447,7 +441,7 @@ export class HrComponent implements OnInit{
 
       let emp_name = emp.emp_fname + ' ' + emp.emp_lname
 
-      json = { emp_id: emp.emp_id, emp_name: emp_name, emp_rate: emp.emp_rate, emp_rate_type: emp.emp_rate_type, attendance: this.buildDays(emp.emp_id), total: this.getTotal(emp.emp_id), emp_salary: this.getSalary(emp.emp_rate, emp.emp_rate_type, this.getTotal(emp.emp_id)) }
+      json = { emp_id: emp.emp_id, emp_isArchive: emp.isArchive, emp_name: emp_name, emp_rate: emp.emp_rate, emp_rate_type: emp.emp_rate_type, attendance: this.buildDays(emp.emp_id), total: this.getTotal(emp.emp_id), emp_salary: this.getSalary(emp.emp_rate, emp.emp_rate_type, this.getTotal(emp.emp_id)) }
 
       Obj.push(json)
     })
@@ -488,13 +482,13 @@ export class HrComponent implements OnInit{
     let days = this.daysArray.length
 
     switch (emp_rate_type) {
-      case "daily":
+      case "Daily":
         salary = Math.floor(total / 8) * emp_rate
         break
-      case "weekly":
+      case "Weekly":
         salary = (Math.floor(days / 7)) * emp_rate
         break
-      case "monthly":
+      case "Monthly":
         salary = (Math.floor(days / 28)) * emp_rate
         break
      default:
@@ -571,7 +565,7 @@ export class HrComponent implements OnInit{
   attendancePayload: any;
   attendanceData: Attendance[] = [];
   attendanceDataSource = new MatTableDataSource(this.attendanceData);
-  attendanceDisplayedColumns = ['emp_name', 'emp_id', 'emp_date', 'emp_hours', 'actions'];
+  attendanceDisplayedColumns = ['atten_emp_name', 'atten_emp_id', 'atten_date', 'atten_emp_hours', 'actions'];
 
   calendarData: any[] = []
   calendarDataSource = new MatTableDataSource(this.calendarData);
@@ -586,13 +580,14 @@ export class HrComponent implements OnInit{
       this.attendancePayload = data;
       this.attendanceData = this.attendancePayload.data;
       this.formatAtt()
-
       
       this.attendanceDataSource.data = this.attendanceData
+      this.attendanceDataSource.sort = this.timeSort
       this.attendanceDataSource.paginator = this.timePaginator
 
       this.calendarData = []
       this.calendarData = this.buildJSON()
+
       this.calendarDataSource.data = this.calendarData
       this.calendarDataSource.paginator = this.attPaginator
 
@@ -882,6 +877,14 @@ export class HrComponent implements OnInit{
     return this.libraryService.getLastDayMonth()
   }
 
+  getNextWeek() {
+    return this.libraryService.getNextWeek()
+  }
+
+  getDate() {
+    return this.libraryService.getCurrentDate()
+  }
+
 
   getDays() {
 
@@ -891,9 +894,9 @@ export class HrComponent implements OnInit{
 
   }
 
-  startDate = this.getFirstDayMonth()
+  startDate = this.getDate()
 
-  endDate = this.getLastDayMonth()
+  endDate = this.getNextWeek()
 
 
   setupDate() {

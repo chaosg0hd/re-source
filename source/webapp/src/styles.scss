@@ -411,7 +411,9 @@ h4 {
 }
 
 .mat-footer-cell {
-  justify-content: center
+  justify-content: center;
+  border:none !important;
+      
 }
 
 .mat-cell {  
@@ -424,11 +426,144 @@ h4 {
   background-color: var(--primary-lighter-color);
 }
 
-.gross-total{
-    background-color: var(--primary-darker-color);
-    font-size: 18px;
-    color: white;
-    opacity: .8;
+/*.gross-total {
+  background-color: var(--primary-darker-color);
+  font-size: 18px;
+  color: white;
+  opacity: .8;
+}*/
+
+.mat-column-status {
+  flex: 1 1 10%;
+  max-width: 200px;
+  min-width: 100px;
+  justify-content: center
+}
+
+.mat-column-emp_name {
+  flex: 1 1 20%;
+  max-width: 400px;
+  min-width: 200px;
+}
+
+.mat-column-emp_id {
+  flex: 1 1 10%;
+  max-width: 200px;
+  min-width: 100px;
+}
+
+.mat-column-emp_role {
+  flex: 1 1 10%;
+  max-width: 200px;
+  min-width: 100px;
+}
+
+.mat-column-emp_position {
+  flex: 1 1 10%;
+  max-width: 200px;
+  min-width: 100px;
+}
+
+.mat-column-emp_department {
+  flex: 1 1 10%;
+  max-width: 200px;
+  min-width: 100px;
+}
+
+.mat-column-emp_rate {
+  flex: 1 1 10%;
+  max-width: 200px;
+  min-width: 100px;
+}
+
+.mat-column-emp_address {
+  flex: 1 1 12%;
+  max-width: 600px;
+  min-width: 300px;
+}
+
+.mat-column-emp_rate_type {
+  flex: 1 1 6%;
+  max-width: 120px;
+  min-width: 60px;
+}
+
+.mat-column-emp_birth_date {
+  flex: 1 1 10%;
+  max-width: 200px;
+  min-width: 100px;
+}
+
+.mat-column-emp_start_date {
+  flex: 1 1 10%;
+  max-width: 200px;
+  min-width: 100px;
+}
+
+.mat-column-emp_status {
+  flex: 1 1 10%;
+  max-width: 200px;
+  min-width: 100px;
+  justify-content: center
+}
+
+.mat-column-actions {
+  flex: 1 1 5%;
+  max-width: 100px;
+  min-width: 50px;
+  justify-content: center
+}
+
+.att-cell {
+  max-width: 100px;
+  min-width: 60px;
+  justify-content: center
+}
+
+.mat-column-total {
+  flex: 1 1 5%;
+  max-width: 100px;
+  min-width: 50px;
+  justify-content: center;
+  text-align: center
+     
+}
+
+.mat-column-emp_addition {
+  flex: 1 1 10%;
+  max-width: 200px;
+  min-width: 100px;
+  justify-content: center;
+  text-align: center
+}
+
+.mat-column-emp_deduction {
+  flex: 1 1 10%;
+  max-width: 200px;
+  min-width: 100px;
+  justify-content: center;
+  text-align: center
+}
+
+.mat-column-computed {
+  flex: 1 1 5%;
+  max-width: 100px;
+  min-width: 50px;
+  justify-content: center;
+  text-align: center
+}
+
+.gross-total {
+  flex: 1 1 20%;
+  display: flex;
+  max-width: 400px;
+  min-width: 200px;
+  justify-content: center;
+  text-align: center ;
+  background-color: var(--primary-darker-color);
+  font-size: 18px;
+  color: white;
+  opacity: .8;
 }
 
 
@@ -442,6 +577,8 @@ h4 {
   min-width: 40px;
   justify-content: center
 }*/
+
+
 /*.mat-column-time {
   flex: 1 1 10%;
   justify-content: center;

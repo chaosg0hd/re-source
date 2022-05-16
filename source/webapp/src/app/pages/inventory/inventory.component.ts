@@ -236,6 +236,16 @@ export class InventoryComponent implements OnInit {
         this.inventoriesPayload = data;
         this.inventoriesData = this.inventoriesPayload.data;
 
+        this.inventoriesData.map((data : any) => {
+          data.sale_price = data.inv_price
+          data.sale_quantity = 0
+          data.purc_price = data.inv_price
+          data.purc_quantity = 0
+
+
+
+        })
+
         this.inventoriesDataSource.data = this.inventoriesData;
 
         this.inventoriesGalleryData = this.inventoriesDataSource.data
@@ -264,27 +274,27 @@ export class InventoryComponent implements OnInit {
   }
 
   newInv(input: any) {
-    console.log('new inv')
-    console.log(input)
+    //console.log('new inv')
+    //console.log(input)
 
-    const imageData = new FormData();
+    //const imageData = new FormData();
 
-    imageData.append('file', this.image)
-    imageData.append('inv_id', input.inv_id)
-    imageData.append('inv_name', input.name)
-    imageData.append('inv_category', input.category)
-    imageData.append('inv_description', input.description)
-    imageData.append('inv_quantity', input.quantity +'')
-    imageData.append('inv_price', input.price + '')
-    imageData.append('inv_supplier', input.supplier)
-    imageData.append('inv_min_amount', input.min_amount + '')
+    //imageData.append('file', this.image)
+    //imageData.append('inv_id', input.inv_id)
+    //imageData.append('inv_name', input.name)
+    //imageData.append('inv_category', input.category)
+    //imageData.append('inv_description', input.description)
+    //imageData.append('inv_quantity', input.quantity +'')
+    //imageData.append('inv_price', input.price + '')
+    //imageData.append('inv_supplier', input.supplier)
+    //imageData.append('inv_min_amount', input.min_amount + '')
 
-    this.httpClient.post<any>('http://localhost:3000/api/inventories/new', imageData).subscribe((data: any) => {
-      console.log(data)
+    //this.httpClient.post<any>('http://localhost:3000/api/inventories/new', imageData).subscribe((data: any) => {
+    //  console.log(data)
 
-      this.getInventories()
+    //  this.getInventories()
       
-    })
+    //})
     // input = ''
     // this.files = ''
 
@@ -337,6 +347,32 @@ export class InventoryComponent implements OnInit {
 
   }
 
+  addSale(input: any) {
+
+    let saleData: any
+
+    saleData.sale_name = input.inv_name
+    saleData.sale_desc = 'Sale'
+    saleData.sale_supplier = input.inv_supplier
+    saleData.sale_amount = input.sale_quantity * input.sale_price
+
+    let invData: any
+
+    invData.inv_quantity = input.inv_quantity - input.sale_quantity
+
+    //LATER NA IBA PANG FIELDS ETO MUNA
+
+    //CALL TO ADD TO EXPENSES
+    this.dataService.post('sales/new', { data: saleData }).subscribe((data) => {
+      //CALL TO EDIT INVENTORIES
+      this.dataService.post('inventories/edit', { data: invData})
+
+
+    })
+  }
+
+
+
   toggleArchive() {
 
     if (this.isToggleArchive) {
@@ -350,87 +386,6 @@ export class InventoryComponent implements OnInit {
   }
 
   
-
-  
-
-  
-
-
-
-  //addItem() {
-  //  // const dialogRef = this.dialog.open(AddItemComponent, {
-  //  //   height: '75%',
-  //  //   width: '100%'
-  //  // });
-
-  //  // dialogRef.afterClosed().subscribe(() => this.getInventories());
-  //  const dialogRef = this.dialog.open(AddItemComponent, {
-  //    height: '75%',
-  //    width: '100%'
-  //  });
-
-  //  dialogRef.afterClosed().subscribe(result =>
-  //    {
-  //      this.getInventories()
-  //      console.log(result)
-  //    })
-  //}
-
-  //itemView(data: any){ 
-  //  try {
-  //    const dialogRef = this.dialog.open(ViewItemComponent, {
-  //      width: '100%',
-  //      height: '75%',
-  //      data: data
-  //    });
-
-  //    dialogRef.afterClosed().subscribe(result => {
-  //      this.getInventories();
-  //      console.log(result)
-  //    })
-  //  }
-  //  catch (error) {
-  //    console.log(error);
-  //  }
-      
-  //  }
-
-  itemUpdate(data: any){
-  // const dialogRef2 = this.dialog.open(EditComponent, {
-  //   width: '50%',
-  //   data: i
-  //  });
-
-  //  dialogRef2.afterClosed().subscribe(() => this.pullInventories());
-  }
-
-  clearForm(){
-    // this.prodName = '';
-    // this.prodDesc = '';
-    // this.prodQty = '';
-    // this.prodPrice = '';
-    // this.prodSupp = '';
-    // this.prodImg = '';
-  }
-
-  purchasesPayload: any;
-  purchasesData: any[] = []; //<---------------------------------------------------Add Model
-  purchasesDataSource = new MatTableDataSource(this.purchasesData);
-  purchasesDisplayedColumns: string[] = ['number', 'id', 'purc_date', 'purc_supplier', 'purc_price', 'purc_quantity', 'purc_desc', 'purc_by', 'actions'];
-  purchasesRecentDisplayedColumns: string[] = ['purc_date', 'purc_desc', 'purc_quantity'];
-  purchasesDataIsArchived: any;
-
-  getPurchases() {
-    //this.purchasesData = PURC_DATA;
-    //this.purchasesDataSource.data = this.purchasesData;
-
-    ////this.dataService.getAllItem("expenses").subscribe((data: any) => {
-    ////  this.expensesPayload = data;
-    ////  console.log(this.expensesPayload);
-    ////  this.expensesData = this.expensesPayload;
-    ////  this.expensesDataSource.data = this.expensesData;
-    ////});
-  }
 
 
 
@@ -455,37 +410,5 @@ export class InventoryComponent implements OnInit {
     }
   }
 
-//matfileinput
-
-// color: ThemePalette = 'primary';
-// disabled: boolean = false;
-// multiple: boolean = false;
-// accept!: string;
-
-// fileControl: FormControl;
-
-//   public options = [
-//     { value: true, label: 'True' },
-//     { value: false, label: 'False' }
-//   ];
-
-//   public listColors = ['primary', 'accent', 'warn'];
-//   public listAccepts = [
-//     null,
-//     ".png",
-//     "image/*",
-//     //".doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-//   ];
-
-//   public files: any;
-//   maxSize = 16;
-
-//   onDisabledChanged(value: boolean) {
-//     if (!value) {
-//       this.fileControl.enable();
-//     } else {
-//       this.fileControl.disable();
-//     }
-//   }
 }
 

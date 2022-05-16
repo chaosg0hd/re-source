@@ -25,6 +25,12 @@ export class LibraryService {
     return <string>(date)
   }
 
+  getCurrentDate() {
+    var date
+    date = new Date()
+    return date
+  }
+
   getFirstDayMonth() {
 
     var date = new Date();
@@ -38,6 +44,14 @@ export class LibraryService {
 
     var date = new Date();
     var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    return lastDay
+
+  }
+
+  getNextWeek() {
+
+    var date = new Date();
+    var lastDay = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 7);
     return lastDay
 
   }

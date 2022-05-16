@@ -227,13 +227,26 @@ export class BundyComponent implements OnInit {
       subscribe((data: any) => {
         //INSERT SWAL HERE
 
-        console.log(data)
-        this.getStatus()
+        if (data.code == 200) {
+          Swal.fire(
+            'Timed-in Successfully!',
+            '',
+            'success'
+          )
+          console.log(data)
+          this.isclockedIn = true
+          this.getStatus()          
+        } else {
+          Swal.fire(
+            'Time-Out Failed!',
+            'Ow no',
+            'error'
+          )            
+        }       
 
       })
 
-
-    this.isclockedIn = true
+    
   }
 
   timeOut() {
@@ -252,14 +265,29 @@ export class BundyComponent implements OnInit {
 
           let date = this.datepipe.transform(new Date(data.data.createdAt), 'YYYY-MM-dd')
           let attreq = {}
-          attreq = { "atten_emp_id": data.data.emp_id, "atten_seconds": data.seconds, "atten_date": this.datepipe.transform(date, 'YYYY-MM-dd') }
+          attreq = { "atten_emp_id": data.data.emp_id, "atten_seconds": data.time_seconds, "atten_date": this.datepipe.transform(date, 'YYYY-MM-dd') }
           
           this.dataService.post('attendances/new', { data: attreq })
-            .subscribe((data) => {
+            .subscribe((data : any) => {
 
-              console.log(data)
-              this.getStatus()
-              this.isclockedIn = false
+              if (data.code == 200) {
+                Swal.fire(
+                  'Timed-Out Successfully!',
+                  '',
+                  'success'
+                )
+                console.log(data)
+                this.isclockedIn = false
+                this.getStatus()
+              }
+              else {
+                Swal.fire(
+                  'Time-Out Failed!',
+                  'Ow no',
+                  'error'
+                )
+
+              }              
 
              })
         }

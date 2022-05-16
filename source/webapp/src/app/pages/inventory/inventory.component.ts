@@ -242,8 +242,6 @@ export class InventoryComponent implements OnInit {
           data.purc_price = data.inv_price
           data.purc_quantity = 0
 
-
-
         })
 
         this.inventoriesDataSource.data = this.inventoriesData;
@@ -347,16 +345,17 @@ export class InventoryComponent implements OnInit {
 
   }
 
+  //sales
   addSale(input: any) {
 
-    let saleData: any
-
+    let saleData: any = {}
+    
     saleData.sale_name = input.inv_name
     saleData.sale_desc = 'Sale'
     saleData.sale_supplier = input.inv_supplier
-    saleData.sale_amount = input.sale_quantity * input.sale_price
-
-    let invData: any
+    saleData.sale_amount = input.sale_quantity * input.inv_price
+    console.log(saleData)
+    let invData: any = {}
 
     invData.inv_quantity = input.inv_quantity - input.sale_quantity
 
@@ -365,10 +364,31 @@ export class InventoryComponent implements OnInit {
     //CALL TO ADD TO EXPENSES
     this.dataService.post('sales/new', { data: saleData }).subscribe((data) => {
       //CALL TO EDIT INVENTORIES
+      console.log(data)
       this.dataService.post('inventories/edit', { data: invData})
 
 
     })
+  }
+
+  newPurchase(input: any) {
+    let purchaseData: any = {}
+
+    purchaseData.purc_name = input.purc_name
+    purchaseData.purc_id = input.purc_id
+    purchaseData.purc_date = input.purc_date
+    purchaseData.purc_ref = input.purc_ref
+    purchaseData.purc_by = input.purc_by
+    purchaseData.purc_amount = input.purc_amount
+    purchaseData.purc_supplier = input.purc_supplier
+
+    this.httpClient.post<any>('http://localhost:3000/api/purchases/new', purchaseData).subscribe((data: any) => {
+      console.log(data)
+      this.getInventories()
+      //this.getPurchases()
+      
+    })
+    
   }
 
 

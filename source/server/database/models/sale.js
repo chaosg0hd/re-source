@@ -2,14 +2,14 @@ const mongoose = require('mongoose');
 
 const SaleSchema = new mongoose.Schema({
 
-    exp_number: Number,
-    exp_date: Date,
-    exp_ref: String,
-    exp_name: String,
-    exp_desc: String,
-    exp_supplier: String,
-    exp_amount: Number,
-    exp_by: String,
+    sale_number: Number,
+    sale_date: Date,
+    sale_ref: String,
+    sale_name: String,
+    sale_desc: String,
+    sale_supplier: String,
+    sale_amount: Number,
+    sale_by: String,
 
     isArchive: {
         type: Number, default: 0

@@ -102,14 +102,12 @@ router.delete('/delete/:_id', (req, res) => {
 
 router.post('/new', (req, res) => {
 
-    console.log(req.body.data)
-
-    new Purchase(req.body.data)
+    new Purchase(req.body)
         .save()
         .then((data) => {
             console.log(data)
             console.log(data.emp_id + " Has Purchase Logged")
-            res.json({ data, message: "Succesfully Purchase Logged", code: "200" })
+            res.json({ data, message: "Purchase Added", code: "200" })
 
         })
         .catch((error) => {

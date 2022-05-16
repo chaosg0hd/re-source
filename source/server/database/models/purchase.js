@@ -10,6 +10,7 @@ const PurchaseSchema = new mongoose.Schema({
     purc_supplier: String,
     purc_amount: Number,
     purc_by: String,
+    purc_id: String,
 
     isArchive: {
         type: Number, default: 0

@@ -109,7 +109,7 @@ router.post('/new', (req, res) => {
         .then((data) => {
             console.log(data)
             console.log(data.emp_id + " Has Sale Logged")
-            res.json({ data, message: "Succesfully Sale Logged", code: "200" })
+            res.json({ data, message: "Sale Added Successfully", code: "200" })
 
         })
         .catch((error) => {

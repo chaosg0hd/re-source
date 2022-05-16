@@ -62,9 +62,9 @@ router.post("/update", upload.single('file'), (req, res) => {
 
 router.get('/get', (req, res) => {
     //filereader
-    let retrievedfiles = {}
-    let dir = __dirname
-    console.log(__dirname)
+    // let retrievedfiles = {}
+    // let dir = __dirname
+    // console.log(__dirname)
     fs.readdir('./server/uploads', (err, files) => {
         if (err)
             return res.status(500).send(err)

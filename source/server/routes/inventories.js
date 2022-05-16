@@ -156,8 +156,9 @@ router.delete('/delete/:_id', (req, res) => {
 })
 
 
-router.post('/new', upload.single('file'), (req, res) => {
-    new Inventory(req.body.data)
+router.post('/new', (req, res) => {
+
+    new Inventory(req.body)
         .save()
         .then((data) => {
             console.log(data)

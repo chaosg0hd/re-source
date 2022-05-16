@@ -264,6 +264,8 @@ export class InventoryComponent implements OnInit {
   }
 
   image: any
+  image2: any
+  invData: any = {}
   selectImage(event: any) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
@@ -272,23 +274,32 @@ export class InventoryComponent implements OnInit {
   }
 
   newInv(input: any) {
-    const imageData = new FormData();
+    const imageData = new FormData()
+    //imageData = input.inv_imgUrl
     let filename: string
 
+    // console.log(input.inv_imgUrl)
+    // console.log(this.image)
+    // console.log(imageData)
+    this.image2 = input.inv_imgUrl 
+    imageData.append('file', this.image2)
     //imageData.append('file', this.image)
-    let invData: any = {}
-    invData.inv_id = input.inv_id
-    invData.inv_name = input.name
-    invData.inv_category = input.category
-    invData.inv_description = input.description 
-    invData.inv_quantity = input.quantity
-    invData.inv_price = input.price
-    invData.inv_supplier = input.supplier
-    invData.inv_min_amount = input.min_amount
+    
+    
+    this.invData.inv_id = input.inv_id
+    this.invData.inv_name = input.name
+    this.invData.inv_category = input.category
+    this.invData.inv_description = input.description 
+    this.invData.inv_quantity = input.quantity
+    this.invData.inv_price = input.price
+    this.invData.inv_supplier = input.supplier
+    this.invData.inv_min_amount = input.min_amount
 
-    this.httpClient.post<any>('hdttp://localhost:3000/api/uploads/', imageData).subscribe((data: any) => {
-      console.log(data)
-      this.dataService.post('inventories/new', invData).subscribe((data) => {
+    this.httpClient.post<any>('http://localhost:3000/api/uploads/', imageData).subscribe((data: any) => {
+        console.log(data)
+      // console.log(data.filename)
+        this.invData.inv_imageUrl = data.filename
+        this.dataService.post('inventories/new', this.invData).subscribe((data) => {
         console.log(data)
         this.getInventories()
       })
@@ -296,8 +307,13 @@ export class InventoryComponent implements OnInit {
      
   }
 
+  globalImage: any
   editInv(input: any) {
+    const editImageData = new FormData()
+    this.globalImage = input.inv_imgUrl 
+    editImageData.append('file', this.globalImage)
 
+    
     this.dataService.patch('inventories/edit', { data: input }).subscribe((data) => {
       console.log(data)
 
@@ -348,7 +364,8 @@ export class InventoryComponent implements OnInit {
     let invData: any = {}
     console.log(invData.inv_quantity)
     invData.inv_quantity = input.inv_quantity - input.sale_quantity
-
+    invData._id = input._id
+    console.log(invData._id)
     //LATER NA IBA PANG FIELDS ETO MUNA
 
     //CALL TO ADD TO EXPENSES

@@ -22,13 +22,13 @@
 
           <mat-icon>auto_awesome_mosaic</mat-icon>
 
-          Inventory Gallery
+          Task Board
 
         </ng-template>
 
         <mat-toolbar color="primary" class="mat-elevation-z22" style="z-index: 100;">
           <span style="flex: 1 1 auto;"></span>
-          <span>Inventory Gallery</span>
+          <span>Task Board</span>
           <span style="flex: 1 1 auto;"></span>
         </mat-toolbar>
 
@@ -54,7 +54,7 @@
 
             <div class="mat-elevation-z4 rounded-container-title">
               <h2 style="text-align: center; color: white">
-                Inventory Gallery
+                Project Gallery
               </h2>
             </div>
 
@@ -71,13 +71,13 @@
 
                 <button mat-raised-button color="primary" style="flex:auto">View Archived <mat-icon>recycling</mat-icon></button>&nbsp;
 
-                <button mat-raised-button color="warn" class="control-button" style="flex:auto;" (click)="openDialogNewTask()">  Add Project <mat-icon>add</mat-icon></button>&nbsp;
-                <button mat-raised-button color="warn" class="control-button" style="flex:auto;" (click)="fileUpload()">  File Upload <mat-icon>add</mat-icon></button>&nbsp;
+                <button mat-raised-button color="warn" class="control-button" style="flex:auto;" (click)="openDialogNewProject()">  Add Project <mat-icon>add</mat-icon></button>&nbsp;
+                <!--<button mat-raised-button color="warn" class="control-button" style="flex:auto;" (click)="fileUpload()">  File Upload <mat-icon>add</mat-icon></button>&nbsp;-->
                 <span style="flex: 1 1 auto;"></span>
 
               </div>
 
-              <mat-paginator #empPaginator [pageSize]="10" [pageSizeOptions]="[10, 20, 100]"></mat-paginator>
+              <!--<mat-paginator #empPaginator [pageSize]="10" [pageSizeOptions]="[10, 20, 100]"></mat-paginator>-->
 
             </div>
 
@@ -92,19 +92,9 @@
                   <span style="flex: 1 1 auto;"></span>
                   <span style="flex: 1 1 auto;"></span>
 
-                  <button mat-fab color="warn" (click)="openDialogSubTask(element)"> <mat-icon>add</mat-icon> </button>
-                  
+                  <button mat-fab color="warn"><mat-icon>add</mat-icon> </button>
+
                   <button mat-fab color="primary"> 100% </button>
-
-                </div>
-
-                
-                <div style="width: 100%; display: flex;">
-                  <span style="flex: 1 1 auto;"></span>
-
-                  <p>{{element.task_content}}</p>
-                  <span style="flex: 1 1 auto;"></span>
-
 
                 </div>
 
@@ -127,7 +117,7 @@
 
 
 
-                  <ng-container *ngFor="let tasks of element.task_slave; index as i">
+                  <!--<ng-container *ngFor="let tasks of element.task_slave; index as i">
 
 
                     <div class="task-container">
@@ -136,14 +126,12 @@
                         Task Name {{element.task_name}}
                       </h2>
 
-                      {{element._id}}
-
-                      <button mat-fab color="warn" (click)="openDialogSubTask(element)"> <mat-icon>add</mat-icon> </button>
-
-                    </div>
+                      {{element._id}}-->
+                  <!--<button mat-fab color="warn" (click)="openDialogSubTask(element)"> <mat-icon>add</mat-icon>--> <!--</button>-->
+                  <!--</div>
 
 
-                  </ng-container>
+                  </ng-container>-->
 
                 </div>
 
@@ -189,44 +177,7 @@
 
 </ng-container>
 
-<ng-template #taskNewDialog let-data>
-  <h2 matDialogTitle>{{data.emp_name}} | {{data.salary}}</h2>
-  <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">
 
-    <br />
-    <mat-divider></mat-divider>
-    <br />
-
-    <mat-form-field appearance="outline" style=" min-width: 15% ;flex:auto;border-radius: 16px !important">
-      <mat-label>ID</mat-label>
-      <input disabled matInput [(ngModel)]="data.emp_id" [ngStyle]="{'background-color': data.emp_id? '' : 'var(--warn-lighter-color)'}">
-    </mat-form-field>&nbsp;
-
-    <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
-      <mat-label>Name</mat-label>
-      <input disabled type="text" matInput placeholder="Ex. Juan De" [(ngModel)]="data.emp_name" [ngStyle]="{'background-color': data.emp_name? '' : 'var(--warn-lighter-color)'}">
-    </mat-form-field>&nbsp;
-
-    <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
-      <mat-label>Total</mat-label>
-      <input disabled type="number" matInput placeholder="Ex. 694.20" [(ngModel)]="data.salary" [ngStyle]="{'background-color': data.salary? '' : 'var(--warn-lighter-color)'}">
-    </mat-form-field>&nbsp;
-
-    <div style="display: flex; width: 100%">
-
-      <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
-        <mat-label>Addition Amount</mat-label>
-        <input matInput type="number" placeholder="Ex. 77.21" [(ngModel)]="data.emp_addition" [ngStyle]="{'background-color': data.emp_addition? '' : 'var(--warn-lighter-color)'}">
-      </mat-form-field>&nbsp;
-
-    </div>
-
-  </mat-dialog-content>
-  <mat-dialog-actions align="end">
-    <button mat-raised-button matDialogClose color="primary" (click)="newTask(data)">Ok</button>
-    <button mat-raised-button matDialogClose color="warn">Cancel</button>
-  </mat-dialog-actions>
-</ng-template>
 
 <ng-template #fileUploadNewDialog let-data>
   <h2 matDialogTitle>{{data.emp_name}} | {{data.salary}}</h2>
@@ -237,7 +188,7 @@
     <br />
 
     <mat-label>File:</mat-label>
-    <input type="file"  name="image" (change)="selectImage($event)">
+    <input type="file" name="image" (change)="selectImage($event)">
 
     <mat-form-field appearance="outline" style=" min-width: 15% ;flex:auto;border-radius: 16px !important">
       <mat-label>ID</mat-label>
@@ -1082,7 +1033,7 @@
 
 
 
-<ng-template #taskNewDialog let-data>
+<ng-template #taskProjectNewDialog let-data>
   <h2 matDialogTitle>New Project</h2>
   <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">
 
@@ -1091,24 +1042,24 @@
     <br />
 
     <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
-      <mat-label>Name</mat-label>
-      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.name" [ngStyle]="{'background-color': data.name? '' : 'var(--warn-lighter-color)'}">
+      <mat-label>First Task Name</mat-label>
+      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.task_name" [ngStyle]="{'background-color': data.name? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
-      <mat-label>Project</mat-label>
+      <mat-label>Project Name</mat-label>
       <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.task_project" [ngStyle]="{'background-color': data.category? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 80% ;flex:auto;border-radius: 16px !important">
-      <mat-label>Content</mat-label>
+      <mat-label>First Content</mat-label>
       <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.task_content" [ngStyle]="{'background-color': data.quantity? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
 
   </mat-dialog-content>
   <mat-dialog-actions align="end">
-    <button mat-raised-button matDialogClose color="primary" (click)="newTask(data)">Ok</button>
+    <button mat-raised-button matDialogClose color="primary" (click)="newProject(data)">Ok</button>
     <button mat-raised-button matDialogClose color="warn">Cancel</button>
   </mat-dialog-actions>
 </ng-template>
@@ -1118,7 +1069,7 @@
 
 
 
-<ng-template #taskSlaveNewDialog let-data>
+<!--<ng-template #taskSlaveNewDialog let-data>
   <h2 matDialogTitle>New Task</h2>
   <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">
 
@@ -1142,4 +1093,4 @@
     <button mat-raised-button matDialogClose color="primary" (click)="addSlaveTask(data)">Ok</button>
     <button mat-raised-button matDialogClose color="warn">Cancel</button>
   </mat-dialog-actions>
-</ng-template>
+</ng-template>-->

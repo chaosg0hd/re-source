@@ -223,6 +223,7 @@ export interface Sale {
 export interface Task_Board {
 
   _id: string,
+  task_id: String,
   task_number: string,
   task_project: string,
   task_progress: number,
@@ -232,8 +233,7 @@ export interface Task_Board {
   task_content: string,
   task_end_date: Date,
   task_start_date: Date,
-  task_master: string,
-  task_slave: Task_Board[],
+  task_emp_id: any[],
   task_by: string,
 
   isArchive: number,

@@ -30,18 +30,23 @@ export class TaskboardComponent implements OnInit {
 
   @ViewChild('taskNewDialog', { static: true }) taskNewDialog!: TemplateRef<any>;
 
-  @ViewChild('taskSlaveNewDialog', { static: true }) taskSlaveNewDialog!: TemplateRef<any>;
+  @ViewChild('taskProjectNewDialog', { static: true }) taskProjectNewDialog!: TemplateRef<any>;
 
   @ViewChild('fileUploadNewDialog', { static: true }) fileUploadNewDialog!: TemplateRef<any>;
+
+  openDialogNewProject() {
+    var input = {}
+    this.dialog.open(this.taskProjectNewDialog, { data: input });
+  }
 
   openDialogNewTask() {
     var input = {}
     this.dialog.open(this.taskNewDialog, { data: input });
   }
 
-  openDialogSubTask(input : any) {
-    this.dialog.open(this.taskSlaveNewDialog, { data: input });
-  }
+  //openDialogSubTask(input : any) {
+  //  this.dialog.open(this.taskSlaveNewDialog, { data: input });
+  //}
 
   fileUpload() {
     var input = {}
@@ -100,9 +105,7 @@ export class TaskboardComponent implements OnInit {
         this.isLoadedTab = false;
         this.getTasks()
 
-        //this.getTasks();
-        //this.getStatus();
-        /*!this.tasksDataSource.paginator ? this.tasksDataSource.paginator = this.taskPaginator : null;*/
+        
 
         await this.delay(1000);
         this.isLoadedTab = true;
@@ -114,13 +117,7 @@ export class TaskboardComponent implements OnInit {
 
         this.isLoadedTab = false;
 
-        //this.getTasks();
-        //this.setupDate();
-        //this.fillAttendanceTable()
-        //this.getAttendance()
-
-        //!this.calendarDataSource.paginator ? this.calendarDataSource.paginator = this.attPaginator : null;
-        //!this.attendanceDataSource.paginator ? this.attendanceDataSource.paginator = this.timePaginator : null;
+        
 
         await this.delay(1000);
         this.isLoadedTab = true;
@@ -131,13 +128,7 @@ export class TaskboardComponent implements OnInit {
 
         this.isLoadedTab = false;
 
-        //this.getTasks();
-        //this.setupDate();
-        //this.fillAttendanceTable()
-        //this.getAttendance()
-
-        //!this.calendarDataSource.paginator ? this.calendarDataSource.paginator = this.attPaginator : null;
-        //!this.attendanceDataSource.paginator ? this.attendanceDataSource.paginator = this.timePaginator : null;
+        
 
         await this.delay(1000);
         this.isLoadedTab = true;
@@ -200,9 +191,9 @@ export class TaskboardComponent implements OnInit {
 
 
 
-  tasksPayload: any;
-  tasksData: Task_Board[] = [];
-  tasksDataSource = new MatTableDataSource(this.tasksData);
+  tasksPayload: any
+  tasksData: Task_Board[] = []
+  tasksDataSource = new MatTableDataSource(this.tasksData)
 
   isToggleArchive = false
 
@@ -210,7 +201,7 @@ export class TaskboardComponent implements OnInit {
 
   getTasks() {
 
-    this.dataService.get('taskboard/get')
+    this.dataService.get('task_boards/get')
       .subscribe((data) => {
 
         console.log(data)
@@ -219,7 +210,9 @@ export class TaskboardComponent implements OnInit {
         this.tasksData = this.tasksPayload.data;
         this.tasksDataSource.data = this.tasksData
 
-        this.sortProjects()
+        /*this.sortProjects()*/
+
+        
 
         //if (this.isToggleArchive == false) {
         //  let array: any[] = [];
@@ -239,128 +232,166 @@ export class TaskboardComponent implements OnInit {
       });
   }
 
-
-  unsortedData: Task_Board[] = [];
-  unsortedDataSource = new MatTableDataSource(this.unsortedData);
-
-  sortedData: Task_Board[] = [];
-  sortedDataSource = new MatTableDataSource(this.sortedData);
-
-  ProjectData: Task_Board[] = [];
-  ProjectDataSource = new MatTableDataSource(this.sortedData);
-
-  projects: any[] = []
-
-
-
   sortProjects() {
 
-    let array: any[] = []
-    let projects_array: Task_Board[] = []
-    let unsorted_array: Task_Board[] = []
-    let sorted_array: Task_Board[] = []
+    let projects_array: any[] = []
+    let unsorted_array: any[] = []
 
-    unsorted_array = this.tasksDataSource.data
+    let slavearray: any = []
 
-    function getTasks(masterID: any) {
+    this.tasksDataSource.data.map((task) => {
+      if (projects_array.length == 0) {
+        projects_array.push(task)
+      }
 
-      let slavearray: any = []
+      //projects_array.map((projects) => {
 
-      unsorted_array.map((array) => {
-        if (array.task_master == masterID) {
-          slavearray.push(array)
-        }
+      //  if (projects != )
 
-      })
-      return (slavearray)
-    }
-       
+      //})
+
+    })
 
 
-    let new_array: any[] = []
 
-    unsorted_array.map((array, index) => {
-      
-      if (array.task_master == "" || array.task_master == undefined) {
+
+
+    this.tasksDataSource.data.map((array, index) => {
+
+      if (array.task_project == "" || array.task_project == undefined) {
 
         projects_array.push(array)        
 
       }
       else {
 
-        new_array.push(array)
-        
+        unsorted_array.push(array)
+
       }
     })
 
-    console.log(new_array)
-    unsorted_array = new_array
+  }
 
-    projects_array.map((project) => {
 
-      project.task_slave = []
-      project.task_slave = getTasks(project._id)
 
-      project.task_slave.map((slave) => {
 
-        slave.task_slave = []
-        slave.task_slave = getTasks(slave._id)
+
+
+  //sortProjects() {
+
+  //  let array: any[] = []
+  //  let projects_array: Task_Board[] = []
+  //  let unsorted_array: Task_Board[] = []
+  //  let sorted_array: Task_Board[] = []
+
+  //  unsorted_array = this.tasksDataSource.data
+
+  //  function getTasks(masterID: any) {
+
+  //    let slavearray: any = []
+
+  //    unsorted_array.map((array) => {
+  //      if (array.task_master == masterID) {
+  //        slavearray.push(array)
+  //      }
+
+  //    })
+  //    return (slavearray)
+  //  }
+       
+
+
+  //  let new_array: any[] = []
+
+  //  unsorted_array.map((array, index) => {
+      
+  //    if (array.task_master == "" || array.task_master == undefined) {
+
+  //      projects_array.push(array)        
+
+  //    }
+  //    else {
+
+  //      new_array.push(array)
         
-        slave.task_slave.map((nextslave : any) => {
+  //    }
+  //  })
 
-          nextslave.task_slave = []
-          nextslave.task_slave = getTasks(nextslave._id)
+  //  console.log(new_array)
+  //  unsorted_array = new_array
 
-        })
+  //  projects_array.map((project) => {
 
-      })
+  //    project.task_slave = []
+  //    project.task_slave = getTasks(project._id)
+
+  //    project.task_slave.map((slave) => {
+
+  //      slave.task_slave = []
+  //      slave.task_slave = getTasks(slave._id)
+        
+  //      slave.task_slave.map((nextslave : any) => {
+
+  //        nextslave.task_slave = []
+  //        nextslave.task_slave = getTasks(nextslave._id)
+
+  //      })
+
+  //    })
 
 
      
-    })
+  //  })
 
 
 
 
 
-    this.tasksDataSource.data = projects_array
+  //  this.tasksDataSource.data = projects_array
 
-    console.log(unsorted_array)
-    console.log(projects_array)
+  //  console.log(unsorted_array)
+  //  console.log(projects_array)
     
 
 
 
 
-  }
+  //}
 
   
 
-  addSlaveTask(input: any) {
+  //addSlaveTask(input: any) {
 
     
 
-    input.master = input._id
-    delete input._id
+  //  input.master = input._id
+  //  delete input._id
 
-    //console.log(project, master)
+  //  //console.log(project, master)
 
-    //let input = { project : project, master : master}
+  //  //let input = { project : project, master : master}
 
-    console.log(input)
+  //  console.log(input)
 
-    this.dataService.post('taskboard/new', { data: input }).subscribe((data) => {
+  //  this.dataService.post('taskboard/new', { data: input }).subscribe((data) => {
+  //    console.log(data)
+
+  //  })
+
+  //}
+
+  newProject(input: any) {
+
+    this.dataService.post('task_boards/new', { data: input }).subscribe((data) => {
       console.log(data)
 
     })
 
   }
 
-
-
   newTask(input: any) {
 
-    this.dataService.post('taskboard/new', { data: input }).subscribe((data) => {
+    this.dataService.post('task_boards/new', { data: input }).subscribe((data) => {
       console.log(data)
 
     })
@@ -369,7 +400,7 @@ export class TaskboardComponent implements OnInit {
 
   editTask(input: any) {
 
-    this.dataService.patch('taskboard/edit', { data: input }).subscribe((data) => {
+    this.dataService.patch('task_boards/edit', { data: input }).subscribe((data) => {
       console.log(data)
     })
 

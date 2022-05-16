@@ -353,19 +353,23 @@ export class InventoryComponent implements OnInit {
     saleData.sale_name = input.inv_name
     saleData.sale_desc = 'Sale'
     saleData.sale_supplier = input.inv_supplier
-    saleData.sale_amount = input.sale_quantity * input.inv_price
+    saleData.sale_amount = input.sale_quantity * input.sale_price
     console.log(saleData)
     let invData: any = {}
-
+    console.log(invData.inv_quantity)
     invData.inv_quantity = input.inv_quantity - input.sale_quantity
-
-    //LATER NA IBA PANG FIELDS ETO MUNA
+    invData._id = input._id
+    console.log(invData._id)
+    console.log(invData.inv_quantity)
+        //LATER NA IBA PANG FIELDS ETO MUNA
 
     //CALL TO ADD TO EXPENSES
     this.dataService.post('sales/new', { data: saleData }).subscribe((data) => {
       //CALL TO EDIT INVENTORIES
       console.log(data)
-      this.dataService.post('inventories/edit', { data: invData})
+      this.dataService.patch('inventories/edit', { data: invData}).subscribe((data) => {
+        console.log(data)
+      })
 
 
     })

@@ -355,9 +355,11 @@ export class InventoryComponent implements OnInit {
     saleData.sale_supplier = input.inv_supplier
     saleData.sale_amount = input.sale_quantity * input.inv_price
     console.log(saleData)
+
     let invData: any = {}
 
     invData.inv_quantity = input.inv_quantity - input.sale_quantity
+    invData._id = input._id
 
     //LATER NA IBA PANG FIELDS ETO MUNA
 
@@ -365,7 +367,11 @@ export class InventoryComponent implements OnInit {
     this.dataService.post('sales/new', { data: saleData }).subscribe((data) => {
       //CALL TO EDIT INVENTORIES
       console.log(data)
-      this.dataService.post('inventories/edit', { data: invData})
+      this.dataService.post('inventories/edit', { data: invData }).subscribe((data) => {
+
+
+        
+      })
 
 
     })

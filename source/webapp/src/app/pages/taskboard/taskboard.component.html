@@ -81,19 +81,17 @@
 
             </div>
 
-            <ng-container *ngFor="let element of tasksDataSource.data; index as i">
+            <ng-container *ngFor="let project of projectsArray; index as i">
 
               <div class="mat-elevation-z2 rounded-container-flex" style="display:flex; flex-direction: column; opacity:.8">
 
-
                 <div style="width: 100%; display: flex;">
                   <br />
-                  <h1>{{element.task_project}}</h1>
+                  <h1>{{project}}</h1>
                   <span style="flex: 1 1 auto;"></span>
                   <span style="flex: 1 1 auto;"></span>
 
-                  <button mat-fab color="warn"><mat-icon>add</mat-icon> </button>
-
+                  <button mat-fab color="warn" (click)="openDialogNewTask(project)"><mat-icon>add</mat-icon> </button>
                   <button mat-fab color="primary"> 100% </button>
 
                 </div>
@@ -102,53 +100,35 @@
                 <mat-divider></mat-divider>
                 <br />
 
-
                 <div style="width: 100%; display: flex;">
                   <span style="flex: 1 1 auto;"></span>
-
                   <h3>Tasks</h3>
                   <span style="flex: 1 1 auto;"></span>
 
-
                 </div>
 
                 <div style="width: 100%; display: flex;">
 
+                  <ng-container *ngFor="let tasks of tasksDataSource.data; index as i">
+                    <ng-container *ngIf="tasks.task_project == project">
+                      <div class="task-container">
+                        <h2>
+                          Task Name {{tasks.task_name}}
+                        </h2>
 
+                      </div>
 
-
-                  <!--<ng-container *ngFor="let tasks of element.task_slave; index as i">
-
-
-                    <div class="task-container">
-
-                      <h2>
-                        Task Name {{element.task_name}}
-                      </h2>
-
-                      {{element._id}}-->
-                  <!--<button mat-fab color="warn" (click)="openDialogSubTask(element)"> <mat-icon>add</mat-icon>--> <!--</button>-->
-                  <!--</div>
-
-
-                  </ng-container>-->
+                    </ng-container>
+                  </ng-container>
 
                 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
               </div>
             </ng-container>
+
+
+
+
             <br />
             <br />
             <mat-divider></mat-divider>
@@ -179,7 +159,7 @@
 
 
 
-<ng-template #fileUploadNewDialog let-data>
+<!--<ng-template #fileUploadNewDialog let-data>
   <h2 matDialogTitle>{{data.emp_name}} | {{data.salary}}</h2>
   <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">
 
@@ -200,7 +180,7 @@
     <button mat-raised-button matDialogClose color="primary" (click)="newFile(data)">Ok</button>
     <button mat-raised-button matDialogClose color="warn">Cancel</button>
   </mat-dialog-actions>
-</ng-template>
+</ng-template>-->
 
 
 
@@ -1054,6 +1034,38 @@
     <mat-form-field appearance="outline" style=" min-width: 80% ;flex:auto;border-radius: 16px !important">
       <mat-label>First Content</mat-label>
       <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.task_content" [ngStyle]="{'background-color': data.quantity? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-raised-button matDialogClose color="primary" (click)="newProject(data)">Ok</button>
+    <button mat-raised-button matDialogClose color="warn">Cancel</button>
+  </mat-dialog-actions>
+</ng-template>
+
+
+<ng-template #taskNewDialog let-data>
+  <h2 matDialogTitle>New Task</h2>
+  <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">
+
+    <br />
+    <mat-divider></mat-divider>
+    <br />
+
+    <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Project</mat-label>
+      <input disabled matInput placeholder="Ex. Juan De" [(ngModel)]="data.task_project" [ngStyle]="{'background-color': data.task_project? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+    <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Task Name</mat-label>
+      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.task_name" [ngStyle]="{'background-color': data.task_name? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+    <mat-form-field appearance="outline" style=" min-width: 80% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Content</mat-label>
+      <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.task_content" [ngStyle]="{'background-color': data.task_content? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
 

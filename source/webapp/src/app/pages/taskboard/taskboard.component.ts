@@ -39,8 +39,10 @@ export class TaskboardComponent implements OnInit {
     this.dialog.open(this.taskProjectNewDialog, { data: input });
   }
 
-  openDialogNewTask() {
-    var input = {}
+  openDialogNewTask(project: any) {
+
+    console.log(project)
+    var input = {task_project : project}
     this.dialog.open(this.taskNewDialog, { data: input });
   }
 
@@ -194,6 +196,7 @@ export class TaskboardComponent implements OnInit {
   tasksPayload: any
   tasksData: Task_Board[] = []
   tasksDataSource = new MatTableDataSource(this.tasksData)
+  projectsArray: any[] = []
 
   isToggleArchive = false
 
@@ -210,7 +213,7 @@ export class TaskboardComponent implements OnInit {
         this.tasksData = this.tasksPayload.data;
         this.tasksDataSource.data = this.tasksData
 
-        /*this.sortProjects()*/
+        this.sortProjects()
 
         
 
@@ -237,24 +240,41 @@ export class TaskboardComponent implements OnInit {
     let projects_array: any[] = []
     let unsorted_array: any[] = []
 
-    let slavearray: any = []
+    if (projects_array.length == 0) {
+      projects_array.push(this.tasksDataSource.data[0].task_project)
+    }
 
-    this.tasksDataSource.data.map((task) => {
-      if (projects_array.length == 0) {
-        projects_array.push(task)
-      }
+    function checkIfUnq(task: any) {
+      let hasMatch = false
+      projects_array.map((project) => {
+        if (task == project) {
+          hasMatch = true
+        }
+        else {
 
-      //projects_array.map((projects) => {
+        }
+        
 
-      //  if (projects != )
+      })
+      return hasMatch
+    }
 
-      //})
+    this.tasksDataSource.data.map((task) => {      
 
-    })
+      projects_array.map((project) => {        
 
+        if (checkIfUnq(task.task_project) == false) {
+          projects_array.push(task.task_project)
 
+        }
 
+      })
 
+    })    
+
+    this.projectsArray = projects_array
+
+    console.log(this.projectsArray)
 
     this.tasksDataSource.data.map((array, index) => {
 
@@ -416,26 +436,26 @@ export class TaskboardComponent implements OnInit {
 
   }
 
-  //file upload
-  image: any
-  selectImage(event: any) {
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      this.image = file;
-    }
-  }
+  ////file upload
+  //image: any
+  //selectImage(event: any) {
+  //  if (event.target.files.length > 0) {
+  //    const file = event.target.files[0];
+  //    this.image = file;
+  //  }
+  //}
 
-  newFile(input: any) {
-    const fileData = new FormData();
-    fileData.append('file', this.image)
-    console.log(this.image)
-    this.httpClient.post<any>('http://localhost:3000/api/uploads/', fileData).subscribe((data: any) => {
-      console.log(data)
+  //newFile(input: any) {
+  //  const fileData = new FormData();
+  //  fileData.append('file', this.image)
+  //  console.log(this.image)
+  //  this.httpClient.post<any>('http://localhost:3000/api/uploads/', fileData).subscribe((data: any) => {
+  //    console.log(data)
 
-      this.getEmployees()
+  //    this.getEmployees()
       
-    })
-  }
+  //  })
+  //}
 
 
 

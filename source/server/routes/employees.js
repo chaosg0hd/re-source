@@ -196,7 +196,7 @@ router.post('/signup', async (req, res) => {
     
     // })
 
-router.post('/login', async (req, res) => {
+router.post('/login', (req, res) => {
 
     console.log(req.body.data)
 
@@ -214,7 +214,7 @@ router.post('/login', async (req, res) => {
                 res.json({ message: "Invalid Credentials", code: "401"})
             } else {
                 console.log("Employee " + emp_id + " Not Exist")
-                res.json({ message: "Account doesn't Exist", code: "404" })
+                return res.json({ message: "Account doesn't Exist", code: "404" })
             }
         })
         .catch((error) => {

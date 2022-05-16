@@ -272,39 +272,28 @@ export class InventoryComponent implements OnInit {
   }
 
   newInv(input: any) {
-    //console.log('new inv')
-    //console.log(input)
-
-    //const imageData = new FormData();
+    const imageData = new FormData();
+    let filename: string
 
     //imageData.append('file', this.image)
-    //imageData.append('inv_id', input.inv_id)
-    //imageData.append('inv_name', input.name)
-    //imageData.append('inv_category', input.category)
-    //imageData.append('inv_description', input.description)
-    //imageData.append('inv_quantity', input.quantity +'')
-    //imageData.append('inv_price', input.price + '')
-    //imageData.append('inv_supplier', input.supplier)
-    //imageData.append('inv_min_amount', input.min_amount + '')
+    let invData: any = {}
+    invData.inv_id = input.inv_id
+    invData.inv_name = input.name
+    invData.inv_category = input.category
+    invData.inv_description = input.description 
+    invData.inv_quantity = input.quantity
+    invData.inv_price = input.price
+    invData.inv_supplier = input.supplier
+    invData.inv_min_amount = input.min_amount
 
-    //this.httpClient.post<any>('http://localhost:3000/api/inventories/new', imageData).subscribe((data: any) => {
-    //  console.log(data)
-
-    //  this.getInventories()
-      
-    //})
-    // input = ''
-    // this.files = ''
-
-
-    //FormControl = ''
-    // this.dataService.post('inventories/new', { data: input }).subscribe((data) => {
-    //   console.log(data)
-
-    //   this.getInventories()
-      
-    // })
-    
+    this.httpClient.post<any>('hdttp://localhost:3000/api/uploads/', imageData).subscribe((data: any) => {
+      console.log(data)
+      this.dataService.post('inventories/new', invData).subscribe((data) => {
+        console.log(data)
+        this.getInventories()
+      })
+    })
+     
   }
 
   editInv(input: any) {
@@ -353,13 +342,12 @@ export class InventoryComponent implements OnInit {
     saleData.sale_name = input.inv_name
     saleData.sale_desc = 'Sale'
     saleData.sale_supplier = input.inv_supplier
-    saleData.sale_amount = input.sale_quantity * input.inv_price
+    saleData.sale_amount = input.sale_quantity * input.sale_price
     console.log(saleData)
 
     let invData: any = {}
-
+    console.log(invData.inv_quantity)
     invData.inv_quantity = input.inv_quantity - input.sale_quantity
-    invData._id = input._id
 
     //LATER NA IBA PANG FIELDS ETO MUNA
 
@@ -367,10 +355,8 @@ export class InventoryComponent implements OnInit {
     this.dataService.post('sales/new', { data: saleData }).subscribe((data) => {
       //CALL TO EDIT INVENTORIES
       console.log(data)
-      this.dataService.post('inventories/edit', { data: invData }).subscribe((data) => {
-
-
-        
+      this.dataService.patch('inventories/edit', { data: invData}).subscribe((data) => {
+        console.log(data)
       })
 
 

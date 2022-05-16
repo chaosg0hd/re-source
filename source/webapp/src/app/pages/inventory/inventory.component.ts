@@ -309,17 +309,42 @@ export class InventoryComponent implements OnInit {
 
   globalImage: any
   editInv(input: any) {
+    let editInvData: any = {}
     const editImageData = new FormData()
+
     this.globalImage = input.inv_imgUrl 
     editImageData.append('file', this.globalImage)
 
-    
-    this.dataService.patch('inventories/edit', { data: input }).subscribe((data) => {
+    editInvData.inv_id = input.inv_id
+    editInvData.inv_name = input.inv_name
+    editInvData.inv_category = input.inv_category
+    editInvData.inv_description = input.inv_description 
+    editInvData.inv_quantity = input.inv_quantity
+    editInvData.inv_price = input.inv_price
+    editInvData.inv_supplier = input.inv_supplier
+    editInvData.inv_min_amount = input.inv_min_amount
+    editInvData._id = input._id
+
+    this.httpClient.post<any>('http://localhost:3000/api/uploads', editImageData).subscribe((data: any) => {
+      console.log(data)
+      editInvData.inv_imageUrl = data.filename
+      this.dataService.patch('inventories/edit', { data: editInvData }).subscribe((data) => {
+        console.log(data)
+  
+        this.getInventories()
+        this.globalImage=''
+  
+      })
+    })
+
+    if(!this.globalImage)
+    this.dataService.patch('inventories/edit', { data: editInvData }).subscribe((data) => {
       console.log(data)
 
       this.getInventories()
-
+      this.globalImage = ''
     })
+  
 
   }
 

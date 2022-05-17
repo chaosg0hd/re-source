@@ -151,6 +151,7 @@ export class InventoryComponent implements OnInit {
         this.isLoadedTab = false;
 
         this.getInventories()
+        this.getPurchases()
 
         await this.delay(1000);
         this.isLoadedTab = true;
@@ -260,6 +261,31 @@ export class InventoryComponent implements OnInit {
     this.inventoriesGalleryData = this.inventoriesDataSource._pageData
 
   }
+
+  purchasesPayload: any;
+  purchasesData: Purchase[] = [];
+  purchasesDataSource = new MatTableDataSource(this.purchasesData);
+  purchasesDisplayedColumns = ['name', '_id', 'id', 'description', 'category', 'quantity','supplier', 'min_amount','price','actions'];
+  purchasesIdArchive: any;
+
+  getPurchases() {
+    this.dataService.get('purchases/get')
+      .subscribe((data: any) => {
+        console.log(data);
+        this.purchasesPayload = data;
+        this.purchasesData = this.purchasesPayload.data;
+
+        this.purchasesDataSource.data = this.purchasesData;
+
+        //this.purchasesGalleryData = this.purchasesDataSource.data
+
+        //this.employeesDataSource.paginator = this.empPaginator
+        //this.employeesDataSource.sort = this.empSort;
+
+      });
+  }
+
+
 
   image: any
   image2: any

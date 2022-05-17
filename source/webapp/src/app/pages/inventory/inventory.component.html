@@ -529,7 +529,11 @@
  <!--EDIT INV-->
 
 <ng-template #invEditDialog let-data>
-  <h2 matDialogTitle>{{data.inv_id}}  &nbsp;|&nbsp; {{data.inv_name}} &nbsp; Total Value : {{data.inv_quantity * data.inv_price | currency:'PHP':'symbol-narrow':'4.2-2'}} &nbsp; <button mat-raised-button matDialogClose color="primary" (click)="openDialogInvClone(data)">Clone</button> </h2>
+  <h2 matDialogTitle>
+    <button mat-raised-button matDialogClose style="background-color: var(--danger-color); color: white" (click)="deleteInv(data)">Delete</button>  &nbsp;
+    {{data.inv_id}}  &nbsp;|&nbsp; {{data.inv_name}} &nbsp; Total Value : {{data.inv_quantity * data.inv_price | currency:'PHP':'symbol-narrow':'4.2-2'}} &nbsp;
+    <button mat-raised-button matDialogClose color="primary" (click)="openDialogInvClone(data)">Clone</button>  &nbsp;
+  </h2>
   <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">
 
     <div style="width: 100%;">

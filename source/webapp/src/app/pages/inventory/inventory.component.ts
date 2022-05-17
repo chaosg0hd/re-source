@@ -274,7 +274,6 @@ export class InventoryComponent implements OnInit {
         console.log(data);
         this.purchasesPayload = data;
         this.purchasesData = this.purchasesPayload.data;
-
         this.purchasesDataSource.data = this.purchasesData;
 
         //this.purchasesGalleryData = this.purchasesDataSource.data
@@ -386,10 +385,17 @@ export class InventoryComponent implements OnInit {
 
   deleteInv(input: any) {
 
+    console.log()
+
     this.dataService.delete(`inventories/delete/${input._id}`)
       .subscribe((data: any) => {
 
         if (data.code == 200) {
+
+          console.log(data)
+          this.getInventories()
+
+
         }
         else {
         }

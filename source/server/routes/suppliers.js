@@ -1,14 +1,14 @@
 const express = require("express");
 const router = express.Router();
 
-const Sale = require('../database/models/sale');
+const Supplier = require('../database/models/supplier');
 
 router.get('/get', (req, res) => {
 
-    Sale.find({})
+    Supplier.find({})
         .then((data) => {
             if (data != null) {
-                res.json({ data, message: "Sale pulled successfull", code: "200" })
+                res.json({ data, message: "Supplier pulled successfull", code: "200" })
             }
             else {
                 console.log("Data Does Not Exist")
@@ -30,11 +30,11 @@ router.get('/get/:_id', (req, res) => {
         console.log(req.params._id)
     }
 
-    Sale.findOne({ "_id": req.params._id })
+    Supplier.findOne({ "_id": req.params._id })
         .then((data) => {
             if (data != null) {
                 console.log(data)
-                console.log("Sale " + data._id + " Get")
+                console.log("Supplier " + data._id + " Get")
                 res.json({ data, message: "Get successfull", code: "200" })
             }
             else {
@@ -53,7 +53,7 @@ router.patch('/edit', (req, res) => {
 
     console.log(req.body.data)
 
-    Sale.findOneAndUpdate({ "_id": req.body.data._id }, { $set: req.body.data })
+    Supplier.findOneAndUpdate({ "_id": req.body.data._id }, { $set: req.body.data })
         .then((data) => {
             if (data != null) {
                 console.log(data)
@@ -81,7 +81,7 @@ router.delete('/delete/:_id', (req, res) => {
         console.log(req.params._id)
     }
 
-    Sale.findOneAndDelete({ "_id": req.body.data._id })
+    Supplier.findOneAndDelete({ "_id": req.body.data._id })
         .then((data) => {
             if (data != null) {
                 console.log(data)
@@ -104,12 +104,12 @@ router.post('/new', (req, res) => {
 
     console.log(req.body)
 
-    new Sale(req.body)
+    new Supplier(req.body)
         .save()
         .then((data) => {
             console.log(data)
-            console.log(data.emp_id + " Has Sale Logged")
-            res.json({ data, message: "Sale Added Successfully", code: "200" })
+            console.log(data.emp_id + " Has Supplier Logged")
+            res.json({ data, message: "Supplier Added Successfully", code: "200" })
 
         })
         .catch((error) => {

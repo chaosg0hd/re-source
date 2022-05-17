@@ -1,15 +1,13 @@
 const mongoose = require('mongoose');
 
-const SaleSchema = new mongoose.Schema({
+const SupplierSchema = new mongoose.Schema({
 
-    sale_number: Number,
-    sale_date: Date,
+    supp_number: Number,
     //sale_ref: String,
-    sale_itemName: String,
+    supp_name: String,
     //sale_desc: String,
-    sale_supplier: String,
-    sale_amount: Number,
-    sale_by: String,
+    supp_contactNum: String,
+    supp_contactPerson: String,
 
     isArchive: {
         type: Number, default: 0
@@ -19,13 +17,13 @@ const SaleSchema = new mongoose.Schema({
     updated_at: Date
 });
 
-SaleSchema.pre('save', function (next) {
+SupplierSchema.pre('save', function (next) {
     var currentDate = new Date();
     this.updated_at = currentDate;
     if (!this.created_at) this.created_at = currentDate;
     next();
 });
 
-const Sale = mongoose.model('Sale', SaleSchema);
+const Supplier = mongoose.model('Supplier', SupplierSchema);
 
-module.exports = Sale;
+module.exports = Supplier;

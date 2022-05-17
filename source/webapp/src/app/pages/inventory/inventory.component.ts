@@ -41,7 +41,7 @@ export class InventoryComponent implements OnInit {
 
   constructor(
     private dataService: DataService,
-    private dialog : MatDialog,
+    private dialog: MatDialog,
     private httpClient: HttpClient,
     private libraryService: LibraryService
   ) {
@@ -53,7 +53,7 @@ export class InventoryComponent implements OnInit {
 
   baseURL = environment.BASE_URL
 
-  
+
 
   @ViewChild('invAddDialog', { static: true }) invAddDialog!: TemplateRef<any>;
   @ViewChild('invCloneDialog', { static: true }) invCloneDialog!: TemplateRef<any>;
@@ -74,7 +74,7 @@ export class InventoryComponent implements OnInit {
     this.dialog.open(this.invCloneDialog, { data: input });
   }
 
-  
+
 
   openDialogInvAddInvoice() {
     var input = {}
@@ -85,7 +85,7 @@ export class InventoryComponent implements OnInit {
 
     this.loadOnLoop();
 
-   }
+  }
 
   @ViewChild('inventoryGalleryPaginator', { static: false })
   set inventoryGalleryPaginator(value: MatPaginator) {
@@ -194,30 +194,30 @@ export class InventoryComponent implements OnInit {
     this.isMobile = this.libraryService.getIsMobile()
   }
 
-  
 
-//  export interface Inventories {
 
-//  _id: string;
+  //  export interface Inventories {
 
-//  number: number;
-//  id: string;
-//  name: string;
-//  description: string;
-//  quantity: number;
-//  price: number;
-//  imageUrl: string
+  //  _id: string;
 
-//  isArchive: number;
-//  created_at: Date;
-//  updated_at: Date;
+  //  number: number;
+  //  id: string;
+  //  name: string;
+  //  description: string;
+  //  quantity: number;
+  //  price: number;
+  //  imageUrl: string
 
-//}
+  //  isArchive: number;
+  //  created_at: Date;
+  //  updated_at: Date;
+
+  //}
 
   inventoriesPayload: any;
   inventoriesData: Inventory[] = [];
   inventoriesDataSource = new MatTableDataSource(this.inventoriesData);
-  inventoriesDisplayedColumns = ['name', 'id', 'description', 'category', 'quantity','supplier', 'min_amount','price','actions'];
+  inventoriesDisplayedColumns = ['name', 'id', 'description', 'category', 'quantity', 'supplier', 'min_amount', 'price', 'actions'];
   inventoriesIdArchive: any;
 
   isToggleArchive = false
@@ -231,7 +231,7 @@ export class InventoryComponent implements OnInit {
         this.inventoriesPayload = data;
         this.inventoriesData = this.inventoriesPayload.data;
 
-        this.inventoriesData.map((data : any) => {
+        this.inventoriesData.map((data: any) => {
           data.sale_price = data.inv_price
           data.sale_quantity = 0
           data.purc_price = data.inv_price
@@ -260,7 +260,7 @@ export class InventoryComponent implements OnInit {
   purchasesPayload: any;
   purchasesData: Purchase[] = [];
   purchasesDataSource = new MatTableDataSource(this.purchasesData);
-  purchasesDisplayedColumns = ['_id','purc_number', 'purc_itemID', 'purc_itemName', 'purc_supplier', 'purc_price','purc_quantity', 'created_at', 'actions'];
+  purchasesDisplayedColumns = ['_id', 'purc_number', 'purc_itemID', 'purc_itemName', 'purc_supplier', 'purc_price', 'purc_quantity', 'created_at', 'actions'];
   purchasesIdArchive: any;
 
   getPurchases() {
@@ -306,7 +306,7 @@ export class InventoryComponent implements OnInit {
   suppliersPayload: any;
   suppliersData: Supplier[] = [];
   suppliersDataSource = new MatTableDataSource(this.suppliersData);
-  suppliersDisplayedColumns = ['name', '_id', 'id', 'description', 'category', 'quantity','supplier', 'min_amount','price','actions'];
+  suppliersDisplayedColumns = ['name', '_id', 'id', 'description', 'category', 'quantity', 'supplier', 'min_amount', 'price', 'actions'];
   suppliersIdArchive: any;
 
   getSuppliers() {
@@ -345,87 +345,124 @@ export class InventoryComponent implements OnInit {
     let editInvData: any = {}
     const editImageData = new FormData()
 
-    this.globalImage = input.inv_imgUrl 
+    this.globalImage = input.inv_imgUrl
     editImageData.append('file', this.globalImage)
 
     editInvData.inv_id = input.inv_id
     editInvData.inv_name = input.inv_name
     editInvData.inv_category = input.inv_category
-    editInvData.inv_description = input.inv_description 
+    editInvData.inv_description = input.inv_description
     editInvData.inv_quantity = input.inv_quantity
     editInvData.inv_price = input.inv_price
     editInvData.inv_supplier = input.inv_supplier
     editInvData.inv_min_amount = input.inv_min_amount
     editInvData._id = input._id
 
-    if (this.globalImage){
+    if (this.globalImage) {
       this.httpClient.post<any>('http://localhost:3000/api/uploads', editImageData).subscribe((data: any) => {
-      console.log(data)
-      editInvData.inv_imageUrl = data.filename
-      this.dataService.patch('inventories/edit', { data: editInvData }).subscribe((data) => {
         console.log(data)
-  
-        this.getInventories()
-        this.globalImage=''
-  
+        editInvData.inv_imageUrl = data.filename
+        this.dataService.patch('inventories/edit', { data: editInvData }).subscribe((data) => {
+          console.log(data)
+
+          this.getInventories()
+          this.globalImage = ''
+
         })
       })
     } else {
-        this.dataService.patch('inventories/edit', { data: editInvData }).subscribe((data) => {
-          console.log(data)
-    
-          this.getInventories()
-    
-        })
-    }  
+      this.dataService.patch('inventories/edit', { data: editInvData }).subscribe((data) => {
+        console.log(data)
+
+        this.getInventories()
+
+      })
+    }
 
 
   }
 
   archiveInv(input: any) {
+    Swal.fire({
+      title: 'Are you sure you want to archive this item?',
+      showCancelButton: true,
+      confirmButtonText: 'Confirm',
+      showLoaderOnConfirm: true,
+      icon: 'warning',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+    }).then((result) => {
+      if(result.isConfirmed){
+        input.isArchive = 1;
+        this.dataService.patch('inventories/edit', { data: input })
+        .subscribe((data) => {
+          console.log(data)
 
-    input.isArchive = 1;
-    
-    this.dataService.patch('inventories/edit', { data: input })
-      .subscribe((data) => {
-      console.log(data)
-
-      this.getInventories()
-    })
+          this.getInventories()
+        })
+        Swal.fire('Archived!', '', 'success')        
+      } else {
+        Swal.fire('', 'Action cancelled!', 'info')
+      }
+    })    
   }
 
   restoreInv(input: any) {
+    Swal.fire({
+      title: 'Are you sure you want to restore this item?',
+      showCancelButton: true,
+      confirmButtonText: 'Confirm',
+      showLoaderOnConfirm: true,
+      icon: 'warning',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+    }).then((result) => {
+      if(result.isConfirmed){
+        input.isArchive = 0;
+        this.dataService.patch('inventories/edit', { data: input })
+        .subscribe((data) => {
+          console.log(data)
 
-    input.isArchive = 0;
-    
-    this.dataService.patch('inventories/edit', { data: input })
-      .subscribe((data) => {
-      console.log(data)
-
-      this.getInventories()
-    })
-  }    
+          this.getInventories()
+        })
+        Swal.fire('Restored!', '', 'success')        
+      } else {
+        Swal.fire('', 'Action cancelled!', 'info')
+      }
+    })    
+  }
 
   deleteInv(input: any) {
 
     console.log()
-
-    this.dataService.delete(`inventories/delete/${input._id}`)
-      .subscribe((data: any) => {
-
-        if (data.code == 200) {
-
-          console.log(data)
-          this.getInventories()
-
-
-        }
-        else {
-        }
-
-      })
-
+    Swal.fire({
+      title: 'Are you sure you want to delete this item?',
+      text: 'This is irreversible!',
+      showCancelButton: true,
+      confirmButtonText: 'Confirm',
+      showLoaderOnConfirm: true,
+      icon: 'warning',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+    }).then((result) => {
+      if(result.isConfirmed){
+        this.dataService.delete(`inventories/delete/${input._id}`)
+        .subscribe((data: any) => {
+  
+          if (data.code == 200) {
+            console.log(data)
+            this.getInventories()
+          }
+          else { }
+        })
+        Swal.fire('Deleted!', '', 'success')        
+      } else {
+        Swal.fire('', 'Action cancelled!', 'info')
+      }
+    })    
   }
+   
+  
 
   addNewItem(input: any) {
 
@@ -475,7 +512,7 @@ export class InventoryComponent implements OnInit {
       this.dataService.patch('inventories/edit', { data: invData }).subscribe((data) => {
         console.log(data)
         this.getInventories()
-        
+
       })
     })
   }
@@ -503,10 +540,10 @@ export class InventoryComponent implements OnInit {
       this.dataService.patch('inventories/edit', { data: invData }).subscribe((data) => {
         console.log(data)
         this.getInventories()
-        
+
       })
     })
-    
+
   }
 
 

@@ -11,7 +11,7 @@ const SaleSchema = new mongoose.Schema({
     sale_price: Number,
     sale_quantity: Number,
     //sale_by: String,
-
+    sale_itemId: String,
     isArchive: {
         type: Number, default: 0
     },

@@ -67,21 +67,18 @@
 
                 <ng-container *ngFor="let element of inventoriesDataSource.data; index as i">
 
-                  <div class="inv-box-container mat-elevation-z4"  style="max-width: 20%"  (click)="openDialogInvEdit(element)">
+                  <div class="inv-box-container mat-elevation-z4" style="max-width: 20%" (click)="openDialogInvEdit(element)">
 
 
                     <div style="display: flex; flex-wrap: wrap">
-
-                      <h1>
-
-                        {{element.inv_name}}  &nbsp;
-
-                      </h1>
-
-                      <span style="flex: 1 1 auto;"></span>
-
                       <button mat-fab color="primary">{{element.inv_quantity}}</button>&nbsp;
+                      <span style="flex: 1 1 auto;"></span>
+                    </div>
 
+                    <div style="display: flex; flex-wrap: wrap">
+                      <h1>
+                        {{element.inv_name}}  &nbsp;
+                      </h1>
                     </div>
 
                     <div style="display: flex; flex-wrap: wrap">
@@ -97,8 +94,8 @@
                       <h4>
                         Amount : {{element.inv_min_amount}} &nbsp;
                       </h4>
-                      <h4>
-                        Price : {{element.inv_price}} &nbsp;
+                      <h4>               
+                        Price : {{element.inv_price | currency:'PHP':'symbol':'4.2-2'}} &nbsp;
                       </h4>
                     </div>
 

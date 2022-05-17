@@ -8,8 +8,9 @@ const SaleSchema = new mongoose.Schema({
     sale_itemName: String,
     //sale_desc: String,
     sale_supplier: String,
-    sale_amount: Number,
-    sale_by: String,
+    sale_price: Number,
+    sale_quantity: Number,
+    //sale_by: String,
 
     isArchive: {
         type: Number, default: 0

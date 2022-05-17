@@ -712,6 +712,8 @@ export class InventoryComponent implements OnInit {
   getPurchasePie() {
     console.log(this.purchasesDataSource.data)
 
+   
+
     function onlyUnique(value : any, index: any, self : any) {
       return self.indexOf(value) === index;
     }

@@ -61,7 +61,7 @@ export class InventoryComponent implements OnInit {
   @ViewChild('invCloneDialog', { static: true }) invCloneDialog!: TemplateRef<any>;
   @ViewChild('invEditDialog', { static: true }) invEditDialog!: TemplateRef<any>;
   @ViewChild('purchaseEditDialog', { static: true }) purchaseEditDialog!: TemplateRef<any>;
-
+  @ViewChild('saleEditDialog', { static: true }) saleEditDialog!: TemplateRef<any>;
   @ViewChild('invAddInvoiceDialog', { static: true }) invAddInvoiceDialog!: TemplateRef<any>;
 
   openDialogInvAdd() {
@@ -79,6 +79,10 @@ export class InventoryComponent implements OnInit {
 
   openDialogPurchaseEdit(input: any) {
     this.dialog.open(this.purchaseEditDialog, { data: input });
+  }
+
+  openDialogSaleEdit(input: any) {
+    this.dialog.open(this.saleEditDialog, { data: input });
   }
 
 
@@ -528,17 +532,12 @@ export class InventoryComponent implements OnInit {
 
   //sales
   addSale(input: any) {
-
-
-
-
     let saleData: any = {}
 
-    
     saleData.purc_itemID = input._id
     saleData.sale_itemName = input.inv_name
     saleData.sale_supplier = input.inv_supplier
-    saleData.sale_price = input.sale_quantity * input.sale_price
+    saleData.sale_price = input.sale_price
     saleData.sale_quantity = input.sale_quantity
 
     console.log(saleData)
@@ -563,6 +562,93 @@ export class InventoryComponent implements OnInit {
 
       })
     })
+  }
+
+  editSale(input: any){
+    console.log(input)
+    let saleData : any = {}
+    saleData._id = input._id
+    saleData.sale_supplier = input.sale_supplier
+    saleData.sale_quantity = input.sale_quantity
+    saleData.sale_price = input.sale_price
+    console.log(saleData)
+    this.dataService.patch('sales/edit', { data: saleData }).subscribe((data: any) => {
+      if (data.code == 200) Swal.fire('', 'Sale transaction edited', 'success')
+      else { Swal.fire('Edit unsuccessful','','error')}
+    })
+  }
+
+  archiveSale(input: any) {
+    Swal.fire({
+      title: 'Are you sure you want to archive this sale transaction?',
+      showCancelButton: true,
+      confirmButtonText: 'Confirm',
+      showLoaderOnConfirm: true,
+      icon: 'warning',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+    }).then((result) => {
+      if(result.isConfirmed){
+        input.isArchive = 1;
+        this.dataService.patch('sales/edit', { data: input })
+        .subscribe((data) => {
+          console.log(data)
+        })
+        Swal.fire('Archived!', '', 'success')        
+      } else {
+        Swal.fire('', 'Action cancelled!', 'info')
+      }
+    })    
+  }
+
+  restoreSale(input: any) {
+    Swal.fire({
+      title: 'Are you sure you want to restore this sale transaction?',
+      showCancelButton: true,
+      confirmButtonText: 'Confirm',
+      showLoaderOnConfirm: true,
+      icon: 'warning',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+    }).then((result) => {
+      if(result.isConfirmed){
+        input.isArchive = 0;
+        this.dataService.patch('sales/edit', { data: input })
+        .subscribe((data) => {
+          console.log(data)
+        })
+        Swal.fire('Restored!', '', 'success')        
+      } else {
+        Swal.fire('', 'Action cancelled!', 'info')
+      }
+    })    
+  }
+
+  deleteSale(input: any) {
+
+    console.log(input)
+    Swal.fire({
+      title: 'Are you sure you want to delete this sale transaction?',
+      text: 'This is irreversible!',
+      showCancelButton: true,
+      confirmButtonText: 'Confirm',
+      showLoaderOnConfirm: true,
+      icon: 'warning',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+    }).then((result) => {
+      if(result.isConfirmed){
+        this.dataService.delete(`sales/delete/${input._id}`)
+        .subscribe((data: any) => {
+  
+          if (data.code == 200) console.log(data)
+          else { }
+        })
+        Swal.fire('Deleted!', '', 'success')        
+      } else {
+        Swal.fire('', 'Action cancelled!', 'info')
+      }
+    })    
   }
 
   addPurchase(input: any) {

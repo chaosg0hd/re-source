@@ -657,7 +657,7 @@ export class InventoryComponent implements OnInit {
 
   deletePurchase(input: any) {
 
-    console.log()
+    console.log(input)
     Swal.fire({
       title: 'Are you sure you want to delete this purchase transaction?',
       text: 'This is irreversible!',

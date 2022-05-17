@@ -837,9 +837,9 @@
     <span style="flex: 1 1 auto;"></span>
     <button mat-raised-button matDialogClose color="primary" (click)="openDialogInvClone(data)">Clone</button>&nbsp;
     <ng-container *ngIf="data.isArchive == 0; then thenBlock else elseBlock"></ng-container>
-    <ng-template #thenBlock><button mat-raised-button matDialogClose color="warn" (click)="archiveInv(data)"><mat-icon>archive</mat-icon>Archive</button></ng-template>
-    <ng-template #elseBlock><button mat-raised-button matDialogClose color="accent" (click)="restoreInv(data)"><mat-icon>restore</mat-icon>Restore</button></ng-template>&nbsp;
-    <button mat-raised-button matDialogClose color="danger" routerLink="." (click)="deleteInv(data)"><mat-icon>delete_forever</mat-icon>Delete</button>&nbsp;
+    <ng-template #thenBlock><button mat-raised-button matDialogClose color="warn" (click)="archivePurchase(data)"><mat-icon>archive</mat-icon>Archive</button></ng-template>
+    <ng-template #elseBlock><button mat-raised-button matDialogClose color="accent" (click)="restorePurchase(data)"><mat-icon>restore</mat-icon>Restore</button></ng-template>&nbsp;
+    <button mat-raised-button matDialogClose color="danger" routerLink="." (click)="deletePurchase(data)"><mat-icon>delete_forever</mat-icon>Delete</button>&nbsp;
   </h2>
   <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">
 

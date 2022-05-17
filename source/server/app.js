@@ -92,7 +92,7 @@ app.use("/api/purchases", purchasesRouter);
 const salesRouter = require('./routes/sales');//OK
 app.use("/api/sales", salesRouter);
 const supplierRouter = require('./routes/suppliers');//OK
-app.use("/api/supplier", supplierRouter);
+app.use("/api/suppliers", supplierRouter);
 
 ////TASKS
 

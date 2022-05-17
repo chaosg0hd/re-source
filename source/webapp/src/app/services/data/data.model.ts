@@ -252,6 +252,21 @@ export interface Time {
   createdAt: Date,
 }
 
+export interface Supplier {
+    supp_id: string,
+    supp_number: number,
+    //sale_ref: String,
+    supp_name: string,
+    //sale_desc: String,
+    supp_contactNum: string,
+    supp_contactPerson: string,
+
+    isArchive: number,
+
+    created_at: Date,
+    updated_at: Date
+}
+
 
 
 

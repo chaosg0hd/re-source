@@ -72,7 +72,6 @@
 
                     <div style="display: flex; flex-wrap: wrap">
                       <button mat-fab color="primary">{{element.inv_quantity}}</button>&nbsp;
-                      <span style="flex: 1 1 auto;"></span>
                     </div>
 
                     <div style="display: flex; flex-wrap: wrap">
@@ -101,9 +100,12 @@
 
                     <h5>{{element.inv_description}}</h5>
 
+                    <div style="display: flex; flex-wrap: wrap; flex: auto">
 
 
-                    <!--<button mat-raised-button color="primary"><mat-icon>visibility</mat-icon>&nbsp; View {{element.inv_name}}&nbsp; </button>-->
+                    </div>
+
+
                   </div>
 
                 </ng-container>
@@ -261,7 +263,7 @@
 
             <div class="mat-elevation-z4 rounded-container-title">
               <h2 style="text-align: center; color: white">
-                Inventory Gallery
+                Purchases Table
               </h2>
             </div>
 
@@ -291,68 +293,60 @@
 
               <div style="width: 100%; overflow-x: scroll;">
 
-                <mat-table [dataSource]="inventoriesDataSource" class="mat-elevation-z0" style="width: 100%" matSort>
+                 <!--['purc_number', 'purc_itemID', 'purc_itemName', 'purc_supplier', 'purc_price','purc_quantity', 'created_at'];-->
 
-                  <ng-container matColumnDef="name">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.inv_name}} </mat-cell>
-                  </ng-container>
-
-                  <ng-container matColumnDef="number" sticky>
-                    <mat-header-cell *matHeaderCellDef> Number </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.inv_number}} </mat-cell>
-                  </ng-container>
+                <mat-table [dataSource]="purchasesDataSource" class="mat-elevation-z0" style="width: 100%" matSort>
 
                   <ng-container matColumnDef="_id" sticky>
-                    <mat-header-cell *matHeaderCellDef> Database ID </mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef> Number </mat-header-cell>
                     <mat-cell *matCellDef="let element"> {{element._id}} </mat-cell>
                   </ng-container>
 
-                  <ng-container matColumnDef="id">
+                  <ng-container matColumnDef="purc_number" sticky>
+                    <mat-header-cell *matHeaderCellDef> Number </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.purc_number}} </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="purc_itemID" sticky>
+                    <mat-header-cell *matHeaderCellDef> Database ID </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.purc_itemID}} </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="purc_itemName">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.inv_id}} </mat-cell>
+                    <mat-cell *matCellDef="let element"> {{element.purc_itemName}} </mat-cell>
                   </ng-container>
 
-                  <ng-container matColumnDef="description">
+                  <ng-container matColumnDef="purc_supplier">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Description </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.inv_description}} </mat-cell>
+                    <mat-cell *matCellDef="let element"> {{element.purc_supplier}} </mat-cell>
                   </ng-container>
 
-                  <ng-container matColumnDef="category">
+                  <ng-container matColumnDef="purc_price">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Category </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.inv_category}} </mat-cell>
+                    <mat-cell *matCellDef="let element"> {{element.purc_price}} </mat-cell>
                   </ng-container>
 
-                  <ng-container matColumnDef="quantity">
+                  <ng-container matColumnDef="purc_quantity">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.inv_quantity}} </mat-cell>
+                    <mat-cell *matCellDef="let element"> {{element.purc_quantity}} </mat-cell>
                   </ng-container>
 
-                  <ng-container matColumnDef="supplier">
+                  <ng-container matColumnDef="created_at">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Supplier </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.inv_supplier}} </mat-cell>
-                  </ng-container>
-
-                  <ng-container matColumnDef="min_amount">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> Minimum Amount </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.inv_min_amount}} </mat-cell>
-                  </ng-container>
-
-                  <ng-container matColumnDef="price">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> Price </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.inv_price}} </mat-cell>
+                    <mat-cell *matCellDef="let element"> {{element.created_at}} </mat-cell>
                   </ng-container>
 
                   <ng-container matColumnDef="actions" stickyEnd>
                     <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
                     <mat-cell *matCellDef="let element">
 
-                      <button mat-raised-button color="accent"> Edit <mat-icon>visibility</mat-icon> </button>
+                      <!--<button mat-raised-button color="accent"> Edit <mat-icon>visibility</mat-icon> </button>-->
 
                     </mat-cell>
                   </ng-container>
-                  <mat-header-row *matHeaderRowDef="inventoriesDisplayedColumns"></mat-header-row>
-                  <mat-row *matRowDef="let row; columns: inventoriesDisplayedColumns;"></mat-row>
+                  <mat-header-row *matHeaderRowDef="purchasesDisplayedColumns"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: purchasesDisplayedColumns;"></mat-row>
                 </mat-table>
 
               </div>
@@ -367,6 +361,24 @@
           </ng-container>
 
         </div>
+
+      </mat-tab>
+
+      <mat-tab>
+
+        <ng-template mat-tab-label>
+
+          <mat-icon>auto_awesome_mosaic</mat-icon>
+
+          Sales
+
+        </ng-template>
+
+        <mat-toolbar color="primary" class="mat-elevation-z22" style="z-index: 100;">
+          <span style="flex: 1 1 auto;"></span>
+          <span>Inventory Table</span>
+          <span style="flex: 1 1 auto;"></span>
+        </mat-toolbar>
 
       </mat-tab>
 
@@ -529,12 +541,14 @@
  <!--EDIT INV-->
 
 <ng-template #invEditDialog let-data>
-  <h2 matDialogTitle>{{data.inv_id}}  &nbsp;|&nbsp; {{data.inv_name}} &nbsp; Total Value : {{data.inv_quantity * data.inv_price | currency:'PHP':'symbol-narrow':'4.2-2'}} &nbsp;
-    <button mat-raised-button matDialogClose color="primary" (click)="openDialogInvClone(data)">Clone</button>
+  <h2 matDialogTitle style="display: flex">
+    {{data.inv_id}}  &nbsp;|&nbsp; {{data.inv_name}} &nbsp; Total Value : {{data.inv_quantity * data.inv_price | currency:'PHP':'symbol-narrow':'4.2-2'}} &nbsp;
+    <span style="flex: 1 1 auto;"></span>
+    <button mat-raised-button matDialogClose color="primary" (click)="openDialogInvClone(data)">Clone</button>&nbsp;
     <ng-container *ngIf="data.isArchive == 0; then thenBlock else elseBlock"></ng-container>
     <ng-template #thenBlock><button mat-raised-button matDialogClose color="warn"><mat-icon>archive</mat-icon>Archive</button></ng-template>
-    <ng-template #elseBlock><button mat-raised-button matDialogClose color="accent"><mat-icon>restore</mat-icon>Restore</button></ng-template>
-    <button mat-raised-button matDialogClose color="danger" routerLink="."><mat-icon>delete_forever</mat-icon>Delete</button> 
+    <ng-template #elseBlock><button mat-raised-button matDialogClose color="accent"><mat-icon>restore</mat-icon>Restore</button></ng-template>&nbsp;
+    <button mat-raised-button matDialogClose color="danger" routerLink="."><mat-icon>delete_forever</mat-icon>Delete</button>&nbsp;
   </h2>
   <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">
 
@@ -612,7 +626,7 @@
 
       <h4 style="max-width: 20% ;flex:auto">Sell Item</h4>
       <span style="flex: 1 1 auto;"></span>
-      
+
       <mat-form-field appearance="outline" style="min-width: 20% ;flex:auto;border-radius: 16px !important">
         <mat-label>Sale Quantity</mat-label>
         <input matInput required placeholder="1" type="number" value="0" [(ngModel)]="data.sale_quantity" [ngStyle]="{'background-color': data.quantity? '' : 'var(--warn-lighter-color)'}">
@@ -632,7 +646,7 @@
 
     </div>
 
-     <div style="width: 100%;">
+    <div style="width: 100%;">
       <br />
       <mat-divider></mat-divider>
       <br />
@@ -649,7 +663,7 @@
 
       <mat-form-field appearance="outline" style="min-width: 20% ;flex:auto;border-radius: 16px !important">
         <mat-label>Purchase Price</mat-label>
-        <input matInput required placeholder="1" type="number"[(ngModel)]="data.purc_price" [ngStyle]="{'background-color': data.quantity? '' : 'var(--warn-lighter-color)'}">
+        <input matInput required placeholder="1" type="number" [(ngModel)]="data.purc_price" [ngStyle]="{'background-color': data.quantity? '' : 'var(--warn-lighter-color)'}">
       </mat-form-field>&nbsp;
 
       &nbsp;&nbsp;&nbsp;
@@ -657,14 +671,14 @@
       <h5 style="max-width: 20% ;flex:auto">Amount After Purchase : {{data.inv_quantity + data.purc_quantity}}</h5>&nbsp;
       <span style="flex: 1 1 auto;"></span>
       <h3 style="max-width: 20% ;flex:auto">Total : PHP&nbsp;  {{data.purc_quantity * data.purc_price}}</h3>
-      <button style="max-width: 20% ;flex:auto" mat-raised-button matDialogClose color="primary" >Add Purchase</button>
+      <button style="max-width: 20% ;flex:auto" mat-raised-button matDialogClose color="primary">Add Purchase</button>
 
     </div>
 
   </mat-dialog-content>
   <mat-dialog-actions align="end">
-    
-    <button mat-raised-button matDialogClose color="warn" (click)="editInv(data)">Ok</button>
+
+    <button mat-raised-button matDialogClose color="warn" (click)="editInv(data)">Apply Changes</button>
     <button mat-raised-button matDialogClose color="warn">Cancel</button>
 
   </mat-dialog-actions>

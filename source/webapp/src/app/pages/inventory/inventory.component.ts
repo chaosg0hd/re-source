@@ -152,6 +152,7 @@ export class InventoryComponent implements OnInit {
 
         this.getInventories()
         this.getPurchases()
+        this.getSales()
 
         await this.delay(1000);
         this.isLoadedTab = true;
@@ -265,7 +266,7 @@ export class InventoryComponent implements OnInit {
   purchasesPayload: any;
   purchasesData: Purchase[] = [];
   purchasesDataSource = new MatTableDataSource(this.purchasesData);
-  purchasesDisplayedColumns = ['name', '_id', 'id', 'description', 'category', 'quantity','supplier', 'min_amount','price','actions'];
+  purchasesDisplayedColumns = ['_id','purc_number', 'purc_itemID', 'purc_itemName', 'purc_supplier', 'purc_price','purc_quantity', 'created_at', 'actions'];
   purchasesIdArchive: any;
 
   getPurchases() {
@@ -287,7 +288,7 @@ export class InventoryComponent implements OnInit {
   salesPayload: any;
   salesData: Sale[] = [];
   salesDataSource = new MatTableDataSource(this.salesData);
-  salesDisplayedColumns = ['name', '_id', 'id', 'description', 'category', 'quantity','supplier', 'min_amount','price','actions'];
+  salesDisplayedColumns = ['name', 'purc_itemName', 'purc_supplier', 'actions'];
   salesIdArchive: any;
 
   getSales() {
@@ -342,41 +343,9 @@ export class InventoryComponent implements OnInit {
     }
   }
 
-  //newInv(input: any) {
-  //  const imageData = new FormData()
-  //  //imageData = input.inv_imgUrl
-  //  let filename: string
-
-  //  // console.log(input.inv_imgUrl)
-  //  // console.log(this.image)
-  //  // console.log(imageData)
-  //  this.image2 = input.inv_imgUrl 
-  //  imageData.append('file', this.image2)
-  //  //imageData.append('file', this.image)
-    
-    
-  //  this.invData.inv_id = input.inv_id
-  //  this.invData.inv_name = input.name
-  //  this.invData.inv_category = input.category
-  //  this.invData.inv_description = input.description 
-  //  this.invData.inv_quantity = input.quantity
-  //  this.invData.inv_price = input.price
-  //  this.invData.inv_supplier = input.supplier
-  //  this.invData.inv_min_amount = input.min_amount
-
-  //  this.httpClient.post<any>('http://localhost:3000/api/uploads/', imageData).subscribe((data: any) => {
-  //      console.log(data)
-  //    // console.log(data.filename)
-  //      this.invData.inv_imageUrl = data.filename
-  //      this.dataService.post('inventories/new', this.invData).subscribe((data) => {
-  //      console.log(data)
-  //      this.getInventories()
-  //    })
-  //  })
-     
-  //}
 
   globalImage: any
+
   editInv(input: any) {
     let editInvData: any = {}
     const editImageData = new FormData()
@@ -413,11 +382,8 @@ export class InventoryComponent implements OnInit {
           this.getInventories()
     
         })
-    }
-    
+    }  
 
-    
-    
 
   }
 

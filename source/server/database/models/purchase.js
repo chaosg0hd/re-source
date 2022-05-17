@@ -3,15 +3,11 @@ const mongoose = require('mongoose');
 const PurchaseSchema = new mongoose.Schema({
 
     purc_number: Number,
-    purc_date: Date,
-    //purc_ref: String,
-    purc_itemName: String,
-    //purc_desc: String,
+    purc_itemID: String,
+    purc_itemName: String,    
     purc_supplier: String,
     purc_price: Number,
-    purc_quantity: Number,
-    //purc_by: String,
-    purc_itemid: String,
+    purc_quantity: Number,    
 
     isArchive: {
         type: Number, default: 0

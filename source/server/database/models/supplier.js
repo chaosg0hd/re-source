@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const SupplierSchema = new mongoose.Schema({
 
+    supp_id: String,
     supp_number: Number,
     //sale_ref: String,
     supp_name: String,

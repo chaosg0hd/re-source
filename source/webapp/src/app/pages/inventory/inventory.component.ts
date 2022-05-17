@@ -16,7 +16,7 @@ import { AcceptValidator, MaxSizeValidator, NgxMatFileInputComponent } from '@an
 import { ThemePalette } from '@angular/material/core';
 import { environment } from 'src/environments/environment';
 
-import { Announcement, Employee, Task_Board, Inventory, Attendance, Time, File, Gallery, Payroll, Purchase, Petty_Cash, Revenue, Sale } from 'src/app/services/data/data.model';
+import { Inventory, Purchase, Sale, Supplier } from 'src/app/services/data/data.model';
 
 
 import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation, rubberBandAnimation } from 'angular-animations';
@@ -284,6 +284,52 @@ export class InventoryComponent implements OnInit {
         this.purchasesData = this.purchasesPayload.data;
 
         this.purchasesDataSource.data = this.purchasesData;
+
+        //this.purchasesGalleryData = this.purchasesDataSource.data
+
+        //this.employeesDataSource.paginator = this.empPaginator
+        //this.employeesDataSource.sort = this.empSort;
+
+      });
+  }
+
+  salesPayload: any;
+  salesData: Sale[] = [];
+  salesDataSource = new MatTableDataSource(this.salesData);
+  salesDisplayedColumns = ['name', '_id', 'id', 'description', 'category', 'quantity','supplier', 'min_amount','price','actions'];
+  salesIdArchive: any;
+
+  getSales() {
+    this.dataService.get('sales/get')
+      .subscribe((data: any) => {
+        console.log(data);
+        this.salesPayload = data;
+        this.salesData = this.salesPayload.data;
+
+        this.salesDataSource.data = this.salesData;
+
+        //this.purchasesGalleryData = this.purchasesDataSource.data
+
+        //this.employeesDataSource.paginator = this.empPaginator
+        //this.employeesDataSource.sort = this.empSort;
+
+      });
+  }
+
+  suppliersPayload: any;
+  suppliersData: Supplier[] = [];
+  suppliersDataSource = new MatTableDataSource(this.suppliersData);
+  suppliersDisplayedColumns = ['name', '_id', 'id', 'description', 'category', 'quantity','supplier', 'min_amount','price','actions'];
+  suppliersIdArchive: any;
+
+  getSuppliers() {
+    this.dataService.get('supplier/get')
+      .subscribe((data: any) => {
+        console.log(data);
+        this.suppliersPayload = data;
+        this.suppliersData = this.suppliersPayload.data;
+
+        this.suppliersDataSource.data = this.suppliersData;
 
         //this.purchasesGalleryData = this.purchasesDataSource.data
 

@@ -453,9 +453,6 @@ export class InventoryComponent implements OnInit {
     this.getInventories()
   }
 
-  
-
-
 
 
 

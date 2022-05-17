@@ -4,11 +4,12 @@ const PurchaseSchema = new mongoose.Schema({
 
     purc_number: Number,
     purc_date: Date,
-    purc_ref: String,
-    purc_name: String,
-    purc_desc: String,
+    //purc_ref: String,
+    purc_itemName: String,
+    //purc_desc: String,
     purc_supplier: String,
-    purc_amount: Number,
+    purc_price: Number,
+    purc_quantity: Number,
     purc_by: String,
     purc_id: String,
 

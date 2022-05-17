@@ -15,6 +15,7 @@ import { catchError, filter } from 'rxjs/operators';
 import { AcceptValidator, MaxSizeValidator, NgxMatFileInputComponent } from '@angular-material-components/file-input';
 import { ThemePalette } from '@angular/material/core';
 import { environment } from 'src/environments/environment';
+
 import { Announcement, Employee, Task_Board, Inventory, Attendance, Time, File, Gallery, Payroll, Purchase, Petty_Cash, Revenue, Sale } from 'src/app/services/data/data.model';
 
 
@@ -54,20 +55,26 @@ export class InventoryComponent implements OnInit {
 
   
 
-
-  @ViewChild('invEditDialog', { static: true }) invEditDialog!: TemplateRef<any>;
   @ViewChild('invAddDialog', { static: true }) invAddDialog!: TemplateRef<any>;
+  @ViewChild('invCloneDialog', { static: true }) invCloneDialog!: TemplateRef<any>;
+  @ViewChild('invEditDialog', { static: true }) invEditDialog!: TemplateRef<any>;
+
   @ViewChild('invAddInvoiceDialog', { static: true }) invAddInvoiceDialog!: TemplateRef<any>;
-
-
-  openDialogInvEdit(input: any) {
-    this.dialog.open(this.invEditDialog, { data: input });
-  }
 
   openDialogInvAdd() {
     var input = {}
     this.dialog.open(this.invAddDialog, { data: input });
   }
+
+  openDialogInvEdit(input: any) {
+    this.dialog.open(this.invEditDialog, { data: input });
+  }
+
+  openDialogInvClone(input: any) {
+    this.dialog.open(this.invCloneDialog, { data: input });
+  }
+
+  
 
   openDialogInvAddInvoice() {
     var input = {}
@@ -224,7 +231,7 @@ export class InventoryComponent implements OnInit {
   inventoriesPayload: any;
   inventoriesData: Inventory[] = [];
   inventoriesDataSource = new MatTableDataSource(this.inventoriesData);
-  inventoriesDisplayedColumns = ['name', '_id', 'id', 'description', 'category', 'quantity','supplier', 'min_amount','price','actions'];
+  inventoriesDisplayedColumns = ['name', 'id', 'description', 'category', 'quantity','supplier', 'min_amount','price','actions'];
   inventoriesIdArchive: any;
 
   isToggleArchive = false
@@ -401,10 +408,13 @@ export class InventoryComponent implements OnInit {
 
   addNewItem(input: any) {
 
+    delete input._id
+
     this.dataService.post('inventories/new', { data: input })
       .subscribe((data: any) => {
 
         console.log(data)
+        this.getInventories()
 
       })
   }

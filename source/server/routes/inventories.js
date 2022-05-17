@@ -158,7 +158,7 @@ router.delete('/delete/:_id', (req, res) => {
 
 router.post('/new', (req, res) => {
 
-    new Inventory(req.body)
+    new Inventory(req.body.data)
         .save()
         .then((data) => {
             console.log(data)

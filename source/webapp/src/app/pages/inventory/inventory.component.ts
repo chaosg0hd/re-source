@@ -15,6 +15,8 @@ import { catchError, filter } from 'rxjs/operators';
 import { AcceptValidator, MaxSizeValidator, NgxMatFileInputComponent } from '@angular-material-components/file-input';
 import { ThemePalette } from '@angular/material/core';
 import { environment } from 'src/environments/environment';
+import { MatSort, Sort } from '@angular/material/sort';
+import { GoogleChartsModule } from 'angular-google-charts';
 
 import { Inventory, Purchase, Sale, Supplier } from 'src/app/services/data/data.model';
 
@@ -81,11 +83,7 @@ export class InventoryComponent implements OnInit {
     this.dialog.open(this.invAddInvoiceDialog, { data: input });
   }
 
-  ngOnInit(): void {
-
-    this.loadOnLoop();
-
-  }
+  
 
   @ViewChild('inventoryGalleryPaginator', { static: false })
   set inventoryGalleryPaginator(value: MatPaginator) {
@@ -101,8 +99,36 @@ export class InventoryComponent implements OnInit {
     }
   }
 
+  ngOnInit(): void {
+
+    this.loadOnLoop();
+
+  }
+
+  @ViewChild(MatSort) invSort!: MatSort;
+
+  /*@ViewChild(MatSort) purcSort!: MatSort;*/
+
+  @ViewChild('purcSort', { static: false })
+  set purcSort(value: MatSort) {
+    if (this.purchasesDataSource) {
+      this.purchasesDataSource.sort = value;
+    }
+  }
+
   //OOP
   isLoaded: boolean = false;
+
+  activeDiv: any
+
+  onclickDiv(divId: any) {
+    if (this.activeDiv == divId) {
+      this.activeDiv = null
+    }
+    else {
+      this.activeDiv = divId;
+    }
+  }
 
   async loadOnLoop() {
 
@@ -142,35 +168,38 @@ export class InventoryComponent implements OnInit {
     switch (tab) {
       case 0:
 
-        this.isLoadedTab = false;
+        this.isLoadedTab = false
 
         this.getInventories()
-        this.getPurchases()
-        this.getSales()
+        
+        
 
-        await this.delay(1000);
-        this.isLoadedTab = true;
+        await this.delay(1000)
+        this.isLoadedTab = true
 
 
         break;
 
       case 1:
 
-        this.isLoadedTab = false;
+        this.isLoadedTab = false
+        this.getPurchases()
 
-        this.getInventories()
 
         await this.delay(1000);
-        this.isLoadedTab = true;
+        this.isLoadedTab = true
 
         break;
 
       case 2:
 
-        this.isLoadedTab = false;
+        this.isLoadedTab = false
+        this.getSales()
 
-        await this.delay(1000);
-        this.isLoadedTab = true;
+
+
+        await this.delay(1000)
+        this.isLoadedTab = true
 
         break;
 
@@ -217,7 +246,7 @@ export class InventoryComponent implements OnInit {
   inventoriesPayload: any;
   inventoriesData: Inventory[] = [];
   inventoriesDataSource = new MatTableDataSource(this.inventoriesData);
-  inventoriesDisplayedColumns = ['name', 'id', 'description', 'category', 'quantity', 'supplier', 'min_amount', 'price', 'actions'];
+  inventoriesDisplayedColumns = ['inv_name', '_id', 'inv_description', 'inv_category', 'inv_quantity', 'inv_supplier', 'inv_min_amount', 'inv_price', 'actions'];
   inventoriesIdArchive: any;
 
   isToggleArchive = false
@@ -241,6 +270,7 @@ export class InventoryComponent implements OnInit {
 
         this.inventoriesDataSource.data = this.inventoriesData;
         this.inventoriesGalleryData = this.inventoriesDataSource.data
+        this.inventoriesDataSource.sort = this.invSort;
 
         //this.employeesDataSource.paginator = this.empPaginator
         //this.employeesDataSource.sort = this.empSort;
@@ -271,11 +301,9 @@ export class InventoryComponent implements OnInit {
         this.purchasesData = this.purchasesPayload.data;
         this.purchasesDataSource.data = this.purchasesData;
         this.purchasesDataSource.paginator = this.purcPaginator
+        this.purchasesDataSource.sort = this.purcSort
 
-        //this.purchasesGalleryData = this.purchasesDataSource.data
-
-        //this.employeesDataSource.paginator = this.empPaginator
-        //this.employeesDataSource.sort = this.empSort;
+        this.getPurchasePie()
 
       });
   }
@@ -570,17 +598,73 @@ export class InventoryComponent implements OnInit {
 
 
 
+  ///GRAAAPHS
 
-  activeDiv: any
 
-  onclickDiv(divId: any) {
-    if (this.activeDiv == divId) {
-      this.activeDiv = null
+  getPurchasePie() {
+    console.log(this.purchasesDataSource.data)
+
+    function onlyUnique(value : any, index: any, self : any) {
+      return self.indexOf(value) === index;
     }
-    else {
-      this.activeDiv = divId;
-    }
+
+   
+    
+
+     // ['a', 1, 2, '1']
+
+    let suppliers = this.purchasesDataSource.data.map((purchase) => {
+      return purchase.purc_itemID
+    })
+
+    let unique = suppliers.filter(onlyUnique)
+
+    console.log(unique)
+    console.log(suppliers)
+
+
   }
+
+
+  title = 'Pie Chart of Sales by Supplier'
+  chartType : any = "PieChart"
+  data = [
+    ['Firefox', 45.0],
+    ['IE', 26.8],
+    ['Chrome', 12.8],
+    ['Safari', 8.5],
+    ['Opera', 6.2],
+    ['Others', 0.7]
+  ];
+  columnNames = ['Browser', 'Percentage']
+  options = {
+  };
+  width = 550
+  height = 400
+
+  makeChart() {
+
+
+
+
+  }
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
 
 }
 

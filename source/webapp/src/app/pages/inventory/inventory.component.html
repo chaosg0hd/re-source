@@ -153,47 +153,43 @@
 
                 <mat-table [dataSource]="inventoriesDataSource" class="mat-elevation-z0" style="width: 100%" matSort>
 
-                  <ng-container matColumnDef="name">
+                  <ng-container matColumnDef="inv_name">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
                     <mat-cell *matCellDef="let element"> {{element.inv_name}} </mat-cell>
                   </ng-container>
 
-                  <ng-container matColumnDef="id" sticky>
+                  <ng-container matColumnDef="_id" sticky>
                     <mat-header-cell *matHeaderCellDef> Database ID </mat-header-cell>
                     <mat-cell *matCellDef="let element"> {{element._id}} </mat-cell>
                   </ng-container>
 
-                  <!--<ng-container matColumnDef="id">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.inv_id}} </mat-cell>
-                  </ng-container>-->
 
-                  <ng-container matColumnDef="description">
+                  <ng-container matColumnDef="inv_description">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Description </mat-header-cell>
                     <mat-cell *matCellDef="let element"> {{element.inv_description}} </mat-cell>
                   </ng-container>
 
-                  <ng-container matColumnDef="category">
+                  <ng-container matColumnDef="inv_category">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Category </mat-header-cell>
                     <mat-cell *matCellDef="let element"> {{element.inv_category}} </mat-cell>
                   </ng-container>
 
-                  <ng-container matColumnDef="quantity">
+                  <ng-container matColumnDef="inv_quantity">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </mat-header-cell>
                     <mat-cell *matCellDef="let element"> {{element.inv_quantity}} </mat-cell>
                   </ng-container>
 
-                  <ng-container matColumnDef="supplier">
+                  <ng-container matColumnDef="inv_supplier">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Supplier </mat-header-cell>
                     <mat-cell *matCellDef="let element"> {{element.inv_supplier}} </mat-cell>
                   </ng-container>
 
-                  <ng-container matColumnDef="min_amount">
+                  <ng-container matColumnDef="inv_min_amount">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Minimum Amount </mat-header-cell>
                     <mat-cell *matCellDef="let element"> {{element.inv_min_amount}} </mat-cell>
                   </ng-container>
 
-                  <ng-container matColumnDef="price">
+                  <ng-container matColumnDef="inv_price">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Price </mat-header-cell>
                     <mat-cell *matCellDef="let element"> {{element.inv_price}} </mat-cell>
                   </ng-container>
@@ -261,6 +257,19 @@
 
           <ng-container *ngIf="isLoadedTab == true">
 
+            <google-chart #chart
+                          [title]="title"
+                          [type]="chartType"
+                          [data]="data"
+                          [columns]="columnNames"
+                          [options]="options"
+                          [width]="width"
+                          [height]="height">
+
+
+
+            </google-chart>
+
             <div class="mat-elevation-z4 rounded-container-title">
               <h2 style="text-align: center; color: white">
                 Purchases Table
@@ -293,22 +302,22 @@
 
               <div style="width: 100%; overflow-x: scroll;">
 
-                 <!--['purc_number', 'purc_itemID', 'purc_itemName', 'purc_supplier', 'purc_price','purc_quantity', 'created_at'];-->
+                <!--['purc_number', 'purc_itemID', 'purc_itemName', 'purc_supplier', 'purc_price','purc_quantity', 'created_at'];-->
 
-                <mat-table [dataSource]="purchasesDataSource" class="mat-elevation-z0" style="width: 100%" matSort>
+                <mat-table [dataSource]="purchasesDataSource" class="mat-elevation-z0" style="width: 100%" matSort #purcSort="matSort" matSortActive="created_at" matSortDirection="desc">
 
                   <ng-container matColumnDef="_id" sticky>
-                    <mat-header-cell *matHeaderCellDef> Database ID </mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Database ID </mat-header-cell>
                     <mat-cell *matCellDef="let element"> {{element._id}} </mat-cell>
                   </ng-container>
 
-                  <ng-container matColumnDef="purc_number" sticky>
-                    <mat-header-cell *matHeaderCellDef> Number </mat-header-cell>
+                  <ng-container matColumnDef="purc_number">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Number </mat-header-cell>
                     <mat-cell *matCellDef="let element"> {{element.purc_number}} </mat-cell>
                   </ng-container>
 
-                  <ng-container matColumnDef="purc_itemID" sticky>
-                    <mat-header-cell *matHeaderCellDef> Product ID </mat-header-cell>
+                  <ng-container matColumnDef="purc_itemID">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Product ID </mat-header-cell>
                     <mat-cell *matCellDef="let element"> {{element.purc_itemID}} </mat-cell>
                   </ng-container>
 
@@ -379,6 +388,26 @@
           <span>Inventory Table</span>
           <span style="flex: 1 1 auto;"></span>
         </mat-toolbar>
+
+      </mat-tab>
+
+      <mat-tab>
+
+        <ng-template mat-tab-label>
+
+          <mat-icon>auto_awesome_mosaic</mat-icon>
+
+          Sales Graph
+
+        </ng-template>
+
+        <mat-toolbar color="primary" class="mat-elevation-z22" style="z-index: 100;">
+          <span style="flex: 1 1 auto;"></span>
+          <span>Inventory Table</span>
+          <span style="flex: 1 1 auto;"></span>
+        </mat-toolbar>
+
+        
 
       </mat-tab>
 

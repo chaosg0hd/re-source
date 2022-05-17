@@ -167,16 +167,16 @@ export interface Petty_Cash {
   updated_at: Date
 }
 
+
 export interface Purchase {
 
   _id: string,
   purc_number: number,
-  purc_date: Date,
-  purc_ref: string,
-  purc_name: string,
-  purc_desc: string,
+  purc_itemID: string,
+  purc_itemName: string,
   purc_supplier: string,
-  purc_amount: number,
+  purc_price: number,
+  purc_quantity: number,
   purc_by: string,
 
   isArchive: number,

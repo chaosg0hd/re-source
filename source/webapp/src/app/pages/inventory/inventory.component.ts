@@ -60,6 +60,7 @@ export class InventoryComponent implements OnInit {
   @ViewChild('invAddDialog', { static: true }) invAddDialog!: TemplateRef<any>;
   @ViewChild('invCloneDialog', { static: true }) invCloneDialog!: TemplateRef<any>;
   @ViewChild('invEditDialog', { static: true }) invEditDialog!: TemplateRef<any>;
+  @ViewChild('purchaseEditDialog', { static: true }) purchaseEditDialog!: TemplateRef<any>;
 
   @ViewChild('invAddInvoiceDialog', { static: true }) invAddInvoiceDialog!: TemplateRef<any>;
 
@@ -75,6 +76,12 @@ export class InventoryComponent implements OnInit {
   openDialogInvClone(input: any) {
     this.dialog.open(this.invCloneDialog, { data: input });
   }
+
+  openDialogPurchaseEdit(input: any) {
+    this.dialog.open(this.purchaseEditDialog, { data: input });
+  }
+
+
 
 
 
@@ -311,7 +318,7 @@ export class InventoryComponent implements OnInit {
   salesPayload: any;
   salesData: Sale[] = [];
   salesDataSource = new MatTableDataSource(this.salesData);
-  salesDisplayedColumns = ['name', 'purc_itemName', 'purc_supplier', 'actions'];
+  salesDisplayedColumns = ['_id', 'sale_number', 'sale_itemID', 'sale_itemName', 'sale_supplier', 'sale_price', 'sale_quantity', 'created_at', 'actions'];
   salesIdArchive: any;
 
   getSales() {
@@ -331,10 +338,17 @@ export class InventoryComponent implements OnInit {
       });
   }
 
+  applyFilterSales(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.salesDataSource.filter = filterValue.trim().toLowerCase();
+    //this.salesData = this.salesDataSource._pageData
+
+  }
+
   suppliersPayload: any;
   suppliersData: Supplier[] = [];
   suppliersDataSource = new MatTableDataSource(this.suppliersData);
-  suppliersDisplayedColumns = ['name', '_id', 'id', 'description', 'category', 'quantity', 'supplier', 'min_amount', 'price', 'actions'];
+  suppliersDisplayedColumns = ['_id', 'purc_number', 'purc_itemID', 'purc_itemName', 'purc_supplier', 'purc_price', 'purc_quantity', 'created_at', 'actions'];
   suppliersIdArchive: any;
 
   getSuppliers() {
@@ -390,19 +404,23 @@ export class InventoryComponent implements OnInit {
       this.httpClient.post<any>('http://localhost:3000/api/uploads', editImageData).subscribe((data: any) => {
         console.log(data)
         editInvData.inv_imageUrl = data.filename
-        this.dataService.patch('inventories/edit', { data: editInvData }).subscribe((data) => {
+        this.dataService.patch('inventories/edit', { data: editInvData }).subscribe((data: any) => {
           console.log(data)
 
           this.getInventories()
           this.globalImage = ''
+          if(data.code == 200) Swal.fire('Edit Successful', '', 'success')
+          else {Swal.fire('Action unsuccessful!', '', 'error')}
 
         })
       })
     } else {
-      this.dataService.patch('inventories/edit', { data: editInvData }).subscribe((data) => {
+      this.dataService.patch('inventories/edit', { data: editInvData }).subscribe((data: any) => {
         console.log(data)
 
         this.getInventories()
+        if(data.code == 200) Swal.fire('Edit Successful', '', 'success')
+          else {Swal.fire('Action unsuccessful!', '', 'error')}
 
       })
     }
@@ -501,6 +519,7 @@ export class InventoryComponent implements OnInit {
 
         console.log(data)
         this.getInventories()
+        Swal.fire('Item Added!', '', 'success')
 
       })
   }
@@ -540,6 +559,7 @@ export class InventoryComponent implements OnInit {
       this.dataService.patch('inventories/edit', { data: invData }).subscribe((data) => {
         console.log(data)
         this.getInventories()
+        Swal.fire('', 'Sales transaction added!', 'success')
 
       })
     })
@@ -568,10 +588,98 @@ export class InventoryComponent implements OnInit {
       this.dataService.patch('inventories/edit', { data: invData }).subscribe((data) => {
         console.log(data)
         this.getInventories()
+        Swal.fire('','Purchase transaction added!','success')
 
       })
     })
 
+  }
+
+  editPurchase(input: any){
+    console.log(input)
+    let purchaseData : any = {}
+    purchaseData._id = input._id
+    purchaseData.purc_supplier = input.purc_supplier
+    purchaseData.purc_quantity = input.purc_quantity
+    purchaseData.purc_price = input.purc_price
+    console.log(purchaseData)
+    this.dataService.patch('purchases/edit', { data: purchaseData }).subscribe((data: any) => {
+      if (data.code == 200) Swal.fire('', 'Purchase transaction edited', 'success')
+      else { Swal.fire('Edit unsuccessful','','error')}
+    })
+  }
+
+  archivePurchase(input: any) {
+    Swal.fire({
+      title: 'Are you sure you want to archive this purchase transaction?',
+      showCancelButton: true,
+      confirmButtonText: 'Confirm',
+      showLoaderOnConfirm: true,
+      icon: 'warning',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+    }).then((result) => {
+      if(result.isConfirmed){
+        input.isArchive = 1;
+        this.dataService.patch('purchases/edit', { data: input })
+        .subscribe((data) => {
+          console.log(data)
+        })
+        Swal.fire('Archived!', '', 'success')        
+      } else {
+        Swal.fire('', 'Action cancelled!', 'info')
+      }
+    })    
+  }
+
+  restorePurchase(input: any) {
+    Swal.fire({
+      title: 'Are you sure you want to restore this purchase transaction?',
+      showCancelButton: true,
+      confirmButtonText: 'Confirm',
+      showLoaderOnConfirm: true,
+      icon: 'warning',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+    }).then((result) => {
+      if(result.isConfirmed){
+        input.isArchive = 0;
+        this.dataService.patch('purchases/edit', { data: input })
+        .subscribe((data) => {
+          console.log(data)
+        })
+        Swal.fire('Restored!', '', 'success')        
+      } else {
+        Swal.fire('', 'Action cancelled!', 'info')
+      }
+    })    
+  }
+
+  deletePurchase(input: any) {
+
+    console.log()
+    Swal.fire({
+      title: 'Are you sure you want to delete this purchase transaction?',
+      text: 'This is irreversible!',
+      showCancelButton: true,
+      confirmButtonText: 'Confirm',
+      showLoaderOnConfirm: true,
+      icon: 'warning',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+    }).then((result) => {
+      if(result.isConfirmed){
+        this.dataService.delete(`purchases/delete/${input._id}`)
+        .subscribe((data: any) => {
+  
+          if (data.code == 200) console.log(data)
+          else { }
+        })
+        Swal.fire('Deleted!', '', 'success')        
+      } else {
+        Swal.fire('', 'Action cancelled!', 'info')
+      }
+    })    
   }
 
 

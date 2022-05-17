@@ -92,18 +92,20 @@ export interface Gallery{
 export interface Inventory{
 
   _id: string,
-  inv_number: number,
   inv_id: string,
   inv_name: string,
   inv_category: string,
+  inv_brand: string,
   inv_description: string,
   inv_quantity: number,
   inv_price: number,
-  inv_imageUrl: { type: string, default: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png' },
+  inv_imageUrl: string,
   inv_supplier: string,
   inv_min_amount: number,
 
-  isArchive: number,
+  isArchive: {
+    type: number, default: 0
+  },
 
   created_at: Date,
   updated_at: Date

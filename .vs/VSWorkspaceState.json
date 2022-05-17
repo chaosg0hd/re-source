@@ -1,10 +1,6 @@
 {
   "ExpandedNodes": [
     "",
-    "\\source",
-    "\\source\\server",
-    "\\source\\server\\routes",
-    "\\source\\webapp",
     "\\source\\webapp\\src",
     "\\source\\webapp\\src\\app",
     "\\source\\webapp\\src\\app\\pages",

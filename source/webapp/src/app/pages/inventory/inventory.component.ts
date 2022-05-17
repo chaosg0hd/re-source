@@ -460,7 +460,7 @@ export class InventoryComponent implements OnInit {
           }
           else { }
         })
-        Swal.fire('Archived!', '', 'success')        
+        Swal.fire('Deleted!', '', 'success')        
       } else {
         Swal.fire('', 'Action cancelled!', 'info')
       }

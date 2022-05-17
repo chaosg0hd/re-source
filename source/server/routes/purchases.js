@@ -81,7 +81,7 @@ router.delete('/delete/:_id', (req, res) => {
         console.log(req.params._id)
     }
 
-    Purchase.findOneAndDelete({ "_id": req.body.data._id })
+    Purchase.findOneAndDelete({ "_id": req.params._id })
         .then((data) => {
             if (data != null) {
                 console.log(data)

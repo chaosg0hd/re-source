@@ -520,7 +520,7 @@
                     <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
                     <mat-cell *matCellDef="let element">
 
-                      <!--<button mat-raised-button color="accent"> Edit <mat-icon>visibility</mat-icon> </button>-->
+                      <button mat-raised-button color="accent" (click)="openDialogSaleEdit(element)"> Edit <mat-icon>visibility</mat-icon> </button>
 
                     </mat-cell>
                   </ng-container>
@@ -850,9 +850,9 @@
     <span style="flex: 1 1 auto;"></span>
     <button mat-raised-button matDialogClose color="primary" (click)="openDialogInvClone(data)">Clone</button>&nbsp;
     <ng-container *ngIf="data.isArchive == 0; then thenBlock else elseBlock"></ng-container>
-    <ng-template #thenBlock><button mat-raised-button matDialogClose color="warn" (click)="archiveInv(data)"><mat-icon>archive</mat-icon>Archive</button></ng-template>
-    <ng-template #elseBlock><button mat-raised-button matDialogClose color="accent" (click)="restoreInv(data)"><mat-icon>restore</mat-icon>Restore</button></ng-template>&nbsp;
-    <button mat-raised-button matDialogClose color="danger" routerLink="." (click)="deleteInv(data)"><mat-icon>delete_forever</mat-icon>Delete</button>&nbsp;
+    <ng-template #thenBlock><button mat-raised-button matDialogClose color="warn" (click)="archivePurchase(data)"><mat-icon>archive</mat-icon>Archive</button></ng-template>
+    <ng-template #elseBlock><button mat-raised-button matDialogClose color="accent" (click)="restorePurchase(data)"><mat-icon>restore</mat-icon>Restore</button></ng-template>&nbsp;
+    <button mat-raised-button matDialogClose color="danger" routerLink="." (click)="deletePurchase(data)"><mat-icon>delete_forever</mat-icon>Delete</button>&nbsp;
   </h2>
   <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">
 
@@ -905,3 +905,64 @@
   </mat-dialog-actions>
 </ng-template>
 
+
+<ng-template #saleEditDialog let-data>
+  <h2 matDialogTitle style="display: flex">
+    {{data._id}}  &nbsp;|&nbsp; {{data.sales_itemName}} &nbsp; Total Value : {{data.sales_quantity * data.sales_price | currency:'PHP':'symbol-narrow':'4.2-2'}} &nbsp;
+    <span style="flex: 1 1 auto;"></span>
+    <button mat-raised-button matDialogClose color="primary" (click)="openDialogInvClone(data)">Clone</button>&nbsp;
+    <ng-container *ngIf="data.isArchive == 0; then thenBlock else elseBlock"></ng-container>
+    <ng-template #thenBlock><button mat-raised-button matDialogClose color="warn" (click)="archiveSale(data)"><mat-icon>archive</mat-icon>Archive</button></ng-template>
+    <ng-template #elseBlock><button mat-raised-button matDialogClose color="accent" (click)="restoreSale(data)"><mat-icon>restore</mat-icon>Restore</button></ng-template>&nbsp;
+    <button mat-raised-button matDialogClose color="danger" routerLink="." (click)="deleteSale(data)"><mat-icon>delete_forever</mat-icon>Delete</button>&nbsp;
+  </h2>
+  <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">
+
+    <div style="width: 100%;">
+      <br />
+      <mat-divider></mat-divider>
+      <br />
+      <br />
+      <br />
+    </div>
+
+    <mat-form-field appearance="outline" style=" min-width: 10% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Databse ID</mat-label>
+      <input disabled matInput type="text" [(ngModel)]="data._id" [ngStyle]="{'background-color': data.inv_id? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+    <mat-form-field appearance="outline" style=" min-width: 10% ;flex:auto;border-radius: 16px !important">
+      <mat-label>ID</mat-label>
+      <input matInput disabled type="text" [(ngModel)]="data.sale_itemId" [ngStyle]="{'background-color': data.inv_id? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+    <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Name</mat-label>
+      <input matInput disabled placeholder="Ex. Juan De" type="text" [(ngModel)]="data.sale_itemName" [ngStyle]="{'background-color': data.inv_name? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+
+    <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Supplier</mat-label>
+      <input matInput placeholder="Ex. Juan De" type="text" [(ngModel)]="data.sale_supplier" [ngStyle]="{'background-color': data.inv_supplier? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+    <mat-form-field appearance="outline" style=" min-width: 10% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Price</mat-label>
+      <input matInput required placeholder="Ex. 22.00" type="number" [(ngModel)]="data.sale_price" [ngStyle]="{'background-color': data.inv_price? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+    <mat-form-field appearance="outline" style=" min-width: 10% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Quantity</mat-label>
+      <input matInput required placeholder="Ex. 1" type="number" [(ngModel)]="data.sale_quantity" [ngStyle]="{'background-color': data.inv_quantity? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+    
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+
+    <button mat-raised-button matDialogClose color="warn" (click)="editSale(data)">Apply Changes</button>
+    <button mat-raised-button matDialogClose color="warn">Cancel</button>
+
+  </mat-dialog-actions>
+</ng-template>

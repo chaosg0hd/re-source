@@ -529,7 +529,14 @@
  <!--EDIT INV-->
 
 <ng-template #invEditDialog let-data>
-  <h2 matDialogTitle>{{data.inv_id}}  &nbsp;|&nbsp; {{data.inv_name}} &nbsp; Total Value : {{data.inv_quantity * data.inv_price | currency:'PHP':'symbol-narrow':'4.2-2'}} &nbsp; <button mat-raised-button matDialogClose color="primary" (click)="openDialogInvClone(data)">Clone</button> </h2>
+  <h2 matDialogTitle>{{data.inv_id}}  &nbsp;|&nbsp; {{data.inv_name}} &nbsp; Total Value : {{data.inv_quantity * data.inv_price | currency:'PHP':'symbol-narrow':'4.2-2'}} &nbsp;
+    <button mat-raised-button matDialogClose color="primary" (click)="openDialogInvClone(data)">Clone</button>
+    <ng-container *ngIf="{{ data.isArchive == 0}}; then thenBlock else elseBlock"></ng-container>
+    <ng-template #thenBlock><button mat-raised-button matDialogClose color="warn"><mat-icon>archive</mat-icon>Archive</button></ng-template>
+    <ng-template #elseBlock><button mat-raised-button matDialogClose color="accent"><mat-icon>restore</mat-icon>Archive</button></ng-template>
+    
+    <button mat-raised-button matDialogClose color="danger" routerLink="."><mat-icon>delete_forever</mat-icon>Delete</button> 
+  </h2>
   <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">
 
     <div style="width: 100%;">

@@ -102,7 +102,7 @@ router.delete('/delete/:_id', (req, res) => {
 
 router.post('/new', (req, res) => {
 
-    console.log(req.body)
+    console.log(req.body.data)
 
     new Supplier(req.body)
         .save()

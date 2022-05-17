@@ -395,7 +395,8 @@ export class InventoryComponent implements OnInit {
     editInvData.inv_min_amount = input.inv_min_amount
     editInvData._id = input._id
 
-    this.httpClient.post<any>('http://localhost:3000/api/uploads', editImageData).subscribe((data: any) => {
+    if (this.globalImage){
+      this.httpClient.post<any>('http://localhost:3000/api/uploads', editImageData).subscribe((data: any) => {
       console.log(data)
       editInvData.inv_imageUrl = data.filename
       this.dataService.patch('inventories/edit', { data: editInvData }).subscribe((data) => {
@@ -404,31 +405,46 @@ export class InventoryComponent implements OnInit {
         this.getInventories()
         this.globalImage=''
   
+        })
       })
-    })
+    } else {
+        this.dataService.patch('inventories/edit', { data: editInvData }).subscribe((data) => {
+          console.log(data)
+    
+          this.getInventories()
+    
+        })
+    }
+    
 
-    if(!this.globalImage)
-    this.dataService.patch('inventories/edit', { data: editInvData }).subscribe((data) => {
-      console.log(data)
-
-      this.getInventories()
-
-    })
+    
+    
 
   }
 
   archiveInv(input: any) {
 
     input.isArchive = 1;
-
+    
     this.dataService.patch('inventories/edit', { data: input })
       .subscribe((data) => {
       console.log(data)
 
       this.getInventories()
     })
+  }
 
-  }  
+  restoreInv(input: any) {
+
+    input.isArchive = 0;
+    
+    this.dataService.patch('inventories/edit', { data: input })
+      .subscribe((data) => {
+      console.log(data)
+
+      this.getInventories()
+    })
+  }    
 
   deleteInv(input: any) {
 
@@ -464,10 +480,12 @@ export class InventoryComponent implements OnInit {
 
     let saleData: any = {}
     
-    saleData.sale_name = input.inv_name
-    saleData.sale_desc = 'Sale'
+    saleData.sale_itemName = input.inv_name
     saleData.sale_supplier = input.inv_supplier
     saleData.sale_amount = input.sale_quantity * input.sale_price
+    saleData.sale_price = input.sale_price
+    saleData.sale_quantity = input.sale_quantity
+    saleData.sale_itemId = input._id
     console.log(saleData)
 
     let invData: any = {}
@@ -486,27 +504,37 @@ export class InventoryComponent implements OnInit {
         this.getInventories()
         
       })
-
-
     })
   }
 
   newPurchase(input: any) {
     let purchaseData: any = {}
 
-    purchaseData.purc_name = input.purc_name
-    purchaseData.purc_id = input.purc_id
-    purchaseData.purc_date = input.purc_date
-    purchaseData.purc_ref = input.purc_ref
-    purchaseData.purc_by = input.purc_by
-    purchaseData.purc_amount = input.purc_amount
+    purchaseData.purc_iteName = input.inv_name
+    purchaseData.purc_itemId = input._id
+    //purchaseData.purc_date = input.purc_date
+    //purchaseData.purc_ref = input.purc_ref
+    //purchaseData.purc_by = input.purc_by
+    purchaseData.purc_price = input.purc_price
+    purchaseData.purc_quantity = input.purc_quantity
     purchaseData.purc_supplier = input.purc_supplier
 
-    this.httpClient.post<any>('http://localhost:3000/api/purchases/new', purchaseData).subscribe((data: any) => {
+    purchaseData.purc_amount = input.sale_quantity * input.sale_price
+
+    let invData: any = {}
+    console.log(invData.inv_quantity)
+    invData.inv_quantity = input.inv_quantity + input.purc_quantity
+    invData._id = input._id
+    console.log(invData._id)
+
+    this.dataService.post('purchases/new', { data: purchaseData }).subscribe((data) => {
+      //CALL TO EDIT INVENTORIES
       console.log(data)
-      this.getInventories()
-      //this.getPurchases()
-      
+      this.dataService.patch('inventories/edit', { data: invData }).subscribe((data) => {
+        console.log(data)
+        this.getInventories()
+        
+      })
     })
     
   }

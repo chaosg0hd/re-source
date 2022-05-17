@@ -104,7 +104,7 @@ router.post('/new', (req, res) => {
 
     console.log(req.body)
 
-    new Sale(req.body)
+    new Sale(req.body.data)
         .save()
         .then((data) => {
             console.log(data)

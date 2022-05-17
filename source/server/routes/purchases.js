@@ -102,7 +102,7 @@ router.delete('/delete/:_id', (req, res) => {
 
 router.post('/new', (req, res) => {
 
-    new Purchase(req.body)
+    new Purchase(req.body.data)
         .save()
         .then((data) => {
             console.log(data)

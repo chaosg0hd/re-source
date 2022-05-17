@@ -92,18 +92,12 @@ export class InventoryComponent implements OnInit {
     if (this.inventoriesDataSource) {
       this.inventoriesDataSource.paginator = value;
     }
-  }
+  }    
 
-  @ViewChild('inventoryTablePaginator', { static: false })
-  set inventoryTablePaginator(value: MatPaginator) {
-    if (this.inventoriesDataSource) {
-      this.inventoriesDataSource.paginator = value;
-    }
-  }
-  @ViewChild('inventoryGallery2Paginator', { static: false })
-  set inventoryGallery2Paginator(value: MatPaginator) {
-    if (this.inventoriesDataSource) {
-      this.inventoriesDataSource.paginator = value;
+  @ViewChild('purcPaginator', { static: false })
+  set purcPaginator(value: MatPaginator) {
+    if (this.purchasesDataSource) {
+      this.purchasesDataSource.paginator = value;
     }
   }
 
@@ -276,6 +270,7 @@ export class InventoryComponent implements OnInit {
         this.purchasesPayload = data;
         this.purchasesData = this.purchasesPayload.data;
         this.purchasesDataSource.data = this.purchasesData;
+        this.purchasesDataSource.paginator = this.purcPaginator
 
         //this.purchasesGalleryData = this.purchasesDataSource.data
 
@@ -450,21 +445,27 @@ export class InventoryComponent implements OnInit {
   //sales
   addSale(input: any) {
 
+
+
+
     let saleData: any = {}
+
     
+    saleData.purc_itemID = input._id
     saleData.sale_itemName = input.inv_name
     saleData.sale_supplier = input.inv_supplier
-    saleData.sale_amount = input.sale_quantity * input.sale_price
-    saleData.sale_price = input.sale_price
+    saleData.sale_price = input.sale_quantity * input.sale_price
     saleData.sale_quantity = input.sale_quantity
-    saleData.sale_itemId = input._id
+
     console.log(saleData)
 
     let invData: any = {}
     console.log(invData.inv_quantity)
     invData.inv_quantity = input.inv_quantity - input.sale_quantity
     invData._id = input._id
+
     console.log(invData._id)
+
     //LATER NA IBA PANG FIELDS ETO MUNA
 
     //CALL TO ADD TO EXPENSES
@@ -479,19 +480,15 @@ export class InventoryComponent implements OnInit {
     })
   }
 
-  newPurchase(input: any) {
+  addPurchase(input: any) {
     let purchaseData: any = {}
 
-    purchaseData.purc_iteName = input.inv_name
-    purchaseData.purc_itemId = input._id
-    //purchaseData.purc_date = input.purc_date
-    //purchaseData.purc_ref = input.purc_ref
-    //purchaseData.purc_by = input.purc_by
-    purchaseData.purc_price = input.purc_price
-    purchaseData.purc_quantity = input.purc_quantity
-    purchaseData.purc_supplier = input.purc_supplier
-
-    purchaseData.purc_amount = input.sale_quantity * input.sale_price
+    
+    purchaseData.purc_itemID = input._id
+    purchaseData.purc_itemName = input.inv_name
+    purchaseData.purc_supplier = input.inv_supplier
+    purchaseData.purc_price = input.purc_quantity * input.purc_price
+    purchaseData.purc_quantity = input.purc_quantity  
 
     let invData: any = {}
     console.log(invData.inv_quantity)
@@ -502,6 +499,7 @@ export class InventoryComponent implements OnInit {
     this.dataService.post('purchases/new', { data: purchaseData }).subscribe((data) => {
       //CALL TO EDIT INVENTORIES
       console.log(data)
+
       this.dataService.patch('inventories/edit', { data: invData }).subscribe((data) => {
         console.log(data)
         this.getInventories()

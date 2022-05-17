@@ -158,15 +158,15 @@
                     <mat-cell *matCellDef="let element"> {{element.inv_name}} </mat-cell>
                   </ng-container>
 
-                  <!--<ng-container matColumnDef="_id" sticky>
+                  <ng-container matColumnDef="id" sticky>
                     <mat-header-cell *matHeaderCellDef> Database ID </mat-header-cell>
                     <mat-cell *matCellDef="let element"> {{element._id}} </mat-cell>
-                  </ng-container>-->
+                  </ng-container>
 
-                  <ng-container matColumnDef="id">
+                  <!--<ng-container matColumnDef="id">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
                     <mat-cell *matCellDef="let element"> {{element.inv_id}} </mat-cell>
-                  </ng-container>
+                  </ng-container>-->
 
                   <ng-container matColumnDef="description">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Description </mat-header-cell>
@@ -285,7 +285,7 @@
 
               </div>
 
-              <mat-paginator #empPaginator [pageSize]="10" [pageSizeOptions]="[10, 20, 100]"></mat-paginator>
+              <mat-paginator #purcPaginator [pageSize]="10" [pageSizeOptions]="[10, 20, 100]"></mat-paginator>
 
             </div>
 
@@ -298,7 +298,7 @@
                 <mat-table [dataSource]="purchasesDataSource" class="mat-elevation-z0" style="width: 100%" matSort>
 
                   <ng-container matColumnDef="_id" sticky>
-                    <mat-header-cell *matHeaderCellDef> Number </mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef> Database ID </mat-header-cell>
                     <mat-cell *matCellDef="let element"> {{element._id}} </mat-cell>
                   </ng-container>
 
@@ -308,22 +308,22 @@
                   </ng-container>
 
                   <ng-container matColumnDef="purc_itemID" sticky>
-                    <mat-header-cell *matHeaderCellDef> Database ID </mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef> Product ID </mat-header-cell>
                     <mat-cell *matCellDef="let element"> {{element.purc_itemID}} </mat-cell>
                   </ng-container>
 
                   <ng-container matColumnDef="purc_itemName">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Item Name </mat-header-cell>
                     <mat-cell *matCellDef="let element"> {{element.purc_itemName}} </mat-cell>
                   </ng-container>
 
                   <ng-container matColumnDef="purc_supplier">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> Description </mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Supplier </mat-header-cell>
                     <mat-cell *matCellDef="let element"> {{element.purc_supplier}} </mat-cell>
                   </ng-container>
 
                   <ng-container matColumnDef="purc_price">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> Category </mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Amount </mat-header-cell>
                     <mat-cell *matCellDef="let element"> {{element.purc_price}} </mat-cell>
                   </ng-container>
 
@@ -333,7 +333,7 @@
                   </ng-container>
 
                   <ng-container matColumnDef="created_at">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> Supplier </mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Date Created </mat-header-cell>
                     <mat-cell *matCellDef="let element"> {{element.created_at}} </mat-cell>
                   </ng-container>
 
@@ -642,7 +642,7 @@
       <h5 style="max-width: 20% ;flex:auto">Amount After Sale : {{data.inv_quantity - data.sale_quantity}}</h5>&nbsp;
       <span style="flex: 1 1 auto;"></span>
       <h3 style="max-width: 20% ;flex:auto">Total : PHP&nbsp; {{data.sale_quantity * data.sale_price}}</h3>
-      <button style="max-width: 20% ;flex:auto" mat-raised-button matDialogClose color="primary" (click)="addSale(data)">Add Sale</button>
+      <button style="max-width: 20% ;flex:auto" mat-raised-button color="primary" (click)="addSale(data)">Add Sale</button>
 
     </div>
 
@@ -671,7 +671,7 @@
       <h5 style="max-width: 20% ;flex:auto">Amount After Purchase : {{data.inv_quantity + data.purc_quantity}}</h5>&nbsp;
       <span style="flex: 1 1 auto;"></span>
       <h3 style="max-width: 20% ;flex:auto">Total : PHP&nbsp;  {{data.purc_quantity * data.purc_price}}</h3>
-      <button style="max-width: 20% ;flex:auto" mat-raised-button matDialogClose color="primary">Add Purchase</button>
+      <button style="max-width: 20% ;flex:auto" mat-raised-button color="primary" (click)="addPurchase(data)">Add Purchase</button>
 
     </div>
 

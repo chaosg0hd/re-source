@@ -288,7 +288,7 @@ export class InventoryComponent implements OnInit {
   salesPayload: any;
   salesData: Sale[] = [];
   salesDataSource = new MatTableDataSource(this.salesData);
-  salesDisplayedColumns = ['name', 'purc_itemName', 'purc_supplier', 'actions'];
+  salesDisplayedColumns = ['_id', 'sale_number', 'sale_itemID', 'sale_itemName', 'sale_supplier', 'sale_price', 'sale_quantity', 'created_at', 'actions'];
   salesIdArchive: any;
 
   getSales() {
@@ -308,10 +308,17 @@ export class InventoryComponent implements OnInit {
       });
   }
 
+  applyFilterSales(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.salesDataSource.filter = filterValue.trim().toLowerCase();
+    //this.salesData = this.salesDataSource._pageData
+
+  }
+
   suppliersPayload: any;
   suppliersData: Supplier[] = [];
   suppliersDataSource = new MatTableDataSource(this.suppliersData);
-  suppliersDisplayedColumns = ['name', '_id', 'id', 'description', 'category', 'quantity', 'supplier', 'min_amount', 'price', 'actions'];
+  suppliersDisplayedColumns = ['_id', 'purc_number', 'purc_itemID', 'purc_itemName', 'purc_supplier', 'purc_price', 'purc_quantity', 'created_at', 'actions'];
   suppliersIdArchive: any;
 
   getSuppliers() {

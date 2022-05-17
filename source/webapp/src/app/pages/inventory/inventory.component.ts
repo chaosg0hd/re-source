@@ -81,19 +81,10 @@ export class InventoryComponent implements OnInit {
     this.dialog.open(this.invAddInvoiceDialog, { data: input });
   }
 
-  ngOnInit(): void { 
-    /*this.loadOnstart();*/
-    this.loadOnLoop();
-    
+  ngOnInit(): void {
 
-    //mat inpur
-  //   this.fileControl.valueChanges.subscribe((files: any) => {
-  //     if (!Array.isArray(files)) {
-  //       this.files = [files];
-  //     } else {
-  //       this.files = files;
-  //     }
-  //   })
+    this.loadOnLoop();
+
    }
 
   @ViewChild('inventoryGalleryPaginator', { static: false })
@@ -236,8 +227,10 @@ export class InventoryComponent implements OnInit {
   isToggleArchive = false
 
   getInventories() {
+
     this.dataService.get('inventories/get')
       .subscribe((data: any) => {
+
         console.log(data);
         this.inventoriesPayload = data;
         this.inventoriesData = this.inventoriesPayload.data;
@@ -251,7 +244,6 @@ export class InventoryComponent implements OnInit {
         })
 
         this.inventoriesDataSource.data = this.inventoriesData;
-
         this.inventoriesGalleryData = this.inventoriesDataSource.data
 
         //this.employeesDataSource.paginator = this.empPaginator

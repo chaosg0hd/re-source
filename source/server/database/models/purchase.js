@@ -10,7 +10,7 @@ const PurchaseSchema = new mongoose.Schema({
     purc_supplier: String,
     purc_price: Number,
     purc_quantity: Number,
-    purc_by: String,
+    //purc_by: String,
     purc_id: String,
 
     isArchive: {

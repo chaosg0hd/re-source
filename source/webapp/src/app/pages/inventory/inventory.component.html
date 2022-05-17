@@ -258,11 +258,24 @@
           <ng-container *ngIf="isLoadedTab == true">
 
             <google-chart #chart
-                          [title]="title"
-                          [type]="chartType"
-                          [data]="data"
-                          [columns]="columnNames"
-                          [options]="options"
+                          [title]="purcTitle"
+                          [type]="purcChartType"
+                          [data]="purcData"
+                          [columns]="purcColumnNames"
+                          [options]="purcOptions"
+                          [width]="width"
+                          [height]="height">
+
+
+
+            </google-chart>
+
+             <google-chart #chart
+                          [title]="purc2Title"
+                          [type]="purc2ChartType"
+                          [data]="purc2Data"
+                          [columns]="purc2ColumnNames"
+                          [options]="purcOptions"
                           [width]="width"
                           [height]="height">
 

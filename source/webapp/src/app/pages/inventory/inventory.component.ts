@@ -45,7 +45,8 @@ export class InventoryComponent implements OnInit {
     private dataService: DataService,
     private dialog: MatDialog,
     private httpClient: HttpClient,
-    private libraryService: LibraryService
+    private libraryService: LibraryService,
+    private datepipe: DatePipe
   ) {
     // this.fileControl = new FormControl(this.files, [
     //   Validators.required,
@@ -311,6 +312,7 @@ export class InventoryComponent implements OnInit {
         this.purchasesDataSource.sort = this.purcSort
 
         this.getPurchasePie()
+        this.getPurchaseLine()
 
       });
   }
@@ -573,7 +575,8 @@ export class InventoryComponent implements OnInit {
     purchaseData.purc_itemName = input.inv_name
     purchaseData.purc_supplier = input.inv_supplier
     purchaseData.purc_price = input.purc_quantity * input.purc_price
-    purchaseData.purc_quantity = input.purc_quantity  
+    purchaseData.purc_quantity = input.purc_quantity
+
 
     let invData: any = {}
     console.log(invData.inv_quantity)
@@ -702,79 +705,215 @@ export class InventoryComponent implements OnInit {
 
 
 
+  getItemName(itemID: any) {
+    let name = ""
+    this.inventoriesData.forEach((inventory) => {
+      if (inventory._id === itemID) {
+        name = inventory.inv_name
 
+      }
+
+    })
+    return name
+  }
 
 
 
   ///GRAAAPHS
 
+  getPurchaseLine() {
+    let linedata = [{}]
+
+
+    function onlyUnique(value: any, index: any, self: any) {
+      return self.indexOf(value) === index;
+    }
+
+    let itemIDS = this.purchasesData.map((purchase) => {
+      return purchase.purc_itemID
+    })
+
+    let unique = itemIDS.filter(onlyUnique)
+
+    let lineColumn = ['month',]
+
+    unique.forEach((unq) => {
+      lineColumn.push(this.getItemName(unq))
+
+    })
+
+    linedata.push(lineColumn)
+
+
+    for (let month = 0; month <= 11; month++) {
+      let total = 0 
+      this.purchasesData.forEach((purchase) => {
+        let date = new Date(purchase.created_at)
+        let dateMonth = date.getMonth()
+        if (dateMonth == month) {
+          total = total + purchase.purc_price
+        }
+      })
+
+      linedata.push()
+    }
+    
+
+    console.log(linedata)
+
+
+
+    //unique.forEach((uniqSup) => {
+
+    //  let exsuppliers = this.purchasesData.filter((supplier, index) => {
+    //    return supplier.purc_itemID === uniqSup
+    //  })
+
+    //  let total = 0
+    //  let amount = 0
+    //  let itemName = ""
+    //  let month = 0
+
+    //  for (month = 0; month <= 11; month++) {
+
+    //    exsuppliers.forEach((supplier) => {
+
+    //      let date = new Date(supplier.created_at)
+    //      let dateMonth = date.getMonth()
+    //      if (dateMonth == month) {
+
+    //        itemName = supplier.purc_itemName
+    //        total = total + supplier.purc_price
+    //        amount = amount + supplier.purc_quantity
+
+    //      }
+
+
+    //    })
+
+
+
+    //    linedata.push({ month: month, supplier: itemName, amount: amount, total: total })
+
+    //  }
+
+
+
+
+
+
+    //})
+
+    //let lineColumnArray: any = []
+
+    //lineColumnArray.push("month")
+
+    //unique.forEach((item) => {
+    //  lineColumnArray.push(item)
+
+
+
+    //})
+
+    //console.log(lineColumnArray)
+
+
+
+  }
+
 
   getPurchasePie() {
-    console.log(this.purchasesDataSource.data)
-
+    console.log(this.purchasesData)
    
 
     function onlyUnique(value : any, index: any, self : any) {
       return self.indexOf(value) === index;
     }
 
-   
-    
-
-     // ['a', 1, 2, '1']
-
-    let suppliers = this.purchasesDataSource.data.map((purchase) => {
+    let itemIDS = this.purchasesData.map((purchase) => {
       return purchase.purc_itemID
     })
 
-    let unique = suppliers.filter(onlyUnique)
+    let unique = itemIDS.filter(onlyUnique)
 
-    console.log(unique)
-    console.log(suppliers)
 
+
+    let piedata = [{}]
+
+    unique.forEach((uniqSup) => {
+      let exsuppliers = this.purchasesData.filter((supplier, index) => {
+        return supplier.purc_itemID === uniqSup
+      })
+
+      let total = 0
+      let amount = 0
+      let itemName = ""
+
+      exsuppliers.forEach((supplier) => {
+        itemName = supplier.purc_itemName
+        total = total + supplier.purc_price
+        amount = amount + supplier.purc_quantity
+      })
+
+      piedata.push({ supplier: itemName , amount: amount, total: total })
+
+    })
+
+    
+
+    
+
+
+    //this.purc3Data = linedata.map((data: any, index: any) => {
+
+    //  if (index = 0) {
+    //    return
+    //  }
+
+
+    //  return [data.supplier, data.total]
+
+    //})
+
+    //console.log(this.purc3Data)
+
+    this.purcData = piedata.map((data: any) => {
+      return [data.supplier, data.total]
+    });
+
+    this.purc2Data = piedata.map((data: any) => {
+      return [data.supplier, data.amount]
+    });
 
   }
 
-
-  title = 'Pie Chart of Sales by Supplier'
-  chartType : any = "PieChart"
-  data = [
-    ['Firefox', 45.0],
-    ['IE', 26.8],
-    ['Chrome', 12.8],
-    ['Safari', 8.5],
-    ['Opera', 6.2],
-    ['Others', 0.7]
-  ];
-  columnNames = ['Browser', 'Percentage']
-  options = {
+  purcOptions = {
   };
   width = 550
   height = 400
+
+
+  purcTitle = 'Pie Chart of Sales by Supplier in terms of purchase cost'
+  purcChartType : any = "PieChart"
+  purcData : any[] = [];
+  purcColumnNames = ['Supplier', 'Percentage']  
+
+  purc2Title = 'Pie Chart of Sales by Supplier in terms of purchase volume'
+  purc2ChartType: any = "PieChart"
+  purc2Data: any[] = [];
+  purc2ColumnNames = ['Supplier', 'Percentage']
+
+  purc3Title = 'Pie Chart of Sales by Supplier in terms of purchase volume'
+  purc3ChartType: any = "PieChart"
+  purc3Data: any[] = [];
+  purc3ColumnNames = ['Supplier', 'Percentage']
 
   makeChart() {
 
 
 
 
-  }
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
+  }  
 
 }
 

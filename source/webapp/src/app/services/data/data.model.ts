@@ -206,14 +206,13 @@ export interface Revenue {
 export interface Sale {
 
   _id: string,
-  rev_number: number,
-  rev_date: Date,
-  rev_ref: string,
-  rev_name: string,
-  rev_desc: string,
-  rev_supplier: string,
-  rev_amount: number,
-  rev_by: string,
+  sale_number: number,
+  sale_itemID: string,
+  sale_itemName: string,
+  sale_supplier: string,
+  sale_price: number,
+  sale_quantity: number,
+  sale_by: string,
 
   isArchive: number,
 

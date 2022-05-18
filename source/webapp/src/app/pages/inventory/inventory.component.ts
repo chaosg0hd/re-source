@@ -123,6 +123,13 @@ export class InventoryComponent implements OnInit {
     }
   }
 
+  @ViewChild('salePaginator', { static: false })
+  set salePaginator(value: MatPaginator) {
+    if (this.purchasesDataSource) {
+      this.salesDataSource.paginator = value;
+    }
+  }
+
   ngOnInit(): void {
 
     this.loadOnLoop();
@@ -137,6 +144,13 @@ export class InventoryComponent implements OnInit {
   set purcSort(value: MatSort) {
     if (this.purchasesDataSource) {
       this.purchasesDataSource.sort = value;
+    }
+  }
+
+  @ViewChild('saleSort', { static: false })
+  set saleSort(value: MatSort) {
+    if (this.salesDataSource) {
+      this.salesDataSource.sort = value;
     }
   }
 
@@ -209,7 +223,6 @@ export class InventoryComponent implements OnInit {
 
         this.isLoadedTab = false
 
-
         await this.getPurchases()
 
         await this.delay(1000);
@@ -220,9 +233,8 @@ export class InventoryComponent implements OnInit {
       case 2:
 
         this.isLoadedTab = false
-        this.getSales()
 
-
+        await this.getSales()
 
         await this.delay(1000)
         this.isLoadedTab = true
@@ -322,9 +334,30 @@ export class InventoryComponent implements OnInit {
   getPurchases() {
     this.dataService.get('purchases/get')
       .subscribe((data: any) => {
+
         console.log(data);
-        this.purchasesPayload = data;
-        this.purchasesData = this.purchasesPayload.data;
+
+        let startDate = new Date(this.startDate).getTime()
+        let endDate = new Date(this.endDate).getTime()
+        
+        this.purchasesPayload = data
+        this.purchasesData = this.purchasesPayload.data
+
+
+
+        let purchaseData = this.purchasesData
+        let filteredPurchaseData = purchaseData.filter((item: any) => {
+
+          console.log(item.created_at)
+
+          console.log(startDate, new Date(item.created_at).getTime(), endDate)
+
+          let itemDate = new Date(item.created_at).getTime()
+
+          return itemDate >= startDate && itemDate <= endDate
+        })
+
+        this.purchasesData = filteredPurchaseData
         this.purchasesDataSource.data = this.purchasesData;
         this.purchasesDataSource.paginator = this.purcPaginator
         this.purchasesDataSource.sort = this.purcSort
@@ -346,15 +379,35 @@ export class InventoryComponent implements OnInit {
     this.dataService.get('sales/get')
       .subscribe((data: any) => {
         console.log(data);
+
+        let startDate = new Date(this.startDate).getTime()
+        let endDate = new Date(this.endDate).getTime()
+
         this.salesPayload = data;
         this.salesData = this.salesPayload.data;
 
+
+        let salesData = this.salesData
+        let filteredSalesData = salesData.filter((item: any) => {
+
+          console.log(item.created_at)
+
+          console.log(startDate, new Date(item.created_at).getTime(), endDate)
+
+          let itemDate = new Date(item.created_at).getTime()
+
+          return itemDate >= startDate && itemDate <= endDate
+        })
+
+
+        this.salesData = filteredSalesData
         this.salesDataSource.data = this.salesData;
+        this.salesDataSource.paginator = this.salePaginator
+        this.salesDataSource.sort = this.saleSort
+        console.log(this.purchasesDataSource.data)
 
-        //this.purchasesGalleryData = this.purchasesDataSource.data
+        this.getSalePie()
 
-        //this.employeesDataSource.paginator = this.empPaginator
-        //this.employeesDataSource.sort = this.empSort;
 
       });
   }
@@ -824,11 +877,13 @@ export class InventoryComponent implements OnInit {
     let endDate: any = new Date(new Date(input.endDate).setUTCHours(0,0,0,0))
     if (input != '') {
       //this.getDatesInRange(start,end)
+
       let purchaseData = this.purchasesData
       const filteredPurchaseData = purchaseData.filter((item: any) => {
         return new Date(new Date(item.created_at).setUTCHours(0,0,0,0)) >= startDate
         && new Date(new Date(item.created_at).setUTCHours(0,0,0,0)) <= endDate 
       })
+
       //console.log(inclusive_dates)
       
       this.purchasesPDFPayload = filteredPurchaseData
@@ -1049,17 +1104,13 @@ export class InventoryComponent implements OnInit {
       unique.forEach((unq) => {
         data.push(this.getPurchaseTotalItemVol(unq, month2))
 
-
-
       })
 
       line2data.push(data)
     }
 
     this.purc4ColumnNames = line2Column
-    this.purc4Data = line2data
-
-    
+    this.purc4Data = line2data   
 
 
     console.log(line2data)
@@ -1072,15 +1123,12 @@ export class InventoryComponent implements OnInit {
 
     })
 
-
     let month3 = 0
     for (month3 = 0; month3 <= 11; month3++) {
       let data: any[] = [months[month3]]
 
       unique.forEach((unq) => {
         data.push(this.getPurchaseTotalItemCost(unq, month3)/ this.getPurchaseTotalItemVol(unq, month3))
-
-
 
       })
 
@@ -1089,9 +1137,6 @@ export class InventoryComponent implements OnInit {
 
     this.purc6ColumnNames = line3Column
     this.purc6Data = line3data
-
-
-
 
     console.log(line2data)
 
@@ -1130,8 +1175,6 @@ export class InventoryComponent implements OnInit {
   };
 
 
-  mostBougth: any
-
   getPurchasePie() {
     console.log(this.purchasesData)
    
@@ -1169,11 +1212,30 @@ export class InventoryComponent implements OnInit {
 
     })
 
+    let mostCost = 0
+    let mostExpenItem: any
+    
+    let mostAmount = 0
+    let mostCostItem: any
+
     this.purcData = piedata.map((data: any) => {
+
+      if (mostCost <= data.total) {
+        mostCost = data.total
+        mostExpenItem = data.supplier
+      }
+
       return [data.supplier, data.total]
     });
 
     this.purc2Data = piedata.map((data: any) => {
+
+      if (mostAmount <= data.amount) {
+        mostAmount = data.amount
+        mostCostItem = data.supplier
+      }
+
+
       return [data.supplier, data.amount]
     });
 
@@ -1181,11 +1243,316 @@ export class InventoryComponent implements OnInit {
       return [data.supplier, data.perUnit]
     });
 
+    this.mostExpensive = mostExpenItem
+    this.mostPurchased = mostCostItem
 
 
   }
 
-  
+  mostPurchased: any
+  mostExpensive: any
+
+
+
+  getSaleTotalItemCost(itemID: any, month: any) {
+    let total = 0
+    this.saleData.forEach((purchase) => {
+      if (purchase.sale_itemID == itemID) {
+        let date = new Date(purchase.created_at)
+        let dateMonth = date.getMonth()
+        if (dateMonth == month) {
+          total = total + purchase.sale_price
+
+        }
+
+      }
+
+    })
+    return total
+  }
+
+  getSaleTotalItemVol(itemID: any, month: any) {
+    let total = 0
+    this.salesData.forEach((purchase) => {
+      if (purchase.sale_itemID == itemID) {
+        let date = new Date(purchase.created_at)
+        let dateMonth = date.getMonth()
+        if (dateMonth == month) {
+          total = total + purchase.sale_quantity
+
+        }
+
+      }
+
+    })
+    return total
+  }
+
+
+
+
+  sale3Title = 'Line Chart of Item Purchases in terms of purchase cost'
+  sale3ChartType: any = "ColumnChart"
+  sale3Data: any[] = [];
+  sale3ColumnNames: any[] = [];
+
+  sale3Options = {
+    colors: [
+      '#045c40',
+      '#d75100',
+      '#856b00',
+      '#606d00',
+      '#3f6a15',
+      '#ad6300',
+      '#21642f',
+      '#ff2b2b',
+    ],
+
+    hAxis: {
+      title: 'Month'
+    },
+    vAxis: {
+      title: 'Temperature'
+    },
+    curveType: 'function',
+
+    isStacked: true,
+
+    crosshair: { trigger: "both", orientation: "both" },
+
+  };
+
+  sale4Title = 'Line Chart of Item Purchases in terms of purchase volume'
+  sale4ChartType: any = "ColumnChart"
+  sale4Data: any[] = [];
+  sale4ColumnNames: any[] = [];
+
+
+  sale6Title = 'Line Chart of Item Price History'
+  sale6ChartType: any = "LineChart"
+  sale6Data: any[] = [];
+  sale6ColumnNames: any[] = [];
+
+
+
+  getSaleLine() {
+    let linedata = []
+
+
+    function onlyUnique(value: any, index: any, self: any) {
+      return self.indexOf(value) === index;
+    }
+
+    let itemIDS = this.salesData.map((purchase) => {
+      return purchase.sale_itemID
+    })
+
+    let unique = itemIDS.filter(onlyUnique)
+
+    let lineColumn = ['month',]
+
+    unique.forEach((unq) => {
+      lineColumn.push(this.getItemName(unq))
+
+    })
+
+    let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    var d = new Date();
+
+
+    let month = 0
+    for (month = 0; month <= 11; month++) {
+      let data: any[] = [months[month]]
+
+      unique.forEach((unq) => {
+        data.push(this.getPurchaseTotalItemCost(unq, month))
+
+
+
+      })
+
+      linedata.push(data)
+    }
+
+    this.purc3ColumnNames = lineColumn
+    this.purc3Data = linedata
+
+    let line2data = []
+    let line2Column = ['month',]
+
+    unique.forEach((unq) => {
+      line2Column.push(this.getItemName(unq))
+
+    })
+
+
+    let month2 = 0
+    for (month2 = 0; month2 <= 11; month2++) {
+      let data: any[] = [months[month2]]
+
+      unique.forEach((unq) => {
+        data.push(this.getPurchaseTotalItemVol(unq, month2))
+
+
+
+      })
+
+      line2data.push(data)
+    }
+
+    this.purc4ColumnNames = line2Column
+    this.purc4Data = line2data
+
+
+
+
+    console.log(line2data)
+
+    let line3data: any = []
+    let line3Column = ['month',]
+
+    unique.forEach((unq) => {
+      line3Column.push(this.getItemName(unq))
+
+    })
+
+
+    let month3 = 0
+    for (month3 = 0; month3 <= 11; month3++) {
+      let data: any[] = [months[month3]]
+
+      unique.forEach((unq) => {
+        data.push(this.getPurchaseTotalItemCost(unq, month3) / this.getPurchaseTotalItemVol(unq, month3))
+
+
+
+      })
+
+      line3data.push(data)
+    }
+
+    this.purc6ColumnNames = line3Column
+    this.purc6Data = line3data
+
+
+
+
+    console.log(line2data)
+
+
+  }
+
+
+  saleTitle = 'Distribution of Purchases in Terms of Cost'
+  saleChartType: any = "PieChart"
+  saleData: any[] = [];
+  saleColumnNames = ['Item', 'Percentage']
+
+  sale2Title = 'Distribution of Purchaes in Terms of Unit Volume'
+  sale2ChartType: any = "PieChart"
+  sale2Data: any[] = [];
+  sale2ColumnNames = ['Item', 'Percentage']
+
+  sale5Title = 'Chart of Purchaes in Terms of Cost per Unit Volume - Year 2022'
+  sale5ChartType: any = "PieChart"
+  sale5Data: any[] = [];
+  sale5ColumnNames = ['Item', 'Percentage']
+
+  saleOptions = {
+    colors: [
+      '#045c40',
+      '#d75100',
+      '#856b00',
+      '#606d00',
+      '#3f6a15',
+      '#ad6300',
+      '#21642f',
+      '#ff2b2b',
+
+    ],
+  };
+
+
+  getSalePie() {
+    console.log(this.salesData)
+
+
+    function onlyUnique(value: any, index: any, self: any) {
+      return self.indexOf(value) === index;
+    }
+
+    let itemIDS = this.salesData.map((purchase) => {
+      return purchase.sale_itemID
+    })
+
+    let unique = itemIDS.filter(onlyUnique)
+
+
+
+    let piedata: any = []
+
+    unique.forEach((uniqSup) => {
+      let exsuppliers = this.salesData.filter((supplier, index) => {
+        return supplier.sale_itemID === uniqSup
+      })
+
+      let total = 0
+      let amount = 0
+      let itemName = ""
+
+      exsuppliers.forEach((supplier) => {
+        itemName = this.getItemName(supplier.sale_itemID)
+        total = total + supplier.sale_price
+        amount = amount + supplier.sale_quantity
+      })
+
+      piedata.push({ supplier: itemName, amount: amount, total: total, perUnit: total / amount })
+
+    })
+
+    let mostProfit = 0
+    let mostProfitItem: any
+
+    let mostSold = 0
+    let mostSoldItem: any
+
+    this.saleData = piedata.map((data: any) => {
+
+      if (mostProfit <= data.total) {
+        mostProfit = data.total
+        mostProfitItem = data.supplier
+      }
+
+      return [data.supplier, data.total]
+    });
+
+    this.sale2Data = piedata.map((data: any) => {
+
+      if (mostSold <= data.amount) {
+        mostSold = data.amount
+        mostSoldItem = data.supplier
+      }
+
+
+      return [data.supplier, data.amount]
+    });
+
+    this.sale5Data = piedata.map((data: any) => {
+      return [data.supplier, data.perUnit]
+    });
+
+    this.mostProfitable = mostProfitItem
+    this.mostSoldItem = mostSoldItem
+
+
+  }
+
+  mostProfitable: any
+  mostSoldItem: any
+
+
+
+
 
 
   
@@ -1219,7 +1586,7 @@ export class InventoryComponent implements OnInit {
 
   }
 
-  startDate = this.getDate()
+  startDate = new Date(2022, 0, 1);
 
   endDate = this.getNextWeek()
 

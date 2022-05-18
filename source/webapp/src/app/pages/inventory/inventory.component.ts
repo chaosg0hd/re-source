@@ -17,6 +17,9 @@ import { ThemePalette } from '@angular/material/core';
 import { environment } from 'src/environments/environment';
 import { MatSort, Sort } from '@angular/material/sort';
 import { GoogleChartsModule } from 'angular-google-charts';
+import jsPDF from 'jspdf'
+import html2canvas from 'html2canvas'
+import { AngularCsv } from 'angular-csv-ext/dist/Angular-csv';
 
 import { Inventory, Purchase, Sale, Supplier } from 'src/app/services/data/data.model';
 
@@ -64,6 +67,9 @@ export class InventoryComponent implements OnInit {
   @ViewChild('purchaseEditDialog', { static: true }) purchaseEditDialog!: TemplateRef<any>;
   @ViewChild('saleEditDialog', { static: true }) saleEditDialog!: TemplateRef<any>;
   @ViewChild('invAddInvoiceDialog', { static: true }) invAddInvoiceDialog!: TemplateRef<any>;
+  //pdf generations
+  @ViewChild('purchasePDF', { static: true }) purchasePDF!: TemplateRef<any>;
+  @ViewChild('purchasePDFkekw', {static: false }) purchasePDFkekw!: ElementRef;
 
   openDialogInvAdd() {
     var input = {}
@@ -84,6 +90,12 @@ export class InventoryComponent implements OnInit {
 
   openDialogSaleEdit(input: any) {
     this.dialog.open(this.saleEditDialog, { data: input });
+  }
+
+  //pdf generations
+  openDialogPurchasePDF() {
+    let input: any = {}
+    this.dialog.open(this.purchasePDF, { data: input });
   }
 
 
@@ -314,6 +326,7 @@ export class InventoryComponent implements OnInit {
         this.purchasesDataSource.data = this.purchasesData;
         this.purchasesDataSource.paginator = this.purcPaginator
         this.purchasesDataSource.sort = this.purcSort
+        console.log(this.purchasesDataSource.data)
 
         this.getPurchasePie()
         this.getPurchaseLine()
@@ -525,7 +538,13 @@ export class InventoryComponent implements OnInit {
 
         console.log(data)
         this.getInventories()
-        Swal.fire('Item Added!', '', 'success')
+        Swal.fire({
+          title:'Item Added!',
+          icon:'success',
+          imageUrl: 'https://sweetalert2.github.io/images/nyan-cat.gif',
+          imageWidth: 200,
+          imageHeight: 200,
+        })
 
       })
   }
@@ -770,6 +789,83 @@ export class InventoryComponent implements OnInit {
       }
     })    
   }
+
+//   datesInRange: any
+//   getDatesInRange(startDate: any, endDate: any) {
+//     const start = new Date(new Date(startDate).setUTCHours(0, 0, 0, 0));
+//     const end = new Date(new Date(endDate).setUTCHours(0, 0, 0, 0));
+    
+//     const date = new Date(start.getTime());
+
+//     const dates = [];
+
+//     while (date <= end) {
+//       dates.push(new Date(date));
+//       date.setDate(date.getDate() + 1);
+//     }
+//     this.datesInRange = dates
+//   return dates;
+// }
+  purchasesPDFPayload : any = {}
+  purchasesPDF: Purchase[] = [];
+  purchasesDataSourcePDF = new MatTableDataSource(this.purchasesPDF);
+  purchasesDisplayedPDFColumns = ['_id', 'purc_itemID', 'purc_itemName', 'purc_supplier', 'purc_price', 'purc_quantity', 'created_at'];
+
+  fillDatasourcePurchase(data: any){
+    console.log(data)
+        this.purchasesPDFPayload = data;
+        this.purchasesPDF = this.purchasesPayload;
+        this.purchasesDataSourcePDF.data = this.purchasesData;
+  }
+  generatePurchasePDF(input: any){
+    let startDate: any = new Date(new Date(input.startDate).setUTCHours(0,0,0,0))
+    let endDate: any = new Date(new Date(input.endDate).setUTCHours(0,0,0,0))
+    if (input != '') {
+      //this.getDatesInRange(start,end)
+      let purchaseData = this.purchasesData
+      const filteredPurchaseData = purchaseData.filter((item: any) => {
+        return new Date(new Date(item.created_at).setUTCHours(0,0,0,0)) >= startDate
+        && new Date(new Date(item.created_at).setUTCHours(0,0,0,0)) <= endDate 
+      })
+      //console.log(inclusive_dates)
+      
+      this.purchasesPDFPayload = filteredPurchaseData
+      input = filteredPurchaseData
+      console.log(this.purchasesPDFPayload)
+      var options = {
+        fieldSeparator: ',',
+        quoteStrings: '"',
+        decimalseparator: '.',
+        showLabels: true, 
+        showTitle: true,
+        title: 'Transaction from ' + startDate +' - '+ endDate,
+        useBom: true,
+        headers: ["_id", "purc_number", "purc_itemName", "purc_itemID", "purc_price", "purc_quantity", "purc_supplier", "created_at", "updated_at"],
+        useHeader: true,
+        nullToEmptyString: true,
+      }
+      new AngularCsv(this.purchasesPDFPayload,
+        'Purchase Transaction for from ' + startDate+ ' - ' + endDate, options)
+
+      // this.fillDatasourcePurchase(input)
+
+      //   const data = this.purchasePDFkekw.nativeElement
+      //     html2canvas(data).then(canvas => {
+      //       const width = 200
+      //       let height = canvas.height * width / canvas.width
+
+      //     const fileuri = canvas.toDataURL('image/png')
+      //     const pdf = new jsPDF('l', 'mm', 'a4')
+      //     let position = 0
+      //     pdf.addImage(fileuri, 'PNG', 5, 5, width, height)
+      //     pdf.save('purchase')
+      //   })
+
+    }
+
+  }
+
+  generateSalesPDF(){}
 
 
 

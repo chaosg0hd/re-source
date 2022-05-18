@@ -302,6 +302,7 @@ export class InventoryComponent implements OnInit {
         console.log(data);
         this.inventoriesPayload = data;
         this.inventoriesData = this.inventoriesPayload.data;
+        this.getInvTotalAmount(this.inventoriesData)
 
         this.inventoriesData.map((data: any) => {
           data.sale_price = data.inv_price
@@ -446,8 +447,21 @@ export class InventoryComponent implements OnInit {
 
       });
   }
-
-
+  total: number = 0
+  getInvTotalAmount(data: any){
+    let loop: any
+    const invData = data.map((data: any) => {
+      return data.inv_price * data.inv_quantity
+    })
+    console.log(invData)
+    loop = invData
+    
+    for (var val of loop) {
+      console.log(val); // prints values: 10, 20, 30, 40
+      this.total += val 
+    }
+    console.log(this.total)
+  }
 
   image: any
   image2: any
@@ -458,7 +472,6 @@ export class InventoryComponent implements OnInit {
       this.image = file;
     }
   }
-
 
   globalImage: any
 

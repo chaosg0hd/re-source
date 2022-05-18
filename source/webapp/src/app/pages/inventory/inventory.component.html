@@ -302,7 +302,7 @@
 
                 <button mat-raised-button color="primary" style="flex:auto">View Archived <mat-icon>recycling</mat-icon></button>&nbsp;
 
-                <button mat-raised-button color="warn" class="control-button" style="flex:auto;" (click)="openDialogPurchasePDF()"> Generate Purchase PDF <mat-icon> insert_drive_file</mat-icon></button>&nbsp;
+                <button mat-raised-button color="warn" class="control-button" style="flex:auto;" (click)="openDialogPurchasePDF()"> Generate Purchase CSV <mat-icon> insert_drive_file</mat-icon></button>&nbsp;
                 <span style="flex: 1 1 auto;"></span>
 
               </div>
@@ -459,7 +459,7 @@
 
                 <button mat-raised-button color="primary" style="flex:auto">View Archived <mat-icon>recycling</mat-icon></button>&nbsp;
 
-                <button mat-raised-button color="warn" class="control-button" style="flex:auto;"> Add Item <mat-icon>add</mat-icon></button>&nbsp;
+                <button mat-raised-button color="warn" class="control-button" style="flex:auto;" (click)="openDialogSalePDF()"> Generate Sale CSV <mat-icon> insert_drive_file</mat-icon></button>&nbsp;
                 <span style="flex: 1 1 auto;"></span>
 
               </div>
@@ -968,15 +968,12 @@
 </ng-template>
 
 <ng-template #purchasePDF let-data>
-  <h2 matDialogTitle style="display: flex">Date/s:</h2>
+  <h2 matDialogTitle style="display: flex">Purchase Transaction Form</h2>
   <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">
 
     <div style="width: 100%;">
       <br />
       <mat-divider></mat-divider>
-      <br />
-      <br />
-      <br />
     </div>
 
     <mat-form-field appearance="fill">
@@ -1029,7 +1026,7 @@
   </mat-dialog-content>
   <mat-dialog-actions align="end">
 
-    <button mat-raised-button matDialogClose color="warn" (click)="generatePurchasePDF(data)">Apply Changes</button>
+    <button mat-raised-button matDialogClose color="warn" (click)="generatePurchasePDF(data)">Generate CSV</button>
     <button mat-raised-button matDialogClose color="warn">Cancel</button>
 
   </mat-dialog-actions>
@@ -1059,7 +1056,7 @@
   </mat-dialog-content>
   <mat-dialog-actions align="end">
 
-    <button mat-raised-button matDialogClose color="warn" (click)="generateSalePDF(data)">Apply Changes</button>
+    <button mat-raised-button matDialogClose color="warn" (click)="generateSalePDF(data)">Generate CSV</button>
     <button mat-raised-button matDialogClose color="warn">Cancel</button>
 
   </mat-dialog-actions>

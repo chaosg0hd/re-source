@@ -246,6 +246,20 @@ export class InventoryComponent implements OnInit {
 
         break;
 
+      case 3:
+
+        this.isLoadedTab = false
+
+        await this.getPurchases()
+        await this.getSales()
+        await this.getSummary()
+
+
+        await this.delay(1000)
+        this.isLoadedTab = true
+
+        break;
+
       default:
     }
   }
@@ -412,6 +426,7 @@ export class InventoryComponent implements OnInit {
         console.log(this.purchasesDataSource.data)
 
         this.getSalePie()
+        this.getSaleLine()
 
 
       });
@@ -1292,7 +1307,7 @@ export class InventoryComponent implements OnInit {
 
   getSaleTotalItemCost(itemID: any, month: any) {
     let total = 0
-    this.saleData.forEach((purchase) => {
+    this.salesData.forEach((purchase) => {
       if (purchase.sale_itemID == itemID) {
         let date = new Date(purchase.created_at)
         let dateMonth = date.getMonth()
@@ -1393,7 +1408,6 @@ export class InventoryComponent implements OnInit {
     })
 
     let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    var d = new Date();
 
 
     let month = 0
@@ -1401,7 +1415,7 @@ export class InventoryComponent implements OnInit {
       let data: any[] = [months[month]]
 
       unique.forEach((unq) => {
-        data.push(this.getPurchaseTotalItemCost(unq, month))
+        data.push(this.getSaleTotalItemCost(unq, month))
 
 
 
@@ -1410,8 +1424,8 @@ export class InventoryComponent implements OnInit {
       linedata.push(data)
     }
 
-    this.purc3ColumnNames = lineColumn
-    this.purc3Data = linedata
+    this.sale3ColumnNames = lineColumn
+    this.sale3Data = linedata
 
     let line2data = []
     let line2Column = ['month',]
@@ -1427,7 +1441,7 @@ export class InventoryComponent implements OnInit {
       let data: any[] = [months[month2]]
 
       unique.forEach((unq) => {
-        data.push(this.getPurchaseTotalItemVol(unq, month2))
+        data.push(this.getSaleTotalItemVol(unq, month2))
 
 
 
@@ -1436,8 +1450,8 @@ export class InventoryComponent implements OnInit {
       line2data.push(data)
     }
 
-    this.purc4ColumnNames = line2Column
-    this.purc4Data = line2data
+    this.sale4ColumnNames = line2Column
+    this.sale4Data = line2data
 
 
 
@@ -1458,7 +1472,7 @@ export class InventoryComponent implements OnInit {
       let data: any[] = [months[month3]]
 
       unique.forEach((unq) => {
-        data.push(this.getPurchaseTotalItemCost(unq, month3) / this.getPurchaseTotalItemVol(unq, month3))
+        data.push(this.getSaleTotalItemCost(unq, month3) / this.getSaleTotalItemVol(unq, month3))
 
 
 
@@ -1467,8 +1481,8 @@ export class InventoryComponent implements OnInit {
       line3data.push(data)
     }
 
-    this.purc6ColumnNames = line3Column
-    this.purc6Data = line3data
+    this.sale6ColumnNames = line3Column
+    this.sale6Data = line3data
 
 
 
@@ -1587,6 +1601,54 @@ export class InventoryComponent implements OnInit {
   mostSoldItem: any
 
 
+
+
+  summTitle = 'Chart of Purchaes in Terms of Cost per Unit Volume - Year 2022'
+  summChartType: any = "BarChart"
+  summData: any[] = [];
+  summColumnNames = ['Item', 'Percentage']
+
+  summOptions = {
+    colors: [
+      '#045c40',
+      '#d75100',
+      '#856b00',
+      '#606d00',
+      '#3f6a15',
+      '#ad6300',
+      '#21642f',
+      '#ff2b2b',
+    ],
+
+    hAxis: {
+      title: 'Month'
+    },
+    vAxis: {
+      title: 'Temperature'
+    },
+    curveType: 'function',
+
+    isStacked: true,
+
+    crosshair: { trigger: "both", orientation: "both" },
+
+  };
+
+
+
+
+
+
+
+
+
+
+  getSummary() {
+
+
+
+    console.log(this.salesData)
+  }
 
 
 

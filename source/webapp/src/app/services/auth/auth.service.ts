@@ -8,6 +8,8 @@ export class AuthService {
   constructor() { }
 
   isLoggedIn() {
-    return !!localStorage.getItem('id')
+    //activate authguard localStorage.getItem('id')
+    //deactivate authguard !!localStorage.getItem('id')
+    return localStorage.getItem('id')
   }
 }

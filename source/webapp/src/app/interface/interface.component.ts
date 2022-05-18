@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services/data/data.service';
 import { LibraryService } from 'src/app/services/library/library.service';
 import { RouterLink, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animations';
 
 @Component({
@@ -75,8 +76,22 @@ export class InterfaceComponent implements OnInit {
 
   logout() {
 
-    localStorage.clear
-    this.router.navigate(['login'])
+   
+    Swal.fire({
+      title: 'Do you want to Logout?',
+      showCancelButton: true,
+      confirmButtonText: 'Confirm',
+      showLoaderOnConfirm: true,
+      icon: 'warning',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+    }).then((result) => {
+      if(result.isConfirmed){
+        localStorage.clear()
+        this.router.navigate(['login'])
+      }
+    })
+
 
   }
 

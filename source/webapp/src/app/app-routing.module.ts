@@ -10,6 +10,7 @@ import { TaskboardComponent } from './pages/taskboard/taskboard.component';
 import { GalleryComponent } from './pages/gallery/gallery.component';
 import { BundyComponent } from './bundy/bundy.component';
 import { AuthGuard } from './services/auth/auth.guard';
+import { ProfileComponent } from './profile/profile.component'
 
 const routes: Routes = [
 
@@ -34,6 +35,12 @@ const routes: Routes = [
     path: 'home', component: InterfaceComponent, children:
       [
         { path: '', component: HomeComponent, canActivate:[AuthGuard] },
+      ]
+  },
+  {
+    path: 'profile', component: InterfaceComponent, children:
+      [
+        { path: '', component: ProfileComponent, canActivate:[AuthGuard] },
       ]
   },
 

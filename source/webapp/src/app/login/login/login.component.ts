@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { DataService } from 'src/app/services/data/data.service';
 import { LibraryService } from 'src/app/services/library/library.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 import Swal from 'sweetalert2';
 
@@ -15,12 +16,16 @@ export class LoginComponent implements OnInit {
   constructor(
     private dataService: DataService,
     private libraryService: LibraryService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
   
  
 
   ngOnInit(): void {
+    if (this.authService.isLoggedIn()) {
+      this.router.navigate(['/home']);
+   }
 
     this.loadOnLoop()
   }
@@ -77,13 +82,13 @@ export class LoginComponent implements OnInit {
       console.log(data)
 
       if (data.code == 200) {
-        localStorage.clear;
+        localStorage.clear();
         localStorage.setItem('id', data.data.emp_id);
         localStorage.setItem('imgUrl', data.data.emp_imgUrl);
         localStorage.setItem('lname', data.data.emp_lname);
         localStorage.setItem('fname', data.data.emp_fname);
         localStorage.setItem('mname', data.data.emp_mname);
-        localStorage.setItem('role', data.data.emp_role);
+        localStorage.setItem('data', JSON.stringify(data))
         /*localStorage.setItem('contact_list', data.employee.list);*/
 
         var name = localStorage.getItem('fname') + ' ' + localStorage.getItem('lname')

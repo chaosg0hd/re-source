@@ -355,7 +355,6 @@ export class InventoryComponent implements OnInit {
     this.dataService.get('purchases/get')
       .subscribe((data: any) => {
 
-        console.log(data);
 
         let startDate = new Date(this.startDate).getTime()
         let endDate = new Date(this.endDate).getTime()
@@ -368,9 +367,6 @@ export class InventoryComponent implements OnInit {
         let purchaseData = this.purchasesData
         let filteredPurchaseData = purchaseData.filter((item: any) => {
 
-          console.log(item.created_at)
-
-          console.log(startDate, new Date(item.created_at).getTime(), endDate)
 
           let itemDate = new Date(item.created_at).getTime()
 
@@ -381,7 +377,6 @@ export class InventoryComponent implements OnInit {
         this.purchasesDataSource.data = this.purchasesData;
         this.purchasesDataSource.paginator = this.purcPaginator
         this.purchasesDataSource.sort = this.purcSort
-        console.log(this.purchasesDataSource.data)
 
         this.getPurchasePie()
         this.getPurchaseLine()
@@ -398,7 +393,6 @@ export class InventoryComponent implements OnInit {
   getSales() {
     this.dataService.get('sales/get')
       .subscribe((data: any) => {
-        console.log(data);
 
         let startDate = new Date(this.startDate).getTime()
         let endDate = new Date(this.endDate).getTime()
@@ -410,9 +404,6 @@ export class InventoryComponent implements OnInit {
         let salesData = this.salesData
         let filteredSalesData = salesData.filter((item: any) => {
 
-          console.log(item.created_at)
-
-          console.log(startDate, new Date(item.created_at).getTime(), endDate)
 
           let itemDate = new Date(item.created_at).getTime()
 
@@ -424,7 +415,6 @@ export class InventoryComponent implements OnInit {
         this.salesDataSource.data = this.salesData;
         this.salesDataSource.paginator = this.salePaginator
         this.salesDataSource.sort = this.saleSort
-        console.log(this.purchasesDataSource.data)
 
         this.getSalePie()
         this.getSaleLine()
@@ -449,7 +439,6 @@ export class InventoryComponent implements OnInit {
   getSuppliers() {
     this.dataService.get('supplier/get')
       .subscribe((data: any) => {
-        console.log(data);
         this.suppliersPayload = data;
         this.suppliersData = this.suppliersPayload.data;
 
@@ -468,14 +457,13 @@ export class InventoryComponent implements OnInit {
     const invData = data.map((data: any) => {
       return data.inv_price * data.inv_quantity
     })
-    console.log(invData)
     loop = invData
     
     for (var val of loop) {
-      console.log(val); // prints values: 10, 20, 30, 40
+      
       this.total += val 
     }
-    console.log(this.total)
+    
   }
 
   image: any
@@ -509,10 +497,10 @@ export class InventoryComponent implements OnInit {
 
     if (this.globalImage) {
       this.httpClient.post<any>('http://localhost:3000/api/uploads', editImageData).subscribe((data: any) => {
-        console.log(data)
+        
         editInvData.inv_imageUrl = data.filename
         this.dataService.patch('inventories/edit', { data: editInvData }).subscribe((data: any) => {
-          console.log(data)
+          
 
           this.getInventories()
           this.globalImage = ''
@@ -523,7 +511,7 @@ export class InventoryComponent implements OnInit {
       })
     } else {
       this.dataService.patch('inventories/edit', { data: editInvData }).subscribe((data: any) => {
-        console.log(data)
+        
 
         this.getInventories()
         if(data.code == 200) Swal.fire('Edit Successful', '', 'success')
@@ -549,7 +537,7 @@ export class InventoryComponent implements OnInit {
         input.isArchive = 1;
         this.dataService.patch('inventories/edit', { data: input })
         .subscribe((data) => {
-          console.log(data)
+          
 
           this.getInventories()
         })
@@ -574,7 +562,7 @@ export class InventoryComponent implements OnInit {
         input.isArchive = 0;
         this.dataService.patch('inventories/edit', { data: input })
         .subscribe((data) => {
-          console.log(data)
+          
 
           this.getInventories()
         })
@@ -1177,7 +1165,6 @@ export class InventoryComponent implements OnInit {
     this.purc4Data = line2data   
 
 
-    console.log(line2data)
 
     let line3data : any = []
     let line3Column = ['month',]
@@ -1202,7 +1189,6 @@ export class InventoryComponent implements OnInit {
     this.purc6ColumnNames = line3Column
     this.purc6Data = line3data
 
-    console.log(line2data)
 
     
   }
@@ -1240,7 +1226,6 @@ export class InventoryComponent implements OnInit {
 
 
   getPurchasePie() {
-    console.log(this.purchasesData)
    
 
     function onlyUnique(value : any, index: any, self : any) {
@@ -1469,8 +1454,6 @@ export class InventoryComponent implements OnInit {
 
 
 
-    console.log(line2data)
-
     let line3data: any = []
     let line3Column = ['month',]
 
@@ -1500,7 +1483,6 @@ export class InventoryComponent implements OnInit {
 
 
 
-    console.log(line2data)
 
 
   }
@@ -1537,8 +1519,6 @@ export class InventoryComponent implements OnInit {
 
 
   getSalePie() {
-    console.log(this.salesData)
-
 
     function onlyUnique(value: any, index: any, self: any) {
       return self.indexOf(value) === index;
@@ -1658,9 +1638,44 @@ export class InventoryComponent implements OnInit {
 
   getSummary() {
 
+    function onlyUnique(value: any, index: any, self: any) {
+      return self.indexOf(value) === index;
+    }
+
+    let itemIDS = this.purchasesData.map((purchase) => {
+      return purchase.purc_itemID
+    })
+
+    let unique = itemIDS.filter(onlyUnique)
+
+    let lineColumn = ['month',]
 
 
-    console.log(this.salesData)
+    let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    var d = new Date();
+
+
+    let month = 0
+    for (month = 0; month <= 11; month++) {
+      let data: any[] = [months[month]]
+
+      console.log(month)
+
+    }
+
+
+
+
+
+
+
+    
+
+
+    //console.log(this.salesData)
+    //console.log(this.purchasesData)
+
+
   }
 
 

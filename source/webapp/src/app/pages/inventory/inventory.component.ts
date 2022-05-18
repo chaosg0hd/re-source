@@ -147,12 +147,13 @@ export class InventoryComponent implements OnInit {
     //Event Loop Starts Here    
     this.checkIfMobile();
 
-    this.loadTab(this.activeTab);
+    await this.loadTab(this.activeTab);
+
 
     this.isLoaded = true;
     this.isLoadedTab = true;
 
-    await this.delay(60000);
+    await this.delay(600000);
     this.reloadLoop();
 
 
@@ -195,8 +196,9 @@ export class InventoryComponent implements OnInit {
       case 1:
 
         this.isLoadedTab = false
-        this.getPurchases()
 
+
+        await this.getPurchases()
 
         await this.delay(1000);
         this.isLoadedTab = true
@@ -791,6 +793,7 @@ export class InventoryComponent implements OnInit {
 
 
 
+
   getItemName(itemID: any) {
     let name = ""
     this.inventoriesData.forEach((inventory) => {
@@ -805,10 +808,95 @@ export class InventoryComponent implements OnInit {
 
 
 
+  getPurchaseTotalItemCost(itemID: any, month: any) {
+    let total = 0
+    this.purchasesData.forEach((purchase) => {
+      if (purchase.purc_itemID == itemID) {
+        let date = new Date(purchase.created_at)
+        let dateMonth = date.getMonth()
+        if (dateMonth == month) {
+          total = total + purchase.purc_price         
+
+        }
+
+      }
+
+    })
+    return total
+  }
+
+  getPurchaseTotalItemVol(itemID: any, month: any) {
+    let total = 0
+    this.purchasesData.forEach((purchase) => {
+      if (purchase.purc_itemID == itemID) {
+        let date = new Date(purchase.created_at)
+        let dateMonth = date.getMonth()
+        if (dateMonth == month) {
+          total = total + purchase.purc_quantity
+
+        }
+
+      }
+
+    })
+    return total
+  }
+
+
+
   ///GRAAAPHS
 
+
+  dynamicResize = true
+   
+
+
+  purc3Title = 'Line Chart of Item Purchases in terms of purchase cost'
+  purc3ChartType: any = "ColumnChart"
+  purc3Data: any[] = [];
+  purc3ColumnNames: any[] = [];
+
+  purc3Options = {
+    colors: [
+      '#045c40',
+      '#d75100',
+      '#856b00',
+      '#606d00',
+      '#3f6a15',
+      '#ad6300',
+      '#21642f',
+      '#ff2b2b',
+    ],
+
+    hAxis: {
+      title: 'Month'
+    },
+    vAxis: {
+      title: 'Temperature'
+    },
+    curveType: 'function',
+
+    isStacked: true,
+
+    crosshair: { trigger: "both", orientation: "both" },
+
+  };
+
+  purc4Title = 'Line Chart of Item Purchases in terms of purchase volume'
+  purc4ChartType: any = "ColumnChart"
+  purc4Data: any[] = [];
+  purc4ColumnNames: any[] = [];
+
+
+  purc6Title = 'Line Chart of Item Price History'
+  purc6ChartType: any = "LineChart"
+  purc6Data: any[] = [];
+  purc6ColumnNames: any[] = [];
+
+  
+
   getPurchaseLine() {
-    let linedata = [{}]
+    let linedata = []
 
 
     function onlyUnique(value: any, index: any, self: any) {
@@ -828,85 +916,125 @@ export class InventoryComponent implements OnInit {
 
     })
 
-    linedata.push(lineColumn)
+    let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    var d = new Date();
 
 
-    for (let month = 0; month <= 11; month++) {
-      let total = 0 
-      this.purchasesData.forEach((purchase) => {
-        let date = new Date(purchase.created_at)
-        let dateMonth = date.getMonth()
-        if (dateMonth == month) {
-          total = total + purchase.purc_price
-        }
+    let month = 0
+    for (month = 0; month <= 11; month++) {
+      let data : any[] = [months[month]]
+
+      unique.forEach((unq) => {
+        data.push(this.getPurchaseTotalItemCost(unq, month))
+
+
+
       })
 
-      linedata.push()
+      linedata.push(data)
     }
     
+    this.purc3ColumnNames = lineColumn
+    this.purc3Data = linedata
 
-    console.log(linedata)
+    let line2data = []
+    let line2Column = ['month',]
 
+    unique.forEach((unq) => {
+      line2Column.push(this.getItemName(unq))
 
-
-    //unique.forEach((uniqSup) => {
-
-    //  let exsuppliers = this.purchasesData.filter((supplier, index) => {
-    //    return supplier.purc_itemID === uniqSup
-    //  })
-
-    //  let total = 0
-    //  let amount = 0
-    //  let itemName = ""
-    //  let month = 0
-
-    //  for (month = 0; month <= 11; month++) {
-
-    //    exsuppliers.forEach((supplier) => {
-
-    //      let date = new Date(supplier.created_at)
-    //      let dateMonth = date.getMonth()
-    //      if (dateMonth == month) {
-
-    //        itemName = supplier.purc_itemName
-    //        total = total + supplier.purc_price
-    //        amount = amount + supplier.purc_quantity
-
-    //      }
+    })
 
 
-    //    })
+    let month2 = 0
+    for (month2 = 0; month2 <= 11; month2++) {
+      let data: any[] = [months[month2]]
+
+      unique.forEach((unq) => {
+        data.push(this.getPurchaseTotalItemVol(unq, month2))
 
 
 
-    //    linedata.push({ month: month, supplier: itemName, amount: amount, total: total })
+      })
 
-    //  }
+      line2data.push(data)
+    }
 
+    this.purc4ColumnNames = line2Column
+    this.purc4Data = line2data
 
-
-
-
-
-    //})
-
-    //let lineColumnArray: any = []
-
-    //lineColumnArray.push("month")
-
-    //unique.forEach((item) => {
-    //  lineColumnArray.push(item)
+    
 
 
+    console.log(line2data)
 
-    //})
+    let line3data : any = []
+    let line3Column = ['month',]
 
-    //console.log(lineColumnArray)
+    unique.forEach((unq) => {
+      line3Column.push(this.getItemName(unq))
+
+    })
+
+
+    let month3 = 0
+    for (month3 = 0; month3 <= 11; month3++) {
+      let data: any[] = [months[month3]]
+
+      unique.forEach((unq) => {
+        data.push(this.getPurchaseTotalItemCost(unq, month3)/ this.getPurchaseTotalItemVol(unq, month3))
 
 
 
+      })
+
+      line3data.push(data)
+    }
+
+    this.purc6ColumnNames = line3Column
+    this.purc6Data = line3data
+
+
+
+
+    console.log(line2data)
+
+    
   }
 
+  
+
+  purcTitle = 'Distribution of Purchases in Terms of Cost'
+  purcChartType: any = "PieChart"
+  purcData: any[] = [];
+  purcColumnNames = ['Item', 'Percentage']
+
+  purc2Title = 'Distribution of Purchaes in Terms of Unit Volume'
+  purc2ChartType: any = "PieChart"
+  purc2Data: any[] = [];
+  purc2ColumnNames = ['Item', 'Percentage']
+
+  purc5Title = 'Chart of Purchaes in Terms of Cost per Unit Volume - Year 2022'
+  purc5ChartType: any = "PieChart"
+  purc5Data: any[] = [];
+  purc5ColumnNames = ['Item', 'Percentage']
+
+  purcOptions = {
+    colors: [
+      '#045c40',
+      '#d75100',
+      '#856b00',
+      '#606d00',
+      '#3f6a15',
+      '#ad6300',
+      '#21642f',
+      '#ff2b2b',
+
+    ],
+  };
+
+
+  mostBougth: any
 
   getPurchasePie() {
     console.log(this.purchasesData)
@@ -924,7 +1052,7 @@ export class InventoryComponent implements OnInit {
 
 
 
-    let piedata = [{}]
+    let piedata : any = []
 
     unique.forEach((uniqSup) => {
       let exsuppliers = this.purchasesData.filter((supplier, index) => {
@@ -936,32 +1064,14 @@ export class InventoryComponent implements OnInit {
       let itemName = ""
 
       exsuppliers.forEach((supplier) => {
-        itemName = supplier.purc_itemName
+        itemName = this.getItemName(supplier.purc_itemID)
         total = total + supplier.purc_price
         amount = amount + supplier.purc_quantity
       })
 
-      piedata.push({ supplier: itemName , amount: amount, total: total })
+      piedata.push({ supplier: itemName , amount: amount, total: total , perUnit: total/amount})
 
     })
-
-    
-
-    
-
-
-    //this.purc3Data = linedata.map((data: any, index: any) => {
-
-    //  if (index = 0) {
-    //    return
-    //  }
-
-
-    //  return [data.supplier, data.total]
-
-    //})
-
-    //console.log(this.purc3Data)
 
     this.purcData = piedata.map((data: any) => {
       return [data.supplier, data.total]
@@ -971,35 +1081,69 @@ export class InventoryComponent implements OnInit {
       return [data.supplier, data.amount]
     });
 
+    this.purc5Data = piedata.map((data: any) => {
+      return [data.supplier, data.perUnit]
+    });
+
+
+
   }
 
-  purcOptions = {
-  };
-  width = 550
-  height = 400
+  
 
 
-  purcTitle = 'Pie Chart of Sales by Supplier in terms of purchase cost'
-  purcChartType : any = "PieChart"
-  purcData : any[] = [];
-  purcColumnNames = ['Supplier', 'Percentage']  
+  
 
-  purc2Title = 'Pie Chart of Sales by Supplier in terms of purchase volume'
-  purc2ChartType: any = "PieChart"
-  purc2Data: any[] = [];
-  purc2ColumnNames = ['Supplier', 'Percentage']
+ 
+  getFirstDayMonth() {
 
-  purc3Title = 'Pie Chart of Sales by Supplier in terms of purchase volume'
-  purc3ChartType: any = "PieChart"
-  purc3Data: any[] = [];
-  purc3ColumnNames = ['Supplier', 'Percentage']
+    let day = this.libraryService.getFirstDayMonth()
+    return day
 
-  makeChart() {
+  }
+
+  getLastDayMonth() {
+    return this.libraryService.getLastDayMonth()
+  }
+
+  getNextWeek() {
+    return this.libraryService.getNextWeek()
+  }
+
+  getDate() {
+    return this.libraryService.getCurrentDate()
+  }
+
+
+  getDays() {
+
+  }
+
+  getMonths() {
+
+  }
+
+  startDate = this.getDate()
+
+  endDate = this.getNextWeek()
+
+
+  setupDate() {
+
+    this.getDaysArray()
+
+  }
+
+  daysArray: any[] = []
+
+  getDaysArray() {
+
+    this.daysArray = this.libraryService.generateDaysArray(this.startDate, this.endDate)
 
 
 
-
-  }  
+  }
 
 }
+
 

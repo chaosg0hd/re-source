@@ -57,7 +57,7 @@
               </h2>
             </div>
 
-            
+
             <div class="mat-elevation-z4 rounded-container-flex">
               <br />
               <br />
@@ -93,7 +93,7 @@
                       <h4>
                         Amount : {{element.inv_min_amount}} &nbsp;
                       </h4>
-                      <h4>               
+                      <h4>
                         Price : {{element.inv_price | currency:'PHP':'symbol':'4.2-2'}} &nbsp;
                       </h4>
                     </div>
@@ -138,7 +138,7 @@
 
                 <button mat-raised-button color="primary" style="flex:auto">View Archived <mat-icon>recycling</mat-icon></button>&nbsp;
 
-                <button mat-raised-button color="warn" class="control-button" style="flex:auto;" (click)="openDialogInvAdd()"  > Add Item <mat-icon>add</mat-icon></button>&nbsp;
+                <button mat-raised-button color="warn" class="control-button" style="flex:auto;" (click)="openDialogInvAdd()"> Add Item <mat-icon>add</mat-icon></button>&nbsp;
                 <span style="flex: 1 1 auto;"></span>
 
               </div>
@@ -257,31 +257,132 @@
 
           <ng-container *ngIf="isLoadedTab == true">
 
-            <google-chart #chart
-                          [title]="purcTitle"
-                          [type]="purcChartType"
-                          [data]="purcData"
-                          [columns]="purcColumnNames"
-                          [options]="purcOptions"
-                          [width]="width"
-                          [height]="height">
+            <div class="mat-elevation-z4 control-container">
+
+              <div class="mat-elevation-z4 rounded-container-title">
+                <h2 style="text-align: center; color: white">
+                  Purchases Table
+                </h2>
+              </div>
+
+              <div style="display: flex; align-items: baseline">
+                <span style="flex: 1 1 auto;"></span>
+                <mat-form-field appearance="outline" style=" min-width: 50% ;flex:auto;border-radius: 16px !important">
+                  <mat-label>Search</mat-label>
+
+                  <input matInput placeholder="Ex. Juan De" (keyup)="applyFilterInv($event)">
+                </mat-form-field>
+
+
+                <!--<span style="flex: 1 1 auto;"></span>
+
+      <button mat-raised-button color="primary" style="flex:auto">View Archived <mat-icon>recycling</mat-icon></button>&nbsp;
+
+      <button mat-raised-button color="warn" class="control-button" style="flex:auto;"> Add Item <mat-icon>add</mat-icon></button>&nbsp;
+      <span style="flex: 1 1 auto;"></span>-->
+
+              </div>
+
+
+            </div>
+
+            <div style="width: 100%; display: flex">
+
+              <div class="mat-elevation-z4 rounded-container-flex" style="width: 50%; height: 50vh;">
+                <google-chart #chart style="width: 100%; height: 100%"
+                              [title]="purcTitle"
+                              [type]="purcChartType"
+                              [data]="purcData"
+                              [columns]="purcColumnNames"
+                              [options]="purcOptions"
+                              [dynamicResize]="dynamicResize">
 
 
 
-            </google-chart>
+                </google-chart>
+              </div>
 
-             <google-chart #chart
-                          [title]="purc2Title"
-                          [type]="purc2ChartType"
-                          [data]="purc2Data"
-                          [columns]="purc2ColumnNames"
-                          [options]="purcOptions"
-                          [width]="width"
-                          [height]="height">
+              <div class="mat-elevation-z4 rounded-container-flex" style="width: 50%; height: 50vh;">
+
+                <google-chart #chart style="width: 100%; height: 100%"
+                              [title]="purc2Title"
+                              [type]="purc2ChartType"
+                              [data]="purc2Data"
+                              [columns]="purc2ColumnNames"
+                              [options]="purcOptions"
+                              [dynamicResize]="dynamicResize">
 
 
 
-            </google-chart>
+                </google-chart>
+
+              </div>
+
+
+            </div>
+
+            <div style="width: 100%; display: flex">
+
+              <div class="mat-elevation-z4 rounded-container-flex" style="width: 50%; height: 50vh;">
+
+                <google-chart #chart style="width: 100%; height: 100%"
+                              [title]="purc3Title"
+                              [type]="purc3ChartType"
+                              [data]="purc3Data"
+                              [columns]="purc3ColumnNames"
+                              [options]="purc3Options"
+                              [dynamicResize]="dynamicResize">
+
+
+
+                </google-chart>
+
+
+
+
+              </div>
+
+              <div class="mat-elevation-z4 rounded-container-flex" style="width: 50%; height: 50vh;">
+
+
+                <google-chart #chart style="width: 100%; height: 100%"
+                              [title]="purc4Title"
+                              [type]="purc4ChartType"
+                              [data]="purc4Data"
+                              [columns]="purc4ColumnNames"
+                              [options]="purc3Options"
+                              [dynamicResize]="dynamicResize">
+
+
+
+                </google-chart>
+
+              </div>
+
+            </div>
+
+            <div style="width: 100%; display: flex">
+
+              <div class="mat-elevation-z4 rounded-container-flex" style="width: 100%; height: 50vh;">
+
+
+                <google-chart #chart style="width: 100%; height: 100%"
+                              [title]="purc6Title"
+                              [type]="purc6ChartType"
+                              [data]="purc6Data"
+                              [columns]="purc6ColumnNames"
+                              [options]="purc3Options"
+                              [dynamicResize]="dynamicResize">
+
+
+
+                </google-chart>
+
+
+              </div>
+
+
+            </div>
 
             <div class="mat-elevation-z4 rounded-container-title">
               <h2 style="text-align: center; color: white">
@@ -472,7 +573,7 @@
 
               <div style="width: 100%; overflow-x: scroll;">
 
-                 <!--['purc_number', 'purc_itemID', 'purc_itemName', 'purc_supplier', 'purc_price','purc_quantity', 'created_at'];-->
+                <!--['purc_number', 'purc_itemID', 'purc_itemName', 'purc_supplier', 'purc_price','purc_quantity', 'created_at'];-->
 
                 <mat-table [dataSource]="salesDataSource" class="mat-elevation-z0" style="width: 100%" matSort>
 
@@ -555,15 +656,13 @@
 </ng-container>
 
 <!--IF MOBILE-->
-
 <!--<ng-container *ngIf="isMobile == true">
 
 </ng-container>-->
-
- <!--ADD ITEM-->
+<!--ADD ITEM-->
 <ng-template #invAddDialog let-data>
   <h2 matDialogTitle>New Item</h2>
-  <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">        
+  <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">
 
     <!--<mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
       <mat-label>Database ID</mat-label>
@@ -615,9 +714,9 @@
       <input matInput type="text" [(ngModel)]="data.inv_description" [ngStyle]="{'background-color': data.inv_description? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
-     <mat-form-field appearance="outline" style=" min-width: 20% ; flex:auto; border-radius: 16px !important">
+    <mat-form-field appearance="outline" style=" min-width: 20% ; flex:auto; border-radius: 16px !important">
       <mat-label>Image</mat-label>
-      <ngx-mat-file-input [(ngModel)]="data.imageData" >
+      <ngx-mat-file-input [(ngModel)]="data.imageData">
       </ngx-mat-file-input>
     </mat-form-field>&nbsp;
 
@@ -628,11 +727,11 @@
   </mat-dialog-actions>
 </ng-template>
 
- <!--CLONE ITEM-->
+<!--CLONE ITEM-->
 
 <ng-template #invCloneDialog let-data>
   <h2 matDialogTitle>New Item</h2>
-  <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">        
+  <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">
 
     <!--<mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
       <mat-label>Database ID</mat-label>
@@ -684,9 +783,9 @@
       <input matInput type="text" [(ngModel)]="data.inv_description" [ngStyle]="{'background-color': data.inv_description? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
-     <mat-form-field appearance="outline" style=" min-width: 10% ; flex:auto; border-radius: 16px !important">
+    <mat-form-field appearance="outline" style=" min-width: 10% ; flex:auto; border-radius: 16px !important">
       <mat-label>Image</mat-label>
-      <ngx-mat-file-input [(ngModel)]="data.imageData" >
+      <ngx-mat-file-input [(ngModel)]="data.imageData">
       </ngx-mat-file-input>
     </mat-form-field>&nbsp;
 
@@ -696,9 +795,9 @@
     <button mat-raised-button matDialogClose color="warn">Cancel</button>
   </mat-dialog-actions>
 </ng-template>
-                                                                                                                                                                 
 
- <!--EDIT INV-->
+
+<!--EDIT INV-->
 
 <ng-template #invEditDialog let-data>
   <h2 matDialogTitle style="display: flex">
@@ -895,7 +994,7 @@
       <input matInput required placeholder="Ex. 1" type="number" [(ngModel)]="data.purc_quantity" [ngStyle]="{'background-color': data.inv_quantity? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
-    
+
   </mat-dialog-content>
   <mat-dialog-actions align="end">
 
@@ -957,7 +1056,7 @@
       <input matInput required placeholder="Ex. 1" type="number" [(ngModel)]="data.sale_quantity" [ngStyle]="{'background-color': data.inv_quantity? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
-    
+
   </mat-dialog-content>
   <mat-dialog-actions align="end">
 

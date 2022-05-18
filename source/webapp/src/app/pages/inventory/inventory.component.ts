@@ -69,7 +69,7 @@ export class InventoryComponent implements OnInit {
   @ViewChild('invAddInvoiceDialog', { static: true }) invAddInvoiceDialog!: TemplateRef<any>;
   //pdf generations
   @ViewChild('purchasePDF', { static: true }) purchasePDF!: TemplateRef<any>;
-  @ViewChild('purchasePDFkekw', {static: false }) purchasePDFkekw!: ElementRef;
+  @ViewChild('salePDF', { static: true }) salePDF!: TemplateRef<any>;
 
   openDialogInvAdd() {
     var input = {}
@@ -96,6 +96,11 @@ export class InventoryComponent implements OnInit {
   openDialogPurchasePDF() {
     let input: any = {}
     this.dialog.open(this.purchasePDF, { data: input });
+  }
+
+  openDialogSalePDF() {
+    let input: any = {}
+    this.dialog.open(this.salePDF, { data: input });
   }
 
 
@@ -807,16 +812,11 @@ export class InventoryComponent implements OnInit {
 //   return dates;
 // }
   purchasesPDFPayload : any = {}
-  purchasesPDF: Purchase[] = [];
-  purchasesDataSourcePDF = new MatTableDataSource(this.purchasesPDF);
-  purchasesDisplayedPDFColumns = ['_id', 'purc_itemID', 'purc_itemName', 'purc_supplier', 'purc_price', 'purc_quantity', 'created_at'];
 
   fillDatasourcePurchase(data: any){
-    console.log(data)
         this.purchasesPDFPayload = data;
-        this.purchasesPDF = this.purchasesPayload;
-        this.purchasesDataSourcePDF.data = this.purchasesData;
   }
+
   generatePurchasePDF(input: any){
     let startDate: any = new Date(new Date(input.startDate).setUTCHours(0,0,0,0))
     let endDate: any = new Date(new Date(input.endDate).setUTCHours(0,0,0,0))
@@ -838,14 +838,52 @@ export class InventoryComponent implements OnInit {
         decimalseparator: '.',
         showLabels: true, 
         showTitle: true,
-        title: 'Transaction from ' + startDate +' - '+ endDate,
+        title: 'Purchase Transaction from ' + startDate +' - '+ endDate,
         useBom: true,
         headers: ["_id", "purc_number", "purc_itemName", "purc_itemID", "purc_price", "purc_quantity", "purc_supplier", "created_at", "updated_at"],
         useHeader: true,
         nullToEmptyString: true,
       }
-      new AngularCsv(this.purchasesPDFPayload,
-        'Purchase Transaction for from ' + startDate+ ' - ' + endDate, options)
+      new AngularCsv(this.purchasesPDFPayload, 'Purchase transaction from ' + startDate+ ' - ' + endDate, options)
+    } else {
+        //validation
+    }
+
+  }
+
+  salesPDFPayload : any = {}
+
+  fillDatasourceSale(data: any){
+        this.purchasesPDFPayload = data;
+  }
+
+  generateSalePDF(input: any){
+    let startDate: any = new Date(new Date(input.startDate).setUTCHours(0,0,0,0))
+    let endDate: any = new Date(new Date(input.endDate).setUTCHours(0,0,0,0))
+    if (input != '') {
+      let saleData = this.salesData
+      const filteredSaleData = saleData.filter((item: any) => {
+        return new Date(new Date(item.created_at).setUTCHours(0,0,0,0)) >= startDate
+        && new Date(new Date(item.created_at).setUTCHours(0,0,0,0)) <= endDate 
+      })
+      
+      this.salesPDFPayload = filteredSaleData
+      input = filteredSaleData
+      console.log(this.salesPDFPayload)
+      var options = {
+        fieldSeparator: ',',
+        quoteStrings: '"',
+        decimalseparator: '.',
+        showLabels: true, 
+        showTitle: true,
+        title: 'Sales transaction from ' + startDate +' - '+ endDate,
+        useBom: true,
+        headers: ["_id", "sale_number", "sale_itemName", "sale_itemID", "sale_price", "sale_quantity", "sale_supplier", "created_at", "updated_at"],
+        useHeader: true,
+        nullToEmptyString: true,
+      }
+      new AngularCsv(this.salesPDFPayload,
+        'Sales transaction from ' + startDate+ ' - ' + endDate, options)
 
       // this.fillDatasourcePurchase(input)
 
@@ -861,13 +899,11 @@ export class InventoryComponent implements OnInit {
       //     pdf.save('purchase')
       //   })
 
+    } else {
+        //validation
     }
 
   }
-
-  generateSalesPDF(){}
-
-
 
   toggleArchive() {
 

@@ -53,17 +53,17 @@
                     <br/>
                     <h2 matDialogTitle style="display: flex">
                         <span style="flex: 1 1 auto;"></span>
-                        <button mat-raised-button matDialogClose color="warn" ><mat-icon>edit</mat-icon>Edit</button>&nbsp;
+                        <button mat-raised-button matDialogClose color="warn" (click)="openDialogEditEmp(employeeData.data)"><mat-icon>edit</mat-icon>Edit</button>&nbsp;
                       </h2>
                 </div>
                 
                 <div class="profile-card">
                     <div style="width: 60%; margin: auto">
                         <!-- <img src="./assets/images/nyan-cat.gif"> -->
-                        <mat-label>{{ userData.data.emp_id }}</mat-label>
-                        <mat-label>{{ userData.data.emp_fname }}</mat-label>
-                        <mat-label>{{ userData.data.emp_role }}</mat-label>
-                        <mat-label>{{ userData.data.emp_address }}</mat-label>
+                        <mat-label>{{ employeeData.data.emp_id }}</mat-label>
+                        <mat-label>{{ employeeData.data.emp_fname }}</mat-label>
+                        <mat-label>{{ employeeData.data.emp_role }}</mat-label>
+                        <mat-label>{{ employeeData.data.emp_address }}</mat-label>
                     </div>
                 </div>
   
@@ -110,247 +110,86 @@
   <ng-container *ngIf="isMobile == true">
   
   </ng-container>
-  <!--
-  <ng-template #taskProjectNewDialog let-data>
-    <h2 matDialogTitle>New Project</h2>
+
+  <ng-template #empDialog let-data>
+    <h2 matDialogTitle>
+      {{data.emp_fname}}
+      <!-- <button mat-raised-button matDialogClose color="warn" (click)="archiveEmp(data)">Archive&nbsp;<mat-icon>delete</mat-icon></button>&nbsp;
+      <button mat-raised-button matDialogClose style="background-color: var(--danger-color)" (click)="deleteEmp(data)">Delete&nbsp;<mat-icon>delete_forever</mat-icon></button>
+   -->
+    </h2>
     <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">
   
-      <br />
-      <mat-divider></mat-divider>
-      <br />
-  
-      <mat-form-field appearance="outline" style=" min-width: 40% ;flex:auto;border-radius: 16px !important">
-        <mat-label>First Task Name</mat-label>
-        <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.task_name" [ngStyle]="{'background-color': data.task_name? '' : 'var(--warn-lighter-color)'}">
-      </mat-form-field>&nbsp;
-  
-      <mat-form-field appearance="outline" style=" min-width: 40% ;flex:auto;border-radius: 16px !important">
-        <mat-label>Project</mat-label>
-        <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.task_project" [ngStyle]="{'background-color': data.task_project? '' : 'var(--warn-lighter-color)'}">
-      </mat-form-field>&nbsp;
-  
-      <mat-form-field appearance="outline" style=" min-width: 80% ;flex:auto;border-radius: 16px !important">
-        <mat-label>Task Employees</mat-label>
-        <mat-select multiple [(ngModel)]="data.task_emp_id">
-          <ng-container *ngFor="let emp of employeesDataSource.data">
-            <mat-option [value]="emp.emp_id">
-  
-              {{emp.emp_id}}&nbsp;|&nbsp;{{emp.emp_fname}}
-  
-            </mat-option>
-  
-          </ng-container>
+      <div style="width: 100%;">
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <mat-divider></mat-divider>
+        <br />
+      </div>
   
   
-        </mat-select>
-  
-      </mat-form-field>&nbsp;
-  
-      <mat-form-field appearance="outline" style=" min-width: 40% ;flex:auto;border-radius: 16px !important">
-        <mat-label>First Task Type</mat-label>
-        <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.task_type" [ngStyle]="{'background-color': data.task_progress? '' : 'var(--warn-lighter-color)'}">
-      </mat-form-field>&nbsp;
-  
-      <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
-        <mat-label>First Task Progress</mat-label>
-        <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.task_progress" [ngStyle]="{'background-color': data.task_progress? '' : 'var(--warn-lighter-color)'}">
-      </mat-form-field>&nbsp;
-  
-      <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
-        <mat-label>First Task Value</mat-label>
-        <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.task_value" [ngStyle]="{'background-color': data.task_value? '' : 'var(--warn-lighter-color)'}">
-      </mat-form-field>&nbsp;
-  
-      
-  
-      <mat-form-field appearance="outline" style=" min-width: 80% ;flex:auto;border-radius: 16px !important">
-        <mat-label>First Task Content</mat-label>
-        <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.task_content" [ngStyle]="{'background-color': data.task_content? '' : 'var(--warn-lighter-color)'}">
-      </mat-form-field>&nbsp;
-  
-      <mat-form-field appearance="outline" style=" min-width: 40% ;flex:auto;border-radius: 16px !important">
-        <mat-label>First Task Start Date</mat-label>
-        <input matInput [matDatepicker]="pickerBirthDateEdit" [(ngModel)]="data.task_start_date" [ngStyle]="{'background-color': data.task_start_date? '' : 'var(--warn-lighter-color)'}">
-        <mat-hint>MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle matSuffix [for]="pickerBirthDateEdit">
-          <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-        </mat-datepicker-toggle>
-        <mat-datepicker #pickerBirthDateEdit></mat-datepicker>
-      </mat-form-field>&nbsp;
-  
-      <mat-form-field appearance="outline" style=" min-width: 40% ;flex:auto;border-radius: 16px !important">
-        <mat-label>First Task End Date</mat-label>
-        <input matInput [matDatepicker]="pickerStartDateEdit" [(ngModel)]="data.task_end_date" [ngStyle]="{'background-color': data.task_end_date? '' : 'var(--warn-lighter-color)'}">
-        <mat-hint>MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle matSuffix [for]="pickerStartDateEdit">
-          <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-        </mat-datepicker-toggle>
-        <mat-datepicker #pickerStartDateEdit></mat-datepicker>
-      </mat-form-field>&nbsp;
-  
-  
-    </mat-dialog-content>
-    <mat-dialog-actions align="end">
-      <button mat-raised-button matDialogClose color="primary" (click)="newProject(data)">Ok</button>
-      <button mat-raised-button matDialogClose color="warn">Cancel</button>
-    </mat-dialog-actions>
-  </ng-template>
-  
-  
-  <ng-template #taskNewDialog let-data>
-    <h2 matDialogTitle>New Task</h2>
-    <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">
-  
-      <br />
-      <mat-divider></mat-divider>
-      <br />
-  
-      <mat-form-field appearance="outline" style=" min-width: 40% ;flex:auto;border-radius: 16px !important">
-        <mat-label>Task Name</mat-label>
-        <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.task_name" [ngStyle]="{'background-color': data.task_name? '' : 'var(--warn-lighter-color)'}">
-      </mat-form-field>&nbsp;
-  
-      <mat-form-field appearance="outline" style=" min-width: 40% ;flex:auto;border-radius: 16px !important">
-        <mat-label>Project</mat-label>
-        <input disabled matInput placeholder="Ex. Juan De" [(ngModel)]="data.task_project" [ngStyle]="{'background-color': data.task_project? '' : 'var(--warn-lighter-color)'}">
-      </mat-form-field>&nbsp;
-  
-      <mat-form-field appearance="outline" style=" min-width: 80% ;flex:auto;border-radius: 16px !important">
-        <mat-label>Task Employees</mat-label>
-        <mat-select multiple [(ngModel)]="data.task_emp_id">
-          <ng-container *ngFor="let emp of employeesDataSource.data">
-            <mat-option [value]="emp.emp_id">
-  
-              {{emp.emp_id}}&nbsp;|&nbsp;{{emp.emp_fname}}
-  
-            </mat-option>
-  
-          </ng-container>
-  
-  
-        </mat-select>
-  
-      </mat-form-field>&nbsp;
-  
-      <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
-        <mat-label>Task Type</mat-label>
-        <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.task_type" [ngStyle]="{'background-color': data.task_progress? '' : 'var(--warn-lighter-color)'}">
-      </mat-form-field>&nbsp;
-  
-      <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
-        <mat-label>Task Progress</mat-label>
-        <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.task_progress" [ngStyle]="{'background-color': data.task_progress? '' : 'var(--warn-lighter-color)'}">
-      </mat-form-field>&nbsp;
-  
-      <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
-        <mat-label>Task Value</mat-label>
-        <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.task_value" [ngStyle]="{'background-color': data.task_value? '' : 'var(--warn-lighter-color)'}">
-      </mat-form-field>&nbsp;
-  
-   
-  
-      <mat-form-field appearance="outline" style=" min-width: 80% ;flex:auto;border-radius: 16px !important">
-        <mat-label>Task Content</mat-label>
-        <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.task_content" [ngStyle]="{'background-color': data.task_content? '' : 'var(--warn-lighter-color)'}">
-      </mat-form-field>&nbsp;
-  
-  
-  
-      <mat-form-field appearance="outline" style=" min-width: 40% ;flex:auto;border-radius: 16px !important">
-        <mat-label>Task Start Date</mat-label>
-        <input matInput [matDatepicker]="pickerBirthDateEdit" [(ngModel)]="data.task_start_date" [ngStyle]="{'background-color': data.task_start_date? '' : 'var(--warn-lighter-color)'}">
-        <mat-hint>MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle matSuffix [for]="pickerBirthDateEdit">
-          <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-        </mat-datepicker-toggle>
-        <mat-datepicker #pickerBirthDateEdit></mat-datepicker>
-      </mat-form-field>&nbsp;
-  
-      <mat-form-field appearance="outline" style=" min-width: 40% ;flex:auto;border-radius: 16px !important">
-        <mat-label>Task End Date</mat-label>
-        <input matInput [matDatepicker]="pickerStartDateEdit" [(ngModel)]="data.task_end_date" [ngStyle]="{'background-color': data.task_end_date? '' : 'var(--warn-lighter-color)'}">
-        <mat-hint>MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle matSuffix [for]="pickerStartDateEdit">
-          <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-        </mat-datepicker-toggle>
-        <mat-datepicker #pickerStartDateEdit></mat-datepicker>
-      </mat-form-field>&nbsp;
-  
-  
-    </mat-dialog-content>
-    <mat-dialog-actions align="end">
-      <button mat-raised-button matDialogClose color="primary" (click)="newProject(data)">Ok</button>
-      <button mat-raised-button matDialogClose color="warn">Cancel</button>
-    </mat-dialog-actions>
-  </ng-template>
-  
-  <ng-template #taskEditDialog let-data>
-    <h2 matDialogTitle>{{data.task_name}}</h2>
-    <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">
-  
-      <br />
-      <mat-divider></mat-divider>
-      <br />
   
       <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
         <mat-label>Database ID</mat-label>
-        <input matInput placeholder="Ex. Juan De" [(ngModel)]="data._id" [ngStyle]="{'background-color': data._id? '' : 'var(--warn-lighter-color)'}">
+        <input disabled matInput [(ngModel)]="data._id" [ngStyle]="{'background-color': data._id? '' : 'var(--warn-lighter-color)'}">
+      </mat-form-field>&nbsp;
+  
+      <!--<mat-form-field appearance="outline" style=" min-width: 15% ;flex:auto;border-radius: 16px !important">
+        <mat-label>No</mat-label>
+        <input matInput placeholder="Ex. 445" type="number" [(ngModel)]="data.emp_number" [ngStyle]="{'background-color': data.number? '' : 'var(--warn-lighter-color)'}">
+      </mat-form-field>&nbsp;-->
+  
+      <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
+        <mat-label>ID</mat-label>
+        <input matInput [(ngModel)]="data.emp_id" [ngStyle]="{'background-color': data.emp_id? '' : 'var(--warn-lighter-color)'}">
+      </mat-form-field>&nbsp;
+  
+  
+      <mat-form-field appearance="outline" style=" min-width: 60% ;flex:auto;border-radius: 16px !important">
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="Ex. Juan Deng" type="text" [(ngModel)]="data.emp_fname" [ngStyle]="{'background-color': data.emp_fname? '' : 'var(--warn-lighter-color)'}">
+      </mat-form-field>&nbsp;
+  
+      <mat-form-field appearance="outline" style=" min-width: 60% ;flex:auto;border-radius: 16px !important">
+        <mat-label>Password</mat-label>
+        <input disabled matInput placeholder="Ex. Juan Deng" [ngModel]="data.emp_password" type="password">
       </mat-form-field>&nbsp;
   
       <mat-form-field appearance="outline" style=" min-width: 40% ;flex:auto;border-radius: 16px !important">
-        <mat-label>Task Name</mat-label>
-        <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.task_name" [ngStyle]="{'background-color': data.task_name? '' : 'var(--warn-lighter-color)'}">
+        <mat-label>Position</mat-label>
+        <input matInput placeholder="Ex. Finance Support" [(ngModel)]="data.emp_position" [ngStyle]="{'background-color': data.emp_position? '' : 'var(--warn-lighter-color)'}">
       </mat-form-field>&nbsp;
   
       <mat-form-field appearance="outline" style=" min-width: 40% ;flex:auto;border-radius: 16px !important">
-        <mat-label>Project</mat-label>
-        <input disabled matInput placeholder="Ex. Juan De" [(ngModel)]="data.task_project" [ngStyle]="{'background-color': data.task_project? '' : 'var(--warn-lighter-color)'}">
+        <mat-label>Department</mat-label>
+        <input matInput placeholder="Ex. Finance" type="text" [(ngModel)]="data.emp_department" [ngStyle]="{'background-color': data.emp_department? '' : 'var(--warn-lighter-color)'}">
       </mat-form-field>&nbsp;
   
-      <mat-form-field appearance="outline" style=" min-width: 80% ;flex:auto;border-radius: 16px !important">
-        <mat-label>Task Employees</mat-label>
-        <mat-select multiple [(ngModel)]="data.task_emp_id">
-          <ng-container *ngFor="let emp of employeesDataSource.data">
-            <mat-option [value]="emp.emp_id">
+      <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
+        <mat-label>Rate</mat-label>
+        <input matInput placeholder="Ex. 470.00" type="number" [(ngModel)]="data.emp_rate" [ngStyle]="{'background-color': data.emp_rate? '' : 'var(--warn-lighter-color)'}">
+        <span matPrefix>₱&nbsp;</span>
+      </mat-form-field>&nbsp;
   
-              {{emp.emp_id}}&nbsp;|&nbsp;{{emp.emp_fname}}
-  
-            </mat-option>
-  
-          </ng-container>
-  
-  
+      <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
+        <mat-label>Rate Type</mat-label>
+        <mat-select placeholder="Ex. Juan De" [(ngModel)]="data.emp_rate_type" [ngStyle]="{'background-color': data.emp_rate_type? '' : 'var(--warn-lighter-color)'}">
+          <mat-option value="Daily">Daily</mat-option>
+          <mat-option value="Weekly">Weekly</mat-option>
+          <mat-option value="Monthly">Monthly</mat-option>
         </mat-select>
-  
       </mat-form-field>&nbsp;
-  
-      <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
-        <mat-label>Task Type</mat-label>
-        <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.task_type" [ngStyle]="{'background-color': data.task_progress? '' : 'var(--warn-lighter-color)'}">
-      </mat-form-field>&nbsp;
-  
-      <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
-        <mat-label>Task Progress</mat-label>
-        <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.task_progress" [ngStyle]="{'background-color': data.task_progress? '' : 'var(--warn-lighter-color)'}">
-      </mat-form-field>&nbsp;
-  
-      <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
-        <mat-label>Task Value</mat-label>
-        <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.task_value" [ngStyle]="{'background-color': data.task_value? '' : 'var(--warn-lighter-color)'}">
-      </mat-form-field>&nbsp;
-  
-     
-  
-      <mat-form-field appearance="outline" style=" min-width: 80% ;flex:auto;border-radius: 16px !important">
-        <mat-label>Task Content</mat-label>
-        <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.task_content" [ngStyle]="{'background-color': data.task_content? '' : 'var(--warn-lighter-color)'}">
-      </mat-form-field>&nbsp;
-  
-  
   
       <mat-form-field appearance="outline" style=" min-width: 40% ;flex:auto;border-radius: 16px !important">
-        <mat-label>Task Start Date</mat-label>
-        <input matInput [matDatepicker]="pickerBirthDateEdit" [(ngModel)]="data.task_start_date" [ngStyle]="{'background-color': data.task_start_date? '' : 'var(--warn-lighter-color)'}">
+        <mat-label>Birth Date</mat-label>
+        <input matInput [matDatepicker]="pickerBirthDateEdit" [(ngModel)]="data.emp_birth_date" [ngStyle]="{'background-color': data.emp_birth_date? '' : 'var(--warn-lighter-color)'}">
         <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker-toggle matSuffix [for]="pickerBirthDateEdit">
           <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
@@ -359,8 +198,8 @@
       </mat-form-field>&nbsp;
   
       <mat-form-field appearance="outline" style=" min-width: 40% ;flex:auto;border-radius: 16px !important">
-        <mat-label>Task End Date</mat-label>
-        <input matInput [matDatepicker]="pickerStartDateEdit" [(ngModel)]="data.task_end_date" [ngStyle]="{'background-color': data.task_end_date? '' : 'var(--warn-lighter-color)'}">
+        <mat-label>Start Date</mat-label>
+        <input matInput [matDatepicker]="pickerStartDateEdit" [(ngModel)]="data.emp_start_date" [ngStyle]="{'background-color': data.emp_start_date? '' : 'var(--warn-lighter-color)'}">
         <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker-toggle matSuffix [for]="pickerStartDateEdit">
           <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
@@ -368,42 +207,17 @@
         <mat-datepicker #pickerStartDateEdit></mat-datepicker>
       </mat-form-field>&nbsp;
   
+      <mat-form-field appearance="outline" style=" min-width: 80% ;flex:auto;border-radius: 16px !important">
+        <mat-label>Address</mat-label>
+        <input matInput placeholder="Ex. Olongapo City" type="text" [(ngModel)]="data.emp_address" [ngStyle]="{'background-color': data.emp_address? '' : 'var(--warn-lighter-color)'}">
+      </mat-form-field>&nbsp;
   
     </mat-dialog-content>
     <mat-dialog-actions align="end">
-      <button mat-raised-button matDialogClose color="primary" (click)="editTask(data)">Ok</button>
+  
+  
+      <button mat-raised-button matDialogClose color="primary" (click)="editEmp(data)">Ok</button>
       <button mat-raised-button matDialogClose color="warn">Cancel</button>
     </mat-dialog-actions>
   </ng-template>
-  
-  
-  
-  
-  
-  
-  <ng-template #taskSlaveNewDialog let-data>
-    <h2 matDialogTitle>New Task</h2>
-    <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">
-  
-      <br />
-      <mat-divider></mat-divider>
-      <br />
-  
-      <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
-        <mat-label>Name</mat-label>
-        <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.name" [ngStyle]="{'background-color': data.name? '' : 'var(--warn-lighter-color)'}">
-      </mat-form-field>&nbsp;
-  
-      <mat-form-field appearance="outline" style=" min-width: 30% ;flex:auto;border-radius: 16px !important">
-        <mat-label>Content</mat-label>
-        <input matInput placeholder="Ex. Juan De" [(ngModel)]="data.task_content" [ngStyle]="{'background-color': data.quantity? '' : 'var(--warn-lighter-color)'}">
-      </mat-form-field>&nbsp;
-  
-  
-    </mat-dialog-content>
-    <mat-dialog-actions align="end">
-      <button mat-raised-button matDialogClose color="primary" (click)="addSlaveTask(data)">Ok</button>
-      <button mat-raised-button matDialogClose color="warn">Cancel</button>
-    </mat-dialog-actions>
-  </ng-template>-->
   

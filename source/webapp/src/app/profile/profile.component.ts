@@ -44,9 +44,14 @@ export class ProfileComponent implements OnInit {
     data = localStorage.getItem('data')
     this.userData = JSON.parse(data)
     console.log(this.userData)
-    // console.log(this.userData.data.emp_fname)
     this.loadOnLoop()
 
+  }
+
+  @ViewChild('empDialog', { static: true }) empDialog!: TemplateRef<any>;
+
+  openDialogEditEmp(input: any) {
+    this.dialog.open(this.empDialog, { data: input });
   }
 
   isLoaded: boolean = false;
@@ -56,7 +61,7 @@ export class ProfileComponent implements OnInit {
     //Event Loop Starts Here    
     this.checkIfMobile();
 
-    this.loadTab(this.activeTab);
+    await this.loadTab(this.activeTab);
 
     this.isLoaded = true;
     this.isLoadedTab = true;
@@ -93,6 +98,8 @@ export class ProfileComponent implements OnInit {
 
         this.isLoadedTab = false;
 
+        await this.getEmployee(this.userData.data._id)
+
         await this.delay(1000);
         this.isLoadedTab = true;
 
@@ -101,9 +108,6 @@ export class ProfileComponent implements OnInit {
       default:
     }
   }
-
-
-
 
   reloadLoop() {
     this.loadOnLoop()
@@ -122,5 +126,20 @@ export class ProfileComponent implements OnInit {
   }
 
   isToggleArchive = false
+
+  employeeData: any ={}
+  getEmployee(input: string){
+    console.log(input)
+    let id =  input
+    console.log(id)
+    this.dataService.get(`employees/get/${input}`).subscribe((data: any) => {
+      console.log(data)
+      this.employeeData = data
+    })
+  }
+
+  editEmp(input: any) {
+    console.log(input)
+  }
 
 }

@@ -29,7 +29,7 @@
 
       <!--Side Bar-->
 
-      <mat-drawer #drawer style="width: 10%; min-width: 70px; margin-left: 0px;" mode="side" opened="isOpened">
+      <mat-drawer #drawer style="width: 10%; min-width: 70px; margin-left: 0px;" mode="side" opened="isOpened" color="accent">
         <div class="mat-elevation-z4 sidebar-div" style="text-align: center">
 
           <br />
@@ -37,24 +37,20 @@
           <mat-list>
 
             <mat-list-item>
-              <button mat-mini-fab color="primary" style="background-image: url('{{imgUrl}}'); background-size:cover">
+              <button mat-mini-fab color="accent" class="mat-elevation-z8" [routerLink]="['/bundy']">
+                <mat-icon>person</mat-icon>
               </button>
             </mat-list-item>
-
-            <br />
-            <mat-divider></mat-divider>
-            <br />
 
             <mat-list-item>
-              <button mat-mini-fab color="primary" class="mat-elevation-z8" [routerLink]="['/home']">
-                <mat-icon>home</mat-icon>
+              <button mat-mini-fab color="accent" class="mat-elevation-z8" [routerLink]="['/profile']">
+                <mat-icon>punch_clock</mat-icon>
               </button>
             </mat-list-item>
 
             <br />
             <mat-divider></mat-divider>
             <br />
-
             <!--<mat-list-item>
               <button mat-mini-fab color="accent" class="mat-elevation-z8" [routerLink]="['/bundy']">
                 <mat-icon>punch_clock</mat-icon>
@@ -66,20 +62,30 @@
               </button>
             </mat-list-item>-->
 
-            <br />
-            <mat-divider></mat-divider>
-            <br />
-
             <!--<mat-list-item>
               <button mat-mini-fab color="primary" class="mat-elevation-z8" [routerLink]="['/hr']">
                 <mat-icon>hail</mat-icon>
               </button>
             </mat-list-item>-->
             <mat-list-item>
+              <button mat-mini-fab color="primary" class="mat-elevation-z8" [routerLink]="['/home']">
+                <mat-icon>home</mat-icon>
+              </button>
+            </mat-list-item>
+
+            <mat-list-item>
               <button mat-mini-fab color="primary" class="mat-elevation-z8" [routerLink]="['/inventory']">
                 <mat-icon>inventory</mat-icon>
               </button>
             </mat-list-item>
+
+            <ng-container *ngIf="userRole != 'sales_clerk'">
+              <mat-list-item>
+                <button mat-mini-fab color="primary" class="mat-elevation-z8" [routerLink]="['/home']">
+                  <mat-icon>home</mat-icon>
+                </button>
+              </mat-list-item>
+            </ng-container>
             <!--<mat-list-item>
               <button mat-mini-fab color="primary" class="mat-elevation-z8" [routerLink]="['/finance']">
                 <mat-icon>calculate</mat-icon>
@@ -161,18 +167,20 @@
                 <mat-icon>home</mat-icon> &nbsp; Dashboard
               </button>
             </mat-list-item>
-
+            <ng-container *ngIf="userRole != 'sales_clerk'">
             <mat-list-item>
               <button mat-raised-button color="primary" class="mat-elevation-z8 sidebar-button" [routerLink]="['/hr']">
                 <mat-icon>hail</mat-icon> &nbsp; Employees
               </button>
             </mat-list-item>
-
-            <mat-list-item>
+          </ng-container>
+              <mat-list-item>
               <button mat-raised-button color="primary" class="mat-elevation-z8 sidebar-button" [routerLink]="['/inventory']">
                 <mat-icon>inventory</mat-icon> &nbsp; Inventories
               </button>
             </mat-list-item>
+            
+            
 
             <!--<mat-list-item>
               <button mat-raised-button color="primary" class="mat-elevation-z8 sidebar-button" [routerLink]="['/finance']">

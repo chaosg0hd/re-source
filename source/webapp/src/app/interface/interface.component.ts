@@ -23,8 +23,11 @@ export class InterfaceComponent implements OnInit {
     private router: Router
   ) { }
 
+  userRole: any
+
   ngOnInit(): void {
     this.loadOnLoop();
+    this.userRole = localStorage.getItem('role')
   }
 
   isLoaded: boolean = false;

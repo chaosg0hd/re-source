@@ -135,10 +135,11 @@ export class InventoryComponent implements OnInit {
     }
   }
 
+  userRole: any
   ngOnInit(): void {
 
     this.loadOnLoop();
-
+    this.userRole = localStorage.getItem('role')
   }
 
   @ViewChild(MatSort) invSort!: MatSort;

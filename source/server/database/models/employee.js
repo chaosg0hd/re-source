@@ -12,15 +12,17 @@ const EmployeeSchema = new mongoose.Schema({
     emp_birth_date: Date,
     emp_address: String,
     emp_position: String,
-    emp_department: String,
-    emp_rate: Number,
-    emp_rate_type: { type: String, default: 'Monthly' },
-    emp_role: { type: String, default: 'Sales Clerk' },
+    // emp_department: String,
+    // emp_rate: Number,
+    // emp_rate_type: { type: String, default: 'Monthly' },
+    emp_role: { type: String, default: 'sales_clerk' },
+    emp_contactNum: String,
+
+    emp_isVerified: { type: Boolean, default: false },
 
     emp_imgUrl: String,
 
     emp_password: String,
-
 
     isArchive: {
         type: Number, default: 0

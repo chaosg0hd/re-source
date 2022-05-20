@@ -17,6 +17,8 @@ import { Announcement, Employee, Task_Board, Inventory, Attendance, Time, File, 
 
 import { LibraryService } from 'src/app/services/library/library.service';
 import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animations';
+import * as e from 'express';
+import { BOOL_TYPE } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-profile',
@@ -140,6 +142,32 @@ export class ProfileComponent implements OnInit {
 
   editEmp(input: any) {
     console.log(input)
+  }
+
+  otp: any
+  realotp: any
+  sendOTP(){
+    this.dataService.get('otp/get').subscribe((data: any) => {
+      console.log(data.data)
+      this.realotp = data.data
+      localStorage.setItem('rotp', data.data)
+    })
+  }
+  verify() {
+    if(this.otp == localStorage.getItem('rotp')){
+
+      Swal.fire('succes')
+      let verify: any = {}
+      console.log(localStorage.getItem('_id'))
+      verify._id = localStorage.getItem('_id')
+      verify.emp_isVerified = true
+      this.dataService.patch('employees/edit', {data: verify}).subscribe((data: any) => {
+        console.log(data)
+      })
+
+    } else {
+      Swal.fire('kekw')
+    }
   }
 
 }

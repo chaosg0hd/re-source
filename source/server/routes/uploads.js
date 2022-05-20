@@ -30,17 +30,16 @@ const storage = multer.diskStorage({
 const upload = multer({storage: storage});
 
 router.post("/", upload.single('file'), (req, res) => {
-    console.log(req.file)
-    //console.log(req.body)
+    
     if(!req.file) {
-        return res.status(500).send({ message: 'Upload Failed'});
+        return res.json({code: 500, message: 'upload failed'})
     } else {
         
         req.body.imageUrl = 'http://localhost:3000/uploads/' + req.file.filename;
         req.body.isArchive = 0;
         let file = req.body.imageUrl
         //return res.json({ filename, message: "Upload Successfully", code: '200'})
-        return res.status(200).json({'filename': file, 'message': 'Upload Successful!'})
+        return res.json({code: 200, 'filename': file, message: 'Upload Successful!'})
     }
 
 });

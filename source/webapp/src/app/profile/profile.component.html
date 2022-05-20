@@ -60,9 +60,21 @@
                 <div class="profile-card">
                     <div style="width: 60%; margin: auto">
                         <!-- <img src="./assets/images/nyan-cat.gif"> -->
+                        <ng-container *ngIf="employeeData.data.emp_isVerified == false; then thenBlock"></ng-container>
+                          <ng-template #thenBlock>
+                            <input matinput type="text" [(ngModel)]="otp">
+                            <button mat-raised-button color="accent" (click)="sendOTP()">Send OTP code</button>
+                            <button mat-raised-button color="accent" (click)="verify()">Verify OTP code</button>
+                              <br/>
+
+                          </ng-template>
+
                         <mat-label>{{ employeeData.data.emp_id }}</mat-label>
-                        <mat-label>{{ employeeData.data.emp_fname }}</mat-label>
+                        <mat-label>{{ employeeData.data.emp_fname }} {{employeeData.data.emp_mname}} {{employeeData.data.emp_lname}} {{employeeData.data.emp_extname}} </mat-label>
+                        <mat-label>{{ employeeData.data.emp_address }}</mat-label>
+                        <mat-label>{{ employeeData.data.emp_contactNum }}</mat-label>
                         <mat-label>{{ employeeData.data.emp_role }}</mat-label>
+
                         <mat-label>{{ employeeData.data.emp_address }}</mat-label>
                     </div>
                 </div>
@@ -85,7 +97,7 @@
                 </div> -->
   
                 <!--<mat-paginator #empPaginator [pageSize]="10" [pageSizeOptions]="[10, 20, 100]"></mat-paginator>-->
-                
+<!--                 
               </div>
   
               <br />
@@ -106,18 +118,18 @@
   </ng-container>
   
   <!--IF MOBILE-->
-  
+<!--   
   <ng-container *ngIf="isMobile == true">
   
-  </ng-container>
+  </ng-container> -->
 
-  <ng-template #empDialog let-data>
+  <!-- <ng-template #empDialog let-data>
     <h2 matDialogTitle>
       {{data.emp_fname}}
-      <!-- <button mat-raised-button matDialogClose color="warn" (click)="archiveEmp(data)">Archive&nbsp;<mat-icon>delete</mat-icon></button>&nbsp;
+       <button mat-raised-button matDialogClose color="warn" (click)="archiveEmp(data)">Archive&nbsp;<mat-icon>delete</mat-icon></button>&nbsp;
       <button mat-raised-button matDialogClose style="background-color: var(--danger-color)" (click)="deleteEmp(data)">Delete&nbsp;<mat-icon>delete_forever</mat-icon></button>
    -->
-    </h2>
+    <!-- </h2>
     <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">
   
       <div style="width: 100%;">
@@ -133,18 +145,18 @@
         <mat-divider></mat-divider>
         <br />
       </div>
+   -->
   
   
-  
-      <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
+      <!-- <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
         <mat-label>Database ID</mat-label>
         <input disabled matInput [(ngModel)]="data._id" [ngStyle]="{'background-color': data._id? '' : 'var(--warn-lighter-color)'}">
       </mat-form-field>&nbsp;
-  
+   -->
       <!--<mat-form-field appearance="outline" style=" min-width: 15% ;flex:auto;border-radius: 16px !important">
         <mat-label>No</mat-label>
         <input matInput placeholder="Ex. 445" type="number" [(ngModel)]="data.emp_number" [ngStyle]="{'background-color': data.number? '' : 'var(--warn-lighter-color)'}">
-      </mat-form-field>&nbsp;-->
+      </mat-form-field>&nbsp;
   
       <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
         <mat-label>ID</mat-label>
@@ -220,4 +232,4 @@
       <button mat-raised-button matDialogClose color="warn">Cancel</button>
     </mat-dialog-actions>
   </ng-template>
-  
+   --> 

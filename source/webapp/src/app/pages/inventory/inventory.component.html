@@ -1076,7 +1076,7 @@
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
-      <mat-label>Minimum</mat-label>
+      <mat-label>Minimum Stock</mat-label>
       <input matInput placeholder="Ex. 1.00" type="number" [(ngModel)]="data.inv_min_amount" [ngStyle]="{'background-color': data.inv_min_amount? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
@@ -1089,8 +1089,9 @@
       <mat-label>Image</mat-label>
       <ngx-mat-file-input [(ngModel)]="data.imageData">
       </ngx-mat-file-input>
+      
     </mat-form-field>&nbsp;
-
+    <input type="file"  name="image" (change)="selectImage($event)" />
   </mat-dialog-content>
   <mat-dialog-actions align="end">
     <button mat-raised-button matDialogClose color="primary" (click)="addNewItem(data)">Ok</button>
@@ -1231,7 +1232,7 @@
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 10% ;flex:auto;border-radius: 16px !important">
-      <mat-label>Minimum</mat-label>
+      <mat-label>Minimum Stock</mat-label>
       <input matInput placeholder="Ex. 1.00" type="number" [(ngModel)]="data.inv_min_amount" [ngStyle]="{'background-color': data.inv_min_amount? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 

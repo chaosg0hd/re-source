@@ -1390,10 +1390,6 @@
       <br />
       <br />
       <br />
-      <br />
-      <br />
-      <br />
-      <br />
       <mat-divider></mat-divider>
       <br />
     </div>
@@ -1409,14 +1405,14 @@
       <input matInput [(ngModel)]="data.emp_id" [ngStyle]="{'background-color': data.emp_id? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
-    <mat-form-field appearance="outline" style=" min-width: 60% ;flex:auto;border-radius: 16px !important">
-      <mat-label>Name</mat-label>
-      <input matInput placeholder="Ex. Juan" type="text" [(ngModel)]="data.emp_fname" [ngStyle]="{'background-color': data.emp_fname? '' : 'var(--warn-lighter-color)'}">
+    <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Last Name</mat-label>
+      <input matInput placeholder="Ex. Juan" type="text" [(ngModel)]="data.emp_lname" [ngStyle]="{'background-color': data.emp_fname? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
-    <!--<mat-form-field appearance="outline" style=" min-width: 40% ;flex:auto;border-radius: 16px !important">
-      <mat-label>Last Name</mat-label>
-      <input matInput placeholder="Ex. De Cruz" type="text" [(ngModel)]="data.emp_lname" [ngStyle]="{'background-color': data.emp_lname? '' : 'var(--warn-lighter-color)'}">
+    <mat-form-field appearance="outline" style=" min-width: 30% ;flex:auto;border-radius: 16px !important">
+      <mat-label>First Name</mat-label>
+      <input matInput placeholder="Ex. De Cruz" type="text" [(ngModel)]="data.emp_fname" [ngStyle]="{'background-color': data.emp_lname? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
@@ -1427,7 +1423,18 @@
     <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
       <mat-label>Extensions</mat-label>
       <input matInput placeholder="Ex. III" type="text" [(ngModel)]="data.emp_extname" [ngStyle]="{'background-color': data.emp_extname? '' : 'var(--warn-lighter-color)'}">
-    </mat-form-field>&nbsp;-->
+    </mat-form-field>&nbsp;
+
+    <mat-form-field appearance="outline" style=" min-width: 80% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Address</mat-label>
+      <input matInput placeholder="Ex. Olongapo City" type="text" [(ngModel)]="data.emp_address" [ngStyle]="{'background-color': data.emp_address? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+    <mat-form-field appearance="outline" style=" min-width: 80% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Contact #</mat-label>
+      <input matInput type="text" [(ngModel)]="data.emp_contactNum" [ngStyle]="{'background-color': data.emp_address? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
 
     <mat-form-field appearance="outline" style=" min-width: 40% ;flex:auto;border-radius: 16px !important">
       <mat-label>Password</mat-label>
@@ -1437,27 +1444,18 @@
     <mat-form-field appearance="outline" style=" min-width: 40% ;flex:auto;border-radius: 16px !important">
       <mat-label>Role</mat-label>
       <mat-select placeholder="Ex. Juan De" [(ngModel)]="data.emp_role" [ngStyle]="{'background-color': data.emp_role? '' : 'var(--warn-lighter-color)'}">
-        <mat-option value="developer">Developer</mat-option>
         <mat-option value="admin">Admin</mat-option>
-        <mat-option value="writeAll">Write All</mat-option>
-        <mat-option value="readAll">Read All</mat-option>
-        <mat-option value="inventoryOnly">Inventory Only</mat-option>
-        <mat-option value="financeOnly">Finance Only</mat-option>
-        <mat-option value="hrOnly">HR Only</mat-option>
+        <mat-option value="sales_clerk">Sales Clerk</mat-option>
       </mat-select>
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 40% ;flex:auto;border-radius: 16px !important">
       <mat-label>Position</mat-label>
-      <input matInput placeholder="Ex. Finance Support" [(ngModel)]="data.emp_position" [ngStyle]="{'background-color': data.emp_position? '' : 'var(--warn-lighter-color)'}">
+      <input matInput placeholder="Ex. Sae" [(ngModel)]="data.emp_position" [ngStyle]="{'background-color': data.emp_position? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
-    <mat-form-field appearance="outline" style=" min-width: 40% ;flex:auto;border-radius: 16px !important">
-      <mat-label>Department</mat-label>
-      <input matInput placeholder="Ex. Finance" type="text" [(ngModel)]="data.emp_department" [ngStyle]="{'background-color': data.emp_department? '' : 'var(--warn-lighter-color)'}">
-    </mat-form-field>&nbsp;
 
-    <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
+    <!-- <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
       <mat-label>Rate</mat-label>
       <input matInput placeholder="Ex. 470.00" type="number" [(ngModel)]="data.emp_rate" [ngStyle]="{'background-color': data.emp_rate? '' : 'var(--warn-lighter-color)'}">
       <span matPrefix>₱&nbsp;</span>
@@ -1470,7 +1468,7 @@
         <mat-option value="Weekly">Weekly</mat-option>
         <mat-option value="Monthly">Monthly</mat-option>
       </mat-select>
-    </mat-form-field>&nbsp;
+    </mat-form-field>&nbsp; -->
 
     <mat-form-field appearance="outline" style=" min-width: 40% ;flex:auto;border-radius: 16px !important">
       <mat-label>Birth Date</mat-label>
@@ -1490,11 +1488,6 @@
         <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
       </mat-datepicker-toggle>
       <mat-datepicker #pickerStartDateEdit></mat-datepicker>
-    </mat-form-field>&nbsp;
-
-    <mat-form-field appearance="outline" style=" min-width: 80% ;flex:auto;border-radius: 16px !important">
-      <mat-label>Address</mat-label>
-      <input matInput placeholder="Ex. Olongapo City" type="text" [(ngModel)]="data.emp_address" [ngStyle]="{'background-color': data.emp_address? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
   </mat-dialog-content>
@@ -1747,8 +1740,23 @@
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
-      <mat-label>Name</mat-label>
-      <input disabled type="text" matInput placeholder="Ex. Juan De" [(ngModel)]="data.emp_name" [ngStyle]="{'background-color': data.emp_name? '' : 'var(--warn-lighter-color)'}">
+      <mat-label>Last Name</mat-label>
+      <input disabled type="text" matInput placeholder="Ex. Juan De" [(ngModel)]="data.emp_fname" [ngStyle]="{'background-color': data.emp_name? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+    <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
+      <mat-label>First Name</mat-label>
+      <input disabled type="text" matInput placeholder="Ex. Juan De" [(ngModel)]="data.emp_lname" [ngStyle]="{'background-color': data.emp_name? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+    <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Middle Name</mat-label>
+      <input disabled type="text" matInput placeholder="Ex. Juan De" [(ngModel)]="data.emp_mname" [ngStyle]="{'background-color': data.emp_name? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+    <mat-form-field appearance="outline" style=" min-width: 10% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Extension:</mat-label>
+      <input disabled type="text" matInput placeholder="Ex. Juan De" [(ngModel)]="data.emp_extname" [ngStyle]="{'background-color': data.emp_name? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">

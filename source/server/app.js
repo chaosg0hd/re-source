@@ -4,7 +4,6 @@ const app = express();
 const mongoose = require('mongoose');
 const fs = require('fs')
 const fileUpload = require('express-fileupload')
-const client = require('twilio')('AC67ae21bfa100f7ccf74f7cb90954ee0e','43d751a95cbccec3a91787dcdc8f892c')
 
 const path = require('path');
 
@@ -111,27 +110,24 @@ const filesRouter = require('./routes/files');//OK
 app.use("/api/files", filesRouter);
 
 const uploadsRouter = require('./routes/uploads');
-const { join } = require('path');
 app.use("/api/uploads", uploadsRouter);
 
 //twilio
+const otpRouter = require('./routes/otp')
+app.use("/api/otp", otpRouter)
 
 
-app.post('/api/otp', (req, res) => {
-    let data = Math.floor(100000 + Math.random() * 900000)
-    client.messages.create({
-        body: 'This is your OTP code ' + data,
-        to: '+63 915 600 8276',
-        from: '+18453828343'
-    }).then(message => console.log(message))
-    .catch(error => console.log(error))
+// app.post('/api/otp', (req, res) => {
+//     let data = Math.floor(100000 + Math.random() * 900000)
+//     client.messages.create({
+//         body: 'This is your OTP code ' + data,
+//         to: '+63 915 600 8276',
+//         from: '+18453828343'
+//     }).then(message => console.log(message))
+//     .catch(error => console.log(error))
 
-    res.json({message: 'message sent', data: data})
-} )
-
-app.post('api/otp/verify', (req, res) => {
-
-})
+//     res.json({message: 'message sent', data: data})
+// } )
 
 //app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));

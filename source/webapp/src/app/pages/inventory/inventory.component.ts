@@ -466,16 +466,8 @@ export class InventoryComponent implements OnInit {
     
   }
 
-  image: any
-  image2: any
-  invData: any = {}
-  selectImage(event: any) {
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      this.image = file;
-    }
-  }
 
+  invData: any = {}
   globalImage: any
 
   editInv(input: any) {
@@ -483,7 +475,9 @@ export class InventoryComponent implements OnInit {
     const editImageData = new FormData()
 
     this.globalImage = input.inv_imgUrl
+    console.log(this.globalImage)
     editImageData.append('file', this.globalImage)
+    editImageData.append('kekw', 'eke')
 
     editInvData.inv_id = input.inv_id
     editInvData.inv_name = input.inv_name
@@ -494,10 +488,10 @@ export class InventoryComponent implements OnInit {
     editInvData.inv_supplier = input.inv_supplier
     editInvData.inv_min_amount = input.inv_min_amount
     editInvData._id = input._id
-
+    console.log(this.globalImage)
     if (this.globalImage) {
       this.httpClient.post<any>('http://localhost:3000/api/uploads', editImageData).subscribe((data: any) => {
-        
+        console.log(data)
         editInvData.inv_imageUrl = data.filename
         this.dataService.patch('inventories/edit', { data: editInvData }).subscribe((data: any) => {
           
@@ -603,13 +597,28 @@ export class InventoryComponent implements OnInit {
     })    
   }
    
-  
+  image: any
+
+  selectImage(event: any) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.image = file;
+    }
+  }
 
   addNewItem(input: any) {
-
+    const imageForm =  new FormData()
+    imageForm.append('file', this.image)
     delete input._id
+    let fileName: any
+    console.log(this.image)
+    if(this.image){
+      this.httpClient.post<any>('http://localhost:3000/api/uploads/', imageForm).subscribe((data: any) => {
+      console.log(data)
 
-    this.dataService.post('inventories/new', { data: input })
+    })
+    } else {
+      this.dataService.post('inventories/new', { data: input })
       .subscribe((data: any) => {
 
         console.log(data)
@@ -623,6 +632,8 @@ export class InventoryComponent implements OnInit {
         })
 
       })
+    }
+      this.image = ''
   }
 
 

@@ -345,19 +345,19 @@ export class HrComponent implements OnInit{
 
     delete input.password2
 
-    //this.httpClient.post<any>('http://localhost:3000/api/employees/signup', employeeData).subscribe((data: any) => {
-    //  console.log(data)
-
-    //  this.getEmployees()
+    const form = new FormData()
+    form.append('file', input.emp_imgfile)
+    console.log(input.emp_contactNum)
+    input.emp_contactNum = '+63' + input.emp_contactNum.substring(1)
+    console.log(input.emp_contactNum)
+    this.httpClient.post<any>('http://localhost:3000/api/uploads', form).subscribe((data: any) => {
+    console.log(data)
       
-    //})
+    })
 
-
-    
-
-     this.dataService.post('employees/signup', { data: input }).subscribe((data) => {
+    this.dataService.post('employees/signup', { data: input }).subscribe((data) => {
        console.log(data)
-     })
+    })
 
   }
 

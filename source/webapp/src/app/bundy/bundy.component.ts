@@ -11,7 +11,7 @@ import { LibraryService } from 'src/app/services/library/library.service';
 import Swal from 'sweetalert2';
 import { Data } from '@angular/router';
 import { DatePipe } from '@angular/common';
-
+import { Router } from '@angular/router';
 import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation, rubberBandAnimation } from 'angular-animations';
 
 
@@ -33,6 +33,7 @@ export class BundyComponent implements OnInit {
     public datepipe: DatePipe,
     private dataService: DataService,
     private libraryService: LibraryService,
+    private router: Router
   )
   { }
 
@@ -335,6 +336,25 @@ export class BundyComponent implements OnInit {
     return (Math.floor(newTimeinHours) + "h : " + Math.floor(newTimeinMinutes % 60) + "m : " + Math.floor(newTimeinSeconds % 60) + "s");
   }
 
+
+  logout() {
+
+   
+    Swal.fire({
+      title: 'Do you want to Logout?',
+      showCancelButton: true,
+      confirmButtonText: 'Confirm',
+      showLoaderOnConfirm: true,
+      icon: 'warning',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+    }).then((result) => {
+      if(result.isConfirmed){
+        localStorage.clear()
+        this.router.navigate(['login'])
+      }
+    })
+  }
 
 
 

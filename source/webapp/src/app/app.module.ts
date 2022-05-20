@@ -101,6 +101,8 @@ import { AnnouncementComponent } from './global/announcement/announcement.compon
 import { ProfileComponent } from './profile/profile.component';
 import { SettingsComponent } from './settings/settings.component';
 import { GalleryComponent } from './pages/gallery/gallery.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 //jspd
 
@@ -207,6 +209,12 @@ import { GalleryComponent } from './pages/gallery/gallery.component';
     GoogleChartsModule,
 
     SweetAlert2Module.forRoot(),
+      ServiceWorkerModule.register('ngsw-worker.js', {
+        enabled: environment.production,
+        // Register the ServiceWorker as soon as the application is stable
+        // or after 30 seconds (whichever comes first).
+        registrationStrategy: 'registerWhenStable:30000'
+      }),
 
   ],
   providers: [

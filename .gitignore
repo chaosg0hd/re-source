@@ -4,3 +4,5 @@ App/server/uploads/image-1639495364956.png
 App/server/uploads/image-1639495375732.png
 source\server\node_modules
 .env
+
+App/server/.env

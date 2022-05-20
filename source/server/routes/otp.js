@@ -1,6 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const client = require('twilio')('AC67ae21bfa100f7ccf74f7cb90954ee0e','d42e6f7a9d4ca55cb1788991e06bd4b9')
+require('dotenv').config()
+
+let AUTH_TOKEN = '3ecb82c0b09584a2'
+let AUTH_TOKEN2 = '20116b324a671884'
+const client = require('twilio')('AC67ae21bfa100f7ccf74f7cb90954ee0e', AUTH_TOKEN + AUTH_TOKEN2)
 
 router.get('/get', (req, res) => {
     

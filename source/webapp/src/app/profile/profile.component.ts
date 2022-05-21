@@ -19,6 +19,7 @@ import { LibraryService } from 'src/app/services/library/library.service';
 import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animations';
 import * as e from 'express';
 import { BOOL_TYPE } from '@angular/compiler/src/output/output_ast';
+import { clear, timeStamp } from 'console';
 
 @Component({
   selector: 'app-profile',
@@ -50,10 +51,10 @@ export class ProfileComponent implements OnInit {
 
   }
 
-  @ViewChild('empDialog', { static: true }) empDialog!: TemplateRef<any>;
+  @ViewChild('empUserProfile', { static: true }) empUserProfile!: TemplateRef<any>;
 
-  openDialogEditEmp(input: any) {
-    this.dialog.open(this.empDialog, { data: input });
+  openDialogEditUser(input: any) {
+    this.dialog.open(this.empUserProfile, { data: input });
   }
 
   isLoaded: boolean = false;
@@ -146,12 +147,32 @@ export class ProfileComponent implements OnInit {
 
   otp: any
   realotp: any
+  click = false
+
   sendOTP(){
+    this.click = !this.click
+
     this.dataService.get('otp/get').subscribe((data: any) => {
       console.log(data.data)
       this.realotp = data.data
       localStorage.setItem('rotp', data.data)
     })
+
+    if(!this.click) {
+      const timeoutid = setTimeout(function(){
+        console.log('30 sec mins')
+      }, 30000)
+
+      clearTimeout(timeoutid)
+      this.click = !this.click
+    }
+    
+    
+    setTimeout(() => {
+
+    }, 300000)
+
+
   }
   verify() {
     if(this.otp == localStorage.getItem('rotp')){
@@ -170,4 +191,17 @@ export class ProfileComponent implements OnInit {
     }
   }
 
+  editUser(input: any){
+
+  //   if(input.emp_imgurl){}
+
+  //   this.httpClient.post<any>('','').subscribe((data: any) => {
+  //     console.log(data)
+  //   })
+    this.dataService.patch('employees/edit', {data: input}).subscribe((data: any) => {
+      console.log(data)
+    })
+
+  }
+  
 }

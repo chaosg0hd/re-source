@@ -57,7 +57,9 @@ export class InventoryComponent implements OnInit {
     // ])
   }
 
-  baseURL = environment.BASE_URL
+  baseURL = environment.baseURL
+
+  
 
 
 

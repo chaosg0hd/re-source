@@ -582,27 +582,43 @@ export class InventoryComponent implements OnInit {
     })    
   }
    
-  image: any
+  // image: any
 
-  selectImage(event: any) {
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      this.image = file;
-    }
-  }
+  // selectImage(event: any) {
+  //   if (event.target.files.length > 0) {
+  //     const file = event.target.files[0];
+  //     this.image = file;
+  //   }
+  // }
 
   addNewItem(input: any) {
+    let ngximg : any
+    ngximg = input.imageData
     const imageForm =  new FormData()
-    imageForm.append('file', this.image)
+    imageForm.append('file', ngximg)
     delete input._id
     let fileName: any
-    console.log(this.image)
-    if(this.image){
+    
+    console.log(ngximg)
+    if(ngximg){
       this.httpClient.post<any>('http://localhost:3000/api/uploads/', imageForm).subscribe((data: any) => {
       console.log(data)
+      input.inv_imageUrl = data.filename
+      this.dataService.post('inventories/new', { data: input })
+      .subscribe((data: any) => {
 
-    })
-    } else {
+        console.log(data)
+        this.getInventories()
+        Swal.fire({
+          title:'Item Added!',
+          icon:'success',
+          imageUrl: 'https://sweetalert2.github.io/images/nyan-cat.gif',
+          imageWidth: 200,
+          imageHeight: 200,
+          })
+      })
+    }) 
+  } else {
       this.dataService.post('inventories/new', { data: input })
       .subscribe((data: any) => {
 
@@ -618,7 +634,7 @@ export class InventoryComponent implements OnInit {
 
       })
     }
-      this.image = ''
+      // this.image = ''
   }
 
 

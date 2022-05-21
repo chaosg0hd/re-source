@@ -26,8 +26,8 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
     });
 
 app.use(bodyParser.json());
-
-app.use(fileUpload());
+//tangina ng naglagay na to
+//app.use(fileUpload());
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");

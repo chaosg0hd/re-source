@@ -67,7 +67,9 @@
 
                 <ng-container *ngFor="let element of inventoriesDataSource.data; index as i">
 
-                  <div class="inv-box-container mat-elevation-z4" style="max-width: 20%" (click)="openDialogInvEdit(element)">
+                  <div class="inv-box-container mat-elevation-z4" style="max-width: 20%; background-image: url({{element.inv_imageUrl}});
+                              background-repeat: no-repeat;background-size: cover;"
+                  (click)="openDialogInvEdit(element)">
 
 
                     <div style="display: flex; flex-wrap: wrap">
@@ -924,7 +926,11 @@
 
       </mat-tab>
 
+<<<<<<< Updated upstream
       <!--<mat-tab>
+=======
+      <!-- <mat-tab>
+>>>>>>> Stashed changes
 
         <ng-template mat-tab-label>
 

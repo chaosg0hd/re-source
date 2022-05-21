@@ -50,10 +50,10 @@ export class ProfileComponent implements OnInit {
 
   }
 
-  @ViewChild('empDialog', { static: true }) empDialog!: TemplateRef<any>;
+  @ViewChild('empUserProfile', { static: true }) empUserProfile!: TemplateRef<any>;
 
   openDialogEditEmp(input: any) {
-    this.dialog.open(this.empDialog, { data: input });
+    this.dialog.open(this.empUserProfile, { data: input });
   }
 
   isLoaded: boolean = false;
@@ -168,6 +168,19 @@ export class ProfileComponent implements OnInit {
     } else {
       Swal.fire('kekw')
     }
+  }
+
+  editUser(input: any){
+
+  //   if(input.emp_imgurl){}
+
+  //   this.httpClient.post<any>('','').subscribe((data: any) => {
+  //     console.log(data)
+  //   })
+    this.dataService.patch('employees/edit', {data: input}).subscribe((data: any) => {
+      console.log(data)
+    })
+
   }
 
 }

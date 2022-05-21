@@ -20,7 +20,7 @@ const EmployeeSchema = new mongoose.Schema({
 
     emp_isVerified: { type: Boolean, default: false },
 
-    emp_imgUrl: String,
+    emp_imgUrl: { type: String, default: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png' },
 
     emp_password: String,
 

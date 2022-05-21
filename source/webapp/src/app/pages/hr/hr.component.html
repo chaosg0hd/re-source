@@ -74,7 +74,7 @@
                 </mat-form-field>
                 <span style="flex: 1 1 auto;"></span>
 
-                <button mat-raised-button style="flex:auto; background-color: var(--danger-color)" (click)="toggleArchive()">View Archived <mat-icon>delete</mat-icon></button>&nbsp;
+                <button mat-raised-button style="flex:auto;" color="primary" (click)="toggleArchive()">View Archived <mat-icon>unarchive</mat-icon></button>&nbsp;
 
                 <button mat-raised-button color="warn" class="control-button" style="flex:auto; " (click)="openDialogNewEmp()">Add Employee <mat-icon>add</mat-icon></button>&nbsp;
                 <span style="flex: 1 1 auto;"></span>
@@ -1394,7 +1394,7 @@
       <br />
     </div>
 
-    <mat-form-field appearance="outline" style=" min-width: 40% ; flex:auto; border-radius: 16px !important">
+    <mat-form-field appearance="outline" style=" min-width: 20% ; flex:auto; border-radius: 16px !important">
       <mat-label>Image</mat-label>
       <ngx-mat-file-input [(ngModel)]="data.emp_imgfile" name="file" [ngStyle]="{'background-color': data.emp_imagefile? '' : 'var(--warn-lighter-color)'}">
       </ngx-mat-file-input>
@@ -1410,7 +1410,7 @@
       <input matInput placeholder="Ex. Juan" type="text" [(ngModel)]="data.emp_lname" [ngStyle]="{'background-color': data.emp_fname? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
-    <mat-form-field appearance="outline" style=" min-width: 30% ;flex:auto;border-radius: 16px !important">
+    <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
       <mat-label>First Name</mat-label>
       <input matInput placeholder="Ex. De Cruz" type="text" [(ngModel)]="data.emp_fname" [ngStyle]="{'background-color': data.emp_lname? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
@@ -1420,7 +1420,7 @@
       <input matInput placeholder="Ex. Cruzilfer" type="text" [(ngModel)]="data.emp_mname" [ngStyle]="{'background-color': data.emp_mname? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
-    <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
+    <mat-form-field appearance="outline" style=" min-width: 10% ;flex:auto;border-radius: 16px !important">
       <mat-label>Extensions</mat-label>
       <input matInput placeholder="Ex. III" type="text" [(ngModel)]="data.emp_extname" [ngStyle]="{'background-color': data.emp_extname? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
@@ -1430,18 +1430,17 @@
       <input matInput placeholder="Ex. Olongapo City" type="text" [(ngModel)]="data.emp_address" [ngStyle]="{'background-color': data.emp_address? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
-    <mat-form-field appearance="outline" style=" min-width: 80% ;flex:auto;border-radius: 16px !important">
+    <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
       <mat-label>Contact #</mat-label>
       <input matInput type="text" [(ngModel)]="data.emp_contactNum" [ngStyle]="{'background-color': data.emp_address? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
-
-    <mat-form-field appearance="outline" style=" min-width: 40% ;flex:auto;border-radius: 16px !important">
+    <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
       <mat-label>Password</mat-label>
       <input required matInput type="password" [(ngModel)]="data.emp_password" [ngStyle]="{'background-color': data.emp_password? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
-    <mat-form-field appearance="outline" style=" min-width: 40% ;flex:auto;border-radius: 16px !important">
+    <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
       <mat-label>Role</mat-label>
       <mat-select placeholder="Ex. Juan De" [(ngModel)]="data.emp_role" [ngStyle]="{'background-color': data.emp_role? '' : 'var(--warn-lighter-color)'}">
         <mat-option value="admin">Admin</mat-option>
@@ -1449,7 +1448,7 @@
       </mat-select>
     </mat-form-field>&nbsp;
 
-    <mat-form-field appearance="outline" style=" min-width: 40% ;flex:auto;border-radius: 16px !important">
+    <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
       <mat-label>Position</mat-label>
       <input matInput placeholder="Ex. Sae" [(ngModel)]="data.emp_position" [ngStyle]="{'background-color': data.emp_position? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;

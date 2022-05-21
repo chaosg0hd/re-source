@@ -258,7 +258,7 @@ export class HrComponent implements OnInit{
   employeesPayload: any;
   employeesData: Employee[] = [];
   employeesDataSource = new MatTableDataSource(this.employeesData);
-  employeesDisplayedColumns = ['emp_name', 'emp_id', 'emp_role', 'emp_position', 'emp_department', 'emp_rate', 'emp_rate_type', 'emp_address', 'emp_start_date', 'emp_birth_date', 'emp_status', 'actions'];
+  employeesDisplayedColumns = ['emp_name', 'emp_id', 'emp_role', 'emp_position', 'emp_department', 'emp_address', 'emp_start_date', 'emp_birth_date', 'emp_status', 'actions'];
 
   //SORT OK
   //PAGINATION OK
@@ -411,7 +411,6 @@ export class HrComponent implements OnInit{
     this.calendarDisplayedColumns = []
     this.calendarDisplayedColumns.push("emp_name")
     this.calendarDisplayedColumns.push("emp_id")
-    this.calendarDisplayedColumns.push("emp_rate_type")
     this.calendarDisplayedColumns = this.calendarDisplayedColumns.concat(this.daysArray)
     this.calendarDisplayedColumns.push("total")
 

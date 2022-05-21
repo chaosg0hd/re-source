@@ -221,7 +221,7 @@ export class InventoryComponent implements OnInit {
         
         
 
-        await this.delay(1000)
+        await this.delay(3000)
         this.isLoadedTab = true
 
 
@@ -233,7 +233,7 @@ export class InventoryComponent implements OnInit {
 
         await this.getPurchases()
 
-        await this.delay(1000);
+        await this.delay(3000);
         this.isLoadedTab = true
 
         break;
@@ -244,7 +244,7 @@ export class InventoryComponent implements OnInit {
 
         await this.getSales()
 
-        await this.delay(1000)
+        await this.delay(3000)
         this.isLoadedTab = true
 
         break;
@@ -285,28 +285,10 @@ export class InventoryComponent implements OnInit {
 
 
 
-  //  export interface Inventories {
-
-  //  _id: string;
-
-  //  number: number;
-  //  id: string;
-  //  name: string;
-  //  description: string;
-  //  quantity: number;
-  //  price: number;
-  //  imageUrl: string
-
-  //  isArchive: number;
-  //  created_at: Date;
-  //  updated_at: Date;
-
-  //}
-
   inventoriesPayload: any;
   inventoriesData: Inventory[] = [];
   inventoriesDataSource = new MatTableDataSource(this.inventoriesData);
-  inventoriesDisplayedColumns = ['inv_name', '_id', 'inv_description', 'inv_category', 'inv_quantity', 'inv_supplier', 'inv_min_amount', 'inv_price', 'actions'];
+  inventoriesDisplayedColumns = ['inv_name', '_id', 'inv_description', 'inv_category', 'inv_supplier', 'inv_quantity', 'inv_min_amount', 'inv_price', 'actions'];
   inventoriesIdArchive: any;
 
   isToggleArchive = false
@@ -351,7 +333,7 @@ export class InventoryComponent implements OnInit {
   purchasesPayload: any;
   purchasesData: Purchase[] = [];
   purchasesDataSource = new MatTableDataSource(this.purchasesData);
-  purchasesDisplayedColumns = ['_id', 'purc_number', 'purc_itemID', 'purc_itemName', 'purc_supplier', 'purc_price', 'purc_quantity', 'created_at', 'actions'];
+  purchasesDisplayedColumns = ['_id', 'purc_itemID', 'purc_itemName', 'purc_supplier', 'purc_price', 'purc_quantity', 'created_at', 'actions'];
   purchasesIdArchive: any;
 
   getPurchases() {

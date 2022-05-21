@@ -451,7 +451,7 @@ h4 {
   min-width: 200px;
 }
 
-.mat-column-emp_id {
+.mat-column-_id {
   flex: 1 1 10%;
   max-width: 200px;
   min-width: 100px;
@@ -570,6 +570,100 @@ h4 {
   color: white;
   opacity: .8;
 }
+
+
+.mat-column-inv_name {
+  flex: 1 1 10%;
+  max-width: 200px;
+  min-width: 100px;
+}
+
+.mat-column-inv_description {
+  flex: 1 1 20%;
+  max-width: 400px;
+  min-width: 200px;
+}
+
+.mat-column-inv_category {
+  flex: 1 1 10%;
+  max-width: 200px;
+  min-width: 100px;
+}
+
+.mat-column-inv_brand {
+  flex: 1 1 10%;
+  max-width: 200px;
+  min-width: 100px;
+}
+
+.mat-column-inv_supplier {
+  flex: 1 1 10%;
+  max-width: 200px;
+  min-width: 100px;
+}
+
+.mat-column-inv_quantity {
+  flex: 1 1 5%;
+  max-width: 100px;
+  min-width: 50px;
+}
+
+.mat-column-inv_min_amount {
+  flex: 1 1 5%;
+  max-width: 100px;
+  min-width: 50px;
+}
+
+.mat-column-inv_price {
+  flex: 1 1 5%;
+  max-width: 100px;
+  min-width: 50px;
+}
+
+
+.mat-column-purc_itemID {
+  flex: 1 1 10%;
+  max-width: 200px;
+  min-width: 100px;
+}
+
+.mat-column-purc_itemName {
+  flex: 1 1 10%;
+  max-width: 200px;
+  min-width: 100px;
+}
+
+.mat-column-purc_supplier {
+  flex: 1 1 10%;
+  max-width: 200px;
+  min-width: 100px;
+}
+
+.mat-column-purc_supplier {
+  flex: 1 1 10%;
+  max-width: 200px;
+  min-width: 100px;
+}
+
+.mat-column-purc_price {
+  flex: 1 1 10%;
+  max-width: 200px;
+  min-width: 100px;
+}
+.mat-column-purc_quantity {
+  flex: 1 1 10%;
+  max-width: 200px;
+  min-width: 100px;
+}
+
+.mat-column-purc_created_at {
+  flex: 1 1 5%;
+  max-width: 100px;
+  min-width: 50px;
+}
+
+
+
 
 
 /*.att-table {

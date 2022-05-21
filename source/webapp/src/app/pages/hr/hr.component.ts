@@ -388,7 +388,7 @@ export class HrComponent implements OnInit{
     let editimage = input.emp_imgfile
     const form = new FormData()
     form.append('file', editimage)
-    if(editimage && input.emp_imgUrl != ''){
+    if(editimage){
       this.httpClient.post<any>('http://localhost:3000/api/uploads', form).subscribe((data: any) => {
         console.log(data)
         input.emp_ing
@@ -402,16 +402,8 @@ export class HrComponent implements OnInit{
        
         })
       })
-    } else if (editimage){
-      this.dataService.patch('employees/edit', { data: input }).subscribe((data) => {
-        console.log(data)
-  
-        Swal.fire({
-          title:'Employee Updated!',
-          icon:'success',
-            })
-      })
-    }
+    } 
+    
     else {
       this.dataService.patch('employees/edit', { data: input }).subscribe((data) => {
         console.log(data)

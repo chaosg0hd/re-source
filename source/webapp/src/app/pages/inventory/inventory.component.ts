@@ -469,7 +469,7 @@ export class InventoryComponent implements OnInit {
     editInvData.inv_supplier = input.inv_supplier
     editInvData.inv_min_amount = input.inv_min_amount
     editInvData._id = input._id
-    if (editimage && input.inv_imageUrl != '') {
+    if (editimage && input.inv_imageUrl == '') {
       this.httpClient.post<any>('http://localhost:3000/api/uploads', editImageData).subscribe((data: any) => {
         console.log(data)
         editInvData.inv_imageUrl = data.filename

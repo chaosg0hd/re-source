@@ -61,12 +61,18 @@
                     <div style="width: 60%; margin: auto">
                         <!-- <img src="./assets/images/nyan-cat.gif"> -->
                         <ng-container *ngIf="employeeData.data.emp_isVerified == false; then thenBlock"></ng-container>
+                        <h2>Not Veried</h2>
+                          <mat-divider></mat-divider>
+                          
                           <ng-template #thenBlock>
-                            <input matinput type="text" [(ngModel)]="otp">
-                            <button mat-raised-button color="accent" (click)="sendOTP()">Send OTP code</button>
+                            <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">
+                            <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
+                              <mat-label>Database ID</mat-label>
+                              <input matInput [(ngModel)]="otp" [ngStyle]="{'background-color': otp? '' : 'var(--warn-lighter-color)'}">
+                            </mat-form-field>&nbsp;
+                            <button mat-raised-button color="primary" (click)="sendOTP()" [disabled]="click">Send OTP code</button>&nbsp;
                             <button mat-raised-button color="accent" (click)="verify()">Verify OTP code</button>
-                              <br/>
-
+                          </mat-dialog-content>
                           </ng-template>
 
                         <mat-label>{{ employeeData.data.emp_id }}</mat-label>

@@ -469,7 +469,7 @@ export class InventoryComponent implements OnInit {
     editInvData.inv_supplier = input.inv_supplier
     editInvData.inv_min_amount = input.inv_min_amount
     editInvData._id = input._id
-    if (editimage) {
+    if (editimage && input.inv_imageUrl != '') {
       this.httpClient.post<any>('http://localhost:3000/api/uploads', editImageData).subscribe((data: any) => {
         console.log(data)
         editInvData.inv_imageUrl = data.filename
@@ -481,7 +481,18 @@ export class InventoryComponent implements OnInit {
 
         })
       })
-    } else {
+      
+    } else if (editimage) {
+      this.dataService.patch('inventories/edit', { data: editInvData }).subscribe((data: any) => {
+        
+
+        this.getInventories()
+        if(data.code == 200) Swal.fire('Edit Successful', '', 'success')
+          else {Swal.fire('Action unsuccessful!', '', 'error')}
+
+      })
+    }
+    else {
       this.dataService.patch('inventories/edit', { data: editInvData }).subscribe((data: any) => {
         
 
@@ -590,7 +601,6 @@ export class InventoryComponent implements OnInit {
     const imageForm =  new FormData()
     imageForm.append('file', ngximg)
     delete input._id
-    let fileName: any
     
     console.log(ngximg)
     if(ngximg){

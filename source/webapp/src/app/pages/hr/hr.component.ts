@@ -332,13 +332,13 @@ export class HrComponent implements OnInit{
 
   }
 
-  image: any
-  selectImage(event: any) {
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      this.image = file;
-    }
-  }
+  // image: any
+  // selectImage(event: any) {
+  //   if (event.target.files.length > 0) {
+  //     const file = event.target.files[0];
+  //     this.image = file;
+  //   }
+  // }
 
   newEmp(input : any) {
     console.log(input)
@@ -346,18 +346,37 @@ export class HrComponent implements OnInit{
     delete input.password2
 
     const form = new FormData()
-    form.append('file', input.emp_imgfile)
+    let addimage = input.emp_imgfile
+
+    form.append('file', addimage)
     console.log(input.emp_contactNum)
     input.emp_contactNum = '+63' + input.emp_contactNum.substring(1)
     console.log(input.emp_contactNum)
-    this.httpClient.post<any>('http://localhost:3000/api/uploads', form).subscribe((data: any) => {
-    console.log(data)
+
+    if(addimage){
+      this.httpClient.post<any>('http://localhost:3000/api/uploads', form).subscribe((data: any) => {
+        console.log(data)
+        input.emp_imgUrl = data.filename
+
+        this.dataService.post('employees/signup', { data: input }).subscribe((data) => {
+          console.log(data)
+          Swal.fire({
+            title:'Employee Account Added!',
+            icon:'success',
+            })
+        
+       })
       
     })
-
-    this.dataService.post('employees/signup', { data: input }).subscribe((data) => {
-       console.log(data)
-    })
+    } else {
+      this.dataService.post('employees/signup', { data: input }).subscribe((data) => {
+        console.log(data)
+        Swal.fire({
+          title:'Employee Account Added!',
+          icon:'success',
+            })
+     })
+    }
 
   }
 
@@ -366,12 +385,44 @@ export class HrComponent implements OnInit{
   }
 
   editEmp(input: any) {
-
-    this.dataService.patch('employees/edit', { data: input }).subscribe((data) => {
-      console.log(data)
-
-      this.getEmployees()
-    })
+    let editimage = input.emp_imgfile
+    const form = new FormData()
+    form.append('file', editimage)
+    if(editimage && input.emp_imgUrl != ''){
+      this.httpClient.post<any>('http://localhost:3000/api/uploads', form).subscribe((data: any) => {
+        console.log(data)
+        input.emp_ing
+        this.dataService.patch('employees/edit', { data: input }).subscribe((data) => {
+          console.log(data)
+    
+          Swal.fire({
+            title:'Employee Updated!',
+            icon:'success',
+              })
+       
+        })
+      })
+    } else if (editimage){
+      this.dataService.patch('employees/edit', { data: input }).subscribe((data) => {
+        console.log(data)
+  
+        Swal.fire({
+          title:'Employee Updated!',
+          icon:'success',
+            })
+      })
+    }
+    else {
+      this.dataService.patch('employees/edit', { data: input }).subscribe((data) => {
+        console.log(data)
+  
+        Swal.fire({
+          title:'Employee Updated!',
+          icon:'success',
+            })
+      })
+    }
+    
 
   }
 

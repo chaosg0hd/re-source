@@ -14,7 +14,7 @@ import { ProfileComponent } from './profile/profile.component'
 
 const routes: Routes = [
 
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
 
   {
     path: 'login', component: LoginComponent
@@ -23,13 +23,6 @@ const routes: Routes = [
   {
     path: 'bundy', component: BundyComponent, canActivate:[AuthGuard]
   },
-
-  //{
-  //  path: 'test', component: IntefaceComponent, children:
-  //    [
-  //      { path: '', component: TestComponent },
-  //    ]
-  //},
 
   {
     path: 'home', component: InterfaceComponent, children:
@@ -78,21 +71,6 @@ const routes: Routes = [
         { path: '', component: GalleryComponent, canActivate: [AuthGuard] },
       ]
   },
-
-  //{
-  //  path: 'gallery',
-  //  component: GalleryComponent,
-  //  data: { title: 'List of Sales' }
-  //},
-  // {
-  //   path: 'gallery-details/:id',
-  //   component: GalleryDetailsComponent,
-  //   data: { title: 'Sales Details' }
-  // },
-  // { path: '',
-  //   redirectTo: '/gallery',
-  //   pathMatch: 'full'
-  // }
 
 
 ]

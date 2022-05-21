@@ -6,11 +6,9 @@
     "\\source\\webapp\\src",
     "\\source\\webapp\\src\\app",
     "\\source\\webapp\\src\\app\\pages",
-    "\\source\\webapp\\src\\app\\pages\\finance",
-    "\\source\\webapp\\src\\app\\pages\\home",
-    "\\source\\webapp\\src\\app\\pages\\hr",
-    "\\source\\webapp\\src\\app\\pages\\inventory"
+    "\\source\\webapp\\src\\app\\pages\\inventory",
+    "\\source\\webapp\\src\\app\\services\\auth"
   ],
-  "SelectedNode": "\\source\\webapp\\src\\app\\pages\\inventory\\inventory.component.ts",
+  "SelectedNode": "\\source\\webapp\\src\\app\\pages\\inventory\\inventory.component.html",
   "PreviewInSolutionExplorer": false
 }

@@ -21,4 +21,21 @@ router.get('/get', (req, res) => {
 
     res.json({message: 'message sent', data: data})
 })
+
+router.post('/get', (req, res) => {
+    console.log(req.body.contactNum)
+    let data = Math.floor(100000 + Math.random() * 900000)
+    client.messages.create({
+        body: 'This is your OTP code ' + data,
+        to: req.body.contactNum,
+        from: '+18453828343'
+    }).then(message => 
+        console.log(message))
+        //res.json({code: 200, message: 'OTP Sent', data: data}))
+    .catch(error => console.log(error))
+        //res.json({code: 500, message: 'error'}))
+    //+639171936893
+
+    res.json({message: 'message sent', data: data})
+})
 module.exports = router;

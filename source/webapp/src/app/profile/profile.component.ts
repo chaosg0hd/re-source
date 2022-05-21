@@ -53,7 +53,7 @@ export class ProfileComponent implements OnInit {
 
   @ViewChild('empUserProfile', { static: true }) empUserProfile!: TemplateRef<any>;
 
-  openDialogEditEmp(input: any) {
+  openDialogEditUser(input: any) {
     this.dialog.open(this.empUserProfile, { data: input });
   }
 

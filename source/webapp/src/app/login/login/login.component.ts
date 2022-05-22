@@ -63,6 +63,7 @@ export class LoginComponent implements OnInit {
 
   /*Functions*/
 
+
   id: any
   password: any
   loginData: any = {}

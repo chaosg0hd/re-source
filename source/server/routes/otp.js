@@ -64,11 +64,4 @@ router.post('/get', (req, res) => {
        }
     })
 
-    try {
-        
-        let email = 'kawaiiralph14@gmail.com'
-     
-    }catch (err) {
-
-    }
 module.exports = router;

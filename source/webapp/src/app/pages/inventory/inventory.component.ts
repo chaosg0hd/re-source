@@ -333,7 +333,7 @@ export class InventoryComponent implements OnInit {
   purchasesPayload: any;
   purchasesData: Purchase[] = [];
   purchasesDataSource = new MatTableDataSource(this.purchasesData);
-  purchasesDisplayedColumns = ['_id', 'purc_itemID', 'purc_itemName', 'purc_supplier', 'purc_price', 'purc_quantity', 'created_at', 'actions'];
+  purchasesDisplayedColumns = ['_id', 'purc_itemID', 'purc_itemName', 'purc_supplier', 'purc_price', 'purc_quantity', 'purc_empName', 'created_at', 'actions'];
   purchasesIdArchive: any;
 
   getPurchases() {
@@ -372,7 +372,7 @@ export class InventoryComponent implements OnInit {
   salesPayload: any;
   salesData: Sale[] = [];
   salesDataSource = new MatTableDataSource(this.salesData);
-  salesDisplayedColumns = ['_id', 'sale_number', 'sale_itemID', 'sale_itemName', 'sale_supplier', 'sale_price', 'sale_quantity', 'created_at', 'actions'];
+  salesDisplayedColumns = ['_id', 'sale_number', 'sale_itemID', 'sale_itemName', 'sale_supplier', 'sale_price', 'sale_quantity', 'created_at', 'sale_empName','actions'];
   salesIdArchive: any;
 
   getSales() {
@@ -651,6 +651,7 @@ export class InventoryComponent implements OnInit {
     saleData.sale_supplier = input.inv_supplier
     saleData.sale_price = input.sale_price
     saleData.sale_quantity = input.sale_quantity
+    saleData.sale_empID = localStorage.getItem('fname') + ' '+ localStorage.getItem('lname')
 
     console.log(saleData)
 
@@ -772,6 +773,7 @@ export class InventoryComponent implements OnInit {
     purchaseData.purc_supplier = input.inv_supplier
     purchaseData.purc_price = input.purc_quantity * input.purc_price
     purchaseData.purc_quantity = input.purc_quantity
+    purchaseData.purc_empID = localStorage.getItem('fname') + ' '+ localStorage.getItem('lname')
 
 
     let invData: any = {}
@@ -1003,6 +1005,8 @@ export class InventoryComponent implements OnInit {
     }
 
     this.getInventories()
+    this.getSales()
+    this.getPurchases()
   }
 
 

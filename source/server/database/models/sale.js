@@ -15,6 +15,7 @@ const SaleSchema = new mongoose.Schema({
     isArchive: {
         type: Number, default: 0
     },
+    sale_empName: String,
 
     created_at: Date,
     updated_at: Date

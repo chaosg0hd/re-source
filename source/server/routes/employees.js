@@ -251,6 +251,11 @@ router.patch('/otp', (req, res) => {
     if(req.body.data.emp_isVerified == false){
         Employee.findOneAndUpdate({ "_id": req.body.data._id }, { $set: req.body.data })
         .then((data) => {
+            transporter.sendMail({
+                from: MAIL_SETTINGS.auth.user,
+                to: data.emp_email ,
+                subject: 'Your OTP Code is: ' + otp
+            })
             console.log(data)
             res.json({code: 200, message: 'Otp created', data : data})
         }).catch((eror) => {
@@ -264,6 +269,25 @@ router.patch('/otp', (req, res) => {
           
 })
 
+router.patch('/forgot-password', async (req, res) => {
+    console.log('kekwsss')
+    let newPword = 'erer12345'
+    req.body.data.emp_password = await bcrypt.hash(newPword, 10)
+    console.log(req.body.data)
+        Employee.findOneAndUpdate({ "emp_id": req.body.data.emp_id }, { $set: req.body.data })
+        .then((data) => {
+            console.log(data)
+            transporter.sendMail({
+                from: MAIL_SETTINGS.auth.user,
+                to: data.emp_email ,
+                subject: 'Your new password is: ' + newPword
+            })
+            res.json({code: 200, message: 'Email Sent', data : data})
+        }).catch((eror) => {
+            res.json({code: 500, message: 'No account found', data: eror})
+        })
+          
+})
 
 
 

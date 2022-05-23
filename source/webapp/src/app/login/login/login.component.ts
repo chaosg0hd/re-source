@@ -63,6 +63,26 @@ export class LoginComponent implements OnInit {
 
   /*Functions*/
 
+  forgot(){
+    Swal.fire({
+      title: 'Enter account ID',
+      input: 'text',
+      showCancelButton: true,
+      confirmButtonText: 'Send password reset',
+    }).then((result) => {
+      console.log(result)
+      if(result.value){
+        //let forgot = {emp_id: result.value}
+        //console.log(forgot)
+        let newdata : any = {}
+        newdata.emp_id = result.value 
+        this.dataService.patch('employees/forgot-password', {data: newdata}).subscribe((data: any) => {
+          console.log(data)
+        })
+      }
+    })
+  }
+
   id: any
   password: any
   loginData: any = {}
@@ -94,7 +114,7 @@ export class LoginComponent implements OnInit {
                 title: 'Enter your otp code',
                 input: 'text',
                 showCancelButton: true,
-                confirmButtonText: 'Look Verify',
+                confirmButtonText: 'Verify',
               }).then((result) => {
                 let kekw: any = {}
                 console.log(data)

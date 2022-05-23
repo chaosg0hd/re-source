@@ -52,9 +52,14 @@ export class ProfileComponent implements OnInit {
   }
 
   @ViewChild('empUserProfile', { static: true }) empUserProfile!: TemplateRef<any>;
+  @ViewChild('empChangePassword', { static: true }) empChangePassword!: TemplateRef<any>;
 
   openDialogEditUser(input: any) {
     this.dialog.open(this.empUserProfile, { data: input });
+  }
+
+  openDialogChangePassword(input: any) {
+    this.dialog.open(this.empChangePassword, {data: input})
   }
 
   isLoaded: boolean = false;
@@ -235,6 +240,12 @@ export class ProfileComponent implements OnInit {
       console.log(data)
     })
 
+  }
+
+  changePword(input: any){
+    this.dataService.patch('employees/change-password', {data:input}).subscribe((data: any) => {
+      console.log(data)
+    })
   }
   
 }

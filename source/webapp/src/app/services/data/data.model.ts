@@ -178,6 +178,7 @@ export interface Purchase {
   purc_price: number,
   purc_quantity: number,
   purc_by: string,
+  purc_empName: string,
 
   isArchive: number,
 
@@ -213,6 +214,7 @@ export interface Sale {
   sale_price: number,
   sale_quantity: number,
   sale_by: string,
+  sale_empName: string,
 
   isArchive: number,
 

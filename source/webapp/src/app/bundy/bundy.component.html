@@ -117,9 +117,9 @@
 
             <mat-table [dataSource]="employeesDataSource" class="mat-elevation-z2">
 
-              <ng-container matColumnDef="number">
-                <mat-header-cell *matHeaderCellDef> No </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.emp_number}}</mat-cell>
+              <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.emp_id}}</mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="name">

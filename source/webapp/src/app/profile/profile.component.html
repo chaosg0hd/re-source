@@ -80,6 +80,7 @@
                             </mat-card-content>
                             <mat-card-actions>
                               <button mat-raised-button color="warn" (click)="openDialogEditUser(employeeData.data)"><mat-icon>edit</mat-icon>Edit</button>
+                              <button mat-raised-button color="accent" (click)="openDialogChangePassword(employeeData.data)"><mat-icon>edit</mat-icon>Change Password</button>
                             </mat-card-actions>
                           </mat-card>
                           <br/>
@@ -215,6 +216,38 @@
   
   
       <button mat-raised-button matDialogClose color="primary" (click)="editEmp(data)">Ok</button>
+      <button mat-raised-button matDialogClose color="warn">Cancel</button>
+    </mat-dialog-actions>
+  </ng-template>
+
+  <ng-template #empChangePassword let-data>
+    <h2 matDialogTitle>
+     Change Password {{data.emp_fname}} {{data.emp_lname}}
+    </h2>
+    <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">
+  
+      <div style="width: 100%;">
+        <mat-divider></mat-divider>
+      </div>
+  
+  
+  
+      <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
+        <mat-label>Old Password</mat-label>
+        <input matInput type="password" [(ngModel)]="data.old_pword" [ngStyle]="{'background-color': data._id? '' : 'var(--warn-lighter-color)'}">
+      </mat-form-field>&nbsp;
+  
+      <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
+        <mat-label>New Password</mat-label>
+        <input matInput type="password" [(ngModel)]="data.new_pword" [ngStyle]="{'background-color': data.emp_id? '' : 'var(--warn-lighter-color)'}">
+      </mat-form-field>&nbsp;
+  
+     
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+  
+  
+      <button mat-raised-button matDialogClose color="primary" (click)="changePword(data)">Change Password</button>
       <button mat-raised-button matDialogClose color="warn">Cancel</button>
     </mat-dialog-actions>
   </ng-template>

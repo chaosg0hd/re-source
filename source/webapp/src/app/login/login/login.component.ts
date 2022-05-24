@@ -82,7 +82,7 @@ export class LoginComponent implements OnInit {
       }
     })
   }
-
+  
   id: any
   password: any
   loginData: any = {}

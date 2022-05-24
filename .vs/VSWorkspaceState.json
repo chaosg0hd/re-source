@@ -5,10 +5,12 @@
     "\\source\\webapp",
     "\\source\\webapp\\src",
     "\\source\\webapp\\src\\app",
+    "\\source\\webapp\\src\\app\\bundy",
+    "\\source\\webapp\\src\\app\\login",
+    "\\source\\webapp\\src\\app\\login\\login",
     "\\source\\webapp\\src\\app\\pages",
-    "\\source\\webapp\\src\\app\\pages\\inventory",
-    "\\source\\webapp\\src\\app\\services\\auth"
+    "\\source\\webapp\\src\\app\\pages\\hr"
   ],
-  "SelectedNode": "\\source\\webapp\\src\\app\\pages\\inventory\\inventory.component.html",
+  "SelectedNode": "\\source\\webapp\\src\\app\\pages\\inventory",
   "PreviewInSolutionExplorer": false
 }

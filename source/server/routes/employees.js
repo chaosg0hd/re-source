@@ -13,7 +13,8 @@ const MAIL_SETTINGS = {
         pass: "database14"
     },
 }
-const nodemailer = require('nodemailer')
+const nodemailer = require('nodemailer');
+const e = require("express");
 const transporter = nodemailer.createTransport(MAIL_SETTINGS);
 
 
@@ -251,6 +252,11 @@ router.patch('/otp', (req, res) => {
     if(req.body.data.emp_isVerified == false){
         Employee.findOneAndUpdate({ "_id": req.body.data._id }, { $set: req.body.data })
         .then((data) => {
+            transporter.sendMail({
+                from: MAIL_SETTINGS.auth.user,
+                to: data.emp_email ,
+                subject: 'Your OTP Code is: ' + otp
+            })
             console.log(data)
             res.json({code: 200, message: 'Otp created', data : data})
         }).catch((eror) => {
@@ -264,7 +270,63 @@ router.patch('/otp', (req, res) => {
           
 })
 
+router.patch('/forgot-password', async (req, res) => {
+    console.log('kekwsss')
+    let newPword = 'erer12345'
+    req.body.data.emp_password = await bcrypt.hash(newPword, 10)
+    console.log(req.body.data)
+        Employee.findOneAndUpdate({ "emp_id": req.body.data.emp_id }, { $set: req.body.data })
+        .then((data) => {
+            console.log(data)
+            transporter.sendMail({
+                from: MAIL_SETTINGS.auth.user,
+                to: data.emp_email ,
+                subject: 'Your new password is: ' + newPword
+            })
+            res.json({code: 200, message: 'Email Sent', data : data})
+        }).catch((eror) => {
+            res.json({code: 500, message: 'No account found', data: eror})
+        })
+          
+})
 
+router.patch('/change-password', async (req, res) => {
+
+    console.log(req.body.data)
+
+    let emp_id = req.body.data.emp_id
+    let emp_password = req.body.data.old_pword
+    let new_pword = req.body.data.new_pword
+
+    let newPword = await bcrypt.hash(new_pword, 10)
+    
+    Employee.findOne({ "emp_id" : emp_id })
+        .then((data) => {
+            if (data && bcrypt.compareSync(emp_password, data.emp_password)) {                
+                Employee.updateOne({"emp_id": emp_id}, {$set: {emp_password: newPword}}).then((data)=>{
+                    
+                    console.log(data)
+                    res.json({ data, message: "Password Changed", code: "200"})
+                }).catch((error)=>{
+                    console.log(error)
+                    res.json({ message: "Not saved", code: "401"})
+                })
+                
+            } else if (data && !bcrypt.compareSync(emp_password, data.emp_password)) {
+                console.log("Employee " + emp_id + " Invalid Login")
+                res.json({ message: "Invalid Credentials", code: "401"})
+            } else {
+                console.log("Employee " + emp_id + " Not Exist")
+                return res.json({ message: "Account doesn't Exist", code: "404" })
+            }
+        })
+        .catch((error) => {
+            console.log(error)
+            res.json({ message: "Something Went Wrong", error: error, code: "500" })
+        })
+
+        
+})
 
 
 

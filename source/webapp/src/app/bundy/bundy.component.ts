@@ -146,7 +146,7 @@ export class BundyComponent implements OnInit {
   employeesPayload: any;
   employeesData: Employee[] = [];
   employeesDataSource = new MatTableDataSource(this.employeesData);
-  employeesDisplayedColumns = ['number', 'name', 'position', 'department', 'status', 'time'];
+  employeesDisplayedColumns = ['id', 'name', 'position', 'status', 'time'];
 
   employeesIdArchive: any;
 

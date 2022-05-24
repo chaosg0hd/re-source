@@ -283,7 +283,7 @@
 
                 <span style="flex: 1 1 auto;"></span>
 
-                <button mat-raised-button color="primary" (click)="toggleArchive()">View Archived <mat-icon>delete</mat-icon></button>&nbsp;
+                <button mat-raised-button style="flex:auto;" color="primary" (click)="toggleArchive()">View Archived <mat-icon>unarchive</mat-icon></button>&nbsp;
 
                 <span style="flex: 1 1 auto;"></span>
 
@@ -1392,6 +1392,11 @@
       <br />
       <mat-divider></mat-divider>
       <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </div>
 
     <mat-form-field appearance="outline" style=" min-width: 20% ; flex:auto; border-radius: 16px !important">
@@ -1407,7 +1412,7 @@
 
     <mat-form-field appearance="outline" style=" min-width: 60% ;flex:auto;border-radius: 16px !important">
       <mat-label>Email</mat-label>
-      <input disabled matInput placeholder="Ex. Juan Deng" [ngModel]="data.emp_email" type="password">
+      <input matInput [ngModel]="data.emp_email" type="password">
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
@@ -1507,8 +1512,10 @@
 <ng-template #empDialog let-data>
   <h2 matDialogTitle>
     {{data.emp_fname}}
-    <button mat-raised-button matDialogClose color="warn" (click)="archiveEmp(data)">Archive&nbsp;<mat-icon>delete</mat-icon></button>&nbsp;
-    <button mat-raised-button matDialogClose style="background-color: var(--danger-color)" (click)="deleteEmp(data)">Delete&nbsp;<mat-icon>delete_forever</mat-icon></button>
+    <ng-container *ngIf="data.isArchive == 0; then thenBlock else elseBlock"></ng-container>
+    <ng-template #thenBlock><button mat-raised-button matDialogClose color="warn" (click)="archiveEmp(data)"><mat-icon>archive</mat-icon>Archive</button></ng-template>
+    <ng-template #elseBlock><button mat-raised-button matDialogClose color="accent" (click)="restoreEmp(data)"><mat-icon>restore</mat-icon>Restore</button></ng-template>&nbsp;
+    <button mat-raised-button matDialogClose color="danger" (click)="deleteEmp(data)">Delete&nbsp;<mat-icon>delete_forever</mat-icon></button>
 
   </h2>
   <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">

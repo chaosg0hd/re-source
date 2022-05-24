@@ -17,6 +17,8 @@ const EmployeeSchema = new mongoose.Schema({
     // emp_rate_type: { type: String, default: 'Monthly' },
     emp_role: { type: String, default: 'sales_clerk' },
     emp_contactNum: String,
+    emp_email: String,
+    emp_otp: String,
 
     emp_isVerified: { type: Boolean, default: false },
 

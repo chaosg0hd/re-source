@@ -1405,6 +1405,11 @@
       <input matInput [(ngModel)]="data.emp_id" [ngStyle]="{'background-color': data.emp_id? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
+    <mat-form-field appearance="outline" style=" min-width: 60% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Email</mat-label>
+      <input disabled matInput placeholder="Ex. Juan Deng" [ngModel]="data.emp_email" type="password">
+    </mat-form-field>&nbsp;
+
     <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
       <mat-label>Last Name</mat-label>
       <input matInput placeholder="Ex. Juan" type="text" [(ngModel)]="data.emp_lname" [ngStyle]="{'background-color': data.emp_fname? '' : 'var(--warn-lighter-color)'}">
@@ -1539,6 +1544,10 @@
       <input matInput [(ngModel)]="data.emp_id" [ngStyle]="{'background-color': data.emp_id? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
+    <mat-form-field appearance="outline" style=" min-width: 60% ;flex:auto;border-radius: 16px !important">
+      <mat-label>Email</mat-label>
+      <input disabled matInput placeholder="Ex. Juan Deng" [ngModel]="data.emp_email" type="password">
+    </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 60% ;flex:auto;border-radius: 16px !important">
       <mat-label>Last Name</mat-label>
@@ -1593,6 +1602,12 @@
     <mat-form-field appearance="outline" style=" min-width: 80% ;flex:auto;border-radius: 16px !important">
       <mat-label>Address</mat-label>
       <input matInput placeholder="Ex. Olongapo City" type="text" [(ngModel)]="data.emp_address" [ngStyle]="{'background-color': data.emp_address? '' : 'var(--warn-lighter-color)'}">
+    </mat-form-field>&nbsp;
+
+    <mat-form-field appearance="outline" style=" min-width: 40% ; flex:auto; border-radius: 16px !important">
+      <mat-label>Image</mat-label>
+      <ngx-mat-file-input [(ngModel)]="data.emp_imgfile" name="file" [ngStyle]="{'background-color': data.emp_imagefile? '' : 'var(--warn-lighter-color)'}">
+      </ngx-mat-file-input>
     </mat-form-field>&nbsp;
 
   </mat-dialog-content>

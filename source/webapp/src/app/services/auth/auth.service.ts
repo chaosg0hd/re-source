@@ -10,6 +10,6 @@ export class AuthService {
   isLoggedIn() {
     //activate authguard localStorage.getItem('id')
     //deactivate authguard !!localStorage.getItem('id')
-    return localStorage.getItem('id')
+    return localStorage.getItem('_id')
   }
 }

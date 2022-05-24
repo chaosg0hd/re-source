@@ -6,6 +6,17 @@ const multer = require('multer');
 const path = require('path');
 const Employee = require('../database/models/employee')
 
+const MAIL_SETTINGS = {
+    service: 'gmail',
+    auth : {
+        user: "ritoriot14@gmail.com",
+        pass: "database14"
+    },
+}
+const nodemailer = require('nodemailer')
+const transporter = nodemailer.createTransport(MAIL_SETTINGS);
+
+
 const MIME_TYPE_MAP = {
     'image/png': 'png', 
     'image/jpeg': 'jpg',
@@ -77,7 +88,7 @@ router.get('/get/:_id', (req, res) => {
 router.patch('/edit', (req, res) => {
 
     console.log(req.body.data)
-
+    console.log(req.body)
     Employee.findOneAndUpdate({ "_id": req.body.data._id }, { $set: req.body.data })
         .then((data) => {
             if (data != null) {
@@ -195,6 +206,7 @@ router.post('/signup', async (req, res) => {
 
     
     // })
+    
 
 router.post('/login', (req, res) => {
 
@@ -208,7 +220,16 @@ router.post('/login', (req, res) => {
             if (data && bcrypt.compareSync(emp_password, data.emp_password)) {                
                 console.log(data)
                 console.log("Employee " + data.emp_id + " Logged In")
-                res.json({ data, message: "Account logged in successfully", code: "200" })
+                const otp = `${Math.floor(1000 + Math.random() * 9000)}`
+                if(data.emp_isVerified == false) {
+                    
+                    transporter.sendMail({
+                        from: MAIL_SETTINGS.auth.user,
+                        to: data.emp_email ,
+                        subject: 'Your OTP Code is: ' + otp
+                    })
+                }
+                res.json({ data, message: "Account logged in successfully", code: "200", otp: otp })
             } else if (data && !bcrypt.compareSync(emp_password, data.emp_password)) {
                 console.log("Employee " + emp_id + " Invalid Login")
                 res.json({ message: "Invalid Credentials", code: "401"})
@@ -221,6 +242,26 @@ router.post('/login', (req, res) => {
             console.log(error)
             res.json({ message: "Something Went Wrong", error: error, code: "500" })
         })
+
+        
+})
+
+router.patch('/otp', (req, res) => {
+    console.log('kekw')
+    if(req.body.data.emp_isVerified == false){
+        Employee.findOneAndUpdate({ "_id": req.body.data._id }, { $set: req.body.data })
+        .then((data) => {
+            console.log(data)
+            res.json({code: 200, message: 'Otp created', data : data})
+        }).catch((eror) => {
+            res.json({code: 500, message: 'otp failed', data: eror})
+        })
+       
+    }
+    else {
+        res.json({message: 'Already verified'})
+    }
+          
 })
 
 

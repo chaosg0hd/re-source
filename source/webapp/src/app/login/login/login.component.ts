@@ -81,16 +81,62 @@ export class LoginComponent implements OnInit {
     this.dataService.post('employees/login', {data:this.loginData} ).subscribe((data: any) => {
 
       console.log(data)
-
+      let otp: any
       if (data.code == 200) {
-        localStorage.clear();
-        localStorage.setItem('_id', data.data._id);
-        localStorage.setItem('role', data.data.emp_role);
-        localStorage.setItem('id', data.data.emp_id);
-        localStorage.setItem('imgUrl', data.data.emp_imgUrl);
-        localStorage.setItem('lname', data.data.emp_lname);
-        localStorage.setItem('fname', data.data.emp_fname);
-        localStorage.setItem('mname', data.data.emp_mname);
+          if(data.data.emp_isVerified == false){
+            let newdata = data.data
+            newdata.emp_otp = data.otp
+            otp = data.otp
+            let _id = data.data._id
+            this.dataService.patch('employees/otp', {data: newdata}).subscribe((dataOTP: any) => {
+              console.log(dataOTP)
+              //otp = dataOTP.data.emp_otp
+              Swal.fire({
+                title: 'Enter your otp code',
+                input: 'text',
+                showCancelButton: true,
+                confirmButtonText: 'Look Verify',
+              }).then((result) => {
+                let kekw: any = {}
+                console.log(data)
+                kekw._id = _id
+                kekw.emp_isVerified = true
+                this.dataService.patch('employees/edit', {data : kekw} ).subscribe((data: any) => {
+                  console.log(data)
+                })
+                if(result.value == otp){
+                  //localStorage.clear();
+                localStorage.setItem('_id', data.data._id);
+                localStorage.setItem('role', data.data.emp_role);
+          // localStorage.setItem('id', data.data.emp_id);
+          // localStorage.setItem('imgUrl', data.data.emp_imgUrl);
+            localStorage.setItem('lname', data.data.emp_lname);
+            localStorage.setItem('fname', data.data.emp_fname);
+          // localStorage.setItem('mname', data.data.emp_mname);
+        
+          localStorage.setItem('data', JSON.stringify(data))
+          Swal.fire(
+            'Logged in Successfully!',
+            'Welcome '+ name,
+            'success'
+          ).then(()=>this.router.navigate(['home']))
+                } else {
+                  Swal.fire('Invalid OTP code', '', 'error')
+                }
+            })
+
+            })
+            this.router.navigate(['home'])
+          } else {
+              localStorage.clear();
+              localStorage.setItem('_id', data.data._id);
+              localStorage.setItem('role', data.data.emp_role);
+        // localStorage.setItem('id', data.data.emp_id);
+        // localStorage.setItem('imgUrl', data.data.emp_imgUrl);
+          localStorage.setItem('lname', data.data.emp_lname);
+          localStorage.setItem('fname', data.data.emp_fname);
+        // localStorage.setItem('mname', data.data.emp_mname);
+      
         localStorage.setItem('data', JSON.stringify(data))
         /*localStorage.setItem('contact_list', data.employee.list);*/
 
@@ -100,7 +146,9 @@ export class LoginComponent implements OnInit {
           'Logged in Successfully!',
           'Welcome '+ name,
           'success'
-        ).then(()=>this.router.navigate(['home']))     
+        ).then(()=>this.router.navigate(['home']))
+          }
+          this.router.navigate(['home'])
       }
       else if (data.code == 401) {
         Swal.fire(

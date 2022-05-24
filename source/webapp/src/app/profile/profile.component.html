@@ -51,11 +51,6 @@
                 <div class="profile-card">
                     <div style="width: 60%; margin: auto">
                         <ng-container *ngIf="employeeData.data.emp_isVerified == false; then thenBlock"></ng-container>
-                        <h2>Not Veried</h2>
-                        <br/>
-                          <mat-divider></mat-divider>
-                          <br/>
-                          
                           <ng-template #thenBlock>
                             <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">
                             <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
@@ -73,13 +68,9 @@
                               <mat-card-title> {{ employeeData.data.emp_fname }}  {{employeeData.data.emp_mname}} {{employeeData.data.emp_lname}} {{employeeData.data.emp_extname}}</mat-card-title>
                               <mat-card-subtitle>{{employeeData.data.emp_position}}</mat-card-subtitle>
                             </mat-card-header>
-                            <ng-template *ngIf="employeeData.data.emp_imgUrl">
-                              <img mat-card-image src="{{employeeData.data.emp_imgUrl}}" alt="Photo of a Shiba Inu">
-                            </ng-template>
-                            <ng-template *ngIf="!employeeData.data.emp_imgUrl">
-                              <img mat-card-image src="./assets/images/nyan-cat.gif"> 
-                              <p>no image data</p>
-                            </ng-template>
+                            <ng-container *ngIf="employeeData.data.emp_imgUrl != ''">
+                              <img mat-card-image src="{{employeeData.data.emp_imgUrl}}" alt="Photo of a Shiba Inu" style="height: 200px;width:auto">
+                            </ng-container>
                             
                             <mat-card-content>
                               <p>Contact #: {{employeeData.data.emp_contactNum}}</p>
@@ -212,12 +203,18 @@
         </mat-datepicker-toggle>
         <mat-datepicker #pickerStartDateEdit></mat-datepicker>
       </mat-form-field>&nbsp;
+
+      <mat-form-field appearance="outline" style=" min-width: 40% ; flex:auto; border-radius: 16px !important">
+        <mat-label>Image</mat-label>
+        <ngx-mat-file-input [(ngModel)]="data.emp_imgfile" name="file" [ngStyle]="{'background-color': data.emp_imagefile? '' : 'var(--warn-lighter-color)'}">
+        </ngx-mat-file-input>
+      </mat-form-field>&nbsp;
   
     </mat-dialog-content>
     <mat-dialog-actions align="end">
   
   
-      <button mat-raised-button matDialogClose color="primary" (click)="editUser(data)">Ok</button>
+      <button mat-raised-button matDialogClose color="primary" (click)="editEmp(data)">Ok</button>
       <button mat-raised-button matDialogClose color="warn">Cancel</button>
     </mat-dialog-actions>
   </ng-template>

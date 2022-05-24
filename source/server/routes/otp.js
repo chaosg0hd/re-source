@@ -1,5 +1,16 @@
 const express = require("express");
 const router = express.Router();
+// const {auth} = require('two-step-auth')
+const MAIL_SETTINGS = {
+    service: 'gmail',
+    auth : {
+        user: "ritoriot14@gmail.com",
+        pass: "database14"
+    },
+}
+const nodemailer = require('nodemailer')
+const transporter = nodemailer.createTransport(MAIL_SETTINGS);
+
 require('dotenv').config()
 
 let AUTH_TOKEN = '3ecb82c0b09584a2'
@@ -38,4 +49,19 @@ router.post('/get', (req, res) => {
 
     res.json({message: 'message sent', data: data})
 })
+
+    router.post('/email', async (req, res) => {
+        const otp = `${Math.floor(1000 + Math.random() * 9000)}`
+       try {
+        let info = await transporter.sendMail({
+            from: MAIL_SETTINGS.auth.user,
+            to: "kawaiiralph14@gmail.com" ,
+            subject: 'Your OTP Code is: ' + otp
+        })
+        return info
+       } catch (err) {
+        return false
+       }
+    })
+
 module.exports = router;

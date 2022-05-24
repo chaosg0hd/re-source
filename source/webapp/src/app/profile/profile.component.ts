@@ -142,7 +142,40 @@ export class ProfileComponent implements OnInit {
   }
 
   editEmp(input: any) {
-    console.log(input)
+    let editimage = input.emp_imgfile
+    const form = new FormData()
+    form.append('file', editimage)
+    if(!input.emp_imgUrl){
+      if(editimage){
+
+        this.httpClient.post<any>('http://localhost:3000/api/uploads', form).subscribe((data: any) => {
+          input.emp_imgUrl = data.filename
+          this.dataService.patch('employees/edit', { data: input }).subscribe((data: any) => {
+          
+            if(data.code == 200) Swal.fire('Edit Successful', '', 'success')
+            else {Swal.fire('Action unsuccessful!', '', 'error')}
+  
+          })
+      })
+    }
+    }else if (input.emp_imgUrl){  
+      this.httpClient.post<any>('http://localhost:3000/api/uploads', form).subscribe((data: any) => {
+          input.emp_imgUrl = data.filename
+          this.dataService.patch('employees/edit', { data: input }).subscribe((data: any) => {
+          
+            if(data.code == 200) Swal.fire('Edit Successful', '', 'success')
+            else {Swal.fire('Action unsuccessful!', '', 'error')}
+  
+          })
+        })
+    }else{
+      this.dataService.patch('employees/edit', { data: input }).subscribe((data: any) => {
+        
+        if(data.code == 200) Swal.fire('Edit Successful', '', 'success')
+        else {Swal.fire('Action unsuccessful!', '', 'error')}
+
+      })
+    }
   }
 
   otp: any

@@ -301,6 +301,19 @@ export class InventoryComponent implements OnInit {
         console.log(data);
         this.inventoriesPayload = data;
         this.inventoriesData = this.inventoriesPayload.data;
+        
+
+        if (this.isToggleArchive == false) {
+          let array: any[] = [];
+          this.inventoriesData.map((data) => { if (data.isArchive != 1) { array.push(data) } })
+          this.inventoriesData = array
+          console.log(array)
+        }
+        else {
+          this.inventoriesData = this.inventoriesPayload.data
+
+        }
+
         this.getInvTotalAmount(this.inventoriesData)
 
         this.inventoriesData.map((data: any) => {

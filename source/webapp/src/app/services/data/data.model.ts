@@ -103,9 +103,7 @@ export interface Inventory{
   inv_supplier: string,
   inv_min_amount: number,
 
-  isArchive: {
-    type: number, default: 0
-  },
+  isArchive: number,
 
   created_at: Date,
   updated_at: Date

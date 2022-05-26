@@ -37,13 +37,13 @@
           <mat-list>
 
             <mat-list-item>
-              <button mat-mini-fab color="accent" class="mat-elevation-z8" [routerLink]="['/bundy']">
+              <button mat-mini-fab color="accent" class="mat-elevation-z8" [routerLink]="['/profile']">
                 <mat-icon>person</mat-icon>
               </button>
             </mat-list-item>
 
             <mat-list-item>
-              <button mat-mini-fab color="accent" class="mat-elevation-z8" [routerLink]="['/profile']">
+              <button mat-mini-fab color="accent" class="mat-elevation-z8" [routerLink]="['/bundy']">
                 <mat-icon>punch_clock</mat-icon>
               </button>
             </mat-list-item>
@@ -73,19 +73,21 @@
               </button>
             </mat-list-item>
 
+            <ng-container *ngIf="userRole != 'sales_clerk'">
+              <mat-list-item>
+                <button mat-mini-fab color="primary" class="mat-elevation-z8" [routerLink]="['/home']">
+                  <mat-icon>hail</mat-icon>
+                </button>
+              </mat-list-item>
+            </ng-container>
+
             <mat-list-item>
               <button mat-mini-fab color="primary" class="mat-elevation-z8" [routerLink]="['/inventory']">
                 <mat-icon>inventory</mat-icon>
               </button>
             </mat-list-item>
 
-            <ng-container *ngIf="userRole != 'sales_clerk'">
-              <mat-list-item>
-                <button mat-mini-fab color="primary" class="mat-elevation-z8" [routerLink]="['/home']">
-                  <mat-icon>home</mat-icon>
-                </button>
-              </mat-list-item>
-            </ng-container>
+            
             <!--<mat-list-item>
               <button mat-mini-fab color="primary" class="mat-elevation-z8" [routerLink]="['/finance']">
                 <mat-icon>calculate</mat-icon>

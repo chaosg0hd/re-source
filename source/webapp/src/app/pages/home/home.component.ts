@@ -93,6 +93,7 @@ export class HomeComponent implements OnInit {
         console.log(data)
         this.timePayload = data
         this.timeData = this.timePayload.data
+        console.log(this.timeData)
         
       })
 

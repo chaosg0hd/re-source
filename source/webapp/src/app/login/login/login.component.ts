@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
     this.loadOnLoop()
   }
 
+
   isLoaded: boolean = false;
   async loadOnLoop() {
 
@@ -127,7 +128,7 @@ export class LoginComponent implements OnInit {
                   //localStorage.clear();
                 localStorage.setItem('_id', data.data._id);
                 localStorage.setItem('role', data.data.emp_role);
-          // localStorage.setItem('id', data.data.emp_id);
+                 localStorage.setItem('id', data.data.emp_id);
           // localStorage.setItem('imgUrl', data.data.emp_imgUrl);
             localStorage.setItem('lname', data.data.emp_lname);
             localStorage.setItem('fname', data.data.emp_fname);
@@ -150,7 +151,7 @@ export class LoginComponent implements OnInit {
               localStorage.clear();
               localStorage.setItem('_id', data.data._id);
               localStorage.setItem('role', data.data.emp_role);
-        // localStorage.setItem('id', data.data.emp_id);
+        localStorage.setItem('id', data.data.emp_id);
         // localStorage.setItem('imgUrl', data.data.emp_imgUrl);
           localStorage.setItem('lname', data.data.emp_lname);
           localStorage.setItem('fname', data.data.emp_fname);

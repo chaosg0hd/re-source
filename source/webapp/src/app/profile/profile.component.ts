@@ -245,6 +245,8 @@ export class ProfileComponent implements OnInit {
   changePword(input: any){
     this.dataService.patch('employees/change-password', {data:input}).subscribe((data: any) => {
       console.log(data)
+      if(data.code == 200)Swal.fire('Password Changed', '', 'success')
+      else {Swal.fire('Credentials invalid', '' ,'error')}
     })
   }
   

@@ -509,8 +509,8 @@
                   <input matInput placeholder="Ex. Juan De" (keyup)="applyFilterInv($event)">
                 </mat-form-field>
                 <span style="flex: 1 1 auto;"></span>
-
-                <button mat-raised-button color="primary" style="flex:auto">View Archived <mat-icon>unarchive</mat-icon></button>&nbsp;
+                
+                <!-- <button mat-raised-button color="primary" style="flex:auto">View Archived <mat-icon>unarchive</mat-icon></button>&nbsp; -->
 
                 <button mat-raised-button color="warn" class="control-button" style="flex:auto;" (click)="openDialogPurchasePDF()"> Generate Purchase CSV <mat-icon> insert_drive_file</mat-icon></button>&nbsp;
                 <span style="flex: 1 1 auto;"></span>
@@ -577,8 +577,10 @@
                   <ng-container matColumnDef="actions" stickyEnd>
                     <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
                     <mat-cell *matCellDef="let element">
-
-                      <button mat-raised-button color="accent" (click)="openDialogPurchaseEdit(element)"> Edit <mat-icon>visibility</mat-icon> </button>
+                      <ng-container *ngIf="userRole != 'sales_clerk'">
+                        <button mat-raised-button color="accent" (click)="openDialogPurchaseEdit(element)"> Edit <mat-icon>visibility</mat-icon> </button>
+                      </ng-container>
+                      
 
                     </mat-cell>
                   </ng-container>
@@ -827,7 +829,7 @@
                 </mat-form-field>
                 <span style="flex: 1 1 auto;"></span>
 
-                <button mat-raised-button color="primary" style="flex:auto">View Archived <mat-icon>recycling</mat-icon></button>&nbsp;
+                <!-- <button mat-raised-button color="primary" style="flex:auto">View Archived <mat-icon>recycling</mat-icon></button>&nbsp; -->
 
                 <button mat-raised-button color="warn" class="control-button" style="flex:auto;" (click)="openDialogSalePDF()"> Generate Sale CSV <mat-icon> insert_drive_file</mat-icon></button>&nbsp;
                 <span style="flex: 1 1 auto;"></span>
@@ -893,7 +895,7 @@
                     <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
                     <mat-cell *matCellDef="let element">
 
-                      <button mat-raised-button color="accent" (click)="openDialogPurchaseEdit(element)"> Edit <mat-icon>visibility</mat-icon> </button>
+                      <button mat-raised-button color="accent" (click)="openDialogSaleEdit(element)"> Edit <mat-icon>visibility</mat-icon> </button>
 
                     </mat-cell>
                   </ng-container>
@@ -1132,13 +1134,20 @@
 
 
               <div style="display: flex; align-items: baseline; flex-wrap:wrap">
-
-                <mat-form-field appearance="outline" style="min-width: 80%; flex: auto; border-radius: 16px !important">
-                  <mat-label>Search</mat-label>
-
-                  <input matInput placeholder="Ex. Juan De" (keyup)="applyFilterInv($event)">
-
-                </mat-form-field>&nbsp;
+                <br/>
+                <br/>
+                <button mat-raised-button color="warn" class="control-button" style="flex:auto;" (click)="openDialogPurchasePDF()"> Generate Purchase CSV <mat-icon> insert_drive_file</mat-icon></button>&nbsp;
+                <br/>
+                <br/>
+                <ng-container *ngIf="userRole != 'sales_clerk'">
+                  <mat-form-field appearance="outline" style="min-width: 80%; flex: auto; border-radius: 16px !important">
+                    <mat-label>Search</mat-label>
+  
+                    <input matInput placeholder="Ex. Juan De" (keyup)="applyFilterInv($event)">
+  
+                  </mat-form-field>&nbsp;
+                </ng-container>
+                
 
                 <mat-form-field appearance="outline" style="min-width: 80%; flex: auto; border-radius: 16px !important ">
                   <mat-label>Start Date</mat-label>
@@ -1382,12 +1391,20 @@
 
 
               <div style="display: flex; align-items: baseline; flex-wrap: wrap">
-                <mat-form-field appearance="outline" style=" min-width: 100% ;flex:auto;border-radius: 16px !important">
-                  <mat-label>Search</mat-label>
-
-                  <input matInput placeholder="Ex. Juan De" (keyup)="applyFilterInv($event)">
-
-                </mat-form-field>
+                <br/>
+                <br/>
+                <button mat-raised-button color="warn" class="control-button" style="flex:auto;" (click)="openDialogSalePDF()"> Generate Sale CSV <mat-icon> insert_drive_file</mat-icon></button>&nbsp;
+                <br/>
+                <br/>
+                <ng-container *ngIf="userRole != 'sales_clerk'">
+                  <mat-form-field appearance="outline" style=" min-width: 100% ;flex:auto;border-radius: 16px !important">
+                    <mat-label>Search</mat-label>
+  
+                    <input matInput placeholder="Ex. Juan De" (keyup)="applyFilterInv($event)">
+  
+                  </mat-form-field>
+                </ng-container>
+                
                 <mat-form-field appearance="outline" style=" min-width: 100%; flex: auto; border-radius: 16px !important">
                   <mat-label>Start Date</mat-label>
                   <input matInput [matDatepicker]="pickerCalendarDateStart" [(ngModel)]="startDate" (dateInput)="loadTab(1)">
@@ -1741,7 +1758,7 @@
 <!--CLONE ITEM-->
 
 <ng-template #invCloneDialog let-data>
-  <h2 matDialogTitle>New Item</h2>
+  <h2 matDialogTitle>Clone Item</h2>
   <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">
 
     <!--<mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
@@ -1816,11 +1833,14 @@
     <h2 matDialogTitle style="display: flex; flex-wrap: wrap">
       {{data._id}}  &nbsp;|&nbsp; {{data.inv_name}} &nbsp; Total Value : {{data.inv_quantity * data.inv_price | currency:'PHP':'symbol-narrow':'4.2-2'}} &nbsp;
       <span style="flex: 1 1 auto;"></span>
-      <button mat-raised-button matDialogClose color="primary" (click)="openDialogInvClone(data)">Clone</button>&nbsp;
+      <ng-container *ngIf="userRole != 'sales_clerk'">
+        <button mat-raised-button matDialogClose color="primary" (click)="openDialogInvClone(data)">Clone</button>&nbsp;
       <ng-container *ngIf="data.isArchive == 0; then thenBlock else elseBlock"></ng-container>
       <ng-template #thenBlock><button mat-raised-button matDialogClose color="warn" (click)="archiveInv(data)"><mat-icon>archive</mat-icon>Archive</button></ng-template>
       <ng-template #elseBlock><button mat-raised-button matDialogClose color="accent" (click)="restoreInv(data)"><mat-icon>restore</mat-icon>Restore</button></ng-template>&nbsp;
       <button mat-raised-button matDialogClose color="danger" (click)="deleteInv(data)"><mat-icon>delete_forever</mat-icon>Delete</button>&nbsp;
+      </ng-container>
+      
     </h2>
     <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">
 
@@ -1923,29 +1943,32 @@
         <mat-divider></mat-divider>
         <br />
       </div>
+      
+      <ng-container *ngIf="userRole != 'sales_clerk'">
+        <div style="width: 100%; display: flex; align-items: flex-start; align-content:baseline">
 
-      <div style="width: 100%; display: flex; align-items: flex-start; align-content:baseline">
-
-        <h4 style="max-width: 20% ;flex:auto">Restock Item</h4>
-        <span style="flex: 1 1 auto;"></span>
-        <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
-          <mat-label>Purchase Quantity</mat-label>
-          <input matInput required placeholder="1" type="number" [(ngModel)]="data.purc_quantity" [ngStyle]="{'background-color': data.purc_quantity? '' : 'var(--warn-lighter-color)'}">
-        </mat-form-field>&nbsp;
-
-        <mat-form-field appearance="outline" style="min-width: 20% ;flex:auto;border-radius: 16px !important">
-          <mat-label>Purchase Price</mat-label>
-          <input matInput required placeholder="1" type="number" [(ngModel)]="data.purc_price" [ngStyle]="{'background-color': data.purc_price? '' : 'var(--warn-lighter-color)'}">
-        </mat-form-field>&nbsp;
-
-        &nbsp;&nbsp;&nbsp;
-
-        <h5 style="max-width: 20% ;flex:auto">Amount After Purchase : {{data.inv_quantity + data.purc_quantity}}</h5>&nbsp;
-        <span style="flex: 1 1 auto;"></span>
-        <h3 style="max-width: 20% ;flex:auto">Total : PHP&nbsp;  {{data.purc_quantity * data.purc_price}}</h3>
-        <button style="max-width: 20% ;flex:auto" mat-raised-button color="primary" (click)="addPurchase(data)">Add Purchase</button>
-
-      </div>
+          <h4 style="max-width: 20% ;flex:auto">Restock Item</h4>
+          <span style="flex: 1 1 auto;"></span>
+          <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
+            <mat-label>Purchase Quantity</mat-label>
+            <input matInput required placeholder="1" type="number" [(ngModel)]="data.purc_quantity" [ngStyle]="{'background-color': data.purc_quantity? '' : 'var(--warn-lighter-color)'}">
+          </mat-form-field>&nbsp;
+  
+          <mat-form-field appearance="outline" style="min-width: 20% ;flex:auto;border-radius: 16px !important">
+            <mat-label>Purchase Price</mat-label>
+            <input matInput required placeholder="1" type="number" [(ngModel)]="data.purc_price" [ngStyle]="{'background-color': data.purc_price? '' : 'var(--warn-lighter-color)'}">
+          </mat-form-field>&nbsp;
+  
+          &nbsp;&nbsp;&nbsp;
+  
+          <h5 style="max-width: 20% ;flex:auto">Amount After Purchase : {{data.inv_quantity + data.purc_quantity}}</h5>&nbsp;
+          <span style="flex: 1 1 auto;"></span>
+          <h3 style="max-width: 20% ;flex:auto">Total : PHP&nbsp;  {{data.purc_quantity * data.purc_price}}</h3>
+          <button style="max-width: 20% ;flex:auto" mat-raised-button color="primary" (click)="addPurchase(data)">Add Purchase</button>
+  
+        </div>
+      </ng-container>
+      
 
     </mat-dialog-content>
     <mat-dialog-actions align="end">
@@ -1961,14 +1984,16 @@
       <!--{{data._id}}  &nbsp;|&nbsp;-->
       {{data.inv_name}} &nbsp; <span style="flex: 1 1 auto;"></span>
       Total Value : {{data.inv_quantity * data.inv_price | currency:'PHP':'symbol-narrow':'4.2-2'}} &nbsp;<span style="flex: 1 1 auto;"></span>
-      
-      <button mat-fab matDialogClose color="primary" (click)="openDialogInvClone(data)"><mat-icon>content_copy</mat-icon></button>&nbsp;
+      <ng-container *ngIf="userRole != 'sales_clerk'">
+        <button mat-fab matDialogClose color="primary" (click)="openDialogInvClone(data)"><mat-icon>content_copy</mat-icon></button>&nbsp;
       <ng-container *ngIf="data.isArchive == 0; then thenBlock else elseBlock"></ng-container>
       <ng-template #thenBlock>
       <button mat-fab matDialogClose color="warn" (click)="archiveInv(data)"><mat-icon>archive</mat-icon></button></ng-template>
       <ng-template #elseBlock>
       <button mat-fab matDialogClose color="accent" (click)="restoreInv(data)"><mat-icon>restore</mat-icon></button></ng-template>&nbsp;
       <button mat-fab matDialogClose color="danger" (click)="deleteInv(data)"><mat-icon>delete_forever</mat-icon></button>&nbsp;
+      </ng-container>
+      
     </h2>
     <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">
 
@@ -2124,37 +2149,41 @@
         <mat-divider></mat-divider>
         <br />
       </div>
-
-      <div style="width: 100%; display: flex; align-items: flex-start; align-content: baseline; flex-wrap: wrap">
-        <h4 style="max-width: 20% ;flex:auto">Restock Item</h4>
-      </div>
-
-      <div style="width: 100%; display: flex; align-items: flex-start; align-content: baseline; flex-wrap: wrap">
-
-        <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
-          <mat-label>Purchase Quantity</mat-label>
-          <input matInput required placeholder="1" type="number" value="0" [(ngModel)]="data.purc_quantity" [ngStyle]="{'background-color': data.purc_quantity? '' : 'var(--warn-lighter-color)'}">
-        </mat-form-field>&nbsp;
-
-        <mat-form-field appearance="outline" style="min-width: 20% ;flex:auto;border-radius: 16px !important">
-          <mat-label>Purchase Price</mat-label>
-          <input matInput required placeholder="1" type="number" [(ngModel)]="data.purc_price" [ngStyle]="{'background-color': data.purc_price? '' : 'var(--warn-lighter-color)'}">
-        </mat-form-field>&nbsp;
-
-      </div>
-
-      <div style="width: 100%; display: flex; align-items: flex-start; align-content: baseline; flex-wrap: wrap">
-
-        <h5 style="max-width: 50% ;flex:auto">Amount After Purchase : {{data.inv_quantity + data.purc_quantity}}</h5>&nbsp;
-        <span style="flex: 1 1 auto;"></span>
-        <h3 style="max-width: 50% ;flex:auto">Total : PHP&nbsp;  {{data.purc_quantity * data.purc_price}}</h3>
-        <button mat-fab color="primary" (click)="addPurchase(data)"><mat-icon>file_download</mat-icon></button>
-
-      </div>
+      
+      <ng-container *ngIf="userRole != 'sales_clerk'">
+        
+        <div style="width: 100%; display: flex; align-items: flex-start; align-content: baseline; flex-wrap: wrap">
+          <h4 style="max-width: 20% ;flex:auto">Restock Item</h4>
+        </div>
+  
+        <div style="width: 100%; display: flex; align-items: flex-start; align-content: baseline; flex-wrap: wrap">
+  
+          <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
+            <mat-label>Purchase Quantity</mat-label>
+            <input matInput required placeholder="1" type="number" value="0" [(ngModel)]="data.purc_quantity" [ngStyle]="{'background-color': data.purc_quantity? '' : 'var(--warn-lighter-color)'}">
+          </mat-form-field>&nbsp;
+  
+          <mat-form-field appearance="outline" style="min-width: 20%; flex:auto;border-radius: 16px !important">
+            <mat-label>Purchase Price</mat-label>
+            <input matInput required placeholder="1" type="number" [(ngModel)]="data.purc_price" [ngStyle]="{'background-color': data.purc_price? '' : 'var(--warn-lighter-color)'}">
+          </mat-form-field>&nbsp;
+  
+        </div>
+  
+        <div style="width: 100%; display: flex; align-items: flex-start; align-content: baseline; flex-wrap: wrap">
+  
+          <h5 style="max-width: 50% ;flex:auto">Amount After Purchase : {{data.inv_quantity + data.purc_quantity}}</h5>&nbsp;
+          <span style="flex: 1 1 auto;"></span>
+          <h3 style="max-width: 50% ;flex:auto">Total : PHP&nbsp;  {{data.purc_quantity * data.purc_price}}</h3>
+          <button mat-fab color="primary" (click)="addPurchase(data)"><mat-icon>file_download</mat-icon></button>
+  
+        </div>
+  
+      </ng-container>
 
     </mat-dialog-content>
     <mat-dialog-actions align="end">
-
+      
       <button mat-fab matDialogClose color="warn" (click)="editInv(data)"><mat-icon>done</mat-icon></button>
       <button mat-fab matDialogClose color="warn"><mat-icon>close</mat-icon></button>
 
@@ -2255,7 +2284,7 @@
     </div>
 
     <mat-form-field appearance="outline" style=" min-width: 10% ;flex:auto;border-radius: 16px !important">
-      <mat-label>Databse ID</mat-label>
+      <mat-label>Database ID</mat-label>
       <input disabled matInput type="text" [(ngModel)]="data._id" [ngStyle]="{'background-color': data.inv_id? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
@@ -2296,7 +2325,7 @@
 </ng-template>
 
 <ng-template #purchasePDF let-data>
-  <h2 matDialogTitle style="display: flex">Purchase Transaction Form</h2>
+  <h2 matDialogTitle style="display: flex">Purchase Date Range</h2>
   <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">
 
     <div style="width: 100%;">
@@ -2361,7 +2390,7 @@
 </ng-template>
 
 <ng-template #salePDF let-data>
-  <h2 matDialogTitle style="display: flex">Sale Transaction Form</h2>
+  <h2 matDialogTitle style="display: flex">Sale Date Range</h2>
   <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">
 
     <div style="width: 100%;">

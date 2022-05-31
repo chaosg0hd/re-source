@@ -227,7 +227,8 @@ router.post('/login', (req, res) => {
                     transporter.sendMail({
                         from: MAIL_SETTINGS.auth.user,
                         to: data.emp_email ,
-                        subject: 'Your OTP Code is: ' + otp
+                        subject: 'User Verification',
+                        html: 'Your OTP Code is: ' + otp
                     })
                 }
                 res.json({ data, message: "Account logged in successfully", code: "200", otp: otp })
@@ -281,7 +282,8 @@ router.patch('/forgot-password', async (req, res) => {
             transporter.sendMail({
                 from: MAIL_SETTINGS.auth.user,
                 to: data.emp_email ,
-                subject: 'Your new password is: ' + newPword
+                subject: 'User Password Reset',
+                html: 'Your new password is: ' + newPword
             })
             res.json({code: 200, message: 'Email Sent', data : data})
         }).catch((eror) => {

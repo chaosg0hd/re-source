@@ -6,3 +6,4 @@ source\server\node_modules
 .env
 
 App/server/.env
+capstone/Textractor

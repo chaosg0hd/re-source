@@ -156,8 +156,10 @@ export class ProfileComponent implements OnInit {
         this.httpClient.post<any>('http://localhost:3000/api/uploads', form).subscribe((data: any) => {
           input.emp_imgUrl = data.filename
           this.dataService.patch('employees/edit', { data: input }).subscribe((data: any) => {
-          
-            if(data.code == 200) Swal.fire('Edit Successful', '', 'success')
+            if(data.code == 200)  {
+              Swal.fire('Edit Successful', '', 'success')
+              this.getEmployee(this.userData.data._id)
+            }
             else {Swal.fire('Action unsuccessful!', '', 'error')}
   
           })
@@ -168,7 +170,10 @@ export class ProfileComponent implements OnInit {
           input.emp_imgUrl = data.filename
           this.dataService.patch('employees/edit', { data: input }).subscribe((data: any) => {
           
-            if(data.code == 200) Swal.fire('Edit Successful', '', 'success')
+            if(data.code == 200) {
+              Swal.fire('Edit Successful', '', 'success')
+              this.getEmployee(this.userData.data._id)
+            }
             else {Swal.fire('Action unsuccessful!', '', 'error')}
   
           })
@@ -176,7 +181,10 @@ export class ProfileComponent implements OnInit {
     }else{
       this.dataService.patch('employees/edit', { data: input }).subscribe((data: any) => {
         
-        if(data.code == 200) Swal.fire('Edit Successful', '', 'success')
+        if(data.code == 200) { 
+          Swal.fire('Edit Successful', '', 'success')
+          this.getEmployee(this.userData.data._id)
+      }
         else {Swal.fire('Action unsuccessful!', '', 'error')}
 
       })
@@ -236,9 +244,20 @@ export class ProfileComponent implements OnInit {
   //   this.httpClient.post<any>('','').subscribe((data: any) => {
   //     console.log(data)
   //   })
-    this.dataService.patch('employees/edit', {data: input}).subscribe((data: any) => {
-      console.log(data)
-    })
+    if(input.emp_imgfile !='') {
+      this.dataService.patch('employees/edit', {data: input}).subscribe((data: any) => {
+        console.log(data)
+        this.getEmployee(this.userData.data._id)
+      })
+    } else {
+      delete input.emp_imgfile
+      this.dataService.patch('employees/edit', {data: input}).subscribe((data: any) => {
+        console.log(data)
+        this.getEmployee(this.userData.data._id)
+      })
+    }
+    
+    
 
   }
 

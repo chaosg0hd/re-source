@@ -119,12 +119,13 @@ export class LoginComponent implements OnInit {
               }).then((result) => {
                 let kekw: any = {}
                 console.log(data)
-                kekw._id = _id
-                kekw.emp_isVerified = true
-                this.dataService.patch('employees/edit', {data : kekw} ).subscribe((data: any) => {
-                  console.log(data)
-                })
+                
                 if(result.value == otp){
+                  kekw._id = _id
+                  kekw.emp_isVerified = true
+                  this.dataService.patch('employees/edit', {data : kekw} ).subscribe((data: any) => {
+                  // console.log(data)
+                    })
                   //localStorage.clear();
                 localStorage.setItem('_id', data.data._id);
                 localStorage.setItem('role', data.data.emp_role);
@@ -142,6 +143,7 @@ export class LoginComponent implements OnInit {
           ).then(()=>this.router.navigate(['home']))
                 } else {
                   Swal.fire('Invalid OTP code', '', 'error')
+                  
                 }
             })
 
@@ -204,6 +206,7 @@ export class LoginComponent implements OnInit {
         '',
         'error'
       )
+      console.log(error)
     })
   }
 }

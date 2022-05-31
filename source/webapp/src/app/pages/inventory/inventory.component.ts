@@ -664,7 +664,8 @@ export class InventoryComponent implements OnInit {
     saleData.sale_supplier = input.inv_supplier
     saleData.sale_price = input.sale_price
     saleData.sale_quantity = input.sale_quantity
-    saleData.sale_empID = localStorage.getItem('fname') + ' '+ localStorage.getItem('lname')
+
+    saleData.sale_empName = localStorage.getItem('fname') + ' '+ localStorage.getItem('lname')
 
     console.log(saleData)
 
@@ -786,7 +787,7 @@ export class InventoryComponent implements OnInit {
     purchaseData.purc_supplier = input.inv_supplier
     purchaseData.purc_price = input.purc_quantity * input.purc_price
     purchaseData.purc_quantity = input.purc_quantity
-    purchaseData.purc_empID = localStorage.getItem('fname') + ' '+ localStorage.getItem('lname')
+    purchaseData.purc_empName = localStorage.getItem('fname') + ' '+ localStorage.getItem('lname')
 
 
     let invData: any = {}

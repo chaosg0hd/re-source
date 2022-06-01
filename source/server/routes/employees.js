@@ -118,7 +118,7 @@ router.delete('/delete/:_id', (req, res) => {
         console.log(req.params._id)
     }
 
-    Employee.findOneAndDelete({ "_id": req.body.data._id })
+    Employee.findOneAndDelete({ "_id": req.params._id})
         .then((data) => {
             if (data != null) {
                 console.log(data)

@@ -2,15 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\source",
-    "\\source\\webapp",
-    "\\source\\webapp\\src",
-    "\\source\\webapp\\src\\app",
-    "\\source\\webapp\\src\\app\\bundy",
-    "\\source\\webapp\\src\\app\\login",
-    "\\source\\webapp\\src\\app\\login\\login",
-    "\\source\\webapp\\src\\app\\pages",
-    "\\source\\webapp\\src\\app\\pages\\hr"
+    "\\source\\server"
   ],
-  "SelectedNode": "\\source\\webapp\\src\\app\\pages\\inventory",
+  "SelectedNode": "\\source\\server.js",
   "PreviewInSolutionExplorer": false
 }

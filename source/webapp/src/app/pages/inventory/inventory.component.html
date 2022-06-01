@@ -996,12 +996,11 @@
 
                 <ng-container *ngFor="let element of inventoriesDataSource.data; index as i">
 
-                  <div class="inv-box-container mat-elevation-z4" style="max-width: 25%; background-color:gray; background-image: url({{element.inv_imageUrl}});
-                              background-repeat: no-repeat; background-size: cover; background-blend-mode: lighten; justify-content: center"
+                  <div class="inv-box-container mat-elevation-z4" style="min-width: 80%; background-color:lightgray; background-image: url({{element.inv_imageUrl}});
+                              background-repeat: no-repeat; background-size: cover; background-blend-mode: lighten; justify-content: center;"
                        (click)="openDialogInvEdit(element)">
 
-
-                    <div style="display: flex; flex-wrap: wrap">
+                    <div style="display: flex; flex-wrap: wrap; ">
                       <!--<button mat-fab color="primary">{{element.inv_quantity}}</button>&nbsp;-->
 
                       <ng-container *ngIf="element.inv_quantity >= 100">
@@ -1023,6 +1022,13 @@
 
 
                     </div>
+
+                    <div style="height: 33vh; border-radius: 16px; margin: 16px; display: flex; flex-wrap: wrap; background-image: url({{element.inv_imageUrl}}); background-repeat: no-repeat; background-position: center; background-size: cover; background-blend-mode: lighten; justify-content: center;">
+                                        
+                    </div>
+
+
+                    
 
                     <div style="display: flex; flex-wrap: wrap; justify-content: center">
                       <h1 style="color: black; font-size:36px">

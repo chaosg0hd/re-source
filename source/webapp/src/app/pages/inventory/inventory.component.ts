@@ -379,6 +379,10 @@ export class InventoryComponent implements OnInit {
         this.getPurchasePie()
         this.getPurchaseLine()
 
+        this.purcInVol()
+
+        this.purcInCash()
+
       });
   }
 
@@ -1023,13 +1027,6 @@ export class InventoryComponent implements OnInit {
     this.getPurchases()
   }
 
-
-
-
-
-
-
-
   getItemName(itemID: any) {
     let name = ""
     this.inventoriesData.forEach((inventory) => {
@@ -1039,10 +1036,41 @@ export class InventoryComponent implements OnInit {
       }
 
     })
+
     return name
   }
 
+  getPurcTotalbyID(_id: any) {
+    let total = 0
 
+    this.purchasesData.forEach((purc) => {
+      if (purc.purc_itemID == _id) {
+
+        total = total + purc.purc_price
+
+      }
+
+    })
+
+    return total
+
+  }
+
+  getPurcVolbyID(_id: any) {
+    let total = 0
+
+    this.purchasesData.forEach((purc) => {
+      if (purc.purc_itemID == _id) {
+
+        total = total + purc.purc_quantity
+
+      }
+
+    })
+
+    return total
+
+  }
 
   getPurchaseTotalItemCost(itemID: any, month: any) {
     let total = 0
@@ -1078,13 +1106,115 @@ export class InventoryComponent implements OnInit {
     return total
   }
 
+  
 
 
   ///GRAAAPHS
 
+  purcOptions = {
+    colors: [
+      '#045c40',
+      '#d75100',
+      '#856b00',
+      '#606d00',
+      '#3f6a15',
+      '#ad6300',
+      '#21642f',
+      '#ff2b2b',
 
-  dynamicResize = true
-   
+    ],
+  };
+
+  purcPriceTitle = 'Distribution of Purchases in Terms of Cost'
+  purcPriceChartType: any = "PieChart"
+  purcPriceData: any[] = [];
+  purcPriceColumnNames = ['Item', 'Percentage']
+
+  purcVolTitle = 'Distribution of Purchaes in Terms of Unit Volume'
+  purcVolChartType: any = "PieChart"
+  purcVolData: any[] = [];
+  purcVolColumnNames = ['Item', 'Percentage']
+
+
+ 
+
+
+  //Purchases Volume
+
+  purcInVol() {
+
+    let lineData = []
+
+    let itemIDs = this.inventoriesData.map((item) => {
+      return item._id
+    })
+
+    console.log(itemIDs)
+
+    let totals: any = []
+
+    itemIDs.forEach((item) => {
+      totals.push([this.getItemName(item), this.getPurcTotalbyID(item)])
+
+    })
+
+    console.log(totals)
+
+    this.purcVolData = totals 
+
+    
+
+  }
+
+  //Purchases In Cash
+
+  purcInCash() {
+
+    let lineData = []
+
+    let itemIDs = this.inventoriesData.map((item) => {
+      return item._id
+    })
+
+    console.log(itemIDs)
+
+    let totals: any = []
+
+    itemIDs.forEach((item) => {
+      totals.push([this.getItemName(item), this.getPurcTotalbyID(item)])
+
+    })
+
+
+    console.log(totals)
+
+     this.purcPriceData = totals 
+
+  }
+
+  //processData() {
+
+  //  let lineData = []
+
+  //  let itemIDs = this.inventoriesData.map((item) => {
+  //    return item._id
+  //  })
+
+  //  console.log(itemIDs)
+
+  //  let totals : any = []
+
+  //  itemIDs.forEach((item) => {
+  //    totals.push([this.getItemName(item),this.getPurcTotalbyID(item)])
+
+  //  })
+
+  //  console.log(totals)
+
+  //}
+
+
+  dynamicResize = true   
 
 
   purc3Title = 'Line Chart of Item Purchases in terms of purchase cost'
@@ -1243,19 +1373,7 @@ export class InventoryComponent implements OnInit {
   purc5Data: any[] = [];
   purc5ColumnNames = ['Item', 'Percentage']
 
-  purcOptions = {
-    colors: [
-      '#045c40',
-      '#d75100',
-      '#856b00',
-      '#606d00',
-      '#3f6a15',
-      '#ad6300',
-      '#21642f',
-      '#ff2b2b',
-
-    ],
-  };
+  
 
 
   getPurchasePie() {
@@ -1616,6 +1734,8 @@ export class InventoryComponent implements OnInit {
     this.sale5Data = piedata.map((data: any) => {
       return [data.supplier, data.perUnit]
     });
+
+
 
     this.mostProfitable = mostProfitItem
     this.mostSoldItem = mostSoldItem

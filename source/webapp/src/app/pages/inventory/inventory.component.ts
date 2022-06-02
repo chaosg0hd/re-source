@@ -1154,7 +1154,7 @@ export class InventoryComponent implements OnInit {
     let totals: any = []
 
     itemIDs.forEach((item) => {
-      totals.push([this.getItemName(item), this.getPurcTotalbyID(item)])
+      totals.push([this.getItemName(item), this.getPurcVolbyID(item)])
 
     })
 

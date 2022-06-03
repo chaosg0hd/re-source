@@ -19,12 +19,14 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { GoogleChartsModule } from 'angular-google-charts';
 import jsPDF from 'jspdf'
 import html2canvas from 'html2canvas'
+import autoTable from 'jspdf-autotable'
 import { AngularCsv } from 'angular-csv-ext/dist/Angular-csv';
 
 import { Inventory, Purchase, Sale, Supplier } from 'src/app/services/data/data.model';
 
 
 import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation, rubberBandAnimation } from 'angular-animations';
+import { hasUncaughtExceptionCaptureCallback } from 'process';
 
 //SAMPLE
 
@@ -1886,6 +1888,89 @@ export class InventoryComponent implements OnInit {
 
   }
 
+  //jspdf-autotable
+  generatePurchaseReport(){
+  
+    // let startDate = new Date(this.startDate).getTime()
+    // let endDate = new Date(this.endDate).getTime()
+    // let purchaseData = this.purchasesData
+    // let filteredPurchaseData = purchaseData.filter((item: any) => {
+    //   let itemDate = new Date(item.created_at).getTime()
+    //   return itemDate >= startDate && itemDate <= endDate
+    // })
+        // let filteredPurchaseData = purchaseData.filter((item: any) => {
+
+
+        //   let itemDate = new Date(item.created_at).getTime()
+          
+        //   return itemDate >= startDate && itemDate <= endDate
+        // })
+
+        // console.log(new Date(Date.now()).getTime())
+        //  console.log(filteredPurchaseData)
+
+        // let privados = ["isArchive","_id","updated_at","__v"]
+        // delete filteredPurchaseData._id
+        // let header = Object.keys(filteredPurchaseData[0]).filter((key) => {
+        //   !privados.includes(key)
+        // })
+        // let values : any = filteredPurchaseData.map(elements => Object.values(elements));
+        // let values : any = filteredPurchaseData.map(data => Object.values(data))
+        
+        // let header : any = filteredPurchaseData.map(data => Object.keys(data))
+        // console.log(header)
+        // // console.log(values)
+        // //console.log(values.index.splice(0,3))
+
+        let data: any = document.getElementById('purchReport')
+        html2canvas(data).then(canvas => {
+          const contentDataURL = canvas.toDataURL('image/png')
+          let pdf = new jsPDF('p', 'mm', 'a4')
+          var width = pdf.internal.pageSize.getWidth()
+          var height = canvas.height * width / canvas.width
+          
+          pdf.addImage(contentDataURL, 'PNG', 0, 0, width, height)
+          pdf.save('Purchase-Report.pdf')
+        })
+    // const doc = new jsPDF({
+    //   orientation: 'l',
+    // })
+    // autoTable(doc, {
+    //   head: [header],
+    //   body: values.shift()
+    // })
+
+    // doc.save('Purhcase_Report.pdf')
+  }
+
+  generateSalesReport(){
+    let data: any = document.getElementById('salesReport')
+        html2canvas(data).then(canvas => {
+          const contentDataURL = canvas.toDataURL('image/png')
+          let pdf = new jsPDF('p', 'mm', 'a4')
+          var width = pdf.internal.pageSize.getWidth()
+          var height = canvas.height * width / canvas.width
+          
+          pdf.addImage(contentDataURL, 'PNG', 0, 0, width, height)
+          pdf.save('Sales-Report.pdf')
+        })
+  }
+
+  generateInventoryReport(){
+    let data: any = document.getElementById('inventoryReport')
+        html2canvas(data).then(canvas => {
+          const contentDataURL = canvas.toDataURL('image/png')
+          let pdf = new jsPDF('p', 'mm', 'a4')
+          var width = pdf.internal.pageSize.getWidth()
+          var height = canvas.height * width / canvas.width
+          
+          pdf.addImage(contentDataURL, 'PNG', 0, 0, width, height)
+          pdf.save('Inventory-Report.pdf')
+        })
+  }
+
+  
+  
 }
 
 

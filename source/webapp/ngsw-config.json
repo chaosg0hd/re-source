@@ -12,7 +12,11 @@
           "/manifest.webmanifest",
           "/*.css",
           "/*.js"
-        ]
+        ], 
+         "urls" : [
+           "http://192.168.1.125:8080/*",
+           "http://127.0.0.1:8080/*"
+         ]
       }
     },
     {
@@ -26,5 +30,19 @@
         ]
       }
     }
-  ]
+  ],
+    "dataGroups": [
+      {
+        "name": "api",
+        "urls": [
+          "http://localhost:3000/api/*"
+        ],
+        "cacheConfig": {
+          "strategy" : "performance",
+          "maxAge": "15m",
+          "timeout": "10s",
+          "maxSize": 20
+        }
+      }
+    ]
 }

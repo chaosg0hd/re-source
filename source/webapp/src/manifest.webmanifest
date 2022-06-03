@@ -5,7 +5,7 @@
   "background_color": "#fafafa",
   "display": "standalone",
   "scope": "./",
-  "start_url": "./",
+  "start_url": "./login",
   "icons": [
     {
       "src": "assets/icons/icon-72x72.png",
@@ -55,5 +55,8 @@
       "type": "image/png",
       "purpose": "maskable any"
     }
-  ]
+  ], 
+  "share_target": {
+
+  }
 }

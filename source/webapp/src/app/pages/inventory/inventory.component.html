@@ -69,6 +69,7 @@
                   <button mat-stroked-button color="primary" class="control-button" (click)="toggleArchive()"><mat-icon>unarchive</mat-icon> View Archived </button>&nbsp;
 
                   <button mat-stroked-button color="warn" class="control-button" (click)="openDialogInvAdd()"><mat-icon>add</mat-icon> Add New Item </button>&nbsp;
+                  
                 </ng-container>
 
                 <span style="flex: 1 1 auto;"></span>
@@ -203,8 +204,9 @@
                   <button mat-stroked-button color="primary" class="control-button" (click)="toggleArchive()"><mat-icon>unarchive</mat-icon> View Archived </button>&nbsp;
 
                   <button mat-stroked-button color="warn" class="control-button" (click)="openDialogInvAdd()"><mat-icon>add</mat-icon> Add Item </button>&nbsp;
+                  
                 </ng-container>
-
+                <button mat-stroked-button color="warn" class="control-button" (click)="generateInventoryReport()"><mat-icon>insert_drive_file</mat-icon> Inventory PDF </button>&nbsp;
                 <span style="flex: 1 1 auto;"></span>
 
               </div>
@@ -217,7 +219,7 @@
 
               <div style="width: 120%">
 
-                <mat-table [dataSource]="inventoriesDataSource" class="mat-elevation-z0" style="width: 100%" matSort>
+                <mat-table id="inventoryReport" [dataSource]="inventoriesDataSource" class="mat-elevation-z0" style="width: 100%" matSort>
 
                   <ng-container matColumnDef="inv_name" sticky>
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
@@ -533,8 +535,8 @@
                 <span style="flex: 1 1 auto;"></span>
                 
                 <!-- <button mat-raised-button color="primary" style="flex:auto">View Archived <mat-icon>unarchive</mat-icon></button>&nbsp; -->
-
-                <button mat-raised-button color="warn" class="control-button" style="flex:auto;" (click)="openDialogPurchasePDF()"> Generate Purchase CSV <mat-icon> insert_drive_file</mat-icon></button>&nbsp;
+                <button  mat-raised-button color="warn" class="control-button" style="flex:auto;"(click)="generatePurchaseReport()">Generate Purchase PDF<mat-icon>inser_drive_file</mat-icon></button>&nbsp;
+                <button mat-raised-button color="accent" class="control-button" style="flex:auto;" (click)="openDialogPurchasePDF()"> Generate Purchase CSV <mat-icon> insert_drive_file</mat-icon></button>&nbsp;
                 <span style="flex: 1 1 auto;"></span>
 
               </div>
@@ -549,7 +551,7 @@
 
                 <!--['purc_number', 'purc_itemID', 'purc_itemName', 'purc_supplier', 'purc_price','purc_quantity', 'created_at'];-->
 
-                <mat-table [dataSource]="purchasesDataSource" class="mat-elevation-z0" style="max-width: 100%" matSort #purcSort="matSort" matSortActive="created_at" matSortDirection="desc">
+                <mat-table [dataSource]="purchasesDataSource" id="purcReport" class="mat-elevation-z0" style="max-width: 100%" matSort #purcSort="matSort" matSortActive="created_at" matSortDirection="desc">
 
                   <ng-container matColumnDef="_id" sticky>
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Database ID </mat-header-cell>
@@ -849,8 +851,8 @@
                 <span style="flex: 1 1 auto;"></span>
 
                 <!-- <button mat-raised-button color="primary" style="flex:auto">View Archived <mat-icon>recycling</mat-icon></button>&nbsp; -->
-
-                <button mat-raised-button color="warn" class="control-button" style="flex:auto;" (click)="openDialogSalePDF()"> Generate Sale CSV <mat-icon> insert_drive_file</mat-icon></button>&nbsp;
+                 <button mat-raised-button color="warn" class="control-button" style="flex:auto;" (click)="generateSalesReport()">Sale PDF <mat-icon>insert_drive_file</mat-icon></button>&nbsp;
+                <button mat-raised-button color="accent" class="control-button" style="flex:auto;" (click)="openDialogSalePDF()"> Generate Sale CSV <mat-icon> insert_drive_file</mat-icon></button>&nbsp;
                 <span style="flex: 1 1 auto;"></span>
 
               </div>
@@ -863,7 +865,7 @@
 
               <div style="width: 100%; overflow-x: scroll;">
 
-                <mat-table [dataSource]="salesDataSource" class="mat-elevation-z0" style="width: 100%" matSort #saleSort="matSort" matSortActive="created_at" matSortDirection="desc">
+                <mat-table id="salesReport" [dataSource]="salesDataSource" class="mat-elevation-z0" style="width: 100%" matSort #saleSort="matSort" matSortActive="created_at" matSortDirection="desc">
 
                   <ng-container matColumnDef="_id" sticky>
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Database ID </mat-header-cell>
@@ -1175,6 +1177,7 @@
               <div style="display: flex; align-items: baseline; flex-wrap:wrap">
                 <br/>
                 <br/>
+                <!-- <button  mat-raised-button color="warn" class="control-button" style="flex:auto;"(click)="generatePurchaseReport()">Generate Purchase for Today<mat-icon>file</mat-icon></button>&nbsp; -->
                 <button mat-raised-button color="warn" class="control-button" style="flex:auto;" (click)="openDialogPurchasePDF()"> Generate Purchase CSV <mat-icon> insert_drive_file</mat-icon></button>&nbsp;
                 <br/>
                 <br/>
@@ -2448,3 +2451,52 @@
 
   </mat-dialog-actions>
 </ng-template>
+
+<!-- <ng-template>
+  <div  #purcReport id="purcReport">
+    <h2 matDialogTitle style="display: flex">Purchase Form From {{startDate | date}} to {{endDate | date}} </h2>
+
+  <mat-table [dataSource]="purchasesDataSource" class="mat-elevation-z0" style="width: 100%">
+
+    <ng-container matColumnDef="_id" sticky>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Database ID </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element._id}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="sale_itemName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Item Name </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.purc_itemName}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="sale_supplier">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Supplier </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.purc_supplier}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="sale_price">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Amount </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.purc_price}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="sale_quantity">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.purc_quantity}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="created_at">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Date Created </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.created_at}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="sale_empName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Added By </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.purc_empName}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="purchasesDisplayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: purchasesDisplayedColumns;"></mat-row>
+  </mat-table>
+
+  </div>
+  
+</ng-template> -->

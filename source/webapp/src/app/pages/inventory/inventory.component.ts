@@ -1956,9 +1956,13 @@ export class InventoryComponent implements OnInit {
         })
   }
 
-  generateInventoryReport(){
+  generateInventoryReport() {
     let data: any = document.getElementById('inventoryReport')
-        html2canvas(data).then(canvas => {
+
+    
+
+    html2canvas(data).then(canvas => {
+
           const contentDataURL = canvas.toDataURL('image/png')
           let pdf = new jsPDF('p', 'mm', 'a4')
           var width = pdf.internal.pageSize.getWidth()
@@ -1966,8 +1970,40 @@ export class InventoryComponent implements OnInit {
           
           pdf.addImage(contentDataURL, 'PNG', 0, 0, width, height)
           pdf.save('Inventory-Report.pdf')
+          /*pdf.save*/
         })
   }
+
+  //createPDF() {
+
+  //  let content : any
+  //  content = document.getElementById("toprint")!.outerHTML;
+
+  //  /******************** */
+  //  let yourDOCTYPE = "<!DOCTYPE html...";
+  //  let printPreview = window.open("", "print_preview");
+  //  let printDocument = printPreview.document;
+  //  printDocument.open();
+  //  let head =
+  //    "<head>" +
+  //    "<title>" +
+  //    this.title +
+  //    "</title>" +
+  //    +
+  //    "</head>";
+
+  //  printDocument.write(
+  //    yourDOCTYPE +
+  //    "<html>" +
+  //    head +
+  //    "<body>"
+  //  content +
+  //    "</body>" +
+  //    "</html>"
+  //  );
+  //  printPreview.print();
+  //  printPreview.close();
+  //}
 
   
   

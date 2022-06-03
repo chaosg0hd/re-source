@@ -113,8 +113,8 @@
 
                       <span style="flex: 1 1 auto;"></span>
 
-                      <button mat-mini-fab color="warn"><mat-icon>add</mat-icon></button>&nbsp;
-                      <button mat-mini-fab color="danger"><mat-icon>remove</mat-icon></button>&nbsp;
+                      <!--<button mat-mini-fab color="warn"><mat-icon>add</mat-icon></button>&nbsp;
+                      <button mat-mini-fab color="danger"><mat-icon>remove</mat-icon></button>&nbsp;-->
 
                     </div>
 
@@ -261,6 +261,66 @@
                     <mat-cell *matCellDef="let element"> {{element.inv_price | currency:'PHP':'symbol':'4.2-2'}} </mat-cell>
                   </ng-container>
 
+                  <ng-container matColumnDef="actions" stickyEnd data-html2canvas-ignore="true">
+                    <mat-header-cell *matHeaderCellDef data-html2canvas-ignore="true"> Actions </mat-header-cell>
+                    <mat-cell *matCellDef="let element" data-html2canvas-ignore="true">
+
+                      <button mat-raised-button color="accent" (click)="openDialogInvEdit(element)"><mat-icon>edit</mat-icon> Edit </button>
+
+                    </mat-cell>
+                  </ng-container>
+
+
+                  <mat-header-row *matHeaderRowDef="inventoriesDisplayedColumns"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: inventoriesDisplayedColumns;"></mat-row>
+                </mat-table>
+
+              </div>
+
+              <!--<div style="width: 120%">
+
+                <mat-table id="inventoryReport" [dataSource]="inventoriesDataSource" class="mat-elevation-z0" style="width: 100%" matSort>
+
+                  <ng-container matColumnDef="inv_name" sticky>                   
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.inv_name}} </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="_id">
+                    <mat-header-cell *matHeaderCellDef> Database ID </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element._id}} </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="inv_description">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Description </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.inv_description}} </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="inv_category">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Category </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.inv_category}} </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="inv_quantity">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.inv_quantity}} </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="inv_supplier">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Supplier </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.inv_supplier}} </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="inv_min_amount">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Minimum Amount </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.inv_min_amount}} </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="inv_price">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Price </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.inv_price | currency:'PHP':'symbol':'4.2-2'}} </mat-cell>
+                  </ng-container>
+
                   <ng-container matColumnDef="actions" stickyEnd>
                     <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
                     <mat-cell *matCellDef="let element">
@@ -275,7 +335,7 @@
                   <mat-row *matRowDef="let row; columns: inventoriesDisplayedColumns;"></mat-row>
                 </mat-table>
 
-              </div>
+              </div>-->
 
             </div>
 

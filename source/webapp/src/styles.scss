@@ -626,12 +626,6 @@ h4 {
 }
 
 
-
-.mat-column-purc_supplier {
-  flex: 1 1 10%;
-  min-width: 100px;
-}
-
 .mat-column-purc_supplier {
   flex: 1 1 10%;
   max-width: 200px;
@@ -639,17 +633,75 @@ h4 {
 }
 
 .mat-column-purc_price {
-  flex: 1 1 10%;
-  max-width: 200px;
+  flex: 1 1 5%;
+  max-width: 50px;
   min-width: 100px;
 }
 .mat-column-purc_quantity {
+  flex: 1 1 5%;
+  max-width: 50px;
+  min-width: 100px;
+}
+
+.mat-column-purc_created_at {
+  flex: 1 1 5%;
+  max-width: 100px;
+  min-width: 50px;
+}
+
+.mat-column-purc_empName {
+  flex: 1 1 5%;
+  max-width: 100px;
+  min-width: 50px;
+}
+
+.mat-column-sale_itemID {
+  flex: 1 1 10%;
+  min-width: 100px;
+}
+
+.mat-column-sale_itemName {
+  flex: 1 1 10%;
+  min-width: 100px;
+}
+
+
+.mat-column-sale_itemID {
+  flex: 1 1 10%;
+  min-width: 100px;
+}
+
+.mat-column-sale_itemName {
+  flex: 1 1 10%;
+  min-width: 100px;
+}
+
+
+.mat-column-sale_supplier {
   flex: 1 1 10%;
   max-width: 200px;
   min-width: 100px;
 }
 
-.mat-column-purc_created_at {
+.mat-column-sale_price {
+  flex: 1 1 5%;
+  max-width: 50px;
+  min-width: 100px;
+}
+
+.mat-column-sale_quantity {
+  flex: 1 1 5%;
+  max-width: 50px;
+  min-width: 100px;
+}
+
+.mat-column-sale_created_at {
+  flex: 1 1 5%;
+  max-width: 100px;
+  min-width: 50px;
+}
+
+.mat-column-sale_empName {
   flex: 1 1 5%;
   max-width: 100px;
   min-width: 50px;

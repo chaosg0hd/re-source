@@ -391,7 +391,7 @@ export class InventoryComponent implements OnInit {
   salesPayload: any;
   salesData: Sale[] = [];
   salesDataSource = new MatTableDataSource(this.salesData);
-  salesDisplayedColumns = ['_id', 'sale_number', 'sale_itemID', 'sale_itemName', 'sale_supplier', 'sale_price', 'sale_quantity', 'created_at', 'sale_empName','actions'];
+  salesDisplayedColumns = ['_id', 'sale_itemID', 'sale_itemName', 'sale_supplier', 'sale_price', 'sale_quantity', 'created_at', 'sale_empName','actions'];
   salesIdArchive: any;
 
   getSales() {
@@ -1889,62 +1889,84 @@ export class InventoryComponent implements OnInit {
   }
 
   //jspdf-autotable
-  generatePurchaseReport(){
+  //generatePurchaseReport(){
   
-    // let startDate = new Date(this.startDate).getTime()
-    // let endDate = new Date(this.endDate).getTime()
-    // let purchaseData = this.purchasesData
-    // let filteredPurchaseData = purchaseData.filter((item: any) => {
-    //   let itemDate = new Date(item.created_at).getTime()
-    //   return itemDate >= startDate && itemDate <= endDate
-    // })
-        // let filteredPurchaseData = purchaseData.filter((item: any) => {
+  //  // let startDate = new Date(this.startDate).getTime()
+  //  // let endDate = new Date(this.endDate).getTime()
+  //  // let purchaseData = this.purchasesData
+  //  // let filteredPurchaseData = purchaseData.filter((item: any) => {
+  //  //   let itemDate = new Date(item.created_at).getTime()
+  //  //   return itemDate >= startDate && itemDate <= endDate
+  //  // })
+  //      // let filteredPurchaseData = purchaseData.filter((item: any) => {
 
 
-        //   let itemDate = new Date(item.created_at).getTime()
+  //      //   let itemDate = new Date(item.created_at).getTime()
           
-        //   return itemDate >= startDate && itemDate <= endDate
-        // })
+  //      //   return itemDate >= startDate && itemDate <= endDate
+  //      // })
 
-        // console.log(new Date(Date.now()).getTime())
-        //  console.log(filteredPurchaseData)
+  //      // console.log(new Date(Date.now()).getTime())
+  //      //  console.log(filteredPurchaseData)
 
-        // let privados = ["isArchive","_id","updated_at","__v"]
-        // delete filteredPurchaseData._id
-        // let header = Object.keys(filteredPurchaseData[0]).filter((key) => {
-        //   !privados.includes(key)
-        // })
-        // let values : any = filteredPurchaseData.map(elements => Object.values(elements));
-        // let values : any = filteredPurchaseData.map(data => Object.values(data))
+  //      // let privados = ["isArchive","_id","updated_at","__v"]
+  //      // delete filteredPurchaseData._id
+  //      // let header = Object.keys(filteredPurchaseData[0]).filter((key) => {
+  //      //   !privados.includes(key)
+  //      // })
+  //      // let values : any = filteredPurchaseData.map(elements => Object.values(elements));
+  //      // let values : any = filteredPurchaseData.map(data => Object.values(data))
         
-        // let header : any = filteredPurchaseData.map(data => Object.keys(data))
-        // console.log(header)
-        // // console.log(values)
-        // //console.log(values.index.splice(0,3))
+  //      // let header : any = filteredPurchaseData.map(data => Object.keys(data))
+  //      // console.log(header)
+  //      // // console.log(values)
+  //      // //console.log(values.index.splice(0,3))
 
-        let data: any = document.getElementById('purchReport')
-        html2canvas(data).then(canvas => {
-          const contentDataURL = canvas.toDataURL('image/png')
-          let pdf = new jsPDF('p', 'mm', 'a4')
-          var width = pdf.internal.pageSize.getWidth()
-          var height = canvas.height * width / canvas.width
+  //      let data: any = document.getElementById('purchReport')
+  //      html2canvas(data).then(canvas => {
+  //        const contentDataURL = canvas.toDataURL('image/png')
+  //        let pdf = new jsPDF('p', 'mm', 'a4')
+  //        var width = pdf.internal.pageSize.getWidth()
+  //        var height = canvas.height * width / canvas.width
           
-          pdf.addImage(contentDataURL, 'PNG', 0, 0, width, height)
-          pdf.save('Purchase-Report.pdf')
-        })
-    // const doc = new jsPDF({
-    //   orientation: 'l',
-    // })
-    // autoTable(doc, {
-    //   head: [header],
-    //   body: values.shift()
-    // })
+  //        pdf.addImage(contentDataURL, 'PNG', 0, 0, width, height)
+  //        pdf.save('Purchase-Report.pdf')
+  //      })
+  //  // const doc = new jsPDF({
+  //  //   orientation: 'l',
+  //  // })
+  //  // autoTable(doc, {
+  //  //   head: [header],
+  //  //   body: values.shift()
+  //  // })
 
-    // doc.save('Purhcase_Report.pdf')
+  //  // doc.save('Purhcase_Report.pdf')
+  //}
+
+  //jspdf-autotable
+  generatePurchaseReport() {
+
+    let data: any = document.getElementById('purchReport')
+
+    data.style.removeProperty('visibility')
+
+    html2canvas(data).then(canvas => {
+      const contentDataURL = canvas.toDataURL('image/png')
+      let pdf = new jsPDF('p', 'mm', 'a4')
+      var width = pdf.internal.pageSize.getWidth()
+      var height = canvas.height * width / canvas.width
+
+      pdf.addImage(contentDataURL, 'PNG', 0, 0, width, height)
+      pdf.save('Purchase-Report.pdf')
+
+      data.style.visibility = 'hidden'
+    })
   }
 
   generateSalesReport(){
     let data: any = document.getElementById('salesReport')
+
+    data.style.removeProperty('visibility')
         html2canvas(data).then(canvas => {
           const contentDataURL = canvas.toDataURL('image/png')
           let pdf = new jsPDF('p', 'mm', 'a4')
@@ -1953,24 +1975,28 @@ export class InventoryComponent implements OnInit {
           
           pdf.addImage(contentDataURL, 'PNG', 0, 0, width, height)
           pdf.save('Sales-Report.pdf')
+
+          data.style.visibility = 'hidden'
         })
   }
 
   generateInventoryReport() {
     let data: any = document.getElementById('inventoryReport')
 
-    
+    data.style.removeProperty('visibility')
 
     html2canvas(data).then(canvas => {
 
-          const contentDataURL = canvas.toDataURL('image/png')
-          let pdf = new jsPDF('p', 'mm', 'a4')
-          var width = pdf.internal.pageSize.getWidth()
-          var height = canvas.height * width / canvas.width
+        const contentDataURL = canvas.toDataURL('image/png')
+        let pdf = new jsPDF('p', 'mm', 'a4')
+        var width = pdf.internal.pageSize.getWidth()
+        var height = canvas.height * width / canvas.width
           
-          pdf.addImage(contentDataURL, 'PNG', 0, 0, width, height)
-          pdf.save('Inventory-Report.pdf')
-          /*pdf.save*/
+        pdf.addImage(contentDataURL, 'PNG', 0, 0, width, height)
+        pdf.save('Inventory-Report.pdf')
+      /*pdf.save*/
+        data.style.visibility = 'hidden'
+
         })
   }
 

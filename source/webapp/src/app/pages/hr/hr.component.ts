@@ -13,10 +13,12 @@ import { HttpClient } from '@angular/common/http'
 import jsPDF from 'jspdf'
 import html2canvas from 'html2canvas'
 
-import { Announcement, Employee, Task_Board, Inventory, Attendance, Time, File, Gallery, Payroll, Purchase, Petty_Cash, Revenue, Sale } from 'src/app/services/data/data.model';
+import { Employee, Attendance, Time } from 'src/app/services/data/data.model';
 
-import { LibraryService } from 'src/app/services/library/library.service';
-import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animations';
+import { LibraryService } from 'src/app/services/library/library.service'
+import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animations'
+import { FormGroup, FormControl, Validators,FormBuilder, FormGroupDirective, NgForm } from '@angular/forms'
+import { ErrorStateMatcher } from '@angular/material/core';
 
 @Component({
   selector: 'app-hr',
@@ -32,13 +34,44 @@ import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animati
 
 export class HrComponent implements OnInit{
 
+  form: FormGroup = new FormGroup({
+    $key : new FormControl(null),
+        emp_email: new FormControl ('',
+        [
+          Validators.required,
+          Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
+        ])
+  })
+
+
+  //confirmValidParentMatcher = new ConfirmValidParentMatcher()
+
+  // //error = errorMessages
+  // createForm() {
+  //   this.newEmployeeForm = this.formBuilder.group({
+  //     emailGroup: this.formBuilder.group({
+  //       email: ['', [
+  //           Validators.required,
+  //           Validators.email
+  //       ]]
+  //   })
+  // })
+  // }
+
+  // changeValitationStatus() {
+  //   this.matcher = new InputErrorStateMatcher(!this.isValid);
+  //   }
+    
+  //   matcher = new InputErrorStateMatcher(!this.isValid);
+
+    
   constructor(
     private libraryService: LibraryService,
     private dataService: DataService,
     private datepipe: DatePipe,
     private dialog: MatDialog,
     private httpClient: HttpClient,
-
+    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit(): void {
@@ -340,49 +373,63 @@ export class HrComponent implements OnInit{
   //   }
   // }
 
+  verify(email: any){
+    var mailformat = /^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$/
+    if(email.match(mailformat)){
+      return true
+    } else {
+      return false
+    }
+  }
+
+  checkNewEmp(){
+
+  }
+   
   newEmp(input : any) {
     console.log(input)
-
-    delete input.password2
-
-    const form = new FormData()
-    let addimage = input.emp_imgfile
-
-    form.append('file', addimage)
-    console.log(input.emp_contactNum)
-    input.emp_contactNum = '+63' + input.emp_contactNum.substring(1)
-    console.log(input.emp_contactNum)
-
-    if(addimage){
-      this.httpClient.post<any>('http://localhost:3000/api/uploads', form).subscribe((data: any) => {
-        console.log(data)
-        input.emp_imgUrl = data.filename
-
+  
+    
+    if(this.verify(input.emp_email) != true) {
+     Swal.fire('Invalid Email Address', '', 'error')
+    } else {
+      const form = new FormData()
+      let addimage = input.emp_imgfile
+  
+      form.append('file', addimage)
+      console.log(input.emp_contactNum)
+      input.emp_contactNum = '+63' + input.emp_contactNum.substring(1)
+      console.log(input.emp_contactNum)
+  
+      if(addimage){
+        this.httpClient.post<any>('http://localhost:3000/api/uploads', form).subscribe((data: any) => {
+          console.log(data)
+          input.emp_imgUrl = data.filename
+  
+          this.dataService.post('employees/signup', { data: input }).subscribe((data) => {
+            console.log(data)
+            Swal.fire({
+              title:'Employee Account Added!',
+              icon:'success',
+              })
+          
+         })
+        
+      })
+      } else {
         this.dataService.post('employees/signup', { data: input }).subscribe((data) => {
           console.log(data)
           Swal.fire({
             title:'Employee Account Added!',
             icon:'success',
-            })
-        
+              })
        })
-      
-    })
-    } else {
-      this.dataService.post('employees/signup', { data: input }).subscribe((data) => {
-        console.log(data)
-        Swal.fire({
-          title:'Employee Account Added!',
-          icon:'success',
-            })
-     })
+      }
     }
-
+    
   }
 
-  fileUpload() {
 
-  }
 
   editEmp(input: any) {
     let editimage = input.emp_imgfile

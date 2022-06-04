@@ -484,6 +484,11 @@
       <br />
     </div>
 
+    <h4>Non Disclosure Agreement</h4>
+    <p>
+      All of the personal records below will be kept confidential. The records below are used for storing records in accordance with RA 10173, also known as the "Data Privacy Act of 2012". It is a law that seeks to protect all forms of information, be it private, personal, or sensitive. It is meant to cover both natural and juridical persons involved in the processing of personal information.
+    </p>
+    <div class="inputs" [formGroup]="form" (ngSubmit)="form.valid">
     <mat-form-field appearance="outline" style=" min-width: 20% ; flex:auto; border-radius: 16px !important">
       <mat-label>Image</mat-label>
       <ngx-mat-file-input [(ngModel)]="data.emp_imgfile" name="file" [ngStyle]="{'background-color': data.emp_imagefile? '' : 'var(--warn-lighter-color)'}">
@@ -495,10 +500,14 @@
       <input matInput [(ngModel)]="data.emp_id" [ngStyle]="{'background-color': data.emp_id? '' : 'var(--warn-lighter-color)'}">
     </mat-form-field>&nbsp;
 
-    <mat-form-field appearance="outline" style=" min-width: 60% ;flex:auto;border-radius: 16px !important">
+    <mat-form-field appearance="outline" style=" min-width: 60% ;flex:auto;border-radius: 16px !important" class="form-group-new-emp">
       <mat-label>Email</mat-label>
-      <input matInput [(ngModel)]="data.emp_email" type="text">
-    </mat-form-field>&nbsp;
+      <input matInput [(ngModel)]="data.emp_email" type="email"/>  
+      <mat-error *ngIf="form.controls['emp_email'].errors?.['required']" style="color:red;">Email address is required</mat-error>   
+      <mat-error *ngIf="form.controls['emp_email'].errors?.['pattern']" style="color:red;">>Please provide a valid email address</mat-error> 
+    </mat-form-field>
+    
+    &nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
       <mat-label>Last Name</mat-label>
@@ -583,6 +592,7 @@
       </mat-datepicker-toggle>
       <mat-datepicker #pickerStartDateEdit></mat-datepicker>
     </mat-form-field>&nbsp;
+  </div>
 
   </mat-dialog-content>
   <mat-dialog-actions align="end">

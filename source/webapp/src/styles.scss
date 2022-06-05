@@ -183,12 +183,12 @@ h4 {
   height: calc(100% - 16px);
   /*background-image: url("~src/assets/images/giphy.gif");*/
   background:
-      linear-gradient( #fff 0%, #007fff 100%);
-      //url("~src/assets/images/78797.png");
+      linear-gradient( #fff 0%, #007fff 100%),
+      url("~src/assets/images/78797.png");
   /*background-color: var(--primary-color);*/
 
   background-blend-mode: lighten;
-  background-position: left;
+  background-position: bottom;
   background-size: cover;
   overflow: hidden !important;
 }

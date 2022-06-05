@@ -43,6 +43,26 @@ export class HrComponent implements OnInit{
         ])
   })
 
+  mail = new FormControl('', [Validators.required, Validators.email])
+  pword = new FormControl('', [Validators.required, Validators.minLength(8), Validators.pattern('(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}')])
+  getErrorMessage(){
+    if (this.mail.hasError('required')) {
+      return 'You must enter a value'
+    }
+
+    return this.mail.hasError('mail') ? 'Not Valid email' : 'Not valid email' 
+  }
+
+  getErrorMessagePword(){
+    if(this.pword.hasError('required')) {
+      return 'Password cannot be empty'
+    } else if (this.pword.hasError('minLength')) {
+      return 'Should contain at least 8 character'
+    } else {
+      return this.pword.hasError('pword') ? 'Should contain at least 1 uppercase, 1 lowercase and 1 number' : 'Should contain at least 1 uppercase, 1 lowecase, and 1 number'
+    }
+  }
+
 
   //confirmValidParentMatcher = new ConfirmValidParentMatcher()
 

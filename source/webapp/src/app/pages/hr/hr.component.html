@@ -503,9 +503,10 @@
 
     <mat-form-field appearance="outline" style=" min-width: 60% ;flex:auto;border-radius: 16px !important" class="form-group-new-emp">
       <mat-label>Email</mat-label>
-      <input matInput [(ngModel)]="data.emp_email" type="email"/>  
-      <mat-error *ngIf="form.controls['emp_email'].errors?.['required']" style="color:red;">Email address is required</mat-error>   
-      <mat-error *ngIf="form.controls['emp_email'].errors?.['pattern']" style="color:red;">>Please provide a valid email address</mat-error> 
+      <input matInput [formControl]="mail" [(ngModel)]="data.emp_email" type="email" placeholder="kekw@example.com" required>
+        <mat-error *ngIf="mail.invalid"> {{ getErrorMessage() }} </mat-error>
+      <!-- <mat-error *ngIf="form.controls['emp_email'].errors?.['required']" style="color:red;">Email address is required</mat-error>   
+      <mat-error *ngIf="form.controls['emp_email'].errors?.['pattern']" style="color:red;">>Please provide a valid email address</mat-error>  -->
     </mat-form-field>
     
     &nbsp;
@@ -542,7 +543,11 @@
 
     <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
       <mat-label>Password</mat-label>
-      <input required matInput type="password" [(ngModel)]="data.emp_password" [ngStyle]="{'background-color': data.emp_password? '' : 'var(--warn-lighter-color)'}">
+      <input required matInput type="password"
+      [formControl]="pword"
+      [(ngModel)]="data.emp_password">
+      <mat-error *ngIf="pword.invalid"> {{ getErrorMessagePword() }} </mat-error>
+      
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">

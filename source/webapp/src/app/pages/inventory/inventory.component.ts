@@ -1950,6 +1950,35 @@ export class InventoryComponent implements OnInit {
   //}
 
   //jspdf-autotable
+
+  generatePurchaseCharts(){
+    let data : any = document.getElementById('purcCharts')
+
+    html2canvas(data).then(canvas => {
+      const contentDataURL = canvas.toDataURL('image/png')
+      let pdf = new jsPDF('p', 'mm', 'a4')
+      var width = pdf.internal.pageSize.getWidth()
+      var height = canvas.height * width / canvas.width
+
+      pdf.addImage(contentDataURL, 'PNG', 0, 0, width, height)
+      pdf.save(this.datepipe.transform(Date.now(), 'dd-MM-yyyy') +'-Purchase-Report-Charts.pdf')
+    })
+
+  }
+
+  generateSalesCharts(){
+    let data : any = document.getElementById('saleCharts')
+
+    html2canvas(data).then(canvas => {
+      const contentDataURL = canvas.toDataURL('image/png')
+      let pdf = new jsPDF('p', 'mm', 'a4')
+      var width = pdf.internal.pageSize.getWidth()
+      var height = canvas.height * width / canvas.width
+
+      pdf.addImage(contentDataURL, 'PNG', 0, 0, width, height)
+      pdf.save(this.datepipe.transform(Date.now(), 'dd-MM-yyyy') +'-Purchase-Report-Charts.pdf')
+    })
+  }
   generatePurchaseReport() {
 
     let data: any = document.getElementById('purchReport')

@@ -484,10 +484,13 @@
                 </mat-form-field>&nbsp;
 
                 <span style="flex: 1 1 auto;"></span>
+                
 
               </div>
-
-
+              <div style="display: flex; align-items: baseline; margin: 2%;">
+                <button mat-stroked-button color="primary" class="control-button" style="min-width:20%; max-width: 20%; flex:auto;" (click)="generatePurchaseCharts()"> <mat-icon> insert_drive_file</mat-icon>PDF Purchases Charts </button>&nbsp;
+              </div>
+              
             </div>
 
             <div style="width: 100%; display: flex">
@@ -540,6 +543,8 @@
 
 
             </div>
+
+            <div id="purcCharts">
 
             <div style="width: 100%; display: flex">
 
@@ -631,6 +636,7 @@
               </div>
 
 
+            </div>
             </div>
 
             <div class="mat-elevation-z4 rounded-container-title">
@@ -907,6 +913,10 @@
 
               </div>
 
+              <div style="display: flex; align-items: baseline; margin: 2%;">
+                <button mat-stroked-button color="primary" class="control-button" style="min-width:20%; max-width: 20%; flex:auto;" (click)="generateSalesCharts()"> <mat-icon> insert_drive_file</mat-icon>PDF Sale Charts </button>&nbsp;
+              </div>
+
             </div>
 
 
@@ -941,6 +951,8 @@
 
 
             </div>
+
+            <div id="saleCharts">
 
             <div style="width: 100%; display: flex">
 
@@ -1036,7 +1048,7 @@
 
 
               </div>
-
+            </div>
 
             </div>
 

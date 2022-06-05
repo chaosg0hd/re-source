@@ -48,8 +48,8 @@
   
             <ng-container *ngIf="isLoadedTab == true">
                 
-                <div class="profile-card">
-                    <div style="width: 60%; margin: auto">
+                <div class="profile-card" style="display: flex;">
+                    <div style="min-width: 60%; margin: auto">
                         <ng-container *ngIf="employeeData.data.emp_isVerified == false; then thenBlock"></ng-container>
                           <ng-template #thenBlock>
                             <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">
@@ -62,26 +62,29 @@
                           </mat-dialog-content>
                           </ng-template>
 
-                          <mat-card class="example-card">
-                            <mat-card-header>
-                              <div mat-card-avatar class="example-header-image"></div>
-                              <mat-card-title> {{ employeeData.data.emp_fname }}  {{employeeData.data.emp_mname}} {{employeeData.data.emp_lname}} {{employeeData.data.emp_extname}}</mat-card-title>
-                              <mat-card-subtitle>{{employeeData.data.emp_position}}</mat-card-subtitle>
-                            </mat-card-header>
+                          <mat-card class="example-card" style="min-width: 95%; text-align: center;">
+
+                              <h2> {{ employeeData.data.emp_fname }}  {{employeeData.data.emp_mname}} {{employeeData.data.emp_lname}} {{employeeData.data.emp_extname}} </h2> 
+                              <h3> {{employeeData.data.emp_position}} </h3>
+                              <mat-divider></mat-divider>
+                              <br/>
+                              <br/>
                             <ng-container *ngIf="employeeData.data.emp_imgUrl != ''">
-                              <img mat-card-image src="{{employeeData.data.emp_imgUrl}}" alt="Photo of a Shiba Inu" style="height: 200px;width:auto">
+                              <img mat-card-image src="{{employeeData.data.emp_imgUrl}}" alt="Photo of a Shiba Inu" style="object-fit: contain; height: 300px;">
                             </ng-container>
                             
                             <mat-card-content>
-                              <p>Contact #: {{employeeData.data.emp_contactNum}}</p>
-                              <p>Address: {{employeeData.data.emp_address}}</p>
-                              <p>Birthday: {{employeeData.data.emp_birth_date | date}}</p>
-                              <p>Date Stardted: {{employeeData.data.emp_start_date | date}}</p>
+                              <h4>Email: {{employeeData.data.emp_email}} </h4>
+                              <h4>Contact #: {{employeeData.data.emp_contactNum}}</h4>
+                              <h4>Address: {{employeeData.data.emp_address}}</h4>
+                              <h4>Birthday: {{employeeData.data.emp_birth_date | date}}</h4>
+                              <h4>Date Started: {{employeeData.data.emp_start_date | date}}</h4>
                             </mat-card-content>
                             <mat-card-actions>
-                              <button mat-raised-button color="warn" (click)="openDialogEditUser(employeeData.data)"><mat-icon>edit</mat-icon>Edit</button>
-                              <button mat-raised-button color="accent" (click)="openDialogChangePassword(employeeData.data)"><mat-icon>edit</mat-icon>Change Password</button>
+                              <button mat-raised-button color="warn" (click)="openDialogEditUser(employeeData.data)"><mat-icon>edit</mat-icon> User</button>
+                              <button mat-raised-button color="accent" (click)="openDialogChangePassword(employeeData.data)"><mat-icon>edit</mat-icon> Password</button>
                             </mat-card-actions>
+                            <br/>
                           </mat-card>
                           <br/>
                           <br/>
@@ -102,97 +105,99 @@
   </ng-container>
   
 <!--IF mobile-->
-<ng-container *ngIf="isLoaded == true">
 
-<!--<mat-tab-group (selectedTabChange)="loadOnstart()">-->
-
-<mat-tab-group class="mat-elevation-z4" (selectedTabChange)="loadTab($event)">
-
-  <mat-tab>
-
-    <ng-template mat-tab-label>
-
-      <mat-icon>auto_awesome_mosaic</mat-icon>
-
-      Profile
-
-    </ng-template>
-
-    <mat-toolbar color="primary" class="mat-elevation-z22" style="z-index: 100;">
-      <span style="flex: 1 1 auto;"></span>
-      <span>Profile</span>
-      <span style="flex: 1 1 auto;"></span>
-    </mat-toolbar>
-
-    <div class="mat-elevation-z22 tab-container">
-
-      <br />
-      <mat-divider></mat-divider>
-      <br />
-
-      <ng-container *ngIf="isLoadedTab == false">
-        <br />
-        <br />
-        <br />
-        <br />
-        <mat-spinner style="margin: auto"></mat-spinner>
-      </ng-container>
-
-      <ng-container *ngIf="isLoadedTab == true">
-          
-          <div class="profile-card">
-              <div style="width: 60%; margin: auto">
-                  <ng-container *ngIf="employeeData.data.emp_isVerified == false; then thenBlock"></ng-container>
-                    <ng-template #thenBlock>
-                      <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">
-                      <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
-                        <mat-label>OTP Code</mat-label>
-                        <input matInput [(ngModel)]="otp" [ngStyle]="{'background-color': otp? '' : 'var(--warn-lighter-color)'}">
-                      </mat-form-field>&nbsp;
-                      <button mat-raised-button matDialogClose color="primary" (click)="sendOTP()" [disabled]="click">Send OTP code</button>&nbsp;
-                      <button mat-raised-button matDialogClose color="accent" (click)="verify()">Verify OTP code</button>
-                    </mat-dialog-content>
-                    </ng-template>
-
-                    <mat-card class="example-card">
-                      <mat-card-header>
-                        <div mat-card-avatar class="example-header-image"></div>
-                        <mat-card-title> {{ employeeData.data.emp_fname }}  {{employeeData.data.emp_mname}} {{employeeData.data.emp_lname}} {{employeeData.data.emp_extname}}</mat-card-title>
-                        <mat-card-subtitle>{{employeeData.data.emp_position}}</mat-card-subtitle>
-                      </mat-card-header>
-                      <ng-container *ngIf="employeeData.data.emp_imgUrl != ''">
-                        <img mat-card-image src="{{employeeData.data.emp_imgUrl}}" alt="Photo of a Shiba Inu" style="height: 200px;width:auto">
-                      </ng-container>
-                      
-                      <mat-card-content>
-                        <p>Contact #: {{employeeData.data.emp_contactNum}}</p>
-                        <p>Address: {{employeeData.data.emp_address}}</p>
-                        <p>Birthday: {{employeeData.data.emp_birth_date | date}}</p>
-                        <p>Date Stardted: {{employeeData.data.emp_start_date | date}}</p>
-                      </mat-card-content>
-                      <mat-card-actions>
-                        <button mat-raised-button color="warn" (click)="openDialogEditUser(employeeData.data)"><mat-icon>edit</mat-icon>Edit</button>
-                        <button mat-raised-button color="accent" (click)="openDialogChangePassword(employeeData.data)"><mat-icon>edit</mat-icon>Change Password</button>
-                      </mat-card-actions>
-                    </mat-card>
-                    <br/>
-                    <br/>
-              
-          </div>
-        </div>
-          
-      </ng-container>
-
-    </div>
-
-  </mat-tab>
-
-</mat-tab-group>
-
-</ng-container>
-  
   <ng-container *ngIf="isMobile == true">
-  
+ 
+      <ng-container *ngIf="isLoaded == true">
+      
+      <!--<mat-tab-group (selectedTabChange)="loadOnstart()">-->
+      
+      <mat-tab-group class="mat-elevation-z4" (selectedTabChange)="loadTab($event)">
+      
+        <mat-tab>
+      
+          <ng-template mat-tab-label>
+      
+            <mat-icon>auto_awesome_mosaic</mat-icon>
+      
+            Profile
+      
+          </ng-template>
+      
+          <mat-toolbar color="primary" class="mat-elevation-z22" style="z-index: 100;">
+            <span style="flex: 1 1 auto;"></span>
+            <span>Profile</span>
+            <span style="flex: 1 1 auto;"></span>
+          </mat-toolbar>
+      
+          <div class="mat-elevation-z22 tab-container">
+      
+            <br />
+            <mat-divider></mat-divider>
+            <br />
+      
+            <ng-container *ngIf="isLoadedTab == false">
+              <br />
+              <br />
+              <br />
+              <br />
+              <mat-spinner style="margin: auto"></mat-spinner>
+            </ng-container>
+      
+            <ng-container *ngIf="isLoadedTab == true">
+                
+                <div class="profile-card">
+                    <div style="min-width: 95%; margin: auto">
+                        <ng-container *ngIf="employeeData.data.emp_isVerified == false; then thenBlock"></ng-container>
+                          <ng-template #thenBlock>
+                            <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">
+                            <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
+                              <mat-label>OTP Code</mat-label>
+                              <input matInput [(ngModel)]="otp" [ngStyle]="{'background-color': otp? '' : 'var(--warn-lighter-color)'}">
+                            </mat-form-field>&nbsp;
+                            <button mat-raised-button matDialogClose color="primary" (click)="sendOTP()" [disabled]="click">Send OTP code</button>&nbsp;
+                            <button mat-raised-button matDialogClose color="accent" (click)="verify()">Verify OTP code</button>
+                          </mat-dialog-content>
+                          </ng-template>
+      
+                          <mat-card class="example-card" style="min-width: 90%; text-align: center;">
+
+                            <h2> {{ employeeData.data.emp_fname }}  {{employeeData.data.emp_mname}} {{employeeData.data.emp_lname}} {{employeeData.data.emp_extname}} </h2> 
+                            <h3> {{employeeData.data.emp_position}} </h3>
+                            <mat-divider></mat-divider>
+                            <br/>
+                            <br/>
+                          <ng-container *ngIf="employeeData.data.emp_imgUrl != ''">
+                            <img mat-card-image src="{{employeeData.data.emp_imgUrl}}" alt="Photo of a Shiba Inu" style="object-fit: contain; height: 250px;">
+                          </ng-container>
+                          
+                          <mat-card-content>
+                            <h4>Email: {{employeeData.data.emp_email}} </h4>
+                            <h4>Contact #: {{employeeData.data.emp_contactNum}}</h4>
+                            <h4>Address: {{employeeData.data.emp_address}}</h4>
+                            <h4>Birthday: {{employeeData.data.emp_birth_date | date}}</h4>
+                            <h4>Date Started: {{employeeData.data.emp_start_date | date}}</h4>
+                          </mat-card-content>
+                          <mat-card-actions style="display: flex;">
+                            <button mat-raised-button color="warn" (click)="openDialogEditUser(employeeData.data)" style="max-width: 100%;"><mat-icon>edit</mat-icon> User</button>&nbsp;
+                            <button mat-raised-button color="accent" (click)="openDialogChangePassword(employeeData.data)" style="max-width: 100%;"><mat-icon>edit</mat-icon> Password</button>
+                          </mat-card-actions>
+                          <br/>
+                        </mat-card><br/>
+                    
+                </div>
+              </div>
+                
+            </ng-container>
+      
+          </div>
+      
+        </mat-tab>
+      
+      </mat-tab-group>
+      
+      </ng-container>
+      
   </ng-container>
 
   <ng-template #empUserProfile let-data>

@@ -469,7 +469,7 @@ export class InventoryComponent implements OnInit {
     }
     
   }
-
+  default = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png'
 
   invData: any = {}
   editInv(input: any) {
@@ -488,7 +488,7 @@ export class InventoryComponent implements OnInit {
     editInvData.inv_supplier = input.inv_supplier
     editInvData.inv_min_amount = input.inv_min_amount
     editInvData._id = input._id
-    if (editimage && input.inv_imageUrl == '') {
+    if (input.inv_imageUrl != this.default && editimage == '') {
       this.httpClient.post<any>('http://localhost:3000/api/uploads', editImageData).subscribe((data: any) => {
         console.log(data)
         editInvData.inv_imageUrl = data.filename
@@ -501,13 +501,19 @@ export class InventoryComponent implements OnInit {
         })
       })
       
-    } else if (editimage) {
+    } else if (editimage != '' || editImageData != undefined || editImageData != null) {
       this.dataService.patch('inventories/edit', { data: editInvData }).subscribe((data: any) => {
         
-
-        this.getInventories()
-        if(data.code == 200) Swal.fire('Edit Successful', '', 'success')
-          else {Swal.fire('Action unsuccessful!', '', 'error')}
+        this.httpClient.post<any>('http://localhost:3000/api/uploads', editImageData).subscribe((data: any) => {
+          editInvData.inv_imageUrl = data.filename
+          this.dataService.patch('inventories/edit', { data: editInvData }).subscribe((data: any) => {
+          
+            this.getInventories()
+            if(data.code == 200) Swal.fire('Edit Successful', '', 'success')
+            else {Swal.fire('Action unsuccessful!', '', 'error')}
+  
+          })
+        })
 
       })
     }

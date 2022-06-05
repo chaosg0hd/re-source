@@ -490,9 +490,10 @@
     </p>
     <div class="inputs" [formGroup]="form" (ngSubmit)="form.valid">
     <mat-form-field appearance="outline" style=" min-width: 20% ; flex:auto; border-radius: 16px !important">
-      <mat-label>Image</mat-label>
-      <ngx-mat-file-input [(ngModel)]="data.emp_imgfile" name="file" [ngStyle]="{'background-color': data.emp_imagefile? '' : 'var(--warn-lighter-color)'}">
+      
+      <ngx-mat-file-input [(ngModel)]="data.emp_imgfile" name="file" [ngStyle]="{'background-color': data.emp_imagefile? '' : 'var(--warn-lighter-color)'}" placeholder="Upload an image">
       </ngx-mat-file-input>
+      <!-- <mat-label>Upload an image</mat-label> -->
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">

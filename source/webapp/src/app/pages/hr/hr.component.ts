@@ -385,6 +385,10 @@ export class HrComponent implements OnInit{
   checkNewEmp(){
 
   }
+
+  imageCompression(){
+    
+  }
    
   newEmp(input : any) {
     console.log(input)

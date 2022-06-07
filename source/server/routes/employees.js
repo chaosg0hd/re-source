@@ -14,7 +14,7 @@ const MAIL_SETTINGS = {
     },
 }
 const nodemailer = require('nodemailer');
-const e = require("express");
+const imageHash = require('node-image-hash')
 const transporter = nodemailer.createTransport(MAIL_SETTINGS);
 
 
@@ -70,9 +70,21 @@ router.get('/get/:_id', (req, res) => {
     Employee.findOne({ "_id": req.params._id })
         .then((data) => {
             if (data != null) {
-                console.log(data)
+                
                 console.log("Employees " + data._id + " Get")
-                res.json({ data, message: "Get successfull", code: "200" })
+                // let hashed = imageHash
+                //     .syncHash(data.emp_imgUrl.replace('http://localhost:3000/uploads/', 'server\\uploads\\'), 8, 'hex')
+                //     .then((hash) => {
+                //         console.log(hash)    
+                //         return hash})
+
+                // data.hash = hashed
+                // console.log(data)
+                // console.log(hashed)
+                let base64 = Buffer.from(data.emp_imgUrl).toString('base64')
+                //let base64 = btoa(data.emp_imgUrl)
+                console.log(base64)
+                res.json({ data, message: "Get successful", code: "200", base64: base64})
             }
             else {
                 console.log("Data Does Not Exist")

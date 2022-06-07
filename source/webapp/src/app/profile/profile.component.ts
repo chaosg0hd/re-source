@@ -136,6 +136,13 @@ export class ProfileComponent implements OnInit {
   isToggleArchive = false
 
   employeeData: any ={}
+  b64 : any
+
+  decode(data: any){
+    return atob(data)
+
+  }  
+
   getEmployee(input: string){
     console.log(input)
     let id =  input
@@ -143,6 +150,9 @@ export class ProfileComponent implements OnInit {
     this.dataService.get(`employees/get/${input}`).subscribe((data: any) => {
       console.log(data)
       this.employeeData = data
+      this.b64 = this.decode(data.base64)
+      console.log(this.b64)
+
     })
   }
 

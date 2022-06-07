@@ -103,6 +103,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { GalleryComponent } from './pages/gallery/gallery.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+//import { NgxImageCompressService } from 'ngx-image-compress';
 
 //jspd
 
@@ -203,6 +204,7 @@ import { environment } from '../environments/environment';
     //mat file input
     NgxMatFileInputModule,
     ReactiveFormsModule,
+   // NgxImageCompressService,
 
     //Googlechart Declaration
 

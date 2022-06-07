@@ -489,12 +489,16 @@
       All of the personal records below will be kept confidential. The records below are used for storing records in accordance with RA 10173, also known as the "Data Privacy Act of 2012". It is a law that seeks to protect all forms of information, be it private, personal, or sensitive. It is meant to cover both natural and juridical persons involved in the processing of personal information.
     </p>
     <div class="inputs" [formGroup]="form" (ngSubmit)="form.valid">
-    <mat-form-field appearance="outline" style=" min-width: 20% ; flex:auto; border-radius: 16px !important">
+    <mat-form-field id="formid" appearance="outline" style=" min-width: 20% ; flex:auto; border-radius: 16px !important">
       
-      <ngx-mat-file-input [(ngModel)]="data.emp_imgfile" name="file" [ngStyle]="{'background-color': data.emp_imagefile? '' : 'var(--warn-lighter-color)'}" placeholder="Upload an image">
+
+      <ngx-mat-file-input id="fileinput" [disabled]="true" [(ngModel)]="data.emp_imgfile" name="file" #fileinput>
       </ngx-mat-file-input>
-      <!-- <mat-label>Upload an image</mat-label> -->
-    </mat-form-field>&nbsp;
+      <!-- <mat-label>Upload an image</mat-label> 
+         document.getElementById('emp')?.addEventListener('click', openDialog)
+      -->
+      <!-- <button mat-stroked-button color="primary" (click)="openDialog(document.getElementById('fileinput'))" > Upload an image</button> -->
+      </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
       <mat-label>ID</mat-label>

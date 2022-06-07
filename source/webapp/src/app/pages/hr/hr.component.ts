@@ -19,6 +19,9 @@ import { LibraryService } from 'src/app/services/library/library.service'
 import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animations'
 import { FormGroup, FormControl, Validators,FormBuilder, FormGroupDirective, NgForm } from '@angular/forms'
 import { ErrorStateMatcher } from '@angular/material/core';
+import { AnyRecord } from 'dns';
+import { elementAt } from 'rxjs';
+//import { NgxImageCompressService } from 'ngx-image-compress';
 
 @Component({
   selector: 'app-hr',
@@ -91,7 +94,7 @@ export class HrComponent implements OnInit{
     private datepipe: DatePipe,
     private dialog: MatDialog,
     private httpClient: HttpClient,
-    private formBuilder: FormBuilder
+   // private imgCompress: NgxImageCompressService
   ) { }
 
   ngOnInit(): void {
@@ -409,17 +412,47 @@ export class HrComponent implements OnInit{
   imageCompression(){
     
   }
-   
+
+  file: any
+
+  onChange(event: any){
+    this.file = event.target.file[0]
+    
+  }
+
+  
+
+  // setup(){
+  //   document.getElementById('emp')?.addEventListener('click', this.openDialog()! )
+  //   //document.getElementById('fileid')?.addEventListener('change', this.submitForm()!)
+    
+  // }
+
+  openDialog(element: any){
+    if(element instanceof HTMLElement){
+      element.click()
+    }
+  }
+
+  // submitForm() {
+  //   if(document.getElementById('formid') != null) {
+  //     //document!.getElementById('formid')!.onsubmit()
+  //   }
+  // }
+  imgCompression() {
+
+  }
+
   newEmp(input : any) {
     console.log(input)
   
     
-    if(this.verify(input.emp_email) != true) {
+    // if(this.verify(input.emp_email) != true) {
      Swal.fire('Invalid Email Address', '', 'error')
-    } else {
+    // } else {
       const form = new FormData()
       let addimage = input.emp_imgfile
-  
+      if(!this.file) input.emp_imgfile = this.file
       form.append('file', addimage)
       console.log(input.emp_contactNum)
       input.emp_contactNum = '+63' + input.emp_contactNum.substring(1)
@@ -449,7 +482,8 @@ export class HrComponent implements OnInit{
               })
        })
       }
-    }
+    // 
+    
     
   }
 

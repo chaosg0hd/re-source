@@ -19,6 +19,9 @@ import { LibraryService } from 'src/app/services/library/library.service'
 import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animations'
 import { FormGroup, FormControl, Validators,FormBuilder, FormGroupDirective, NgForm } from '@angular/forms'
 import { ErrorStateMatcher } from '@angular/material/core';
+import { AnyRecord } from 'dns';
+import { elementAt } from 'rxjs';
+//import { NgxImageCompressService } from 'ngx-image-compress';
 
 @Component({
   selector: 'app-hr',
@@ -42,6 +45,26 @@ export class HrComponent implements OnInit{
           Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
         ])
   })
+
+  mail = new FormControl('', [Validators.required, Validators.email])
+  pword = new FormControl('', [Validators.required, Validators.minLength(8), Validators.pattern('(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}')])
+  getErrorMessage(){
+    if (this.mail.hasError('required')) {
+      return 'You must enter a value'
+    }
+
+    return this.mail.hasError('mail') ? 'Not Valid email' : 'Not valid email' 
+  }
+
+  getErrorMessagePword(){
+    if(this.pword.hasError('required')) {
+      return 'Password cannot be empty'
+    } else if (this.pword.hasError('minLength')) {
+      return 'Should contain at least 8 character'
+    } else {
+      return this.pword.hasError('pword') ? 'Should contain at least 1 uppercase, 1 lowercase and 1 number' : 'Should contain at least 1 uppercase, 1 lowecase, and 1 number'
+    }
+  }
 
 
   //confirmValidParentMatcher = new ConfirmValidParentMatcher()
@@ -71,7 +94,7 @@ export class HrComponent implements OnInit{
     private datepipe: DatePipe,
     private dialog: MatDialog,
     private httpClient: HttpClient,
-    private formBuilder: FormBuilder
+   // private imgCompress: NgxImageCompressService
   ) { }
 
   ngOnInit(): void {
@@ -135,6 +158,21 @@ export class HrComponent implements OnInit{
       pdf.addImage(fileuri, 'PNG', 5, 5, width, height)
       pdf.save('payroll')
     })
+  }
+
+  attendancePDF(){
+    let data : any = document.getElementById('dtr')
+
+    html2canvas(data).then(canvas => {
+      const contentDataURL = canvas.toDataURL('image/png')
+      let pdf = new jsPDF('p', 'mm', 'a4')
+      var width = pdf.internal.pageSize.getWidth()
+      var height = canvas.height * width / canvas.width
+
+      pdf.addImage(contentDataURL, 'PNG', 0, 0, width, height)
+      pdf.save(this.datepipe.transform(Date.now(), 'dd-MM-yyyy') +'-DTR-Report.pdf')
+    })
+
   }
 
   openDialogEditEmp(input: any) {
@@ -385,17 +423,51 @@ export class HrComponent implements OnInit{
   checkNewEmp(){
 
   }
-   
+
+  imageCompression(){
+    
+  }
+
+  file: any
+
+  onChange(event: any){
+    this.file = event.target.file[0]
+    
+  }
+
+  
+
+  // setup(){
+  //   document.getElementById('emp')?.addEventListener('click', this.openDialog()! )
+  //   //document.getElementById('fileid')?.addEventListener('change', this.submitForm()!)
+    
+  // }
+
+  openDialog(element: any){
+    if(element instanceof HTMLElement){
+      element.click()
+    }
+  }
+
+  // submitForm() {
+  //   if(document.getElementById('formid') != null) {
+  //     //document!.getElementById('formid')!.onsubmit()
+  //   }
+  // }
+  imgCompression() {
+
+  }
+
   newEmp(input : any) {
     console.log(input)
   
     
-    if(this.verify(input.emp_email) != true) {
+    // if(this.verify(input.emp_email) != true) {
      Swal.fire('Invalid Email Address', '', 'error')
-    } else {
+    // } else {
       const form = new FormData()
       let addimage = input.emp_imgfile
-  
+      if(!this.file) input.emp_imgfile = this.file
       form.append('file', addimage)
       console.log(input.emp_contactNum)
       input.emp_contactNum = '+63' + input.emp_contactNum.substring(1)
@@ -425,7 +497,8 @@ export class HrComponent implements OnInit{
               })
        })
       }
-    }
+    // 
+    
     
   }
 

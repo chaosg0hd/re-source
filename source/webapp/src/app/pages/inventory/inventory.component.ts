@@ -27,12 +27,18 @@ import { Inventory, Purchase, Sale, Supplier } from 'src/app/services/data/data.
 
 import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation, rubberBandAnimation } from 'angular-animations';
 import { hasUncaughtExceptionCaptureCallback } from 'process';
+import { arrayBuffer } from 'stream/consumers';
 
 //SAMPLE
 
 //declaration mat input
 const presetFiles = [new File([], "file 1"), new File([], "file 2")];
 const presetFile = new File([], "file 1");
+
+interface Food {
+  value: string,
+  viewValues: string,
+}
 
 @Component({
   selector: 'app-inventory',
@@ -44,6 +50,7 @@ const presetFile = new File([], "file 1");
     rubberBandAnimation(),
   ]
 })
+
 export class InventoryComponent implements OnInit {
 
   constructor(
@@ -61,8 +68,7 @@ export class InventoryComponent implements OnInit {
 
   baseURL = environment.baseURL
 
-  
-
+  selectedValue : any
 
 
   @ViewChild('invAddDialog', { static: true }) invAddDialog!: TemplateRef<any>;
@@ -147,6 +153,7 @@ export class InventoryComponent implements OnInit {
   }
 
   @ViewChild(MatSort) invSort!: MatSort;
+  @ViewChild(MatSort) invSortCateg!: MatSort;
 
   /*@ViewChild(MatSort) purcSort!: MatSort;*/
 
@@ -156,6 +163,7 @@ export class InventoryComponent implements OnInit {
       this.purchasesDataSource.sort = value;
     }
   }
+  
 
   @ViewChild('saleSort', { static: false })
   set saleSort(value: MatSort) {
@@ -294,7 +302,7 @@ export class InventoryComponent implements OnInit {
   inventoriesIdArchive: any;
 
   isToggleArchive = false
-
+  Foods : any
   getInventories() {
 
     this.dataService.get('inventories/get')
@@ -304,6 +312,13 @@ export class InventoryComponent implements OnInit {
         this.inventoriesPayload = data;
         this.inventoriesData = this.inventoriesPayload.data;
         
+        this.Foods = this.inventoriesData.map((data) => { if(data.inv_category)
+          {
+            let array: any[] = []
+            array.push(data)} 
+            
+          })
+
 
         if (this.isToggleArchive == false) {
           let array: any[] = [];
@@ -329,6 +344,7 @@ export class InventoryComponent implements OnInit {
         this.inventoriesDataSource.data = this.inventoriesData;
         this.inventoriesGalleryData = this.inventoriesDataSource.data
         this.inventoriesDataSource.sort = this.invSort;
+        this.inventoriesGalleryData.sort = this.invSortCateg
 
         //this.employeesDataSource.paginator = this.empPaginator
         //this.employeesDataSource.sort = this.empSort;
@@ -469,7 +485,7 @@ export class InventoryComponent implements OnInit {
     }
     
   }
-
+  default = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png'
 
   invData: any = {}
   editInv(input: any) {
@@ -488,7 +504,7 @@ export class InventoryComponent implements OnInit {
     editInvData.inv_supplier = input.inv_supplier
     editInvData.inv_min_amount = input.inv_min_amount
     editInvData._id = input._id
-    if (editimage && input.inv_imageUrl == '') {
+    if (input.inv_imageUrl != this.default && editimage == '') {
       this.httpClient.post<any>('http://localhost:3000/api/uploads', editImageData).subscribe((data: any) => {
         console.log(data)
         editInvData.inv_imageUrl = data.filename
@@ -501,13 +517,19 @@ export class InventoryComponent implements OnInit {
         })
       })
       
-    } else if (editimage) {
+    } else if (editimage != '' || editImageData != undefined || editImageData != null) {
       this.dataService.patch('inventories/edit', { data: editInvData }).subscribe((data: any) => {
         
-
-        this.getInventories()
-        if(data.code == 200) Swal.fire('Edit Successful', '', 'success')
-          else {Swal.fire('Action unsuccessful!', '', 'error')}
+        this.httpClient.post<any>('http://localhost:3000/api/uploads', editImageData).subscribe((data: any) => {
+          editInvData.inv_imageUrl = data.filename
+          this.dataService.patch('inventories/edit', { data: editInvData }).subscribe((data: any) => {
+          
+            this.getInventories()
+            if(data.code == 200) Swal.fire('Edit Successful', '', 'success')
+            else {Swal.fire('Action unsuccessful!', '', 'error')}
+  
+          })
+        })
 
       })
     }
@@ -1944,6 +1966,35 @@ export class InventoryComponent implements OnInit {
   //}
 
   //jspdf-autotable
+
+  generatePurchaseCharts(){
+    let data : any = document.getElementById('purcCharts')
+
+    html2canvas(data).then(canvas => {
+      const contentDataURL = canvas.toDataURL('image/png')
+      let pdf = new jsPDF('p', 'mm', 'a4')
+      var width = pdf.internal.pageSize.getWidth()
+      var height = canvas.height * width / canvas.width
+
+      pdf.addImage(contentDataURL, 'PNG', 0, 0, width, height)
+      pdf.save(this.datepipe.transform(Date.now(), 'dd-MM-yyyy') +'-Purchase-Report-Charts.pdf')
+    })
+
+  }
+
+  generateSalesCharts(){
+    let data : any = document.getElementById('saleCharts')
+
+    html2canvas(data).then(canvas => {
+      const contentDataURL = canvas.toDataURL('image/png')
+      let pdf = new jsPDF('p', 'mm', 'a4')
+      var width = pdf.internal.pageSize.getWidth()
+      var height = canvas.height * width / canvas.width
+
+      pdf.addImage(contentDataURL, 'PNG', 0, 0, width, height)
+      pdf.save(this.datepipe.transform(Date.now(), 'dd-MM-yyyy') +'-Purchase-Report-Charts.pdf')
+    })
+  }
   generatePurchaseReport() {
 
     let data: any = document.getElementById('purchReport')

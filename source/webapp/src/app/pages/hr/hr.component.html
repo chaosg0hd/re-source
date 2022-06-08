@@ -250,6 +250,8 @@
                   <mat-label><mat-icon>search</mat-icon>Search</mat-label>
 
                   <input matInput placeholder="Ex. Juan De" (keyup)="applyFilterCalendar($event)">
+
+                  <button mat-stroked-button color="primary" (click)="attendancePDF()"> Attendance PDF </button>
                 </mat-form-field>
 
                 <span style="flex: 1 1 auto;"></span>
@@ -288,7 +290,7 @@
 
             <div class="mat-elevation-z4 rounded-container-flex">
 
-              <div style="width: 100%; overflow-x: scroll;">
+              <div style="width: 100%; overflow-x: scroll;" id="dtr">
 
                 <mat-table [dataSource]="calendarDataSource" class="att-table">
 
@@ -489,11 +491,16 @@
       All of the personal records below will be kept confidential. The records below are used for storing records in accordance with RA 10173, also known as the "Data Privacy Act of 2012". It is a law that seeks to protect all forms of information, be it private, personal, or sensitive. It is meant to cover both natural and juridical persons involved in the processing of personal information.
     </p>
     <div class="inputs" [formGroup]="form" (ngSubmit)="form.valid">
-    <mat-form-field appearance="outline" style=" min-width: 20% ; flex:auto; border-radius: 16px !important">
-      <mat-label>Image</mat-label>
-      <ngx-mat-file-input [(ngModel)]="data.emp_imgfile" name="file" [ngStyle]="{'background-color': data.emp_imagefile? '' : 'var(--warn-lighter-color)'}">
+    <mat-form-field id="formid" appearance="outline" style=" min-width: 20% ; flex:auto; border-radius: 16px !important">
+      
+
+      <ngx-mat-file-input id="fileinput" [disabled]="true" [(ngModel)]="data.emp_imgfile" name="file" #fileinput>
       </ngx-mat-file-input>
-    </mat-form-field>&nbsp;
+      <!-- <mat-label>Upload an image</mat-label> 
+         document.getElementById('emp')?.addEventListener('click', openDialog)
+      -->
+      <!-- <button mat-stroked-button color="primary" (click)="openDialog(document.getElementById('fileinput'))" > Upload an image</button> -->
+      </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
       <mat-label>ID</mat-label>
@@ -502,9 +509,10 @@
 
     <mat-form-field appearance="outline" style=" min-width: 60% ;flex:auto;border-radius: 16px !important" class="form-group-new-emp">
       <mat-label>Email</mat-label>
-      <input matInput [(ngModel)]="data.emp_email" type="email"/>  
-      <mat-error *ngIf="form.controls['emp_email'].errors?.['required']" style="color:red;">Email address is required</mat-error>   
-      <mat-error *ngIf="form.controls['emp_email'].errors?.['pattern']" style="color:red;">>Please provide a valid email address</mat-error> 
+      <input matInput [formControl]="mail" [(ngModel)]="data.emp_email" type="email" placeholder="kekw@example.com" required>
+        <mat-error *ngIf="mail.invalid"> {{ getErrorMessage() }} </mat-error>
+      <!-- <mat-error *ngIf="form.controls['emp_email'].errors?.['required']" style="color:red;">Email address is required</mat-error>   
+      <mat-error *ngIf="form.controls['emp_email'].errors?.['pattern']" style="color:red;">>Please provide a valid email address</mat-error>  -->
     </mat-form-field>
     
     &nbsp;
@@ -541,7 +549,11 @@
 
     <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
       <mat-label>Password</mat-label>
-      <input required matInput type="password" [(ngModel)]="data.emp_password" [ngStyle]="{'background-color': data.emp_password? '' : 'var(--warn-lighter-color)'}">
+      <input required matInput type="password"
+      [formControl]="pword"
+      [(ngModel)]="data.emp_password">
+      <mat-error *ngIf="pword.invalid"> {{ getErrorMessagePword() }} </mat-error>
+      
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">

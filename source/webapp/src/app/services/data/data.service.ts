@@ -46,25 +46,33 @@ export class DataService {
 
   getData(key : any){
 
-    localStorage.getItem(key)
+    
+
+    return localStorage.getItem(key)
 
   }
 
   manageData(route: any, method : any, data: any) {
 
-    //switchcase
-
     switch(route){
       case 'employees':
+
         switch(method){
           case 'get':
 
-          let key = 'empget'
+            let key = 'empget'
 
-          if(localStorage.getItem(key) != null && undefined){
+            if (this.getData(key) == null || this.getData(key) == undefined) {
+
+              console.log('XXXXXXXXXXXXXXX')
+            }
+
+            if (this.getData(key) != null || this.getData(key) != undefined) {
+              
 
 
-          }
+
+            }
 
           break
 

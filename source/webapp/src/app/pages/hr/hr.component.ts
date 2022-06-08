@@ -332,6 +332,7 @@ export class HrComponent implements OnInit{
   employeesDisplayedColumns = ['emp_name', 'emp_id', 'emp_position', 'emp_address', 'emp_start_date', 'emp_birth_date', 'emp_status', 'actions'];
 
   //SORT OK
+  //SYNC
   //PAGINATION OK
   //WIDTH OK
   //NEW OK
@@ -341,6 +342,9 @@ export class HrComponent implements OnInit{
 
 
   getEmployees() {
+
+    this.dataService.manageData('employees', 'get', null)
+
 
     this.dataService.get('employees/get')
       .subscribe((data) => {

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { DataService } from './services/data/data.service';
 import { LibraryService } from './services/library/library.service';
-
+import { SwUpdate} from '@angular/service-worker'
 import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animations';
 
 @Component({
@@ -17,8 +17,16 @@ import { fadeInOnEnterAnimation, fadeOutOnLeaveAnimation } from 'angular-animati
 })
 export class AppComponent {
   title = 'Re:Source';
-
-  constructor(public dataService: DataService, public libraryService: LibraryService) {}
+  update: boolean = false
+  constructor(
+    public dataService: DataService,
+    public libraryService: LibraryService,
+    swupdate: SwUpdate)
+    {
+      swupdate.available.subscribe(event => {
+        this.update = true
+      })
+    }
 
   ngOnInit(): void {
 

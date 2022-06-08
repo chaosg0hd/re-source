@@ -14,8 +14,9 @@
           "/*.js"
         ], 
          "urls" : [
-           "http://localhost:4200/*",
-           "http://127.0.0.1:8080/*"
+           "http://localhost:4200/**",
+           "http://127.0.0.1:8080/**",
+           "http://192.168.1.125:8080/**"
          ]
       }
     },
@@ -35,12 +36,12 @@
       {
         "name": "api",
         "urls": [
-          "http://localhost:3000/api/*"
+          "http://localhost:3000/api/**"
         ],
         "cacheConfig": {
           "strategy" : "performance",
           "maxAge": "15m",
-          "timeout": "10s",
+          "timeout": "20s",
           "maxSize": 20
         }
       }

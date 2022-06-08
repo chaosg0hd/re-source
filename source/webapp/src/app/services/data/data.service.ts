@@ -38,6 +38,16 @@ export class DataService {
     return this.http.delete(`${this.baseURL}/api/${uri}`);
   }
 
+  storeData() {
+
+    //switchcase
+
+
+
+
+
+  }
+
   //Data Methods
 
   //checkLogin(uri: any, data: any) {  

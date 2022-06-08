@@ -354,6 +354,25 @@ export class InventoryComponent implements OnInit {
 
   inventoriesGalleryData: any
 
+  sortGallery() {
+
+    //Need to create swtich case for this as well as toggle
+
+    let obj = [{ prop: 1 }, { prop: 3 }, { prop: 2 }]
+
+
+    obj.sort((a, b) => {
+      if (a.prop > b.prop)
+        return -1;
+      if (a.prop < b.prop)
+        return 1;
+      return 0;
+    });
+
+    console.log(obj)
+
+  }
+
   applyFilterInv(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.inventoriesDataSource.filter = filterValue.trim().toLowerCase();

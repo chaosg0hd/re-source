@@ -6,8 +6,9 @@
     "\\source\\webapp\\src",
     "\\source\\webapp\\src\\app",
     "\\source\\webapp\\src\\app\\pages",
-    "\\source\\webapp\\src\\app\\pages\\home",
     "\\source\\webapp\\src\\app\\pages\\inventory",
+    "\\source\\webapp\\src\\app\\services",
+    "\\source\\webapp\\src\\app\\services\\data",
     "\\source\\webapp\\src\\assets",
     "\\source\\webapp\\src\\assets\\images"
   ],

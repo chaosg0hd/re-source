@@ -38,9 +38,47 @@ export class DataService {
     return this.http.delete(`${this.baseURL}/api/${uri}`);
   }
 
-  storeData() {
+  storeData(key: any, data: any){
+
+    localStorage.setItem(key, data)
+
+  }
+
+  getData(key : any){
+
+    localStorage.getItem(key)
+
+  }
+
+  manageData(route: any, method : any, data: any) {
 
     //switchcase
+
+    switch(route){
+      case 'employees':
+        switch(method){
+          case 'get':
+
+          let key = 'empget'
+
+          if(localStorage.getItem(key) != null && undefined){
+
+
+          }
+
+          break
+
+          default:
+        }
+
+        
+      break
+
+      default:
+
+    }
+
+    
 
 
 

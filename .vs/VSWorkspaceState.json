@@ -11,6 +11,6 @@
     "\\source\\webapp\\src\\assets",
     "\\source\\webapp\\src\\assets\\images"
   ],
-  "SelectedNode": "\\source\\webapp\\src\\app\\pages\\inventory\\inventory.component.html",
+  "SelectedNode": "\\source\\webapp\\src\\app\\pages\\inventory\\inventory.component.ts",
   "PreviewInSolutionExplorer": false
 }

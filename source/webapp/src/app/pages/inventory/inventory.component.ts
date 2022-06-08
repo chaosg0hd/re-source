@@ -35,9 +35,9 @@ import { arrayBuffer } from 'stream/consumers';
 const presetFiles = [new File([], "file 1"), new File([], "file 2")];
 const presetFile = new File([], "file 1");
 
-interface Food {
+interface Category {
   value: string,
-  viewValues: string,
+  viewValue: string,
 }
 
 @Component({
@@ -67,9 +67,6 @@ export class InventoryComponent implements OnInit {
   }
 
   baseURL = environment.baseURL
-
-  selectedValue : any
-
 
   @ViewChild('invAddDialog', { static: true }) invAddDialog!: TemplateRef<any>;
   @ViewChild('invCloneDialog', { static: true }) invCloneDialog!: TemplateRef<any>;
@@ -302,7 +299,27 @@ export class InventoryComponent implements OnInit {
   inventoriesIdArchive: any;
 
   isToggleArchive = false
-  Foods : any
+
+  selectedValue : any
+
+  categories: Category[] = [
+    {value: '', viewValue: '-'},
+    {value: 'Steelworks', viewValue: 'Steelworks'},
+    {value: 'Steel Structural', viewValue: 'Steel Structural'},
+    {value: 'Roofing', viewValue: 'Roofing'},
+    {value: 'Tiling', viewValue: 'Tiling'},
+    {value: 'Dry Wall', viewValue: 'Dry Wall'},
+  ]
+
+  sortCategory(data: any){
+    
+    let meowmare = data
+    let array: any[] = [];
+
+    const res = this.inventoriesData.map((data) => {if (data.inv_category == meowmare ) {array.push(data)}})
+    console.log(res)
+  }
+
   getInventories() {
 
     this.dataService.get('inventories/get')
@@ -312,12 +329,15 @@ export class InventoryComponent implements OnInit {
         this.inventoriesPayload = data;
         this.inventoriesData = this.inventoriesPayload.data;
         
-        this.Foods = this.inventoriesData.map((data) => { if(data.inv_category)
-          {
-            let array: any[] = []
-            array.push(data)} 
+        // this.Foods = this.inventoriesData.map((data) => { if(data.inv_category)
+        //   {
+        //     let array: any[] = []
+        //     array.push(data)} 
             
-          })
+        //   })
+        if (this.selectedValue != '' || this.selectedValue != null || this.selectedValue != undefined){
+          this.sortCategory(this.selectedValue)
+        }
 
 
         if (this.isToggleArchive == false) {
@@ -377,7 +397,8 @@ export class InventoryComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.inventoriesDataSource.filter = filterValue.trim().toLowerCase();
     this.inventoriesGalleryData = this.inventoriesDataSource._pageData
-
+    //this.inventoriesDataSource.data = this.inventoriesDataSource.filter
+    
   }
 
   purchasesPayload: any;

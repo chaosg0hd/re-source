@@ -131,10 +131,10 @@
                     <mat-cell *matCellDef="let element"> {{element.emp_rate_type}} </mat-cell>
                   </ng-container>
 
-                  <ng-container matColumnDef="emp_role">
+                  <!-- <ng-container matColumnDef="emp_role">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Role</mat-header-cell>
                     <mat-cell *matCellDef="let element"> {{element.emp_role}} </mat-cell>
-                  </ng-container>
+                  </ng-container> -->
 
                   <ng-container matColumnDef="emp_start_date">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Start Date</mat-header-cell>
@@ -251,7 +251,7 @@
 
                   <input matInput placeholder="Ex. Juan De" (keyup)="applyFilterCalendar($event)">
 
-                  <button mat-stroked-button color="primary" (click)="attendancePDF()"> Attendance PDF </button>
+                  
                 </mat-form-field>
 
                 <span style="flex: 1 1 auto;"></span>
@@ -290,7 +290,7 @@
 
             <div class="mat-elevation-z4 rounded-container-flex">
 
-              <div style="width: 100%; overflow-x: scroll;" id="dtr">
+              <div style="width: 100%; overflow-x: scroll;">
 
                 <mat-table [dataSource]="calendarDataSource" class="att-table">
 
@@ -383,6 +383,7 @@
                 <button mat-stroked-button class="control-buttons" color="primary" (click)="toggleArchive()"><mat-icon>archive</mat-icon>View Archived</button>&nbsp;
 
                 <button mat-stroked-button class="control-buttons" color="warn" (click)="openDialogAttNew()"><mat-icon>add</mat-icon>Add Time-In </button>&nbsp;
+                <button mat-stroked-button class="control-buttons" color="primary" (click)="attendancePDF()"> <mat-icon>insert_drive_file</mat-icon>  Attendance PDF </button>
 
                 <span style="flex: 1 1 auto;"></span>
 
@@ -394,6 +395,7 @@
 
             <div class="mat-elevation-z4 rounded-container-flex">
               <div style="width: 100%; overflow-x: scroll;">
+                <div  id="dtr">
                 <mat-table [dataSource]="attendanceDataSource" class="att-table" matSort matSortActive="atten_date" matSortDirection="asc">
 
                   <ng-container matColumnDef="atten_emp_name" sticky>
@@ -416,6 +418,8 @@
                     <mat-cell *matCellDef="let element"> {{element.atten_seconds | number: '1.0'}} hours </mat-cell>
                   </ng-container>
 
+                
+
                   <ng-container matColumnDef="actions" stickyEnd>
                     <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
                     <mat-cell *matCellDef="let element">
@@ -428,6 +432,7 @@
                   <mat-header-row *matHeaderRowDef="attendanceDisplayedColumns"></mat-header-row>
                   <mat-row *matRowDef="let row; columns: attendanceDisplayedColumns;"></mat-row>
                 </mat-table>
+              </div>
 
               </div>
 

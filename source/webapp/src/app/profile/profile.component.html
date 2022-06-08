@@ -148,7 +148,7 @@
             <ng-container *ngIf="isLoadedTab == true">
                 
                 <div class="profile-card">
-                    <div style="min-width: 95%; margin: auto">
+                    <div style="min-width: 95%; margin: auto; display: flex;">
                         <ng-container *ngIf="employeeData.data.emp_isVerified == false; then thenBlock"></ng-container>
                           <ng-template #thenBlock>
                             <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">
@@ -169,7 +169,7 @@
                             <br/>
                             <br/>
                           <ng-container *ngIf="employeeData.data.emp_imgUrl != ''">
-                            <img mat-card-image src="{{employeeData.data.emp_imgUrl}}" alt="Photo of a Shiba Inu" style="object-fit: contain; height: 250px;">
+                            <img mat-card-image src="{{b64}}" alt="Photo of a Shiba Inu" style="object-fit: contain; height: 250px;">
                           </ng-container>
                           
                           <mat-card-content>
@@ -179,9 +179,9 @@
                             <h4>Birthday: {{employeeData.data.emp_birth_date | date}}</h4>
                             <h4>Date Started: {{employeeData.data.emp_start_date | date}}</h4>
                           </mat-card-content>
-                          <mat-card-actions style="display: flex;">
-                            <button mat-raised-button color="warn" (click)="openDialogEditUser(employeeData.data)" style="max-width: 100%;"><mat-icon>edit</mat-icon> User</button>&nbsp;
-                            <button mat-raised-button color="accent" (click)="openDialogChangePassword(employeeData.data)" style="max-width: 100%;"><mat-icon>edit</mat-icon> Password</button>
+                          <mat-card-actions>
+                            <button mat-raised-button color="warn" (click)="openDialogEditUser(employeeData.data)" style="max-width: 50%;"><mat-icon>edit</mat-icon> User</button>&nbsp;
+                            <button mat-raised-button color="accent" (click)="openDialogChangePassword(employeeData.data)" style="max-width: 50%;"><mat-icon>edit</mat-icon> Password</button>
                           </mat-card-actions>
                           <br/>
                         </mat-card><br/>

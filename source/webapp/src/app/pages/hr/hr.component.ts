@@ -329,7 +329,7 @@ export class HrComponent implements OnInit{
   employeesPayload: any;
   employeesData: Employee[] = [];
   employeesDataSource = new MatTableDataSource(this.employeesData);
-  employeesDisplayedColumns = ['emp_name', 'emp_id', 'emp_role', 'emp_position', 'emp_address', 'emp_start_date', 'emp_birth_date', 'emp_status', 'actions'];
+  employeesDisplayedColumns = ['emp_name', 'emp_id', 'emp_position', 'emp_address', 'emp_start_date', 'emp_birth_date', 'emp_status', 'actions'];
 
   //SORT OK
   //PAGINATION OK

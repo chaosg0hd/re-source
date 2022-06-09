@@ -347,7 +347,7 @@ export class HrComponent implements OnInit{
 
   getEmployees() {
 
-    this.dataService.manageData('employees', 'get', null)
+    /*this.dataService.manageData('employees', 'get', null)*/
 
 
     this.dataService.get('employees/get')
@@ -432,7 +432,14 @@ export class HrComponent implements OnInit{
 
   }
 
-  imageCompression(){
+  imageCompression() {
+
+    //var str = "This is my compression test.";
+    //console.log("Size of sample is: " + str.length);
+    //var compressed = LZString.compress(str);
+    //console.log("Size of compressed sample is: " + compressed.length);
+    //str = LZString.decompress(compressed);
+    //console.log("Sample is: " + str);
     
   }
 
@@ -517,28 +524,30 @@ export class HrComponent implements OnInit{
 
     input.emp_imageb64 = await this.dataService.createBase64String(input.emp_imgfile)
 
-    console.log(input)
+    /*input.emp_imageb64 = */
 
-    let editimage = input.emp_imgfile
-    const form = new FormData()
-    form.append('file', editimage)
-    if(editimage){
-      this.httpClient.post<any>('http://localhost:3000/api/uploads', form).subscribe((data: any) => {
-        console.log(data)
-        /*input.emp_ing*/
-        this.dataService.patch('employees/edit', { data: input }).subscribe((data) => {
-          console.log(data)
+    /*console.log(input)*/
+
+    //let editimage = input.emp_imgfile
+    //const form = new FormData()
+    //form.append('file', editimage)
+    //if(editimage){
+    //  this.httpClient.post<any>('http://localhost:3000/api/uploads', form).subscribe((data: any) => {
+    //    console.log(data)
+    //    /*input.emp_ing*/
+    //    this.dataService.patch('employees/edit', { data: input }).subscribe((data) => {
+    //      console.log(data)
     
-          Swal.fire({
-            title:'Employee Updated!',
-            icon:'success',
-              })
+    //      Swal.fire({
+    //        title:'Employee Updated!',
+    //        icon:'success',
+    //          })
        
-        })
-      })
-    } 
+    //    })
+    //  })
+    //} 
     
-    else {
+    //else {
       this.dataService.patch('employees/edit', { data: input }).subscribe((data) => {
         console.log(data)
   
@@ -547,7 +556,6 @@ export class HrComponent implements OnInit{
           icon:'success',
             })
       })
-    }
     
 
   }

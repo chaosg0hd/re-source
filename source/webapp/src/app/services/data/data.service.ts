@@ -116,7 +116,8 @@ export class DataService {
             }
 
             //if not empty
-            else {
+            else
+            {
               //no need to compare, just update online db with whatever stored inside, lazy but works
               let mismatch = true
 
@@ -167,7 +168,7 @@ export class DataService {
               }
             }         
 
-            break
+           break
 
           //if updating
           case 'update':

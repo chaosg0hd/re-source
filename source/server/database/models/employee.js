@@ -19,6 +19,8 @@ const EmployeeSchema = new mongoose.Schema({
 
   emp_isVerified: { type: Boolean, default: false },
 
+  emp_imageb64: String,
+
   emp_imgUrl: {
     type: String,
     default:

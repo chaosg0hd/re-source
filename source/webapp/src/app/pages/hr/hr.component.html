@@ -491,9 +491,9 @@
       <br />
     </div>
 
-    <h4>Non Disclosure Agreement</h4>
+    <h4>Data Privacy Act of 2012</h4>
     <p>
-      All of the personal records below will be kept confidential. The records below are used for storing records in accordance with RA 10173, also known as the "Data Privacy Act of 2012". It is a law that seeks to protect all forms of information, be it private, personal, or sensitive. It is meant to cover both natural and juridical persons involved in the processing of personal information.
+      Republic Act No. 10173 or the Data Privacy Act of 2012 (DPA) “to protect the fundamental human right to privacy of communication while ensuring free flow of information to promote innovation and growth [and] the [State’s] inherent obligation to ensure that personal information in information and communications systems in government and in the private sector are secured and protected”.   
     </p>
     
     <mat-form-field id="formid" appearance="outline" style=" min-width: 20% ; flex:auto; border-radius: 16px !important">
@@ -570,10 +570,11 @@
 
     <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
       <mat-label>Role</mat-label>
-      <mat-select placeholder="Ex. Juan De" [(ngModel)]="data.emp_role" [ngStyle]="{'background-color': data.emp_role? '' : 'var(--warn-lighter-color)'}">
+      <mat-select [formControl]="role" placeholder="Ex. Juan De" [(ngModel)]="data.emp_role" [ngStyle]="{'background-color': data.emp_role? '' : 'var(--warn-lighter-color)'}">
         <mat-option value="admin">Admin</mat-option>
         <mat-option value="sales_clerk">Sales Clerk</mat-option>
       </mat-select>
+      <mat-error *ngIf="role.invalid"> {{getErrorMessageRole()}} </mat-error>
     </mat-form-field>&nbsp;
 
     <!-- <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">

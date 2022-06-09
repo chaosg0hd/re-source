@@ -45,7 +45,7 @@ export class HrComponent implements OnInit{
           Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
         ])
   })
-
+  role = new FormControl('', [Validators.required])
   imgData = new FormControl('', [Validators.required])
   empid = new FormControl('', [Validators.required])
   mail = new FormControl('', [Validators.required, Validators.email])
@@ -57,6 +57,13 @@ export class HrComponent implements OnInit{
   contactnum = new FormControl('', [Validators.required, Validators.pattern('[0-9]*'), Validators.minLength(10), Validators.maxLength(10)])
   bday = new FormControl('', [Validators.required])
   sday = new FormControl('', [Validators.required])
+
+  getErrorMessageRole(){
+    if (this.role.hasError('required')) {
+      return 'Role is required'
+    }
+    return this.role.hasError('imgData') ? 'Not Valid email' : '' 
+  }
 
   getErrorMessageImgData(){
     if (this.imgData.hasError('required')) {

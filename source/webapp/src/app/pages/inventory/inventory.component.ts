@@ -529,6 +529,10 @@ export class InventoryComponent implements OnInit {
 
   invData: any = {}
   editInv(input: any) {
+
+
+    /*input.emp_imageb64 = await this.dataService.createBase64String(input.emp_imgfile)*/
+
     let editInvData: any = {}
     const editImageData = new FormData()
 

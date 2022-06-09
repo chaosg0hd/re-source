@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -34,8 +36,43 @@ export class DataService {
     return this.http.patch(`${this.baseURL}/api/${uri}`, payload);
   }
 
+  patchAll(uri: string, payload: object) {
+    return this.http.patch(`${this.baseURL}/api/${uri}`, payload);
+  }
+
   delete(uri: string) {
     return this.http.delete(`${this.baseURL}/api/${uri}`);
+  }
+
+
+
+  CreateBase64String(fileInput: any) {
+
+    if (fileInput.target.files && fileInput.target.files[0]) {
+
+      const reader = new FileReader()
+
+      reader.onload = (e: any) => {
+
+        const image = new Image()
+        image.src = e.target.result
+        image.onload = rs => {
+          const imgBase64Path = e.target.result
+          console.log(imgBase64Path)
+        }
+
+      }
+
+      reader.readAsDataURL(fileInput.target.files[0])
+    }
+  }
+
+
+
+  isConnected() {
+
+    return true
+
   }
 
   storeData(key: any, data: any){
@@ -44,9 +81,7 @@ export class DataService {
 
   }
 
-  getData(key : any){
-
-    
+  getData(key : any){    
 
     return localStorage.getItem(key)
 
@@ -60,21 +95,105 @@ export class DataService {
         switch(method){
           case 'get':
 
+            //key for localstorage
             let key = 'empget'
 
+            //check if local storage is empty            
             if (this.getData(key) == null || this.getData(key) == undefined) {
 
-              console.log('XXXXXXXXXXXXXXX')
+              //if connected
+              if (this.isConnected()) {
+
+                //pull from db
+                this.get('employees/get').subscribe((data) => {
+                  console.log(data)
+                  this.storeData('empget', JSON.stringify(data))
+                })
+
+                //return data
+                let localData: any
+                localData = JSON.parse(this.getData('empget')!)
+                console.log(localData)
+
+                return(localData)
+              }
+              else {
+
+                //handle nothing to return
+                return({message: 'NOT CONNECTED AND NO LOCAL DATA'})
+              }
             }
 
-            if (this.getData(key) != null || this.getData(key) != undefined) {
+            //if not empty
+            else {
+
+              //no need to compare, just update online db with whatever stored inside, lazy but works
+              let mismatch = true
+
+              if (mismatch) {
+
+                let localData: any
+                localData = JSON.parse(this.getData('empget')!)
+                console.log(localData)
+
+                this.patch('employees/sync', localData ).subscribe((data) => {
+
+                  //no handle for return yet
+                  console.log(data, 'xxxxxxxxxxxxxx')
+                  //this.storeData('empget', JSON.stringify(data))
+
+                })
+
+              }
+
+              //if connected still the same, just pull again
+              if (this.isConnected()) {
+
+                //pull from db
+                this.get('employees/get').subscribe((data) => {
+                  console.log(data)
+                  this.storeData('empget', JSON.stringify(data))
+
+                })
+
+                //return data
+                let localData: any
+                localData = JSON.parse(this.getData('empget')!)
+                console.log(localData)
+
+                return (localData)
+              }
+
+              //if not connected return localData instead
+              else {
+
+                //return data
+                let localData: any
+                localData = JSON.parse(this.getData('empget')!)
+                console.log(localData)
+
+                return (localData)
+
+              }  
+            }
+
+            break
+
+
+          //if updating
+          case 'update':
+
+            //if connected just update normally
+            if (this.isConnected()) {
+
+              /*this.patch('employees/edit', { data: data })*/
               
 
-
-
             }
 
-          break
+            break
+
+          
 
           default:
         }

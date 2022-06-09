@@ -98,6 +98,42 @@ router.get('/get/:_id', (req, res) => {
 
 })
 
+router.patch('/sync', (req, res) => {
+
+    console.log(req.body.data)
+    console.log(req.body)
+
+    data = req.body.data
+
+    data.forEach((entry) => {
+
+        console.log(entry)
+
+        Employee.findOneAndUpdate({ "_id": entry._id }, { $set: entry })
+        .then((data) => {
+            if (data != null) {
+                console.log(data)
+                console.log("Employees " + data._id + " Edited")
+                /*res.json({ data, message: "Edit successfull", code: "200" })*/
+            }
+            else {
+                console.log("Data Does Not Exist")
+
+                /*there should be delete here*/
+                /*res.json({ message: "Patch failed", code: "404" })*/
+            }
+        })
+        .catch((error) => {
+            console.log(error)
+            /*res.json({ message: "Something Went Wrong", error: error, code: "500" })*/
+        })
+
+    })
+
+    //maybe implement response 
+
+})
+
 router.patch('/edit', (req, res) => {
 
     console.log(req.body.data)

@@ -508,6 +508,7 @@ export class HrComponent implements OnInit{
 
 
 
+
   editEmp(input: any) {
     let editimage = input.emp_imgfile
     const form = new FormData()

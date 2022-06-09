@@ -44,30 +44,21 @@ export class DataService {
     return this.http.delete(`${this.baseURL}/api/${uri}`);
   }
 
+  async createBase64String(file: any) {
 
-
-  CreateBase64String(fileInput: any) {
-
-    if (fileInput.target.files && fileInput.target.files[0]) {
-
-      const reader = new FileReader()
-
-      reader.onload = (e: any) => {
-
-        const image = new Image()
-        image.src = e.target.result
-        image.onload = rs => {
-          const imgBase64Path = e.target.result
-          console.log(imgBase64Path)
+    const bstring = await new Promise((resolve) => {
+      if (file.size) {
+        const reader = new FileReader()
+        reader.onload = (e: any) => {
+          console.log(e.target.result)
+          resolve(e.target.result)
         }
-
+        reader.readAsDataURL(file)
       }
+    })
 
-      reader.readAsDataURL(fileInput.target.files[0])
-    }
+    return bstring
   }
-
-
 
   isConnected() {
 
@@ -115,18 +106,17 @@ export class DataService {
                 localData = JSON.parse(this.getData('empget')!)
                 console.log(localData)
 
-                return(localData)
+                return (localData)
               }
               else {
 
                 //handle nothing to return
-                return({message: 'NOT CONNECTED AND NO LOCAL DATA'})
+                return ({ message: 'NOT CONNECTED AND NO LOCAL DATA' })
               }
             }
 
             //if not empty
             else {
-
               //no need to compare, just update online db with whatever stored inside, lazy but works
               let mismatch = true
 
@@ -136,7 +126,7 @@ export class DataService {
                 localData = JSON.parse(this.getData('empget')!)
                 console.log(localData)
 
-                this.patch('employees/sync', localData ).subscribe((data) => {
+                this.patch('employees/sync', localData).subscribe((data) => {
 
                   //no handle for return yet
                   console.log(data, 'xxxxxxxxxxxxxx')
@@ -174,11 +164,10 @@ export class DataService {
 
                 return (localData)
 
-              }  
-            }
+              }
+            }         
 
             break
-
 
           //if updating
           case 'update':

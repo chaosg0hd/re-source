@@ -340,6 +340,10 @@ export class HrComponent implements OnInit{
   //DELETE OK
   //ARCHIVE OK
 
+  //getImageBase64(image: any) {
+  //  return this.dataService.CreateBase64String(image)
+  //}
+
 
   getEmployees() {
 
@@ -509,14 +513,19 @@ export class HrComponent implements OnInit{
 
 
 
-  editEmp(input: any) {
+  async editEmp(input: any) {
+
+    input.emp_imageb64 = await this.dataService.createBase64String(input.emp_imgfile)
+
+    console.log(input)
+
     let editimage = input.emp_imgfile
     const form = new FormData()
     form.append('file', editimage)
     if(editimage){
       this.httpClient.post<any>('http://localhost:3000/api/uploads', form).subscribe((data: any) => {
         console.log(data)
-        input.emp_ing
+        /*input.emp_ing*/
         this.dataService.patch('employees/edit', { data: input }).subscribe((data) => {
           console.log(data)
     

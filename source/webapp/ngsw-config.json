@@ -3,7 +3,7 @@
   "index": "/index.html",
   "assetGroups": [
     {
-      "name": "app",
+      "name": "Re:Source",
       "installMode": "prefetch",
       "resources": {
         "files": [
@@ -36,7 +36,8 @@
       {
         "name": "api",
         "urls": [
-          "http://localhost:3000/api/**"
+          "http://localhost:3000/api/**",
+          "http://localhost:3000/uploads/**"
         ],
         "cacheConfig": {
           "strategy" : "performance",

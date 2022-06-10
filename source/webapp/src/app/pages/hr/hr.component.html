@@ -628,14 +628,12 @@
       <mat-datepicker #pickerStartDateEdit></mat-datepicker>
       <mat-error *ngIf="sday.invalid"> {{ getErrorMessageSday() }} </mat-error>
     </mat-form-field>&nbsp;
-
-    <span style="flex: 1 1 auto; min-width: 100%"></span>
-
-
-    <div style=" min-width: 40% ;flex:auto;border-radius: 16px !important">
+   <br>
+   <mat-divider></mat-divider>
+   <br>
     <h4>Data Privacy Statement</h4>
 
-    <p> I have read the Re:Source General Privacy Notice at <a href="/market">Data Policy</a>.
+    <p> I have read the Re:Source General Privacy Notice at <a href="/dpa" target="_blank">Data Policy</a>.
     By ticking the checkbox, I recognize the authority of Re:Source to process my personal data and sensitive
     personal information, pursuant to the Re:Source General Privacy Notice and applicable laws.
     </p>
@@ -643,8 +641,8 @@
     <section class="example-section">
       <mat-checkbox class="example-margin" [(ngModel)]="isAgree" (clicked)="toggleAgree()">I Agree!</mat-checkbox>
     </section>
-    </div>
-  
+    
+
 
   </mat-dialog-content>
   <mat-dialog-actions align="end">

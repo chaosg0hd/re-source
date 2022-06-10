@@ -11,6 +11,7 @@ import { GalleryComponent } from './pages/gallery/gallery.component';
 import { BundyComponent } from './bundy/bundy.component';
 import { AuthGuard } from './services/auth/auth.guard';
 import { ProfileComponent } from './profile/profile.component'
+import { MarketComponent } from './market/market.component';
 
 const routes: Routes = [
 
@@ -19,7 +20,9 @@ const routes: Routes = [
   {
     path: 'login', component: LoginComponent
   },
-
+  {
+    path: 'dpa', component: MarketComponent
+  },
   {
     path: 'bundy', component: BundyComponent, canActivate:[AuthGuard]
   },

@@ -491,12 +491,16 @@
       <br />
     </div>
 
-    <h4>Data Privacy Act of 2012</h4>
-    <p>
-      Republic Act No. 10173 or the Data Privacy Act of 2012 (DPA). It (1) protects the privacy of individuals while ensuring free flow of information to promote innovation and growth;
-      (2) regulates the collection, recording, organization, storage, updating or modification, retrieval, consultation, use, consolidation, blocking, erasure or destruction of personal data;
-      and (3) ensures that the Philippines complies with international standards set for data protection through National Privacy Commission (NPC). <a href="https://www.privacy.gov.ph/data-privacy-act/" target="_blank">See more...</a>
-    </p>
+    
+
+    <div style="flex: auto; height: 25vh ; overflow-y: scroll;">
+
+      
+
+    
+    </div>
+
+    
     
     <mat-form-field id="formid" appearance="outline" style=" min-width: 20% ; flex:auto; border-radius: 16px !important">
       
@@ -604,7 +608,7 @@
 
     <mat-form-field appearance="outline" style=" min-width: 40% ;flex:auto;border-radius: 16px !important">
       <mat-label>Birth Date</mat-label>
-      <input matInput [formControl]="bday" [matDatepicker]="pickerBirthDateEdit" [(ngModel)]="data.emp_birth_date" [ngStyle]="{'background-color': data.emp_birth_date? '' : 'var(--warn-lighter-color)'}">
+      <input matInput [formControl]="bday" [max]="maxDate" [matDatepicker]="pickerBirthDateEdit" [(ngModel)]="data.emp_birth_date" [ngStyle]="{'background-color': data.emp_birth_date? '' : 'var(--warn-lighter-color)'}">
       <mat-hint>MM/DD/YYYY</mat-hint>
       <mat-datepicker-toggle matSuffix [for]="pickerBirthDateEdit">
         <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
@@ -615,7 +619,7 @@
 
     <mat-form-field appearance="outline" style=" min-width: 40% ;flex:auto;border-radius: 16px !important">
       <mat-label>Start Date</mat-label>
-      <input matInput [formControl]="sday" [matDatepicker]="pickerStartDateEdit" [(ngModel)]="data.emp_start_date" [ngStyle]="{'background-color': data.emp_start_date? '' : 'var(--warn-lighter-color)'}">
+      <input matInput [formControl]="sday" [max]="maxDate" [matDatepicker]="pickerStartDateEdit" [(ngModel)]="data.emp_start_date" [ngStyle]="{'background-color': data.emp_start_date? '' : 'var(--warn-lighter-color)'}">
       <mat-hint>MM/DD/YYYY</mat-hint>
       <mat-datepicker-toggle matSuffix [for]="pickerStartDateEdit">
         <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
@@ -623,11 +627,23 @@
       <mat-datepicker #pickerStartDateEdit></mat-datepicker>
       <mat-error *ngIf="sday.invalid"> {{ getErrorMessageSday() }} </mat-error>
     </mat-form-field>&nbsp;
+    <mat-form-field>
+    <h4>Data Privacy Statement</h4>
+
+    <p> I have read the Re:Source General Privacy Notice at <a href="/market">Data Policy</a>.
+    By ticking the checkbox, I recognize the authority of Re:Source to process my personal data and sensitive
+    personal information, pursuant to the Re:Source General Privacy Notice and applicable laws.
+    </p>
+
+    <section class="example-section">
+      <mat-checkbox class="example-margin" [(ngModel)]="isAgree" (clicked)="toggleAgree()">Check me!</mat-checkbox>
+    </section>
+    </mat-form-field>
   
 
   </mat-dialog-content>
   <mat-dialog-actions align="end">
-    <button mat-raised-button matDialogClose color="primary" (click)="newEmp(data)">Ok</button>
+    <button mat-raised-button matDialogClose color="primary" (click)="newEmp(data)"  [disabled]="isAgree">Ok</button>
     <button mat-raised-button matDialogClose color="warn">Cancel</button>
   </mat-dialog-actions>
 </ng-template>
@@ -747,7 +763,7 @@
     </mat-dialog-content>
     <mat-dialog-actions align="end">
 
-
+      
       <button mat-raised-button matDialogClose color="primary" (click)="editEmp(data)">Ok</button>
       <button mat-raised-button matDialogClose color="warn">Cancel</button>
     </mat-dialog-actions>

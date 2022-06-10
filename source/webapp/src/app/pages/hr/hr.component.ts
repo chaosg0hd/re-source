@@ -21,6 +21,7 @@ import { FormGroup, FormControl, Validators,FormBuilder, FormGroupDirective, NgF
 import { ErrorStateMatcher } from '@angular/material/core';
 import { AnyRecord } from 'dns';
 import { elementAt } from 'rxjs';
+import { ThisMonthInstance } from 'twilio/lib/rest/api/v2010/account/usage/record/thisMonth';
 //import { NgxImageCompressService } from 'ngx-image-compress';
 
 @Component({
@@ -58,6 +59,8 @@ export class HrComponent implements OnInit{
   bday = new FormControl('', [Validators.required])
   sday = new FormControl('', [Validators.required])
   address = new FormControl('', [Validators.required])
+
+  
 
   getErrorMessageRole(){
     if (this.role.hasError('required')) {
@@ -174,7 +177,20 @@ export class HrComponent implements OnInit{
     
   //   matcher = new InputErrorStateMatcher(!this.isValid);
 
-    
+  maxDate!: Date
+
+  isAgree = false
+
+  toggleAgree(){
+    if (this.isAgree){
+      this.isAgree = false
+    }
+    else{
+      this.isAgree = true
+    }
+  }
+
+
   constructor(
     private libraryService: LibraryService,
     private dataService: DataService,
@@ -182,8 +198,10 @@ export class HrComponent implements OnInit{
     private dialog: MatDialog,
     private httpClient: HttpClient,
    // private imgCompress: NgxImageCompressService
-  ) { }
-
+  ) { 
+    this.maxDate = new Date()
+  }
+    
   ngOnInit(): void {
 
     this.loadOnLoop()

@@ -57,6 +57,7 @@ export class HrComponent implements OnInit{
   contactnum = new FormControl('', [Validators.required, Validators.pattern('[0-9]*'), Validators.minLength(10), Validators.maxLength(10)])
   bday = new FormControl('', [Validators.required])
   sday = new FormControl('', [Validators.required])
+  address = new FormControl('', [Validators.required])
 
   getErrorMessageRole(){
     if (this.role.hasError('required')) {
@@ -143,6 +144,13 @@ export class HrComponent implements OnInit{
       return 'Start Date is required'
     }
       return this.sday.hasError('sday') ? '' : '' 
+  }
+
+  getErrorMessageAddress(){
+    if (this.address.hasError('required')) {
+      return 'Start Date is required'
+    }
+      return this.address.hasError('address') ? '' : '' 
   }
 
 
@@ -568,7 +576,7 @@ export class HrComponent implements OnInit{
       if(!this.file) input.emp_imgfile = this.file
       form.append('file', addimage)
       console.log(input.emp_contactNum)
-      input.emp_contactNum = '+63' + input.emp_contactNum.substring(1)
+      input.emp_contactNum = '+63' + input.emp_contactNum
       console.log(input.emp_contactNum)
   
       if(addimage){

@@ -491,17 +491,23 @@
       <br />
     </div>
 
-    <h4>Non Disclosure Agreement</h4>
-    <p>
-      All of the personal records below will be kept confidential. The records below are used for storing records in accordance with RA 10173, also known as the "Data Privacy Act of 2012". It is a law that seeks to protect all forms of information, be it private, personal, or sensitive. It is meant to cover both natural and juridical persons involved in the processing of personal information.
-    </p>
-    <div class="inputs" [formGroup]="form" (ngSubmit)="form.valid">
-    <mat-form-field id="formid" appearance="outline" style=" min-width: 20% ; flex:auto; border-radius: 16px !important">
+    
+
+    <div style="flex: auto; height: 25vh ; overflow-y: scroll;">
+
       
 
-      <ngx-mat-file-input id="fileinput" [disabled]="true" [(ngModel)]="data.emp_imgfile" name="file" #fileinput>
-      </ngx-mat-file-input>
+    
+    </div>
+
+    
+    
+    <mat-form-field id="formid" appearance="outline" style=" min-width: 20% ; flex:auto; border-radius: 16px !important">
       
+      <mat-label>Choose an Image</mat-label>
+      <ngx-mat-file-input [formControl]="imgData" id="fileinput" [(ngModel)]="data.emp_imgfile" name="file" #fileinput accept="image/webp, image/jpeg, image/png">
+      </ngx-mat-file-input>
+      <mat-error *ngIf="imgData.invalid"> {{getErrorMessageImgData()}} </mat-error>
       <!-- <mat-label>Upload an image</mat-label> 
          document.getElementById('emp')?.addEventListener('click', openDialog)
       -->
@@ -510,13 +516,14 @@
 
     <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
       <mat-label>ID</mat-label>
-      <input matInput [(ngModel)]="data.emp_id" [ngStyle]="{'background-color': data.emp_id? '' : 'var(--warn-lighter-color)'}">
+      <input matInput [formControl]="empid" [(ngModel)]="data.emp_id" [ngStyle]="{'background-color': data.emp_id? '' : 'var(--warn-lighter-color)'}">
+      <mat-error *ngIf="empid.invalid"> {{getErrorMessageEmpid()}} </mat-error>
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 60% ;flex:auto;border-radius: 16px !important" class="form-group-new-emp">
       <mat-label>Email</mat-label>
       <input matInput [formControl]="mail" [(ngModel)]="data.emp_email" type="email" placeholder="kekw@example.com" required>
-        <mat-error *ngIf="mail.invalid"> {{ getErrorMessage() }} </mat-error>
+        <mat-error *ngIf="mail.invalid"> {{ getErrorMessageMail() }} </mat-error>
       <!-- <mat-error *ngIf="form.controls['emp_email'].errors?.['required']" style="color:red;">Email address is required</mat-error>   
       <mat-error *ngIf="form.controls['emp_email'].errors?.['pattern']" style="color:red;">>Please provide a valid email address</mat-error>  -->
     </mat-form-field>
@@ -525,32 +532,38 @@
 
     <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
       <mat-label>Last Name</mat-label>
-      <input matInput placeholder="Ex. Juan" type="text" [(ngModel)]="data.emp_lname" [ngStyle]="{'background-color': data.emp_fname? '' : 'var(--warn-lighter-color)'}">
+      <input matInput [formControl]="lname" placeholder="Ex. Juan" type="text" [(ngModel)]="data.emp_lname" [ngStyle]="{'background-color': data.emp_fname? '' : 'var(--warn-lighter-color)'}">
+      <mat-error *ngIf="lname.invalid"> {{ getErrorMessageLname() }} </mat-error>
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
       <mat-label>First Name</mat-label>
-      <input matInput placeholder="Ex. De Cruz" type="text" [(ngModel)]="data.emp_fname" [ngStyle]="{'background-color': data.emp_lname? '' : 'var(--warn-lighter-color)'}">
+      <input matInput [formControl]="fname" placeholder="Ex. De Cruz" type="text" [(ngModel)]="data.emp_fname" [ngStyle]="{'background-color': data.emp_lname? '' : 'var(--warn-lighter-color)'}">
+      <mat-error *ngIf="fname.invalid"> {{ getErrorMessageFname() }} </mat-error>
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
       <mat-label>Middle Name</mat-label>
-      <input matInput placeholder="Ex. Cruzilfer" type="text" [(ngModel)]="data.emp_mname" [ngStyle]="{'background-color': data.emp_mname? '' : 'var(--warn-lighter-color)'}">
+      <input matInput [formControl]="mname" placeholder="Ex. Cruzilfer" type="text" [(ngModel)]="data.emp_mname" [ngStyle]="{'background-color': data.emp_mname? '' : 'var(--warn-lighter-color)'}">
+      <mat-error *ngIf="mname.invalid"> {{ getErrorMessageMname() }} </mat-error>
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 10% ;flex:auto;border-radius: 16px !important">
       <mat-label>Extensions</mat-label>
-      <input matInput placeholder="Ex. III" type="text" [(ngModel)]="data.emp_extname" [ngStyle]="{'background-color': data.emp_extname? '' : 'var(--warn-lighter-color)'}">
+      <input matInput [formControl]="extname" placeholder="Ex. III" type="text" [(ngModel)]="data.emp_extname" [ngStyle]="{'background-color': data.emp_extname? '' : 'var(--warn-lighter-color)'}">
+      <mat-error *ngIf="extname.invalid"> {{ getErrorMessageExtname() }} </mat-error>
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 80% ;flex:auto;border-radius: 16px !important">
       <mat-label>Address</mat-label>
-      <input matInput placeholder="Ex. Olongapo City" type="text" [(ngModel)]="data.emp_address" [ngStyle]="{'background-color': data.emp_address? '' : 'var(--warn-lighter-color)'}">
+      <input matInput [formControl]="address" placeholder="Ex. Olongapo City" type="text" [(ngModel)]="data.emp_address" [ngStyle]="{'background-color': data.emp_address? '' : 'var(--warn-lighter-color)'}">
+      <mat-error *ngIf="address.invalid"> {{getErrorMessageAddress()}} </mat-error>
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
       <mat-label>Contact #</mat-label>
-      <input matInput type="text" [(ngModel)]="data.emp_contactNum" [ngStyle]="{'background-color': data.emp_address? '' : 'var(--warn-lighter-color)'}">
+      <input matInput [formControl]="contactnum" placeholder="9123456789" [(ngModel)]="data.emp_contactNum" [ngStyle]="{'background-color': data.emp_address? '' : 'var(--warn-lighter-color)'}">
+      <mat-error *ngIf="contactnum.invalid"> {{ getErrorMessageContactNum() }} </mat-error>
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
@@ -564,16 +577,18 @@
 
     <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
       <mat-label>Role</mat-label>
-      <mat-select placeholder="Ex. Juan De" [(ngModel)]="data.emp_role" [ngStyle]="{'background-color': data.emp_role? '' : 'var(--warn-lighter-color)'}">
+      <mat-select [formControl]="role" placeholder="Ex. Juan De" [(ngModel)]="data.emp_role" [ngStyle]="{'background-color': data.emp_role? '' : 'var(--warn-lighter-color)'}">
         <mat-option value="admin">Admin</mat-option>
         <mat-option value="sales_clerk">Sales Clerk</mat-option>
       </mat-select>
+      <mat-error *ngIf="role.invalid"> {{getErrorMessageRole()}} </mat-error>
     </mat-form-field>&nbsp;
 
-    <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
+    <!-- <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
       <mat-label>Position</mat-label>
-      <input matInput placeholder="Ex. Sae" [(ngModel)]="data.emp_position" [ngStyle]="{'background-color': data.emp_position? '' : 'var(--warn-lighter-color)'}">
-    </mat-form-field>&nbsp;
+     
+      <input matInput placeholder="Ex. Sae" [(ngModel)]="data.emp_position" [ngStyle]="{'background-color': data.emp_position? '' : 'var(--warn-lighter-color)'}" disabled>
+    </mat-form-field>&nbsp; -->
 
 
     <!-- <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
@@ -593,28 +608,42 @@
 
     <mat-form-field appearance="outline" style=" min-width: 40% ;flex:auto;border-radius: 16px !important">
       <mat-label>Birth Date</mat-label>
-      <input matInput [matDatepicker]="pickerBirthDateEdit" [(ngModel)]="data.emp_birth_date" [ngStyle]="{'background-color': data.emp_birth_date? '' : 'var(--warn-lighter-color)'}">
+      <input matInput [formControl]="bday" [max]="maxDate" [matDatepicker]="pickerBirthDateEdit" [(ngModel)]="data.emp_birth_date" [ngStyle]="{'background-color': data.emp_birth_date? '' : 'var(--warn-lighter-color)'}">
       <mat-hint>MM/DD/YYYY</mat-hint>
       <mat-datepicker-toggle matSuffix [for]="pickerBirthDateEdit">
         <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
       </mat-datepicker-toggle>
       <mat-datepicker #pickerBirthDateEdit></mat-datepicker>
+      <mat-error *ngIf="bday.invalid"> {{ getErrorMessageBday() }} </mat-error>
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 40% ;flex:auto;border-radius: 16px !important">
       <mat-label>Start Date</mat-label>
-      <input matInput [matDatepicker]="pickerStartDateEdit" [(ngModel)]="data.emp_start_date" [ngStyle]="{'background-color': data.emp_start_date? '' : 'var(--warn-lighter-color)'}">
+      <input matInput [formControl]="sday" [max]="maxDate" [matDatepicker]="pickerStartDateEdit" [(ngModel)]="data.emp_start_date" [ngStyle]="{'background-color': data.emp_start_date? '' : 'var(--warn-lighter-color)'}">
       <mat-hint>MM/DD/YYYY</mat-hint>
       <mat-datepicker-toggle matSuffix [for]="pickerStartDateEdit">
         <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
       </mat-datepicker-toggle>
       <mat-datepicker #pickerStartDateEdit></mat-datepicker>
+      <mat-error *ngIf="sday.invalid"> {{ getErrorMessageSday() }} </mat-error>
     </mat-form-field>&nbsp;
-  </div>
+    <mat-form-field>
+    <h4>Data Privacy Statement</h4>
+
+    <p> I have read the Re:Source General Privacy Notice at <a href="/market">Data Policy</a>.
+    By ticking the checkbox, I recognize the authority of Re:Source to process my personal data and sensitive
+    personal information, pursuant to the Re:Source General Privacy Notice and applicable laws.
+    </p>
+
+    <section class="example-section">
+      <mat-checkbox class="example-margin" [(ngModel)]="isAgree" (clicked)="toggleAgree()">Check me!</mat-checkbox>
+    </section>
+    </mat-form-field>
+  
 
   </mat-dialog-content>
   <mat-dialog-actions align="end">
-    <button mat-raised-button matDialogClose color="primary" (click)="newEmp(data)">Ok</button>
+    <button mat-raised-button matDialogClose color="primary" (click)="newEmp(data)"  [disabled]="isAgree">Ok</button>
     <button mat-raised-button matDialogClose color="warn">Cancel</button>
   </mat-dialog-actions>
 </ng-template>
@@ -734,7 +763,7 @@
     </mat-dialog-content>
     <mat-dialog-actions align="end">
 
-
+      
       <button mat-raised-button matDialogClose color="primary" (click)="editEmp(data)">Ok</button>
       <button mat-raised-button matDialogClose color="warn">Cancel</button>
     </mat-dialog-actions>

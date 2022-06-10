@@ -14,9 +14,22 @@
           "/*.js"
         ], 
          "urls" : [
+          "https://localhost:4200/**",
+          "https://localhost:4200/bundy",
+          "https://localhost:4200/profile",
+
            "http://localhost:4200/**",
+           "http://localhost:4200/bundy",
+           "http://localhost:4200/profile",
+
            "http://127.0.0.1:8080/**",
-           "http://192.168.1.125:8080/**"
+           "http://127.0.0.1:8080/bundy",
+           "http://127.0.0.1:8080/profile",
+
+           "http://192.168.1.125:8080/**",
+           "http://192.168.1.125:8080/bundy",
+           "http://192.168.1.125:8080/profile"
+           
          ]
       }
     },

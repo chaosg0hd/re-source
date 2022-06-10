@@ -21,6 +21,7 @@ import { FormGroup, FormControl, Validators,FormBuilder, FormGroupDirective, NgF
 import { ErrorStateMatcher } from '@angular/material/core';
 import { AnyRecord } from 'dns';
 import { elementAt } from 'rxjs';
+import { ThisMonthInstance } from 'twilio/lib/rest/api/v2010/account/usage/record/thisMonth';
 //import { NgxImageCompressService } from 'ngx-image-compress';
 
 @Component({
@@ -45,16 +46,50 @@ export class HrComponent implements OnInit{
           Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
         ])
   })
-
+  role = new FormControl('', [Validators.required])
+  imgData = new FormControl('', [Validators.required])
+  empid = new FormControl('', [Validators.required])
   mail = new FormControl('', [Validators.required, Validators.email])
   pword = new FormControl('', [Validators.required, Validators.minLength(8), Validators.pattern('(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}')])
-  getErrorMessage(){
+  lname = new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*')])
+  fname = new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*')])
+  mname = new FormControl('', [Validators.pattern('[a-zA-Z ]*')])
+  extname = new FormControl('', [Validators.pattern('[a-zA-Z]*')])
+  contactnum = new FormControl('', [Validators.required, Validators.pattern('[0-9]*'), Validators.minLength(10), Validators.maxLength(10)])
+  bday = new FormControl('', [Validators.required])
+  sday = new FormControl('', [Validators.required])
+  address = new FormControl('', [Validators.required])
+
+  
+
+  getErrorMessageRole(){
+    if (this.role.hasError('required')) {
+      return 'Role is required'
+    }
+    return this.role.hasError('imgData') ? 'Not Valid email' : '' 
+  }
+
+  getErrorMessageImgData(){
+    if (this.imgData.hasError('required')) {
+      return 'Insert an Image'
+    }
+    return this.imgData.hasError('imgData') ? 'Not Valid email' : '' 
+  }
+
+  getErrorMessageEmpid(){
+    if (this.empid.hasError('required')) {
+      return 'You must enter a value'
+    }
+    return this.empid.hasError('empid') ? 'Not Valid email' : '' 
+  }
+  getErrorMessageMail(){
     if (this.mail.hasError('required')) {
       return 'You must enter a value'
     }
 
     return this.mail.hasError('mail') ? 'Not Valid email' : 'Not valid email' 
   }
+  
 
   getErrorMessagePword(){
     if(this.pword.hasError('required')) {
@@ -64,6 +99,61 @@ export class HrComponent implements OnInit{
     } else {
       return this.pword.hasError('pword') ? 'Should contain at least 1 uppercase, 1 lowercase and 1 number' : 'Should contain at least 1 uppercase, 1 lowecase, and 1 number'
     }
+  }
+
+  getErrorMessageLname(){
+    if (this.lname.hasError('required')) {
+      return 'Lastname is required'
+    }
+
+    return this.lname.hasError('lname') ? 'Lastname' : "Invalid Lastname" 
+  }
+
+  getErrorMessageFname(){
+    if (this.fname.hasError('required')) {
+      return 'Firstname is required'
+    }
+
+    return this.fname.hasError('fname') ? 'Firstname' : "Invalid Firstname" 
+  }
+
+  getErrorMessageMname(){
+    return this.mname.hasError('mname') ? 'Middlename' : "Invalid Middlename" 
+  }
+
+  getErrorMessageExtname(){
+    return this.extname.hasError('extname') ? 'extname' : "Invalid Lastname" 
+  }
+
+  getErrorMessageContactNum(){
+    if (this.contactnum.hasError('required')) {
+      return 'Contact number is required'
+    } else if (this.contactnum.hasError('minLength') || this.contactnum.hasError('maxLength')) {
+      return 'Contact Number is invalid'
+    }
+
+    return this.contactnum.hasError('contactnum') ? 'ContactNum' : "Invalid Contact Number" 
+  }
+
+  getErrorMessageBday(){
+    if (this.bday.hasError('required')) {
+      return 'Birthdate is required'
+    }
+      return this.bday.hasError('bday') ? '' : '' 
+  }
+
+  getErrorMessageSday(){
+    if (this.sday.hasError('required')) {
+      return 'Start Date is required'
+    }
+      return this.sday.hasError('sday') ? '' : '' 
+  }
+
+  getErrorMessageAddress(){
+    if (this.address.hasError('required')) {
+      return 'Start Date is required'
+    }
+      return this.address.hasError('address') ? '' : '' 
   }
 
 
@@ -87,7 +177,20 @@ export class HrComponent implements OnInit{
     
   //   matcher = new InputErrorStateMatcher(!this.isValid);
 
-    
+  maxDate!: Date
+
+  isAgree = false
+
+  toggleAgree(){
+    if (this.isAgree){
+      this.isAgree = false
+    }
+    else{
+      this.isAgree = true
+    }
+  }
+
+
   constructor(
     private libraryService: LibraryService,
     private dataService: DataService,
@@ -95,8 +198,10 @@ export class HrComponent implements OnInit{
     private dialog: MatDialog,
     private httpClient: HttpClient,
    // private imgCompress: NgxImageCompressService
-  ) { }
-
+  ) { 
+    this.maxDate = new Date()
+  }
+    
   ngOnInit(): void {
 
     this.loadOnLoop()
@@ -475,17 +580,21 @@ export class HrComponent implements OnInit{
 
   newEmp(input : any) {
     console.log(input)
-  
+    if(input.emp_role == 'admin'){
+      input.emp_position = 'Admin'
+    } else {
+      input.emp_position = 'Sales Clerk'
+    }
     
     // if(this.verify(input.emp_email) != true) {
-     Swal.fire('Invalid Email Address', '', 'error')
+     //Swal.fire('Invalid Email Address', '', 'error')
     // } else {
       const form = new FormData()
       let addimage = input.emp_imgfile
       if(!this.file) input.emp_imgfile = this.file
       form.append('file', addimage)
       console.log(input.emp_contactNum)
-      input.emp_contactNum = '+63' + input.emp_contactNum.substring(1)
+      input.emp_contactNum = '+63' + input.emp_contactNum
       console.log(input.emp_contactNum)
   
       if(addimage){

@@ -61,6 +61,7 @@
 
                 <span style="flex: 1 1 auto;"></span>
 
+
                 <mat-form-field appearance="outline" style=" min-width: 50% ;flex:auto;border-radius: 16px !important">
                   <mat-label><mat-icon>search</mat-icon>&nbsp;Search</mat-label>
 
@@ -628,8 +629,10 @@
       <mat-error *ngIf="sday.invalid"> {{ getErrorMessageSday() }} </mat-error>
     </mat-form-field>&nbsp;
 
+    <span style="flex: 1 1 auto; min-width: 100%"></span>
 
-    <mat-form-field appearance="outline" style=" min-width: 40% ;flex:auto;border-radius: 16px !important">
+
+    <div style=" min-width: 40% ;flex:auto;border-radius: 16px !important">
     <h4>Data Privacy Statement</h4>
 
     <p> I have read the Re:Source General Privacy Notice at <a href="/market">Data Policy</a>.
@@ -640,12 +643,12 @@
     <section class="example-section">
       <mat-checkbox class="example-margin" [(ngModel)]="isAgree" (clicked)="toggleAgree()">I Agree!</mat-checkbox>
     </section>
-    </mat-form-field>
+    </div>
   
 
   </mat-dialog-content>
   <mat-dialog-actions align="end">
-    <button mat-raised-button matDialogClose color="primary" (click)="newEmp(data)"  [disabled]="isAgree">Ok</button>
+    <button mat-raised-button matDialogClose color="primary" (click)="newEmp(data)"  [disabled]="!isAgree">Ok</button>
     <button mat-raised-button matDialogClose color="warn">Cancel</button>
   </mat-dialog-actions>
 </ng-template>

@@ -17,7 +17,7 @@ const EmployeeSchema = new mongoose.Schema({
   emp_email: String,
   emp_otp: String,
 //change to false
-  emp_isVerified: { type: Boolean, default: fasle },
+  emp_isVerified: { type: Boolean, default: false },
 
   emp_imageb64: String,
 

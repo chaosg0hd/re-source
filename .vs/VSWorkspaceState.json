@@ -6,12 +6,12 @@
     "\\source\\webapp\\src",
     "\\source\\webapp\\src\\app",
     "\\source\\webapp\\src\\app\\pages",
-    "\\source\\webapp\\src\\app\\pages\\inventory",
+    "\\source\\webapp\\src\\app\\pages\\hr",
     "\\source\\webapp\\src\\app\\services",
     "\\source\\webapp\\src\\app\\services\\data",
     "\\source\\webapp\\src\\assets",
     "\\source\\webapp\\src\\assets\\images"
   ],
-  "SelectedNode": "\\source\\webapp\\src\\app\\pages\\inventory\\inventory.component.ts",
+  "SelectedNode": "\\source\\webapp\\src\\app\\pages\\hr\\hr.component.html",
   "PreviewInSolutionExplorer": false
 }

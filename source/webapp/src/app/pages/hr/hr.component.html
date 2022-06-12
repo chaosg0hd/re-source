@@ -563,16 +563,16 @@
 
     <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
       <mat-label>Contact #</mat-label>
-      <input matInput [formControl]="contactnum" placeholder="9123456789" [(ngModel)]="data.emp_contactNum" [ngStyle]="{'background-color': data.emp_address? '' : 'var(--warn-lighter-color)'}">
+      <input matInput [formControl]="contactnum" [max]="maxNum" maxlength="11" ng-pattern="/[^0-9.]/g" placeholder="09123456789" [(ngModel)]="data.emp_contactNum" [ngStyle]="{'background-color': data.emp_address? '' : 'var(--warn-lighter-color)'}">
       <mat-error *ngIf="contactnum.invalid"> {{ getErrorMessageContactNum() }} </mat-error>
     </mat-form-field>&nbsp;
 
     <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
       <mat-label>Password</mat-label>
-      <input required matInput type="password"
-      [formControl]="pword"
-      [(ngModel)]="data.emp_password">
-      <mat-error *ngIf="pword.invalid"> {{ getErrorMessagePword() }} </mat-error>
+      <input disabled required matInput type="text"
+      value="erer1234">
+
+      <!-- <mat-error *ngIf="pword.invalid"> {{ getErrorMessagePword() }} </mat-error> -->
       
     </mat-form-field>&nbsp;
 
@@ -628,27 +628,25 @@
       <mat-datepicker #pickerStartDateEdit></mat-datepicker>
       <mat-error *ngIf="sday.invalid"> {{ getErrorMessageSday() }} </mat-error>
     </mat-form-field>&nbsp;
+   
 
-    <span style="width: 100%"></span>
+   <span style="flex: 1 1 auto; width: 100%; margin-top: 20px;"></span>
+    <h3> <strong>Data Privacy Policy</strong> </h3>
 
-
-    <div style=" min-width: 40% ;flex:auto;border-radius: 16px !important">
-    <h4>Data Privacy Statement</h4>
-
-    <p> I have read the Re:Source General Privacy Notice at <a href="/market">Data Policy</a>.
+    <p> I have read the Re:Source General Privacy Notice at <a href="/dpa" target="_blank">Data Privacy Policy</a>.
     By ticking the checkbox, I recognize the authority of Re:Source to process my personal data and sensitive
     personal information, pursuant to the Re:Source General Privacy Notice and applicable laws.
     </p>
 
     <section class="example-section">
-      <mat-checkbox class="example-margin" [(ngModel)]="isAgree" (clicked)="toggleAgree()">I Agree!</mat-checkbox>
+      <mat-checkbox class="example-margin" [(ngModel)]="isAgree" (clicked)="toggleAgree()">I agree to the collection and use of information in accordance with the policy stated.</mat-checkbox>
     </section>
-    </div>
-  
+    
+
 
   </mat-dialog-content>
   <mat-dialog-actions align="end">
-    <button mat-raised-button matDialogClose color="primary" (click)="newEmp(data)"  [disabled]="!isAgree">Ok</button>
+    <button mat-raised-button color="primary" (click)="newEmp(data)"  [disabled]="!isAgree">Ok</button>
     <button mat-raised-button matDialogClose color="warn">Cancel</button>
   </mat-dialog-actions>
 </ng-template>
@@ -787,11 +785,28 @@
     </h2>
     <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">
 
+      <br /><br /><br /><br /><br />
+
+
       <div style="width: 100%;">
+        <br />
+        <img mat-card-image src="{{data.emp_imageb64}}" alt="Photo of a Shiba Inu" style="height: 500px; width: auto;">
         <br />
         <mat-divider></mat-divider>
         <br />
       </div>
+
+      <mat-form-field id="formid" appearance="outline" style=" min-width: 20% ; flex:auto; border-radius: 16px !important">
+      
+        <mat-label>Choose an Image</mat-label>
+        <ngx-mat-file-input [formControl]="imgData" id="fileinput" [(ngModel)]="data.emp_imgfile" name="file" #fileinput accept="image/webp, image/jpeg, image/png">
+        </ngx-mat-file-input>
+        <mat-error *ngIf="imgData.invalid"> {{getErrorMessageImgData()}} </mat-error>
+        <!-- <mat-label>Upload an image</mat-label> 
+           document.getElementById('emp')?.addEventListener('click', openDialog)
+        -->
+        <!-- <button mat-stroked-button color="primary" (click)="openDialog(document.getElementById('fileinput'))" > Upload an image</button> -->
+        </mat-form-field>&nbsp;
 
       <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
         <mat-label>Database ID</mat-label>
@@ -863,11 +878,6 @@
         <input matInput placeholder="Ex. Olongapo City" type="text" [(ngModel)]="data.emp_address" [ngStyle]="{'background-color': data.emp_address? '' : 'var(--warn-lighter-color)'}">
       </mat-form-field>&nbsp;
 
-      <mat-form-field appearance="outline" style=" min-width: 40% ; flex:auto; border-radius: 16px !important">
-        <mat-label>Image</mat-label>
-        <ngx-mat-file-input [(ngModel)]="data.emp_imgfile" type="file" [ngStyle]="{'background-color': data.emp_imgfile? '' : 'var(--warn-lighter-color)'}">
-        </ngx-mat-file-input>
-      </mat-form-field>&nbsp;
 
     </mat-dialog-content>
     <mat-dialog-actions align="end">

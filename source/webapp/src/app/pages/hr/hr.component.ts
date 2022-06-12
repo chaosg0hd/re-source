@@ -50,15 +50,24 @@ export class HrComponent implements OnInit{
   imgData = new FormControl('', [Validators.required])
   empid = new FormControl('', [Validators.required])
   mail = new FormControl('', [Validators.required, Validators.email])
-  pword = new FormControl('', [Validators.required, Validators.minLength(8), Validators.pattern('(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}')])
+ // pword = new FormControl('', [Validators.required, Validators.minLength(8), Validators.pattern('(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}')])
   lname = new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*')])
   fname = new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*')])
   mname = new FormControl('', [Validators.pattern('[a-zA-Z ]*')])
   extname = new FormControl('', [Validators.pattern('[a-zA-Z]*')])
-  contactnum = new FormControl('', [Validators.required, Validators.pattern('[0-9]*'), Validators.minLength(10), Validators.maxLength(10)])
+  contactnum = new FormControl('', [Validators.required, Validators.pattern('[0-9]*'), Validators.minLength(11), Validators.maxLength(11)])
   bday = new FormControl('', [Validators.required])
   sday = new FormControl('', [Validators.required])
   address = new FormControl('', [Validators.required])
+
+  // ifOk(){
+  //   if(this.role == null || this.empid == null || this.mail == null || this. pword == null || this.lname == null || this.fname == null || this.contactnum == null || this.bday == null || this.sday == null || this.address == null) {
+  //     Swal.fire('Enter the required fields', '', 'error')
+  //     return true
+  //   }
+  //   return false
+  // }
+
 
   
 
@@ -91,15 +100,15 @@ export class HrComponent implements OnInit{
   }
   
 
-  getErrorMessagePword(){
-    if(this.pword.hasError('required')) {
-      return 'Password cannot be empty'
-    } else if (this.pword.hasError('minLength')) {
-      return 'Should contain at least 8 character'
-    } else {
-      return this.pword.hasError('pword') ? 'Should contain at least 1 uppercase, 1 lowercase and 1 number' : 'Should contain at least 1 uppercase, 1 lowecase, and 1 number'
-    }
-  }
+  // getErrorMessagePword(){
+  //   if(this.pword.hasError('required')) {
+  //     return 'Password cannot be empty'
+  //   } else if (this.pword.hasError('minLength')) {
+  //     return 'Should contain at least 8 character'
+  //   } else {
+  //     return this.pword.hasError('pword') ? 'Should contain at least 1 uppercase, 1 lowercase and 1 number' : 'Should contain at least 1 uppercase, 1 lowecase, and 1 number'
+  //   }
+  // }
 
   getErrorMessageLname(){
     if (this.lname.hasError('required')) {
@@ -178,6 +187,7 @@ export class HrComponent implements OnInit{
   //   matcher = new InputErrorStateMatcher(!this.isValid);
 
   maxDate!: Date
+  maxNum!: number
 
   isAgree = false
 
@@ -200,6 +210,7 @@ export class HrComponent implements OnInit{
    // private imgCompress: NgxImageCompressService
   ) { 
     this.maxDate = new Date()
+    //this.maxNum = 
   }
     
   ngOnInit(): void {
@@ -578,51 +589,63 @@ export class HrComponent implements OnInit{
 
   }
 
-  newEmp(input : any) {
+  async newEmp(input : any) {
     console.log(input)
-    if(input.emp_role == 'admin'){
-      input.emp_position = 'Admin'
-    } else {
-      input.emp_position = 'Sales Clerk'
-    }
-    
-    // if(this.verify(input.emp_email) != true) {
-     //Swal.fire('Invalid Email Address', '', 'error')
-    // } else {
-      const form = new FormData()
-      let addimage = input.emp_imgfile
-      if(!this.file) input.emp_imgfile = this.file
-      form.append('file', addimage)
-      console.log(input.emp_contactNum)
-      input.emp_contactNum = '+63' + input.emp_contactNum
-      console.log(input.emp_contactNum)
-  
-      if(addimage){
-        this.httpClient.post<any>('http://localhost:3000/api/uploads', form).subscribe((data: any) => {
-          console.log(data)
-          input.emp_imgUrl = data.filename
-  
-          this.dataService.post('employees/signup', { data: input }).subscribe((data) => {
-            console.log(data)
-            Swal.fire({
-              title:'Employee Account Added!',
-              icon:'success',
-              })
-          
-         })
-        
-      })
+  //   if(this.role == null || this.empid == null || this.mail == null || this. pword == null || this.lname == null || this.fname == null || this.contactnum == null || this.bday == null || this.sday == null || this.address == null) {
+  //     Swal.fire('Enter the required fields', '', 'error')
+  //     return true
+  //   }
+  //   return false
+  // }
+    var ok: boolean = false
+  if( input.emp_id != null && input.emp_email != null && input.emp_lname != null && input.emp_fname != null &&
+      input.emp_birth_date != null && input.emp_start_date != null &&
+      input.emp_address != null && input.emp_role != null && input.emp_contactNum != null
+      && input.emp_imgfile
+    ){
+    ok = true
+  } else {
+    ok = false
+  }
+    if(ok) {
+      if(input.emp_role == 'admin'){
+        input.emp_position = 'Admin'
       } else {
+        input.emp_position = 'Sales Clerk'
+      }
+      
+      // if(this.verify(input.emp_email) != true) {
+       //Swal.fire('Invalid Email Address', '', 'error')
+      // } else {
+
+        input.emp_imageb64 = await this.dataService.createBase64String(input.emp_imgfile)
+
+
+        const form = new FormData()
+
+        // let addimage = input.emp_imgfile
+        // if(!this.file) input.emp_imgfile
+        
+        //input.emp_contactNum = '+63' + input.emp_contactNum
+        input.emp_password = 'erer12345'
+        input.emp_imageb64 = await this.dataService.createBase64String(input.emp_imgfile)
+
         this.dataService.post('employees/signup', { data: input }).subscribe((data) => {
           console.log(data)
           Swal.fire({
             title:'Employee Account Added!',
             icon:'success',
-              })
+            })
+            this.dialog.closeAll()
+
+            this.getEmployees()
        })
-      }
-    // 
-    
+      // 
+      
+      
+    } else {
+      Swal.fire('Fill required fields', '', 'error')
+    }
     
   }
 

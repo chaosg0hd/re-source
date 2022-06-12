@@ -7,11 +7,36 @@ const path = require('path');
 const Employee = require('../database/models/employee')
 
 const MAIL_SETTINGS = {
-    service: 'gmail',
-    auth : {
-        user: "ritoriot14@gmail.com",
-        pass: "database14"
-    },
+    host: 'smtp-relay.sendinblue.com',
+    port: 587,
+    auth: {
+        user: 'ritoriot14@gmail.com',
+        pass: 'ydp960MTYgLws4rU'
+    }
+
+    // host: 'smtp-mail.outlook.com',
+    // secureConnection: false,
+    // port: 587,
+    // tls: {
+    //     ciphers: 'SSLv3'
+    // },
+    // auth: {
+    //     user: 'pseudocode.dev@outlook.com',
+    //     pass: 'Eyjha123'
+    // }
+
+        // service: "hotmail",
+        // auth: {
+        //     user: 'pseudocode.dev@outlook.com',
+        //     pass: 'Eyjha123'
+        // }
+
+    //gmail
+    // service: 'gmail',
+    // auth : {
+    //     user: "ritoriot14@gmail.com",
+    //     pass: "database14"
+    // },
 }
 const nodemailer = require('nodemailer');
 const imageHash = require('node-image-hash')
@@ -272,12 +297,15 @@ router.post('/login', (req, res) => {
                 const otp = `${Math.floor(1000 + Math.random() * 9000)}`
                 if(data.emp_isVerified == false) {
                     
-                    transporter.sendMail({
+                   let kekw = transporter.sendMail({
                         from: MAIL_SETTINGS.auth.user,
                         to: data.emp_email ,
+                        text: 'Your OTP Code',
                         subject: 'User Verification',
                         html: 'Your OTP Code is: ' + otp
                     })
+
+                    console.log(kekw)
                 }
                 res.json({ data, message: "Account logged in successfully", code: "200", otp: otp })
             } else if (data && !bcrypt.compareSync(emp_password, data.emp_password)) {

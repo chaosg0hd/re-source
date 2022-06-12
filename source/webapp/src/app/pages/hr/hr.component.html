@@ -563,7 +563,7 @@
 
     <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
       <mat-label>Contact #</mat-label>
-      <input matInput [formControl]="contactnum" placeholder="9123456789" [(ngModel)]="data.emp_contactNum" [ngStyle]="{'background-color': data.emp_address? '' : 'var(--warn-lighter-color)'}">
+      <input matInput [formControl]="contactnum" [max]="maxNum" maxlength="11" ng-pattern="/[^0-9.]/g" placeholder="09123456789" [(ngModel)]="data.emp_contactNum" [ngStyle]="{'background-color': data.emp_address? '' : 'var(--warn-lighter-color)'}">
       <mat-error *ngIf="contactnum.invalid"> {{ getErrorMessageContactNum() }} </mat-error>
     </mat-form-field>&nbsp;
 
@@ -790,7 +790,7 @@
 
       <div style="width: 100%;">
         <br />
-        <img mat-card-image src="{{data.emp_imageb64}}" alt="Photo of a Shiba Inu" style="height: 500px; width: auto">
+        <img mat-card-image src="{{data.emp_imageb64}}" alt="Photo of a Shiba Inu" style="height: 500px; width: auto;">
         <br />
         <mat-divider></mat-divider>
         <br />

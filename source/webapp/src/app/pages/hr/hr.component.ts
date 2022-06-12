@@ -55,7 +55,7 @@ export class HrComponent implements OnInit{
   fname = new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*')])
   mname = new FormControl('', [Validators.pattern('[a-zA-Z ]*')])
   extname = new FormControl('', [Validators.pattern('[a-zA-Z]*')])
-  contactnum = new FormControl('', [Validators.required, Validators.pattern('[0-9]*'), Validators.minLength(10), Validators.maxLength(10)])
+  contactnum = new FormControl('', [Validators.required, Validators.pattern('[0-9]*'), Validators.minLength(11), Validators.maxLength(11)])
   bday = new FormControl('', [Validators.required])
   sday = new FormControl('', [Validators.required])
   address = new FormControl('', [Validators.required])
@@ -187,6 +187,7 @@ export class HrComponent implements OnInit{
   //   matcher = new InputErrorStateMatcher(!this.isValid);
 
   maxDate!: Date
+  maxNum!: number
 
   isAgree = false
 
@@ -209,6 +210,7 @@ export class HrComponent implements OnInit{
    // private imgCompress: NgxImageCompressService
   ) { 
     this.maxDate = new Date()
+    //this.maxNum = 
   }
     
   ngOnInit(): void {
@@ -624,7 +626,7 @@ export class HrComponent implements OnInit{
         // let addimage = input.emp_imgfile
         // if(!this.file) input.emp_imgfile
         
-        input.emp_contactNum = '+63' + input.emp_contactNum
+        //input.emp_contactNum = '+63' + input.emp_contactNum
         input.emp_password = 'erer12345'
         input.emp_imageb64 = await this.dataService.createBase64String(input.emp_imgfile)
 

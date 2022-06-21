@@ -185,10 +185,17 @@
                   <mat-header-row *matHeaderRowDef="employeesDisplayedColumns"></mat-header-row>
                   <mat-row *matRowDef="let row; columns: employeesDisplayedColumns;" [ngStyle]="{'background-color': row.isArchive == '0'? '' : 'var(--warn-lighter-color)'}"></mat-row>
                 </mat-table>
+              
 
               </div>
 
+             
             </div>
+            <br>
+            <br>
+            <br>
+            <br>
+
 
             <br />
             <mat-divider></mat-divider>
@@ -785,15 +792,19 @@
     </h2>
     <mat-dialog-content style="display:flex; align-content:center; flex-wrap:wrap">
 
-      <br /><br /><br /><br /><br />
+     
 
 
-      <div style="width: 100%;">
+      <div style="width: 100%; text-align: center;">
         <br />
-        <img mat-card-image src="{{data.emp_imageb64}}" alt="Photo of a Shiba Inu" style="height: 500px; width: auto;">
-        <br />
+        <br /><br /><br /><br /><br />
+        <br /><br /><br /><br /><br />
+        <br /><br /><br /><br /><br />
+        <img mat-card-image src="{{data.emp_imageb64}}" alt="Photo of a Shiba Inu" style="height: 200px; width: auto;">
+        <br /> <br>
         <mat-divider></mat-divider>
         <br />
+        
       </div>
 
       <mat-form-field id="formid" appearance="outline" style=" min-width: 20% ; flex:auto; border-radius: 16px !important">
@@ -815,7 +826,7 @@
 
       <mat-form-field appearance="outline" style=" min-width: 20% ;flex:auto;border-radius: 16px !important">
         <mat-label>ID</mat-label>
-        <input matInput [(ngModel)]="data.emp_id" [ngStyle]="{'background-color': data.emp_id? '' : 'var(--warn-lighter-color)'}">
+        <input matInput [(ngModel)]="data.emp_id"  [ngStyle]="{'background-color': data.emp_id? '' : 'var(--warn-lighter-color)'}">
       </mat-form-field>&nbsp;
 
       <mat-form-field appearance="outline" style=" min-width: 40% ;flex:auto;border-radius: 16px !important">
